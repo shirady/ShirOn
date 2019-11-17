@@ -31,7 +31,6 @@ private:
     int m_buildNo;
     int m_appartmentNo;
     int m_zipCode;
-    
 
 public:
     bool setCountry(const char* country);
@@ -41,12 +40,12 @@ public:
     bool setAppartmentNo(const int appartmentNo);
     bool setZipCode(const int zipCode);
 
-    const char* setCountry(const char* country) const;
-    const char* setCity(const char* city) const;
-    const char* setStreet(const char* street) const;
-    int setBuildNo(const int buildNo) const;
-    int setAppartmentNo(const int appartmentNo) const;
-    int setZipCode(const int zipCode) const;
+    const char* getCountry() const;
+    const char* getCity() const;
+    const char* getStreet() const;
+    int getBuildNo() const;
+    int getAppartmentNo() const;
+    int getZipCode() const;
 
     Address(char* country, char* city, char* street, int buildNo, int appartmentNo, int zipCode); //c'tor
     ~Address(); //d'tor, Shira added parenthesis

@@ -26,8 +26,8 @@ public:
 	bool setPassword(const char* passward);
 	bool setUserType(eUserType userType);
 
-	char* getUserName() const;
-	char* getPassword() const;
+	const char* getUserName() const;
+	const char* getPassword() const;
 	eUserType getUserType() const;
 
 	User(const char* userName, const char* password, eUserType userType); //c'tor

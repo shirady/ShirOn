@@ -39,12 +39,12 @@ bool User::setUserType(eUserType userType)
 		return false;
 }
 
-char* User::getUserName() const
+const char* User::getUserName() const
 {
 	return m_userName;
 }
 
-char* User::getPassword() const
+const char* User::getPassword() const
 {
 	return m_password;
 }
