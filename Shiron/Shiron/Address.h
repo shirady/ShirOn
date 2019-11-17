@@ -8,11 +8,10 @@
 
 #ifndef __USER_H
 #define __USER_H
-#endif /* Address_h */
 
 #include <iostream>
 #include <string.h>
-#include <stdio.h>
+//#include <stdio.h> //Shira hide it, we don't need it
 using namespace std;
 #pragma warning(disable: 4996)
 
@@ -51,6 +50,8 @@ public:
     int setZipCode(const int zipCode) const;
 
     Address(char* country, char* city, char* street, int buildNo, int appartmentNo, int zipCode); //c'tor
-    ~Address; //d'tor
+    ~Address(); //d'tor, Shira added parenthesis
 
 };
+
+#endif /* Address_h */ //Shira moved it to the end
