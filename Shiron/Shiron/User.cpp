@@ -1,5 +1,5 @@
 #include "user.h"
-
+//oron
 void User::setUserName(const char* userName) //where do we check if the user exist?
 {
 	delete[] m_userName; //will not run unless m_userName was allocated
