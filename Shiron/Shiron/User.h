@@ -11,23 +11,26 @@ class User
 public:
 	static const int MAX_LEN_PASSWORD = 16;
 	static const int MAX_LEN_NAME = 16;
+	enum eUserType { BUYER, SELLER};
 
 private:
 	char* m_userName;
 	char* m_password;
-	bool m_userType;
+	eUserType m_userType;
+	User(const User&); // copy c'tor - we will not implement, it is  declaration for the compiler
 
 public:
 	bool setUserName(const char* userName);
 	bool setPassword(const char* passward);
-	bool setUserType(bool userType);
+	bool setUserType(eUserType userType);
 
 	char* getUserName() const;
 	char* getPassword() const;
-	bool getUserType() const;
+	eUserType getUserType() const;
 
-	User(const char* userName, const char* password, bool userType); //c'tor
-	~User; //d'tor
+	User(const char* userName, const char* password, eUserType userType);
+	User(User&& other); // move c'tor
+	~User();
 };
 
 #endif //__USER_H
