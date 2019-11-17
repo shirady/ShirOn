@@ -9,8 +9,8 @@ using namespace std;
 class User
 {
 public:
-	static const int MAX_LEN_PASSWORD = 15;
-	static const int MAX_LEN_NAME = 10;
+	static const int MAX_LEN_PASSWORD = 16;
+	static const int MAX_LEN_NAME = 16;
 
 private:
 	char* m_userName;
@@ -18,12 +18,16 @@ private:
 	bool m_userType;
 
 public:
-	void setUserName(const char* userName);
+	bool setUserName(const char* userName);
+	bool setPassword(const char* passward);
+	bool setUserType(bool userType);
 
-	User(char* userName, char* password, bool userType); //c'tor
+	char* getUserName() const;
+	char* getPassword() const;
+	bool getUserType() const;
+
+	User(const char* userName, const char* password, bool userType); //c'tor
 	~User; //d'tor
-
-
 };
 
 #endif //__USER_H
