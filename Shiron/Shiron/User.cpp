@@ -30,7 +30,7 @@ bool User::setPassword(const char* passward) //Do we want to check if the passwo
 
 bool User::setUserType(eUserType userType)
 {
-	if (userType == 1 || userType == 0)
+	if (userType == 1 || userType == 0) //is it O.K. to check it that way?
 	{
 		m_userType = userType;
 		return true;
@@ -71,4 +71,9 @@ User::User(User&& other)
 {
 	m_userName = other.m_userName; // "borrow" the address of the m_userName
 	other.m_userName = nullptr; 
+
+	m_password = other.m_password; // "borrow" the address of the m_password
+	other.m_password = nullptr;
+
+	m_userType = other.m_userType;
 }

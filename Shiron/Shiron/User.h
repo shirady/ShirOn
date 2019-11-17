@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string.h>
+#include "Address.h"
 using namespace std;
 #pragma warning(disable: 4996)
 
@@ -17,6 +18,7 @@ private:
 	char* m_userName;
 	char* m_password;
 	eUserType m_userType;
+	//Address m_address;
 	User(const User&); // copy c'tor - we will not implement, it is  declaration for the compiler
 
 public:
@@ -28,9 +30,9 @@ public:
 	char* getPassword() const;
 	eUserType getUserType() const;
 
-	User(const char* userName, const char* password, eUserType userType);
+	User(const char* userName, const char* password, eUserType userType); //c'tor
 	User(User&& other); // move c'tor
-	~User();
+	~User(); //d'tor
 };
 
 #endif //__USER_H

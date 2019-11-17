@@ -11,7 +11,6 @@
 
 #include <iostream>
 #include <string.h>
-//#include <stdio.h> //Shira hide it, we don't need it
 using namespace std;
 #pragma warning(disable: 4996)
 

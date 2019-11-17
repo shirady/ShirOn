@@ -18,7 +18,7 @@ public:
 	User** GetAllUsers();
 
 	bool AddUserToSystem(User* user);
-	void ShowUsers() const;
+	void ShowAllUsers() const; //add three options: all users, only buyers, only sellers
 	~System(); //d'tor
 };
 
