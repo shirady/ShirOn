@@ -39,7 +39,7 @@ bool Item::setPriceOfItem(int priceOfItem)
 
 bool Item::setSerialNumberOfItem(int serialNumberOfItem)
 {
-	if (serialNumberOfItem >= MIN_SERIAL && MAX_SERIAL <= MAX_PRICE)
+	if (serialNumberOfItem >= MIN_SERIAL && MAX_SERIAL <= MAX_SERIAL)
 	{
 		m_serialNumberOfItem = serialNumberOfItem;
 		return true;
@@ -63,7 +63,7 @@ int Item::getPriceOfItem()
 	return m_priceOfItem;
 }
 
-int Item::setSerialNumberOfItem()
+int Item::getSerialNumberOfItem()
 {
 	return m_serialNumberOfItem;
 }

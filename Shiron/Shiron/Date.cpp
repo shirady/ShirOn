@@ -7,7 +7,7 @@
 //
 
 #include "Date.h"
-bool Date::setYear(const int year)
+bool Date::setYear(int year)
 {
     if(year >= MIN_YEAR && year <= MAX_YEAR)
     {
@@ -17,7 +17,7 @@ bool Date::setYear(const int year)
     else
         return false;
 }
-bool Date::setMonth(const int month)
+bool Date::setMonth(int month)
 {
     if(month >= MIN_MONTH && month <= MAX_MONTH)
     {
@@ -27,7 +27,7 @@ bool Date::setMonth(const int month)
     else
         return false;
 }
-bool Date::setDay(const int day)
+bool Date::setDay(int day)
 {
     if(day >= MIN_DAY && day <= MAX_DAY)
     {
@@ -56,4 +56,9 @@ Date::Date(int year, int month, int day)
     setYear(year);
     setMonth(month);
     setDay(day);
-}//c'tor
+}
+
+Date::~Date()
+{
+
+}

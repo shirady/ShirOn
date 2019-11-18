@@ -34,15 +34,15 @@ public:
 	//bool setAllsellers(const Seller** allSellers);
 
 	const char* getSystemName();
-	const Buyer** getAllBuyers();
-	const Seller** getAllSellers();
+	Buyer** getAllBuyers(); //const?
+	Seller** getAllSellers(); //const?
 
 	System(int maxBuyres, int maxSellers);
 	System(System&& other); //move c'tor
 	~System(); //d'tor
 
-	//bool addBuyerToSystem(Buyer* buyer);
-	//bool addSellerToSystem(Seller* seller);
+	//bool addBuyerToSystem(Buyer& buyer);
+	//bool addSellerToSystem(Seller& seller);
 	//void showAllBuyers() const;
 	//void showAllSellers() const;
 };

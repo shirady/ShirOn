@@ -31,9 +31,9 @@ private:
     int m_day;
 
 public:
-    bool setYear(const int year);
-    bool setMonth(const int month);
-    bool setDay(const int day);
+    bool setYear(int year);
+    bool setMonth(int month);
+    bool setDay(int day);
 
     int getYear() const;
     int getMonth() const;
@@ -41,7 +41,6 @@ public:
 
     Date(int year, int month, int day); //c'tor
     ~Date(); //d'tor, Shira added parenthesis
+}; //copy and move c'tor - we do not need since it does not have memory allocation
 
-};
-
-#endif /* Address_h */ //Shira moved it to the end
+#endif /* Address_h */

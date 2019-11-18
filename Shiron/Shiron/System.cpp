@@ -20,12 +20,12 @@ const char* System::getSystemName()
 	return m_systemName;
 }
 
-const Buyer** System::getAllBuyers()
+Buyer** System::getAllBuyers()
 {
 	return m_allByers;
 }
 
-const Seller**System::getAllSellers()
+Seller** System::getAllSellers()
 {
 	return m_allSellers;
 }
