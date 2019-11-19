@@ -15,7 +15,7 @@
  */
 bool Feedback::setSellerName(const char* sellerName)
 {
-    delete[] m_sellerName; //will not run unless m_userName was allocated
+    //delete[] m_sellerName; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(sellerName);
     if (name_len < (MAX_LEN_SELLER_NAME - 1))
     {
@@ -28,7 +28,7 @@ bool Feedback::setSellerName(const char* sellerName)
 }
 bool Feedback::setResponderName(const char* responderName)
 {
-    delete[] m_responderName; //will not run unless m_userName was allocated
+    //delete[] m_responderName; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(responderName);
     if (name_len < (MAX_LEN_RESPONDER_NAME - 1))
     {
@@ -41,7 +41,7 @@ bool Feedback::setResponderName(const char* responderName)
 }
 bool Feedback::setFeedback(const char* feedback)
 {
-    delete[] m_feedback; //will not run unless m_userName was allocated
+    //delete[] m_feedback; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(feedback);
     if (name_len < (MAX_LEN_FEEDBACK - 1))
     {
@@ -65,12 +65,7 @@ const char* Feedback::getFeedback(const char* feedback)
     return m_feedback;
 }
 
-Feedback::Feedback(char* sellerName, char* responderName, char* feedback)//c'tor
-{
-    setSellerName(sellerName);
-    setResponderName(responderName);
-    setFeedback(feedback);
-}
+
 
 Feedback::~Feedback()//d'tor, Shira added parenthesis
 {

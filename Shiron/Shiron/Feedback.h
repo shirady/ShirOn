@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <string.h>
+#include "Date.h"
 using namespace std;
 #pragma warning(disable: 4996)
 
@@ -25,19 +26,29 @@ private:
     char* m_sellerName;
     char* m_responderName;
     char* m_feedback;
+    Date feedBackDate;
     
-
 public:
     bool setSellerName(const char* sellerName);
     bool setResponderName(const char* responderName);
     bool setFeedback(const char* feedback);
+    bool setfeedBackDate(const char* feedback);
+
     const char* getSellerName(const char* sellerName);
     const char* getResponderName(const char* responderName);
     const char* getFeedback(const char* feedback);
 
-    Feedback(char* sellerName, char* responderName, char* feedback); //c'tor
+    Feedback(const char* sellerName, const char* responderName, const char* feedback, int year, int month, int day) : feedBackDate(year, month, day)//c'tor
+    {
+        setSellerName(sellerName);
+        setResponderName(responderName);
+        setFeedback(feedback);
+        cout << "The date is: " <<feedBackDate.getYear() << "/" << feedBackDate.getMonth() << "/" << feedBackDate.getDay();
+        cout << "The seller name is: " << m_sellerName;
+        cout << "The responder name is: " << m_responderName;
+        cout << "The feedback is: " << m_feedback;
+    }
     ~Feedback(); //d'tor, Shira added parenthesis
-
-};
+    };
 
 #endif /* Address_h */ //Shira moved it to the end
