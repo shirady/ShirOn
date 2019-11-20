@@ -6,8 +6,8 @@
 //  Copyright © 2019 Oron Bortman. All rights reserved.
 //
 
-#ifndef __USER_H
-#define __USER_H
+#ifndef __ADDRESS_H
+#define __ADDRESS_H
 
 #include <iostream>
 #include <string.h>

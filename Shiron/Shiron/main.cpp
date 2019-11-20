@@ -25,8 +25,8 @@ void menu()
     int year, month, day;
     while(!exit)
     {
-        cout << "Welcome to Shiron! The world advanced shopping platfrom online\n";
-        cout << "Choose your option:\n";
+        cout << "Welcome to Shiron! The world advanced shopping platfrom online\n"
+		<< "Choose your option:\n";
         cout << "(1) Add a buyer\n";
         cout << "(2) Add a seller\n";
         cout << "(3) Add an item to a seller\n";

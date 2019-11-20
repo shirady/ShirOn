@@ -1,9 +1,9 @@
 #include "Buyer.h"
 //
-//const User* Buyer::getUser() const
-//{
-//	return m_user;
-//}
+const User Buyer::getUser() const
+{
+	return m_user;
+}
 //
 //const Item* Buyer::getBasket() const
 //{
