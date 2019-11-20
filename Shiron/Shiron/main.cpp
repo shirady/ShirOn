@@ -4,6 +4,8 @@
 #include "Address.h"
 #include "Feedback.h"
 #include "Date.h"
+#include "Buyer.h"
+#include "Order.h"
 
 #include <iostream>
 #include <string.h>

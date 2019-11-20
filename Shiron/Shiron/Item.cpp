@@ -76,23 +76,23 @@ Item::Item(const char* nameOfItem, eCategory categoryOfItem, int priceOfItem, in
 	setSerialNumberOfItem(serialNumberOfIem);
 }
 
-Item::Item(const Item& other)
-{
-	m_categoryOfItem = other.m_categoryOfItem;
-	m_priceOfItem = other.m_priceOfItem;
-	m_serialNumberOfItem = other.m_serialNumberOfItem;
-	m_nameOfItem = new char[strlen(other.m_nameOfItem) + 1]; //check allocation
-	strcpy(m_nameOfItem, other.m_nameOfItem);
-}
+//Item::Item(const Item& other)
+//{
+//	m_categoryOfItem = other.m_categoryOfItem;
+//	m_priceOfItem = other.m_priceOfItem;
+//	m_serialNumberOfItem = other.m_serialNumberOfItem;
+//	m_nameOfItem = new char[strlen(other.m_nameOfItem) + 1]; //check allocation
+//	strcpy(m_nameOfItem, other.m_nameOfItem);
+//}
 
-Item::Item(Item&& other)
-{
-	m_categoryOfItem = other.m_categoryOfItem;
-	m_priceOfItem = other.m_priceOfItem;
-	m_serialNumberOfItem = other.m_serialNumberOfItem;
-	m_nameOfItem = other.m_nameOfItem;
-	other.m_nameOfItem = nullptr;
-}
+//Item::Item(Item&& other)
+//{
+//	m_categoryOfItem = other.m_categoryOfItem;
+//	m_priceOfItem = other.m_priceOfItem;
+//	m_serialNumberOfItem = other.m_serialNumberOfItem;
+//	m_nameOfItem = other.m_nameOfItem;
+//	other.m_nameOfItem = nullptr;
+//}
 
 Item::~Item()
 {

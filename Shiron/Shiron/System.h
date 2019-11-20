@@ -39,7 +39,7 @@ public:
 
 	System(int maxBuyres, int maxSellers);
 	System(System&& other); //move c'tor
-	~System(); //d'tor
+	//~System(); //d'tor
 
 	//bool addBuyerToSystem(Buyer& buyer);
 	//bool addSellerToSystem(Seller& seller);
