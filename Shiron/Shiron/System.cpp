@@ -56,16 +56,16 @@ System::System(System&& other)
 	other.m_allSellers = nullptr;
 }
 
-System::~System()
-{
-	for (int i = 0; i < m_CurrentByers; ++i)
-		delete m_allByers[i];
-	delete[] m_allByers;
-
-	for (int i = 0; i < m_CurrentSellers; ++i)
-		delete m_allSellers[i];
-	delete[] m_allSellers;
-}
+//System::~System()
+//{
+//	for (int i = 0; i < m_CurrentByers; ++i)
+//		delete m_allByers[i];
+//	delete[] m_allByers;
+//
+//	for (int i = 0; i < m_CurrentSellers; ++i)
+//		delete m_allSellers[i];
+//	delete[] m_allSellers;
+//}
 
 
 /*

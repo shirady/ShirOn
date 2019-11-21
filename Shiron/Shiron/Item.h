@@ -34,8 +34,8 @@ public:
 	int getSerialNumberOfItem();
 
 	Item(const char* nameOfItem, eCategory categoryOfItem, int priceOfItem, int serialNumberOfItem); //c'tor
-	Item(const Item& other, int m_serialNumberOfItem); // copy c'tor
-	Item(Item&& other, int m_serialNumberOfItem); // move c'tor
+	//Item(const Item& other, int m_serialNumberOfItem); // copy c'tor //causes problems of static variables
+	//Item(Item&& other, int m_serialNumberOfItem); // move c'tor  //causes problems of static variables
 	~Item(); //d'tor
 };
 
