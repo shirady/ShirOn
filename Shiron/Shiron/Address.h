@@ -48,6 +48,7 @@ public:
 	int getZipCode() const;
 
 	Address(char* country, char* city, char* street, int buildNo, int appartmentNo, int zipCode); //c'tor
+	//Address(const Address&); // copy c'tor, Shira added
 	~Address(); //d'tor
 
 };

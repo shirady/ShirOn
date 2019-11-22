@@ -19,8 +19,7 @@ private:
 	char* m_userName;
 	char* m_password;
 	eUserType m_userType;
-	//Address m_address; //the address is not found
-	User(const User&); // copy c'tor - we will not implement, it is  declaration for the compiler
+	Address m_UserAddress;
 
 public:
 	bool setUserName(const char* userName);
@@ -31,8 +30,9 @@ public:
 	const char* getPassword() const;
 	eUserType getUserType() const;
 
-	User(const char* userName, const char* password, eUserType userType); //c'tor
-	User(User&& other); // move c'tor
+	User(const char* userName, const char* password, eUserType userType, char* country, char* city, char* street, int buildNo, int appartmentNo, int zipCode); //c'tor
+	//User(const User&); // copy c'tor
+	//User(User&& other); // move c'tor
 	~User(); //d'tor
 };
 

@@ -56,26 +56,34 @@ User::eUserType User::getUserType() const
 	return m_userType;
 }
 
-User::User(const char* userName, const char* password, eUserType userType)
+User::User(const char* userName, const char* password, eUserType userType, char* country, char* city, char* street, int buildNo, int appartmentNo, int zipCode) : m_UserAddress(country, city, street, buildNo, appartmentNo, zipCode)
 {
 	setUserName(userName);
 	setPassword(password);
 	setUserType(userType);
 }
 
+//User::User(const User&)
+//{
+//
+//}
+
+//User::User(User&& other): m_UserAddress(other.m_UserAddress.getCountry, other.m_UserAddress.getCity(), other.m_UserAddress.getStreet(), other.m_UserAddress.getBuildNo(), other.m_UserAddress.getAppartmentNo(), other.m_UserAddress.getZipCode())
+//{
+//	//m_userName = other.m_userName; // "borrow" the address of the m_userName
+//	setUserName(other.m_userName);
+//	other.m_userName = nullptr;
+//
+//	//m_password = other.m_password; // "borrow" the address of the m_password
+//	setPassword(other.m_password);
+//	other.m_password = nullptr;
+//
+//	setUserType(other.m_userType);
+//	//m_userType = other.m_userType;
+//} //changed the move c'tor using setters + had problem init the address, maybe because there's no copy c'tor of address?
+
 User::~User()
 {
 	delete[] m_userName;
 	delete[] m_password;
-}
-
-User::User(User&& other)
-{
-	m_userName = other.m_userName; // "borrow" the address of the m_userName
-	other.m_userName = nullptr; 
-
-	m_password = other.m_password; // "borrow" the address of the m_password
-	other.m_password = nullptr;
-
-	m_userType = other.m_userType;
 }

@@ -26,7 +26,7 @@ private:
     char* m_sellerName;
     char* m_responderName;
     char* m_feedback;
-    Date feedBackDate;
+    Date feedBackDate; // did you omit the "m_" on purpose?
     
 public:
     bool setSellerName(const char* sellerName);
