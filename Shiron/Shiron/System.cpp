@@ -67,6 +67,14 @@ System::System(System&& other)
 //	delete[] m_allSellers;
 //}
 
+////gets the address of the original array, the (larger) number of elements and the size of an element.
+//void* reallocArray(void* A, int numberOfElementsBefore, int numberOfElementsAfter, int sizeOfAnElement)
+//{
+//	void* newArray = new type[numberOfElementsAfter];
+//	memcpy(newArray, A, numberOfElementsBefore);
+//	delete A;
+//	return newArray;
+//} //after returning the array need to cast for the appropriate kind of variables.
 
 /*
 bool System::addUserToSystem(User* user)
