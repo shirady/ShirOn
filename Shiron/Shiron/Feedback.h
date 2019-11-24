@@ -26,7 +26,7 @@ private:
     char* m_sellerName;
     char* m_responderName;
     char* m_feedback;
-    Date feedBackDate;
+    Date m_date;
     
 public:
     bool setSellerName(const char* sellerName);
@@ -38,12 +38,12 @@ public:
     const char* getResponderName(const char* responderName);
     const char* getFeedback(const char* feedback);
 
-    Feedback(const char* sellerName, const char* responderName, const char* feedback, int year, int month, int day) : feedBackDate(year, month, day)//c'tor
+    Feedback(const char* sellerName, const char* responderName, const char* feedback, Date&& date) : m_date(date)//c'tor;
     {
         setSellerName(sellerName);
         setResponderName(responderName);
         setFeedback(feedback);
-        cout << "The date is: " <<feedBackDate.getYear() << "/" << feedBackDate.getMonth() << "/" << feedBackDate.getDay();
+        cout << "The date is: " <<m_date.getYear() << "/" << m_date.getMonth() << "/" << m_date.getDay();
         cout << "The seller name is: " << m_sellerName;
         cout << "The responder name is: " << m_responderName;
         cout << "The feedback is: " << m_feedback;
