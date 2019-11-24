@@ -8,13 +8,18 @@ using namespace std;
 #include "User.h"
 #include "Item.h"
 #include "Order.h"
+#include "Basket.h"
 
 class Buyer
 {
+	static const int IDBUYER = 0;
 private:
+	int m_IDBuyer;
 	User m_user;
-	//Item* m_basket; //do we want to create a class for items? // is it an array of the items or pointers to the items?
-	//Order* m_orderList;
+	Basket m_basket;
+	Order** m_CompletedOrders;
+	Order* m_OpenOrder;
+	int* m_IDSellers;
 
 public:
 	//Buyer(); //c'tor 
