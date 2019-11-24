@@ -22,7 +22,7 @@ int main()
 	//	<< "Address (country, city, street, buildNo, appartmentNo, zipCode)" ;
 
 	Address address("Israel", "Tel Aviv", "Hashlom", 10, 2, "76543");
-	//User user("Shira", "1234", address);
+    User user("Shira", "1234", address);
 }
 
 void menu()

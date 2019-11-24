@@ -10,7 +10,7 @@
 
 bool Address::setCountry(const char* country)
 {
-    delete[] m_country; //will not run unless m_userName was allocated
+    //delete[] m_country; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(country);
     if (name_len < (MAX_LEN_COUNTRY - 1))
     {
@@ -24,7 +24,7 @@ bool Address::setCountry(const char* country)
 
 bool Address::setCity(const char* city)
 {
-    delete[] m_city; //will not run unless m_userName was allocated
+    //delete[] m_city; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(city);
     if (name_len < (MAX_LEN_CITY - 1))
     {
@@ -39,7 +39,7 @@ bool Address::setCity(const char* city)
 
 bool Address::setStreet(const char* street)
 {
-    delete[] m_street; //will not run unless m_userName was allocated
+    //delete[] m_street; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(street);
     if (name_len < (MAX_LEN_STREET - 1))
     {
@@ -67,7 +67,7 @@ bool Address::setAppartmentNo(const int appartmentNo)
 
 bool Address::setZipCode(const char* zipCode)
 {
-	delete[] m_zipCode; 
+	//delete[] m_zipCode; 
 	unsigned int name_len = strlen(zipCode);
 	if (name_len < (MAX_LEN_STREET - 1))
 	{

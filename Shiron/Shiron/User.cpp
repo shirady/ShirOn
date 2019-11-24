@@ -41,7 +41,7 @@ const char* User::getPassword() const
 }
 
 
-User::User(const char* userName, const char* password, Address&& address): m_UserAddress(address)
+User::User(const char* userName, const char* password, Address& address): m_UserAddress(address)
 {
 	setUserName(userName);
 	setPassword(password);
