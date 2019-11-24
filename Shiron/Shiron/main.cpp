@@ -65,7 +65,7 @@ void menu()
                      cin >> month;
                      cout << "Enter the day:\n";
                      cin >> day;
-                Feedback("seller", "responder", "The product is great", year, month, day);
+                     Feedback("seller", "responder", "The product is great", Date(year,month,day));
                      break;
             case 5 : cout << '5';
                      break;
