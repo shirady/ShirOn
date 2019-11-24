@@ -12,7 +12,7 @@ bool Address::setCountry(const char* country)
 {
     //delete[] m_country; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(country);
-    if (name_len < (MAX_LEN_COUNTRY - 1))
+    if ( (name_len < (MAX_LEN_COUNTRY - 1)) && (CheckCharacters(country)) )
     {
         m_country = new char[strlen(country) + 1]; //check allocation is missing
         strcpy(m_country, country);
@@ -22,11 +22,37 @@ bool Address::setCountry(const char* country)
         return false;
 }
 
+bool Address::CheckCharacters(const char* fieldName)
+{
+	int i = 0;
+	while (fieldName[i] != '\0')
+	{
+		if (isalpha(fieldName[i]) || isdigit(fieldName[i])|| fieldName[i] == ' ' || fieldName[i] == '-')
+			i++;
+		else
+			return false;
+	}
+	return true;
+}
+
+bool Address::CheckCharactersOfZip(const char* fieldName)
+{
+	int i = 0;
+	while (fieldName[i] != '\0')
+	{
+		if (isalnum(fieldName[i]) || fieldName[i] == '-')
+			i++;
+		else
+			return false;
+	}
+	return true;
+}
+
 bool Address::setCity(const char* city)
 {
     //delete[] m_city; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(city);
-    if (name_len < (MAX_LEN_CITY - 1))
+    if (name_len < (MAX_LEN_CITY - 1) && (CheckCharacters(city)))
     {
         m_city = new char[strlen(city) + 1]; //check allocation is missing
         strcpy(m_city, city);
@@ -41,7 +67,7 @@ bool Address::setStreet(const char* street)
 {
     //delete[] m_street; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(street);
-    if (name_len < (MAX_LEN_STREET - 1))
+    if (name_len < (MAX_LEN_STREET - 1) && (CheckCharacters(street)))
     {
         m_street = new char[strlen(street) + 1]; //check allocation is missing
         strcpy(m_street, street);
@@ -69,7 +95,7 @@ bool Address::setZipCode(const char* zipCode)
 {
 	//delete[] m_zipCode; 
 	unsigned int name_len = strlen(zipCode);
-	if (name_len < (MAX_LEN_STREET - 1))
+	if (name_len < (MAX_LEN_STREET - 1) && CheckCharactersOfZip(zipCode))
 	{
 		m_zipCode = new char[strlen(zipCode) + 1];
 		strcpy(m_zipCode, zipCode);
@@ -121,4 +147,5 @@ Address::~Address() //d'tor
     delete[] m_country;
     delete[] m_city;
     delete[] m_street;
+	delete[] m_zipCode;
 }

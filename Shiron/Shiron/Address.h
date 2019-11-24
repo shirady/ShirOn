@@ -47,6 +47,9 @@ public:
 	int getAppartmentNo() const;
 	const char* getZipCode() const;
 
+	static bool CheckCharacters(const char* fieldName);
+	static bool CheckCharactersOfZip(const char* fieldName);
+
 	Address(char* country, char* city, char* street, int buildNo, int appartmentNo, char* zipCode); //c'tor
 	//Address(const Address&);
 	~Address(); //d'tor

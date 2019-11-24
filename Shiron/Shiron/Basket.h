@@ -18,17 +18,18 @@ using namespace std;
 class Basket
 {
 public:
-   // static const int MAX_LEN_SELLER_NAME      = 255;
+   static const int MAX_LEN_SELLER_NAME = 255;
 
 private:
     int m_current;
-    Item* m_basket;
+    Item** m_basket;
     
 public:
     bool setCurrent(int current);
-    //Function to set basket
-    Basket(int current);
-    ~Basket(); //d'tor, Shira added parenthesis
+	//bool AddItemToBasket(Item& newItem);
+
+    Basket();
+    ~Basket();
     };
 
 #endif //__BASKET_H
