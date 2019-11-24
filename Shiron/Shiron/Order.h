@@ -10,6 +10,6 @@ using namespace std;
 class Order
 {
 
-}
+};
 
 #endif // __ORDER_H
