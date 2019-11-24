@@ -30,17 +30,6 @@ bool User::setPassword(const char* passward) //Do we want to check if the passwo
 		return false;
 }
 
-bool User::setUserType(eUserType userType)
-{
-	if (userType == 1 || userType == 0) //is it O.K. to check it that way?
-	{
-		m_userType = userType;
-		return true;
-	}
-	else
-		return false;
-}
-
 const char* User::getUserName() const
 {
 	return m_userName;
@@ -51,16 +40,11 @@ const char* User::getPassword() const
 	return m_password;
 }
 
-User::eUserType User::getUserType() const
-{
-	return m_userType;
-}
 
-User::User(const char* userName, const char* password, eUserType userType, char* country, char* city, char* street, int buildNo, int appartmentNo, int zipCode) : m_UserAddress(country, city, street, buildNo, appartmentNo, zipCode)
+User::User(const char* userName, const char* password, Address&& address): m_UserAddress(address)
 {
 	setUserName(userName);
 	setPassword(password);
-	setUserType(userType);
 }
 
 //User::User(const User&)

@@ -65,12 +65,19 @@ bool Address::setAppartmentNo(const int appartmentNo)
 
 }
 
-bool Address::setZipCode(const int zipCode)
+bool Address::setZipCode(const char* zipCode)
 {
-    m_zipCode=zipCode;
-    return true;
+	delete[] m_zipCode; 
+	unsigned int name_len = strlen(zipCode);
+	if (name_len < (MAX_LEN_STREET - 1))
+	{
+		m_zipCode = new char[strlen(zipCode) + 1];
+		strcpy(m_zipCode, zipCode);
+		return true;
+	}
+	else
+		return false;
 }
-
 
 const char* Address::getCountry() const
 {
@@ -93,12 +100,13 @@ int Address::getAppartmentNo() const
 {
     return m_appartmentNo;
 }
-int Address::getZipCode() const
+
+const char* Address::getZipCode() const
 {
     return m_zipCode;
 }
 
-Address::Address(char* country, char* city, char* street, int buildNo, int appartmentNo, int zipCode) //c'tor
+Address::Address(char* country, char* city, char* street, int buildNo, int appartmentNo, char* zipCode)
 {
     setCountry(country);
     setCity(city);

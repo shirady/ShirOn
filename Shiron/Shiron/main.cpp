@@ -15,7 +15,14 @@ void menu();
 
 int main()
 {
-    menu();
+    //menu();
+	//cout << "Enter the details of the user\n"
+	//	<< "User name: "
+	//	<< "Password: "
+	//	<< "Address (country, city, street, buildNo, appartmentNo, zipCode)" ;
+
+	Address address("Israel", "Tel Aviv", "Hashlom", 10, 2, "76543");
+	//User user("Shira", "1234", address);
 }
 
 void menu()
@@ -26,18 +33,18 @@ void menu()
     while(!exit)
     {
         cout << "Welcome to Shiron! The world advanced shopping platfrom online\n"
-		<< "Choose your option:\n";
-        cout << "(1) Add a buyer\n";
-        cout << "(2) Add a seller\n";
-        cout << "(3) Add an item to a seller\n";
-        cout << "(4) Add a feedback to a seller\n";
-        cout << "(5) Add an item to basket of a buyer\n";
-        cout << "(6) Make an order for a buyer\n";
-        cout << "(7) Pay for an order of a buyer\n";
-        cout << "(8) Show details of all buyers\n";
-        cout << "(9) Show details of all sellers\n";
-        cout << "(10) Show details of all the products of a certain name\n";
-        cout << "(11) Exit\n";
+		<< "Choose your option:\n"
+        << "(1) Add a buyer\n"
+        << "(2) Add a seller\n"
+        << "(3) Add an item to a seller\n"
+        << "(4) Add a feedback to a seller\n"
+        << "(5) Add an item to basket of a buyer\n"
+        << "(6) Make an order for a buyer\n"
+        << "(7) Pay for an order of a buyer\n"
+        << "(8) Show details of all buyers\n"
+        << "(9) Show details of all sellers\n"
+        << "(10) Show details of all the products of a certain name\n"
+        << "(11) Exit\n";
         cin >> option;
         switch(option) {
             case 1 : cout << "Enter the details of the buyer\n";

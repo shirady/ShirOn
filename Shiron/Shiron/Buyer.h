@@ -10,16 +10,16 @@ using namespace std;
 #include "Order.h"
 #include "Basket.h"
 
+class Seller;
+
 class Buyer
 {
-	static const int IDBUYER = 0;
 private:
-	int m_IDBuyer;
 	User m_user;
 	Basket m_basket;
-	Order** m_CompletedOrders;
+	Order** m_OrdersHistory;
 	Order* m_OpenOrder;
-	int* m_IDSellers;
+	Seller** m_SellersHistory;
 
 public:
 	//Buyer(); //c'tor 
