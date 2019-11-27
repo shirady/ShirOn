@@ -14,3 +14,8 @@ Seller::~Seller()
 {
 
 }
+
+User& Seller::getUser()
+{
+	return m_user;
+}

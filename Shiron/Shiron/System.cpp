@@ -204,11 +204,11 @@ Seller* System::readSeller()
 
 void System::headline()
 {
-	cout << "Welcome to " << m_systemName << "The world advanced shopping platfrom online\n";
+	cout << "Welcome to " << m_systemName << " The world advanced shopping platfrom online\n";
 }
 void System::menu()
 {
-		cout << "Choose your option:\n"
+		cout << "\nChoose your option:\n"
 		<< "(1) Add a buyer\n"
 		<< "(2) Add a seller\n"
 		<< "(3) Add an item to a seller\n"
@@ -235,6 +235,7 @@ void System::menuOptions()
 		menu();
 		cout << "Enter your option: ";
 		cin >> option;
+		cout << endl;
 		cin.ignore();
 		switch (option)
 		{
@@ -265,7 +266,7 @@ void System::menuOptions()
 			showAllBuyers();
 			break;
 		case 9:
-			cout << '9';
+			showAllSellers();
 			break;
 		case 10:
 			cout << '10';
@@ -293,17 +294,28 @@ void System::showAllBuyers() const
 	for (unsigned int i = 0; i < m_logicSizeBuyers; i++)
 	{
 		cout << "#" << i + 1 << ": "
-			<< "User name: " << m_allBuyers[i]->getUser().getUserName()
+			<< "User name: " << m_allBuyers[i]->getUser().getUserName() << endl
 			<< "Country: " << m_allBuyers[i]->getUser().getAddress().getCountry()
-			<< "City: " << m_allBuyers[i]->getUser().getAddress().getCity()
-			<< "Street: " << m_allBuyers[i]->getUser().getAddress().getStreet()
-			<< "Building Number: " << m_allBuyers[i]->getUser().getAddress().getBuildNo()
-			<< "Apartment Number: " << m_allBuyers[i]->getUser().getAddress().getApartmentNo()
-			<< "Zip Code: " << m_allBuyers[i]->getUser().getAddress().getZipCode() << endl;
+			<< ", City: " << m_allBuyers[i]->getUser().getAddress().getCity()
+			<< ", Street: " << m_allBuyers[i]->getUser().getAddress().getStreet()
+			<< ", Building Number: " << m_allBuyers[i]->getUser().getAddress().getBuildNo()
+			<< ", Apartment Number: " << m_allBuyers[i]->getUser().getAddress().getApartmentNo()
+			<< ", Zip Code: " << m_allBuyers[i]->getUser().getAddress().getZipCode() << endl;
 	}
 }
 
-//void showAllSellers() const
-//{
-//
-//}
+void System::showAllSellers() const
+{
+	cout << "There are " << m_logicSizeSellers << " sellers in the system:" << endl;
+	for (unsigned int i = 0; i < m_logicSizeSellers; i++)
+	{
+		cout << "#" << i + 1 << ": "
+			<< "User name: " << m_allSellers[i]->getUser().getUserName() << endl
+			<< "Country: " << m_allSellers[i]->getUser().getAddress().getCountry()
+			<< ", City: " << m_allSellers[i]->getUser().getAddress().getCity()
+			<< ", Street: " << m_allSellers[i]->getUser().getAddress().getStreet()
+			<< ", Building Number: " << m_allSellers[i]->getUser().getAddress().getBuildNo()
+			<< ", Apartment Number: " << m_allSellers[i]->getUser().getAddress().getApartmentNo()
+			<< ", Zip Code: " << m_allSellers[i]->getUser().getAddress().getZipCode() << endl;
+	}
+}

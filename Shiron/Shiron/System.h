@@ -65,7 +65,7 @@ public:
 	void cleanBuffer();
 
 	void showAllBuyers() const;
-	//void showAllSellers() const;
+	void showAllSellers() const;
 };
 
 #endif //__SYSTEM_H

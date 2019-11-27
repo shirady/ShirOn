@@ -17,6 +17,8 @@ public:
 	Seller(const User& user); //c'tor 
 	Seller(const Seller& other); //copy c'tor
 	~Seller(); //d'tor
+
+	User& getUser();
 };
 
 #endif //__SELLER_H
