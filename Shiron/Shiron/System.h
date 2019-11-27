@@ -52,7 +52,9 @@ public:
 	System(char* systemName, unsigned int physSizeBuyers = INITIAL_PHYSICAL_SIZE, unsigned int physSizeSellers = INITIAL_PHYSICAL_SIZE); //c'tor
 	~System(); //d'tor
 
+	void headline();
 	void menu();
+	void menuOptions();
 	bool addBuyerToSystem(Buyer* buyer);
 	bool addSellerToSystem(Seller* seller);
 
@@ -62,9 +64,7 @@ public:
 	Seller* readSeller();
 	void cleanBuffer();
 
-
-	//bool addSellerToSystem(Seller& seller);
-	//void showAllBuyers() const;
+	void showAllBuyers() const;
 	//void showAllSellers() const;
 };
 

@@ -17,7 +17,7 @@ public:
 private:
 	char* m_userName;
 	char* m_password;
-	Address m_UserAddress;
+	Address m_userAddress;
 
 public:
 	bool setUserName(const char* userName);
@@ -25,7 +25,7 @@ public:
 
 	const char* getUserName() const;
 	const char* getPassword() const;
-
+	Address& getAddress();
 	static bool CheckWhiteSpace(const char* userName);
 
 	User(const char* userName, const char* password, const Address& address); //c'tor

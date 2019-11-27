@@ -24,6 +24,9 @@ public:
 	Buyer(const User& user); //c'tor 
 	Buyer(const Buyer& other); //copy c'tor
 	~Buyer(); //d'tor
+
+	User& getUser();
+
 };
 
 #endif //__BUYER_H

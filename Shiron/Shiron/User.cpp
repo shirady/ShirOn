@@ -52,14 +52,19 @@ const char* User::getPassword() const
 	return m_password;
 }
 
+Address& User::getAddress()
+{
+	return m_userAddress;
+}
 
-User::User(const char* userName, const char* password, const Address& address): m_UserAddress(address)
+
+User::User(const char* userName, const char* password, const Address& address): m_userAddress(address)
 {
 	setUserName(userName);
 	setPassword(password);
 }
 
-User::User(const User& other) : m_UserAddress(other.m_UserAddress)
+User::User(const User& other) : m_userAddress(other.m_userAddress)
 {
 	setUserName(other.m_userName);
 	setPassword(other.m_password);

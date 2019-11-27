@@ -37,14 +37,14 @@ public:
 	bool setCity(const char* city);
 	bool setStreet(const char* street);
 	bool setBuildNo(const int buildNo);
-	bool setapartmentNo(const int apartmentNo);
+	bool setApartmentNo(const int apartmentNo);
 	bool setZipCode(const char* zipCode);
 
 	const char* getCountry() const;
 	const char* getCity() const;
 	const char* getStreet() const;
 	int getBuildNo() const;
-	int getapartmentNo() const;
+	int getApartmentNo() const;
 	const char* getZipCode() const;
 
 	static bool CheckCharacters(const char* fieldName);

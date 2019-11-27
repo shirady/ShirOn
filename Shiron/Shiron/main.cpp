@@ -61,6 +61,6 @@ int main()
 	User user(name, password, address);*/
 	char systemName[System::MAX_LEN_SYSTEM_NAME] = "Shiron";
 	System system(systemName);
-	system.menu();
+	system.menuOptions();
 }
 

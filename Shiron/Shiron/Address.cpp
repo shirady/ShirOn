@@ -84,7 +84,7 @@ bool Address::setBuildNo(const int buildNo)
     return true;
 }
 
-bool Address::setapartmentNo(const int apartmentNo)
+bool Address::setApartmentNo(const int apartmentNo)
 {
     m_apartmentNo=apartmentNo;
     return true;
@@ -122,7 +122,7 @@ int Address::getBuildNo() const
 {
     return m_buildNo;
 }
-int Address::getapartmentNo() const
+int Address::getApartmentNo() const
 {
     return m_apartmentNo;
 }
@@ -138,7 +138,7 @@ Address::Address(char* country, char* city, char* street, int buildNo, int apart
     setCity(city);
     setStreet(street);
     setBuildNo(buildNo);
-    setapartmentNo(apartmentNo);
+    setApartmentNo(apartmentNo);
     setZipCode(zipCode);
 }
 
@@ -148,7 +148,7 @@ Address::Address(const Address& other)
 	setCity(other.m_city);
 	setStreet(other.m_street);
 	setBuildNo(other.m_buildNo);
-	setapartmentNo(other.m_apartmentNo);
+	setApartmentNo(other.m_apartmentNo);
 	setZipCode(other.m_zipCode);
 }
 

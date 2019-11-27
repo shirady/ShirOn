@@ -202,82 +202,80 @@ Seller* System::readSeller()
 	return new Seller(readUser());
 }
 
-/*
-void showAllByers() const
+void System::headline()
 {
-
+	cout << "Welcome to " << m_systemName << "The world advanced shopping platfrom online\n";
 }
-
-void showAllSellers() const
-{
-
-}
-*/
-
 void System::menu()
 {
-    bool exit=false;
-    int option;
+		cout << "Choose your option:\n"
+		<< "(1) Add a buyer\n"
+		<< "(2) Add a seller\n"
+		<< "(3) Add an item to a seller\n"
+		<< "(4) Add a feedback to a seller\n"
+		<< "(5) Add an item to basket of a buyer\n"
+		<< "(6) Make an order for a buyer\n"
+		<< "(7) Pay for an order of a buyer\n"
+		<< "(8) Show details of all buyers\n"
+		<< "(9) Show details of all sellers\n"
+		<< "(10) Show details of all the products of a certain name\n"
+		<< "(11) Exit\n";
+}
+
+void System::menuOptions()
+{
+	bool exit = false;
+	int option;
 	Buyer* buyer;
 	Seller* seller;
-    while(!exit)
-    {
-        cout << "Welcome to Shiron! The world advanced shopping platfrom online\n"
-		<< "Choose your option:\n"
-        << "(1) Add a buyer\n"
-        << "(2) Add a seller\n"
-        << "(3) Add an item to a seller\n"
-        << "(4) Add a feedback to a seller\n"
-        << "(5) Add an item to basket of a buyer\n"
-        << "(6) Make an order for a buyer\n"
-        << "(7) Pay for an order of a buyer\n"
-        << "(8) Show details of all buyers\n"
-        << "(9) Show details of all sellers\n"
-        << "(10) Show details of all the products of a certain name\n"
-        << "(11) Exit\n";
+
+	headline();
+	while (!exit)
+	{
+		menu();
 		cout << "Enter your option: ";
-        cin >> option;
+		cin >> option;
 		cin.ignore();
-        switch (option)
+		switch (option)
 		{
-			case 1: 
-				buyer=readBuyer();
-				addBuyerToSystem(buyer);
-                break;
-			case 2: 
-				seller = readSeller();
-				addSellerToSystem(seller);
-				break;
-            case 3 : 
-				cout << "a";
-                break;
-            case 4 : 
-				cout << "a";
-                break;
-            case 5 : 
-				cout << '5';
-                break;
-            case 6 : 
-				cout << '6';
-                break;
-            case 7 : 
-				cout << '7';
-                break;
-            case 8 : 
-				cout << '8';
-                break;
-            case 9 : 
-				cout << '9';
-                break;
-            case 10 :
-				cout << '10';
-                break;
-            case 11 : 
-				cout << '11';
-                exit=true;
-                break;
-        }
-    }
+		case 1:
+			buyer = readBuyer();
+			addBuyerToSystem(buyer);
+			break;
+		case 2:
+			seller = readSeller();
+			addSellerToSystem(seller);
+			break;
+		case 3:
+			cout << "a";
+			break;
+		case 4:
+			cout << "a";
+			break;
+		case 5:
+			cout << '5';
+			break;
+		case 6:
+			cout << '6';
+			break;
+		case 7:
+			cout << '7';
+			break;
+		case 8:
+			showAllBuyers();
+			break;
+		case 9:
+			cout << '9';
+			break;
+		case 10:
+			cout << '10';
+			break;
+		case 11:
+			cout << '11';
+			exit = true;
+			break;
+		}
+	}
 }
 
 void System::cleanBuffer()
@@ -288,3 +286,24 @@ void System::cleanBuffer()
 		c = getchar();
 	} while (c != EOF && c != '\n');
 }
+
+void System::showAllBuyers() const
+{
+	cout << "There are " << m_logicSizeBuyers << " buyers in the system:" << endl;
+	for (unsigned int i = 0; i < m_logicSizeBuyers; i++)
+	{
+		cout << "#" << i + 1 << ": "
+			<< "User name: " << m_allBuyers[i]->getUser().getUserName()
+			<< "Country: " << m_allBuyers[i]->getUser().getAddress().getCountry()
+			<< "City: " << m_allBuyers[i]->getUser().getAddress().getCity()
+			<< "Street: " << m_allBuyers[i]->getUser().getAddress().getStreet()
+			<< "Building Number: " << m_allBuyers[i]->getUser().getAddress().getBuildNo()
+			<< "Apartment Number: " << m_allBuyers[i]->getUser().getAddress().getApartmentNo()
+			<< "Zip Code: " << m_allBuyers[i]->getUser().getAddress().getZipCode() << endl;
+	}
+}
+
+//void showAllSellers() const
+//{
+//
+//}
