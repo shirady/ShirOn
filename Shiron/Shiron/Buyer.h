@@ -21,7 +21,7 @@ private:
 	//Order* m_OpenOrder;
 
 public:
-	Buyer(User& user); //c'tor 
+	Buyer(const User& user); //c'tor 
 	Buyer(const Buyer& other); //copy c'tor
 	~Buyer(); //d'tor
 };

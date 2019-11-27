@@ -6,8 +6,9 @@
 using namespace std;
 #pragma warning(disable: 4996)
 #include "User.h"
-//#include "Item.h"
 #include "Buyer.h"
+#include "Seller.h"
+//#include "Item.h"
 //class Seller;
 
 class System
@@ -20,7 +21,7 @@ public:
 private:
 	char* m_systemName;
 	Buyer** m_allBuyers;
-	//Seller** m_allSellers;
+	Seller** m_allSellers;
 
 	//an array of items for each category
 	//Item** m_KidsItems;
@@ -29,25 +30,39 @@ private:
 	//Item** m_ClothingItems;
 
 	unsigned int m_logicSizeBuyers; //the number of buyers and buyers that sign in
-	unsigned int m_PhysSizeBuyres; //the maximum number of buyers in the system
-	//int m_CurrentSellers; //the number of sellers and buyers that sign in
-	//int m_maxSellers; //the maximum number of sellers in the system
+	unsigned int m_physSizeBuyers; //the maximum number of buyers in the system
+	unsigned int m_logicSizeSellers; //the number of buyers and buyers that sign in
+	unsigned int m_physSizeSellers; //the maximum number of buyers in the system
 
 public:
 	bool setSystemName(const char* systemName);
 	bool setLogicSizeBuyers(unsigned int logicSizeBuyers);
-	bool setPhysSizeBuyres(unsigned int physSizeBuyres);
-
+	bool setPhysSizeBuyers(unsigned int physSizeBuyers);
+	bool setLogicSizeSellers(unsigned int logicSizeSellers);
+	bool setPhysSizeSellers(unsigned int physSizeSellers);
+	void cleanBuyersArray();
+	void cleanSellersArray();
 	const char* getSystemName();
 	Buyer** getAllBuyers(); //const?
-	//Seller** getAllSellers(); //const?
+	Seller** getAllSellers(); //const?
 
 	void reallocBuyers();
+	void reallocSellers();
 
-	System(char* systemName, unsigned int PhysSizeBuyres = INITIAL_PHYSICAL_SIZE); //c'tor
+	System(char* systemName, unsigned int physSizeBuyers = INITIAL_PHYSICAL_SIZE, unsigned int physSizeSellers = INITIAL_PHYSICAL_SIZE); //c'tor
 	~System(); //d'tor
 
-	bool addBuyerToSystem(Buyer& buyer);
+	void menu();
+	bool addBuyerToSystem(Buyer* buyer);
+	bool addSellerToSystem(Seller* seller);
+
+	const Address readAddress();
+	const User readUser();
+	Buyer* readBuyer();
+	Seller* readSeller();
+	void cleanBuffer();
+
+
 	//bool addSellerToSystem(Seller& seller);
 	//void showAllBuyers() const;
 	//void showAllSellers() const;

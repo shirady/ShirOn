@@ -2,7 +2,7 @@
 
 bool User::setUserName(const char* userName) //where do we check if the user exist?
 {
-	delete[] m_userName; //will not run unless m_userName was allocated
+	//delete[] m_userName; //will not run unless m_userName was allocated
 	unsigned int name_len = strlen(userName);
 
 	if ((name_len < MAX_LEN_NAME) && (CheckWhiteSpace(userName)))
@@ -29,7 +29,7 @@ bool User::CheckWhiteSpace(const char* userName)
 
 bool User::setPassword(const char* passward) //Do we want to check if the password is "strong"?
 {
-	delete[] m_password; //will not run unless m_userName was allocated
+	//delete[] m_password; //will not run unless m_userName was allocated
 	unsigned int name_len = strlen(passward);
 
 	if ( (name_len < MAX_LEN_NAME) && ( CheckWhiteSpace(passward)) )
@@ -53,7 +53,7 @@ const char* User::getPassword() const
 }
 
 
-User::User(const char* userName, const char* password, Address& address): m_UserAddress(address)
+User::User(const char* userName, const char* password, const Address& address): m_UserAddress(address)
 {
 	setUserName(userName);
 	setPassword(password);

@@ -1,6 +1,6 @@
 #include "Buyer.h"
 
-Buyer::Buyer(User& user): m_user(user)
+Buyer::Buyer(const User& user): m_user(user)
 {
 
 }

@@ -2,7 +2,7 @@
 
 bool System::setSystemName(const char* systemName)
 {
-	delete[] m_systemName; //will not run unless m_systemName was allocated
+	//delete[] m_systemName; //will not run unless m_systemName was allocated
 	unsigned int name_len = strlen(systemName);
 
 	if (name_len < MAX_LEN_SYSTEM_NAME)
@@ -25,11 +25,31 @@ bool System::setLogicSizeBuyers(unsigned int logicSizeBuyers)
 	return false;
 }
 
-bool System::setPhysSizeBuyres(unsigned int physSizeBuyres)
+bool System::setPhysSizeBuyers(unsigned int physSizeBuyers)
 {
-	if (physSizeBuyres >= 1)
+	if (physSizeBuyers >= 1)
 	{
-		m_PhysSizeBuyres = physSizeBuyres;
+		m_physSizeBuyers = physSizeBuyers;
+		return true;
+	}
+	return false;
+}
+
+bool System::setLogicSizeSellers(unsigned int logicSizeSellers)
+{
+	if (logicSizeSellers >= 0)
+	{
+		m_logicSizeSellers = logicSizeSellers;
+		return true;
+	}
+	return false;
+}
+
+bool System::setPhysSizeSellers(unsigned int physSizeSellers)
+{
+	if (physSizeSellers >= 1)
+	{
+		m_physSizeSellers = physSizeSellers;
 		return true;
 	}
 	return false;
@@ -45,34 +65,49 @@ Buyer** System::getAllBuyers()
 	return m_allBuyers;
 }
 
-//Seller** System::getAllSellers()
-//{
-//	return m_allSellers;
-//}
+Seller** System::getAllSellers()
+{
+	return m_allSellers;
+}
 
-System::System(char* systemName, unsigned int PhysSizeBuyres)
+System::System(char* systemName, unsigned int physSizeBuyers, unsigned int physSizeSellers)
 {
 	setSystemName(systemName);
 
 	setLogicSizeBuyers(INITIAL_LOGICAL_SIZE);
-	setPhysSizeBuyres(PhysSizeBuyres);
+	setPhysSizeBuyers(physSizeBuyers);
+	m_allBuyers = new Buyer*[m_physSizeBuyers];
+
+	setLogicSizeSellers(INITIAL_LOGICAL_SIZE);
+	setPhysSizeSellers(physSizeSellers);
+	m_allSellers = new Seller*[m_physSizeSellers];
 }
 
 System::~System()
 {
-	for (int i = 0; i < m_logicSizeBuyers; ++i)
+	cleanBuyersArray();
+	cleanSellersArray();
+}
+
+void System::cleanBuyersArray()
+{
+	for (unsigned int i = 0; i < m_logicSizeBuyers; ++i)
 		delete m_allBuyers[i];
 	delete[] m_allBuyers;
-
-	//for (int i = 0; i < m_CurrentSellers; ++i)
-	//	delete m_allSellers[i];
-	//delete[] m_allSellers;
 }
+
+void System::cleanSellersArray()
+{
+	for (unsigned int i = 0; i < m_logicSizeSellers; ++i)
+		delete m_allSellers[i];
+	delete[] m_allSellers;
+}
+
 
 void System::reallocBuyers()
 {
-	Buyer** newAllBuyers = new Buyer*[m_PhysSizeBuyres];
-	for (int i = 0; i < m_logicSizeBuyers; i++)
+	Buyer** newAllBuyers = new Buyer*[m_physSizeBuyers];
+	for (unsigned int i = 0; i < m_logicSizeBuyers; i++)
 	{
 		newAllBuyers[i] = new Buyer(*(m_allBuyers[i]));
 	}
@@ -80,34 +115,92 @@ void System::reallocBuyers()
 	m_allBuyers=newAllBuyers;
 }
 
-bool System::addBuyerToSystem(Buyer& buyer)
+void System::reallocSellers()
 {
-	if (m_logicSizeBuyers == m_PhysSizeBuyres)
+	Seller** newAllSellers = new Seller*[m_physSizeSellers];
+	for (unsigned int i = 0; i < m_logicSizeSellers; i++)
 	{
-		m_PhysSizeBuyres *= 2;
-		reallocBuyers();
+		newAllSellers[i] = new Seller(*(m_allSellers[i]));
 	}
-	m_allBuyers[m_logicSizeBuyers] = &buyer;
-
+	delete[]m_allSellers;
+	m_allSellers = newAllSellers;
 }
 
-//Buyer* System::readBuyer()
-//{
-//	char name[20];
-//	cin.ignore(); // clean the buffer
-//	cout << "Enter your name: ";
-//	cin.getline(name, 20);
-//
-//	int age;
-//	cout << "Enter you age:  ";
-//	cin >> age;
-//
-//	int statusNumber;
-//	cout << "Enter your status: \n 1.Single \n 2.Married \n 3.In A Relationship \n";
-//	cin >> statusNumber;
-//
-//	return new Survivor(name, age, (Survivor::eFamilyStatus)statusNumber);
-//}
+bool System::addBuyerToSystem(Buyer* buyer)
+{
+	if (m_logicSizeBuyers == m_physSizeBuyers)
+	{
+		m_physSizeBuyers *= 2;
+		reallocBuyers();
+	}
+	m_allBuyers[m_logicSizeBuyers++] = buyer;
+	return true;
+}
+
+bool System::addSellerToSystem(Seller* seller)
+{
+	if (m_logicSizeSellers == m_physSizeSellers)
+	{
+		m_physSizeSellers *= 2;
+		reallocSellers();
+	}
+	m_allSellers[m_logicSizeSellers++] = seller;
+	return true;
+}
+
+const Address System::readAddress()
+{
+	char country[Address::MAX_LEN_COUNTRY];
+	cout << "Enter your country: ";
+	cin.getline(country, Address::MAX_LEN_COUNTRY);
+
+	char city[Address::MAX_LEN_CITY];
+	cout << "Enter your city: ";
+	cin.getline(city, Address::MAX_LEN_CITY);
+
+	char street[Address::MAX_LEN_STREET];
+	cout << "Enter your street: ";
+	cin.getline(street, Address::MAX_LEN_STREET);
+
+	int buildNo;
+	cout << "Enter your build number: ";
+	cin >> buildNo;
+
+	int apartmentNo;
+	cout << "Enter your apartment number: ";
+	cin >> apartmentNo;
+
+	char zipCode[Address::MAX_LEN_ZIP_CODE];
+	cout << "Enter your zip code: ";
+	cleanBuffer();
+	cin.getline(zipCode, Address::MAX_LEN_ZIP_CODE);
+
+	return Address(country, city, street, buildNo, apartmentNo, zipCode);
+}
+
+
+const User System::readUser()
+{
+	char userName[User::MAX_LEN_NAME];
+	cout << "Enter your user name: ";
+	cin.getline(userName, User::MAX_LEN_NAME);
+
+	char password[User::MAX_LEN_PASSWORD];
+	cout << "Enter password: ";
+	cin.getline(password, User::MAX_LEN_PASSWORD);
+
+	return User(userName, password, readAddress());
+}
+
+Buyer* System::readBuyer()
+{
+	return new Buyer(readUser());
+}
+
+Seller* System::readSeller()
+{
+	return new Seller(readUser());
+}
 
 /*
 void showAllByers() const
@@ -120,3 +213,78 @@ void showAllSellers() const
 
 }
 */
+
+void System::menu()
+{
+    bool exit=false;
+    int option;
+	Buyer* buyer;
+	Seller* seller;
+    while(!exit)
+    {
+        cout << "Welcome to Shiron! The world advanced shopping platfrom online\n"
+		<< "Choose your option:\n"
+        << "(1) Add a buyer\n"
+        << "(2) Add a seller\n"
+        << "(3) Add an item to a seller\n"
+        << "(4) Add a feedback to a seller\n"
+        << "(5) Add an item to basket of a buyer\n"
+        << "(6) Make an order for a buyer\n"
+        << "(7) Pay for an order of a buyer\n"
+        << "(8) Show details of all buyers\n"
+        << "(9) Show details of all sellers\n"
+        << "(10) Show details of all the products of a certain name\n"
+        << "(11) Exit\n";
+		cout << "Enter your option: ";
+        cin >> option;
+		cin.ignore();
+        switch (option)
+		{
+			case 1: 
+				buyer=readBuyer();
+				addBuyerToSystem(buyer);
+                break;
+			case 2: 
+				seller = readSeller();
+				addSellerToSystem(seller);
+				break;
+            case 3 : 
+				cout << "a";
+                break;
+            case 4 : 
+				cout << "a";
+                break;
+            case 5 : 
+				cout << '5';
+                break;
+            case 6 : 
+				cout << '6';
+                break;
+            case 7 : 
+				cout << '7';
+                break;
+            case 8 : 
+				cout << '8';
+                break;
+            case 9 : 
+				cout << '9';
+                break;
+            case 10 :
+				cout << '10';
+                break;
+            case 11 : 
+				cout << '11';
+                exit=true;
+                break;
+        }
+    }
+}
+
+void System::cleanBuffer()
+{
+	int c;
+	do
+	{
+		c = getchar();
+	} while (c != EOF && c != '\n');
+}
