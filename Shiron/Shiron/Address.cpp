@@ -142,7 +142,17 @@ Address::Address(char* country, char* city, char* street, int buildNo, int appar
     setZipCode(zipCode);
 }
 
-Address::~Address() //d'tor
+Address::Address(const Address& other)
+{
+	setCountry(other.m_country);
+	setCity(other.m_city);
+	setStreet(other.m_street);
+	setBuildNo(other.m_buildNo);
+	setAppartmentNo(other.m_appartmentNo);
+	setZipCode(other.m_zipCode);
+}
+
+Address::~Address()
 {
     delete[] m_country;
     delete[] m_city;

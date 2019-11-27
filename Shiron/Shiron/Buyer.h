@@ -16,16 +16,14 @@ class Buyer
 {
 private:
 	User m_user;
-	Basket m_basket;
-	Order** m_OrdersHistory;
-	Order* m_OpenOrder;
-	Seller** m_SellersHistory;
+	//Basket m_basket;
+	//Order** m_OrdersHistory;
+	//Order* m_OpenOrder;
 
 public:
-	//Buyer(); //c'tor 
-	//Buyer(const Buyer&);
-	//Buyer(Buyer&& other); // move c'tor
-	//~Buyer(); //d'tor
+	Buyer(User& user); //c'tor 
+	Buyer(const Buyer& other); //copy c'tor
+	~Buyer(); //d'tor
 };
 
 #endif //__BUYER_H

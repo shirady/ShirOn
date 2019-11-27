@@ -28,9 +28,8 @@ public:
 
 	static bool CheckWhiteSpace(const char* userName);
 
-	User(const char* userName, const char* password, char* country, char* city, char* street, int buildNo, int appartmentNo, char* zipCode); //c'tor
-	//User(const User&); // copy c'tor
-	//User(User&& other); // move c'tor
+	User(const char* userName, const char* password, Address& address); //c'tor
+	User(const User& other); // copy c'tor
 	~User(); //d'tor
 };
 

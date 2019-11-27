@@ -28,8 +28,8 @@ public:
     bool setCurrent(int current);
 	//bool AddItemToBasket(Item& newItem);
 
-    Basket();
-    ~Basket();
+    //Basket();
+    //~Basket();
     };
 
 #endif //__BASKET_H

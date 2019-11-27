@@ -1,18 +1,16 @@
 #include "Buyer.h"
-//
-//const User Buyer::getUser() const
-//{
-//	return m_user;
-//}
-//
-//const Item* Buyer::getBasket() const
-//{
-//	return m_basket;
-//}
-//
-//const Order* Buyer::getOrder() const
-//{
-//	return m_orderList;
-//}
-//
-//
+
+Buyer::Buyer(User& user): m_user(user)
+{
+
+}
+
+Buyer::Buyer(const Buyer& other): m_user(other.m_user)
+{
+
+}
+
+Buyer::~Buyer()
+{
+
+}

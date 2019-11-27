@@ -51,7 +51,7 @@ public:
 	static bool CheckCharactersOfZip(const char* fieldName);
 
 	Address(char* country, char* city, char* street, int buildNo, int appartmentNo, char* zipCode); //c'tor
-	//Address(const Address&);
+	Address(const Address& other); //copy c'tor
 	~Address(); //d'tor
 
 };
