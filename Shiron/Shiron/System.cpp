@@ -271,7 +271,7 @@ void System::showAllItemsMenu() const
 	}
 	if (!itemFound)
 	{
-		cout << nameOfItem << "was not found :(" << endl;
+		cout << nameOfItem << " was not found :(" << endl;
 	}
 }
 
@@ -346,8 +346,8 @@ void System::menuOptions()
 			showAllItemsMenu();
 			break;
 		case 11:
-			cout << '11';
 			exitMenu = true;
+			cout << "Thank you for shopping " << m_systemName << "! :)";
 			break;
 		}
 	}
