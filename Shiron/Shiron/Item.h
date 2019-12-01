@@ -9,12 +9,14 @@ using namespace std;
 class Item
 {
 public:
+	static const unsigned int CATEGORY_SIZE = 4;
 	enum eCategory { KIDS, ELECTRONICS, OFFICE, CLOTHING }; //0,1,2,3
+	const char* category[CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
 	static const int MAX_LEN_NAME = 16;
-	static const int MIN_PRICE = 0; //free
-	static const int MAX_PRICE = 5000; //max price is up to 5,000 dollars
-	static const int MIN_SERIAL = 0;
-	static const int MAX_SERIAL = INT_MAX;
+	static const unsigned int MIN_PRICE = 0; //free
+	static const unsigned int MAX_PRICE = 5000; //max price is up to 5,000 dollars
+	static const unsigned int MIN_SERIAL = 0;
+	static const unsigned int MAX_SERIAL = INT_MAX;
 
 private:
 	char* m_nameOfItem;
@@ -34,6 +36,8 @@ public:
 	unsigned int getSerialNumberOfItem() const;
 
 	bool CheckCharacters(const char* fieldName);
+
+	void showItem() const;
 
 	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem); //c'tor
 	//Item(const Item& other, int m_serialNumberOfItem); // copy c'tor //causes problems of static variables

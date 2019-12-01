@@ -28,6 +28,8 @@ public:
 	void reallocItems();
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
+	unsigned int ShowItemsOfSeller(const char* name) const;
+
 
 
 	User& getUser();

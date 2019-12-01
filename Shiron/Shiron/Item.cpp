@@ -86,7 +86,11 @@ Item::~Item()
 	delete[] m_nameOfItem;
 }
 
-
-
-
+void Item::showItem() const
+{
+	cout << "Item name: " << m_nameOfItem
+		<< "Category: " << category[m_categoryOfItem]
+		<< ", Price: " << m_priceOfItem
+		<< ", Serial Number: " << m_serialNumberOfItem << endl;
+}
 

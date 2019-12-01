@@ -221,13 +221,13 @@ Item* System::readItem()
 	return new Item(nameOfItem, categoryOfItem, priceOfItem);
 }
 
-Seller* System::findSeller(const char* name) const
+Seller* System::findSeller(const char* nameOfSeller) const
 {
 	Seller * foundSeller=nullptr;
 	bool sellerExists = false;
 	for (unsigned int i = 0; i < m_logicSizeSellers && !sellerExists; i++)
 	{
-		if (strcmp(m_allSellers[i]->getUser().getUserName(), name) == 0)
+		if (strcmp(m_allSellers[i]->getUser().getUserName(), nameOfSeller) == 0)
 		{
 			sellerExists = true;
 			foundSeller = m_allSellers[i];
@@ -236,19 +236,43 @@ Seller* System::findSeller(const char* name) const
 	return foundSeller;
 }
 
-Buyer* System::findBuyer(const char* name) const
+Buyer* System::findBuyer(const char* nameOfBuyer) const
 {
 	Buyer* foundBuyer = nullptr;
 	bool BuyerExists = false;
 	for (unsigned int i = 0; i < m_logicSizeBuyers && !BuyerExists; i++)
 	{
-		if (strcmp(m_allBuyers[i]->getUser().getUserName(), name) == 0)
+		if (strcmp(m_allBuyers[i]->getUser().getUserName(), nameOfBuyer) == 0)
 		{
 			BuyerExists = true;
 			foundBuyer = m_allBuyers[i];
 		}
 	}
 	return foundBuyer;
+}
+
+void System::showAllItemsMenu() const
+{
+	bool itemFound = false;
+	char nameOfItem[Item::MAX_LEN_NAME];
+	cout << "Please enter the name of the item: ";
+	cin.getline(nameOfItem, Item::MAX_LEN_NAME);
+	cout << endl;
+	for (unsigned int i = 0; i < m_logicSizeSellers; i++)
+	{
+		unsigned int counter=m_allSellers[i]->ShowItemsOfSeller(nameOfItem);
+		if (counter > 0)
+		{
+			itemFound = true;
+			cout << "The seller name is: " << m_allSellers[i]->getUser().getUserName() << endl;
+			cout << "The items of the seller are: " << endl;
+			cout << "Total items in the seller " << m_allSellers[i]->getUser().getUserName() << "are: " << counter << endl;
+		}
+	}
+	if (!itemFound)
+	{
+		cout << nameOfItem << "was not found :(" << endl;
+	}
 }
 
 void System::headline()

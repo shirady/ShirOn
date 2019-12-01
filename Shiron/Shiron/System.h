@@ -61,10 +61,12 @@ public:
 	void cleanBuffer();
 
 	Item* readItem();
-	Buyer* findBuyer(const char* name) const;
-	Seller* findSeller(const char* name) const;
+	Buyer* findBuyer(const char* nameOfBuyer) const;
+	Seller* findSeller(const char* nameOfSeller) const;
 	void showAllBuyers() const;
 	void showAllSellers() const;
+	void showAllItemsMenu() const;
+
 
 };
 

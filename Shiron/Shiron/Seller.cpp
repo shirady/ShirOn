@@ -64,3 +64,17 @@ bool Seller::setPhysSizeItems(unsigned int physSizeItems)
 	return false;
 }
 
+
+unsigned int Seller::ShowItemsOfSeller(const char* name) const
+{
+	unsigned int counter = 0;
+	for (unsigned int i = 0; i < m_logicSizeItems ; i++)
+	{
+		if (strcmp(m_allItems[i]->getNameOfItem(), name) == 0)
+		{
+			m_allItems[i]->showItem();
+			counter++;
+		}
+	}
+	return counter;
+}
