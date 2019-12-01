@@ -265,8 +265,8 @@ void System::showAllItemsMenu() const
 		{
 			itemFound = true;
 			cout << "The seller name is: " << m_allSellers[i]->getUser().getUserName() << endl;
-			cout << "The items of the seller are: " << endl;
-			cout << "Total items in the seller " << m_allSellers[i]->getUser().getUserName() << "are: " << counter << endl;
+			cout << "The seller " << m_allSellers[i]->getUser().getUserName() << " has " << counter << " items" << endl;
+			cout << "--------------------------------------------------------" << endl << endl;
 		}
 	}
 	if (!itemFound)
@@ -343,7 +343,7 @@ void System::menuOptions()
 			showAllSellers();
 			break;
 		case 10:
-			cout << '10';
+			showAllItemsMenu();
 			break;
 		case 11:
 			cout << '11';
