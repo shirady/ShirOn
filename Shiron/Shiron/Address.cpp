@@ -12,7 +12,7 @@ bool Address::setCountry(const char* country)
 {
     //delete[] m_country; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(country);
-    if ( (name_len < (MAX_LEN_COUNTRY - 1)) && (CheckCharacters(country)) )
+    if ( (name_len < MAX_LEN_COUNTRY) && (CheckCharacters(country)) )
     {
         m_country = new char[strlen(country) + 1]; //check allocation is missing
         strcpy(m_country, country);

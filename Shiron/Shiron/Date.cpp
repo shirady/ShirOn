@@ -17,6 +17,7 @@ bool Date::setYear(int year)
     else
         return false;
 }
+
 bool Date::setMonth(int month)
 {
     if(month >= MIN_MONTH && month <= MAX_MONTH)
@@ -27,6 +28,7 @@ bool Date::setMonth(int month)
     else
         return false;
 }
+
 bool Date::setDay(int day)
 {
     if(day >= MIN_DAY && day <= MAX_DAY)

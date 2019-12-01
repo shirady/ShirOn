@@ -202,9 +202,26 @@ Seller* System::readSeller()
 	return new Seller(readUser());
 }
 
+//Item* System::readItem()
+//{
+//	char nameOfItem[Item::MAX_LEN_NAME];
+//	cout << "Enter The item name: ";
+//	cin.getline(nameOfItem, Item::MAX_LEN_NAME);
+//
+//	Item::eCategory categoryOfItem;
+//	cout << "Choose category: 0 - KIDS, 1- ELECTRONICS, 2 - OFFICE, 3 - CLOTHING: ";
+//	int numOfCategory;
+//	cin >> numOfCategory;
+//	categoryOfItem = (Item::eCategory)(numOfCategory);
+//
+//	int m_priceOfItem;
+//
+//	//return User(userName, password, readAddress());
+//}
+
 void System::headline()
 {
-	cout << "Welcome to " << m_systemName << " The world advanced shopping platfrom online\n";
+	cout << "Welcome to " << m_systemName << " The world advanced shopping platform online\n";
 }
 void System::menu()
 {
