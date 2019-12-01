@@ -202,22 +202,54 @@ Seller* System::readSeller()
 	return new Seller(readUser());
 }
 
-//Item* System::readItem()
-//{
-//	char nameOfItem[Item::MAX_LEN_NAME];
-//	cout << "Enter The item name: ";
-//	cin.getline(nameOfItem, Item::MAX_LEN_NAME);
-//
-//	Item::eCategory categoryOfItem;
-//	cout << "Choose category: 0 - KIDS, 1- ELECTRONICS, 2 - OFFICE, 3 - CLOTHING: ";
-//	int numOfCategory;
-//	cin >> numOfCategory;
-//	categoryOfItem = (Item::eCategory)(numOfCategory);
-//
-//	int m_priceOfItem;
-//
-//	//return User(userName, password, readAddress());
-//}
+Item* System::readItem()
+{
+	char nameOfItem[Item::MAX_LEN_NAME];
+	cout << "Enter The item name: ";
+	cin.getline(nameOfItem, Item::MAX_LEN_NAME);
+
+	Item::eCategory categoryOfItem;
+	cout << "Choose category: 0 - KIDS, 1- ELECTRONICS, 2 - OFFICE, 3 - CLOTHING: ";
+	int numOfCategory;
+	cin >> numOfCategory;
+	categoryOfItem = (Item::eCategory)(numOfCategory);
+
+	unsigned int priceOfItem;
+	cout << "Please enter the price of the product: ";
+	cin >> priceOfItem;
+	
+	return new Item(nameOfItem, categoryOfItem, priceOfItem);
+}
+
+Seller* System::findSeller(const char* name) const
+{
+	Seller * foundSeller=nullptr;
+	bool sellerExists = false;
+	for (unsigned int i = 0; i < m_logicSizeSellers && !sellerExists; i++)
+	{
+		if (strcmp(m_allSellers[i]->getUser().getUserName(), name) == 0)
+		{
+			sellerExists = true;
+			foundSeller = m_allSellers[i];
+		}
+	}
+	return foundSeller;
+}
+
+Buyer* System::findBuyer(const char* name) const
+{
+	Buyer* foundBuyer = nullptr;
+	bool BuyerExists = false;
+	for (unsigned int i = 0; i < m_logicSizeBuyers && !BuyerExists; i++)
+	{
+		if (strcmp(m_allBuyers[i]->getUser().getUserName(), name) == 0)
+		{
+			BuyerExists = true;
+			foundBuyer = m_allBuyers[i];
+		}
+	}
+	return foundBuyer;
+}
 
 void System::headline()
 {
@@ -239,15 +271,16 @@ void System::menu()
 		<< "(11) Exit\n";
 }
 
+
 void System::menuOptions()
 {
-	bool exit = false;
+	bool exitMenu = false;
 	int option;
 	Buyer* buyer;
 	Seller* seller;
 
 	headline();
-	while (!exit)
+	while (!exitMenu)
 	{
 		menu();
 		cout << "Enter your option: ";
@@ -265,7 +298,7 @@ void System::menuOptions()
 			addSellerToSystem(seller);
 			break;
 		case 3:
-			cout << "a";
+			addItemToSellerMenu();
 			break;
 		case 4:
 			cout << "a";
@@ -290,7 +323,7 @@ void System::menuOptions()
 			break;
 		case 11:
 			cout << '11';
-			exit = true;
+			exitMenu = true;
 			break;
 		}
 	}
@@ -334,5 +367,22 @@ void System::showAllSellers() const
 			<< ", Building Number: " << m_allSellers[i]->getUser().getAddress().getBuildNo()
 			<< ", Apartment Number: " << m_allSellers[i]->getUser().getAddress().getApartmentNo()
 			<< ", Zip Code: " << m_allSellers[i]->getUser().getAddress().getZipCode() << endl;
+	}
+}
+
+void System::addItemToSellerMenu()
+{
+	cout << "Please enter the name of the seller: ";
+	char sellerName[User::MAX_LEN_NAME];
+	cin.getline(sellerName, User::MAX_LEN_NAME);
+	Seller* seller = findSeller(sellerName);
+	if (seller != nullptr)
+	{
+		Item* item = readItem();
+		seller->addItemToSeller(item);
+	}
+	else
+	{
+		cout << "Seller was not found in the system" << endl;
 	}
 }

@@ -24,12 +24,6 @@ private:
 	Buyer** m_allBuyers;
 	Seller** m_allSellers;
 
-	//an array of items for each category
-	//Item** m_KidsItems;
-	//Item** m_ElectrinicsItems;
-	//Item** m_OfficeItems;
-	//Item** m_ClothingItems;
-
 	unsigned int m_logicSizeBuyers; //the number of buyers and buyers that sign in
 	unsigned int m_physSizeBuyers; //the maximum number of buyers in the system
 	unsigned int m_logicSizeSellers; //the number of buyers and buyers that sign in
@@ -58,6 +52,7 @@ public:
 	void menuOptions();
 	bool addBuyerToSystem(Buyer* buyer);
 	bool addSellerToSystem(Seller* seller);
+	void addItemToSellerMenu();
 
 	const Address readAddress();
 	const User readUser();
@@ -65,8 +60,12 @@ public:
 	Seller* readSeller();
 	void cleanBuffer();
 
+	Item* readItem();
+	Buyer* findBuyer(const char* name) const;
+	Seller* findSeller(const char* name) const;
 	void showAllBuyers() const;
 	void showAllSellers() const;
+
 };
 
 #endif //__SYSTEM_H

@@ -17,26 +17,25 @@ public:
 	static const int MAX_SERIAL = INT_MAX;
 
 private:
-	//static unsigned int generalSerialNumber;
 	char* m_nameOfItem;
 	eCategory m_categoryOfItem;
 	int m_priceOfItem;
-	int m_serialNumberOfItem; // need to have a mechanism for a new serial number
+	unsigned int m_serialNumberOfItem; // need to have a mechanism for a new serial number
+	static unsigned int m_serialNumberCounter;
 
 public:
 	bool setNameOfItem(const char* nameOfItem);
 	bool setCategoryOfItem(eCategory categoryOfItem);
-	bool setPriceOfItem(int priceOfItem);
-	//bool setSerialNumberOfItem(int serialNumberOfItem);
+	bool setPriceOfItem(unsigned int priceOfItem);
 
 	const char* getNameOfItem() const;
 	eCategory getCategoryOfItem() const;
-	int getPriceOfItem() const;
-	int getSerialNumberOfItem() const;
+	unsigned int getPriceOfItem() const;
+	unsigned int getSerialNumberOfItem() const;
 
 	bool CheckCharacters(const char* fieldName);
 
-	Item(const char* nameOfItem, eCategory categoryOfItem, int priceOfItem, int serialNumberOfItem); //c'tor
+	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem); //c'tor
 	//Item(const Item& other, int m_serialNumberOfItem); // copy c'tor //causes problems of static variables
 	//Item(Item&& other, int m_serialNumberOfItem); // move c'tor  //causes problems of static variables
 	~Item(); //d'tor

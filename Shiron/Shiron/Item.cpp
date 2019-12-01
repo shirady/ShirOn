@@ -1,5 +1,6 @@
 #include "item.h"
-#include "System.h"
+
+unsigned int Item::m_serialNumberCounter = 0;
 
 bool Item::setNameOfItem(const char* nameOfItem)
 {
@@ -40,7 +41,7 @@ bool Item::setCategoryOfItem(Item::eCategory categoryOfItem)
 	return false;
 }
 
-bool Item::setPriceOfItem(int priceOfItem)
+bool Item::setPriceOfItem(unsigned int priceOfItem)
 {
 	if (priceOfItem >= MIN_PRICE && priceOfItem <= MAX_PRICE)
 	{
@@ -50,16 +51,6 @@ bool Item::setPriceOfItem(int priceOfItem)
 	else
 		return false;
 }
-
-//bool Item::setSerialNumberOfItem(int serialNumberOfItem)
-//{
-//	if (serialNumberOfItem >= 0)
-//	{
-//		m_serialNumberOfItem = serialNumberOfItem;
-//		return true;
-//	}
-//	return false;
-//}
 
 const char* Item::getNameOfItem() const
 {
@@ -72,23 +63,22 @@ Item::eCategory Item::getCategoryOfItem() const
 	return m_categoryOfItem;
 }
 
-int Item::getPriceOfItem() const
+unsigned int Item::getPriceOfItem() const
 {
 	return m_priceOfItem;
 }
 
-int Item::getSerialNumberOfItem() const
+unsigned int Item::getSerialNumberOfItem() const
 {
 	return m_serialNumberOfItem;
 }
 
-Item::Item(const char* nameOfItem, Item::eCategory categoryOfItem, int priceOfItem, int serialNumberOfItem)
+Item::Item(const char* nameOfItem, Item::eCategory categoryOfItem, unsigned int priceOfItem)
 {
 	setNameOfItem(nameOfItem);
 	setCategoryOfItem(categoryOfItem);
 	setPriceOfItem(priceOfItem);
-	m_serialNumberOfItem = serialNumberOfItem;
-	//setSerialNumberOfItem(serialNumberOfItem);
+	m_serialNumberOfItem = ++m_serialNumberCounter;
 }
 
 Item::~Item()
