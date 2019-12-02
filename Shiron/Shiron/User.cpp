@@ -17,7 +17,7 @@ bool User::setUserName(const char* userName) //where do we check if the user exi
 
 bool User::CheckWhiteSpace(const char* userName)
 {
-	int i = 0;
+	unsigned int i = 0;
 	while (userName[i] != '\0')
 	{
 		if (isspace(userName[i]))

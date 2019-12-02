@@ -18,7 +18,7 @@ using namespace std;
 class Basket
 {
 public:
-   static const int MAX_LEN_SELLER_NAME = 255;
+   static constexpr unsigned int MAX_LEN_SELLER_NAME = 255;
 
 private:
     int m_current;

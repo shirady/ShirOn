@@ -1,13 +1,6 @@
-//
-//  Address.cpp
-//  Shiron
-//
-//  Created by Oron Bortman on 17/11/2019.
-//  Copyright © 2019 Oron Bortman. All rights reserved.
-//
-
 #include "Date.h"
-bool Date::setYear(int year)
+
+bool Date::setYear(unsigned int year)
 {
     if(year >= MIN_YEAR && year <= MAX_YEAR)
     {
@@ -18,7 +11,7 @@ bool Date::setYear(int year)
         return false;
 }
 
-bool Date::setMonth(int month)
+bool Date::setMonth(unsigned int month)
 {
     if(month >= MIN_MONTH && month <= MAX_MONTH)
     {
@@ -29,7 +22,7 @@ bool Date::setMonth(int month)
         return false;
 }
 
-bool Date::setDay(int day)
+bool Date::setDay(unsigned int day)
 {
     if(day >= MIN_DAY && day <= MAX_DAY)
     {
@@ -40,20 +33,22 @@ bool Date::setDay(int day)
         return false;
 }
 
-int Date::getYear() const
+unsigned int Date::getYear() const
 {
     return m_year;
 }
-int Date::getMonth() const
+
+unsigned int Date::getMonth() const
 {
     return m_month;
 }
-int Date::getDay() const
+
+unsigned int Date::getDay() const
 {
     return m_day;
 }
 
-Date::Date(int year, int month, int day)
+Date::Date(unsigned int year, unsigned int month, unsigned int day)
 {
     setYear(year);
     setMonth(month);

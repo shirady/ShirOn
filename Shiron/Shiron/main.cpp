@@ -12,7 +12,6 @@
 #include <string.h>
 using namespace std;
 #pragma warning(disable: 4996)
-//void menu();
 
 int main()
 {

@@ -1,11 +1,3 @@
-//
-//  Address.h
-//  Shiron
-//
-//  Created by Oron Bortman on 17/11/2019.
-//  Copyright © 2019 Oron Bortman. All rights reserved.
-//
-
 #ifndef __FEEDBACK_H
 #define __FEEDBACK_H
 
@@ -18,9 +10,9 @@ using namespace std;
 class Feedback
 {
 public:
-    static const int MAX_LEN_SELLER_NAME      = 255;
-    static const int MAX_LEN_RESPONDER_NAME   = 255;
-    static const int MAX_LEN_FEEDBACK         = 255;
+    static constexpr unsigned int MAX_LEN_SELLER_NAME      = 255;
+    static constexpr unsigned int MAX_LEN_RESPONDER_NAME   = 255;
+    static constexpr unsigned int MAX_LEN_FEEDBACK         = 255;
 
 private:
     char* m_sellerName;
@@ -32,7 +24,7 @@ public:
     bool setSellerName(const char* sellerName);
     bool setResponderName(const char* responderName);
     bool setFeedback(const char* feedback);
-    bool setfeedBackDate(const char* feedback);
+    //bool setfeedBackDate(const char* feedback);
 
     const char* getSellerName(const char* sellerName);
     const char* getResponderName(const char* responderName);
@@ -48,7 +40,7 @@ public:
         cout << "The responder name is: " << m_responderName;
         cout << "The feedback is: " << m_feedback;
     }
-    ~Feedback(); //d'tor, Shira added parenthesis
+    ~Feedback(); //d'tor
     };
 
-#endif /* Address_h */ //Shira moved it to the end
+#endif //__FEEDBACK_H

@@ -1,11 +1,3 @@
-//
-//  Address.h
-//  Shiron
-//
-//  Created by Oron Bortman on 17/11/2019.
-//  Copyright © 2019 Oron Bortman. All rights reserved.
-//
-
 #ifndef __DATE_H
 #define __DATE_H
 
@@ -16,31 +8,30 @@ using namespace std;
 
 class Date
 {
-
 public:
-    static const int MAX_YEAR        = 3000;
-    static const int MIN_YEAR        = 2019;
-    static const int MAX_MONTH       = 12;
-    static const int MIN_MONTH       = 1;
-    static const int MAX_DAY         = 31;
-    static const int MIN_DAY         = 1;
+    static constexpr unsigned int MAX_YEAR        = 3000;
+    static constexpr unsigned int MIN_YEAR        = 2019;
+    static constexpr unsigned int MAX_MONTH       = 12;
+    static constexpr unsigned int MIN_MONTH       = 1;
+    static constexpr unsigned int MAX_DAY         = 31;
+    static constexpr unsigned int MIN_DAY         = 1;
     
 private:
-    int m_year;
-    int m_month;
-    int m_day;
+    unsigned int m_year;
+    unsigned int m_month;
+    unsigned int m_day;
 
 public:
-    bool setYear(int year);
-    bool setMonth(int month);
-    bool setDay(int day);
+    bool setYear(unsigned int year);
+    bool setMonth(unsigned int month);
+    bool setDay(unsigned int day);
 
-    int getYear() const;
-    int getMonth() const;
-    int getDay() const;
+    unsigned int getYear() const;
+    unsigned int getMonth() const;
+    unsigned int getDay() const;
 
-    Date(int year, int month, int day); //c'tor
-    ~Date(); //d'tor, Shira added parenthesis
+    Date(unsigned int year, unsigned int month, unsigned int day); //c'tor
+    ~Date(); //d'tor
 }; //copy and move c'tor - we do not need since it does not have memory allocation
 
-#endif /* Address_h */
+#endif //__DATE_H

@@ -24,7 +24,7 @@ bool Address::setCountry(const char* country)
 
 bool Address::CheckCharacters(const char* fieldName)
 {
-	int i = 0;
+	unsigned int i = 0;
 	while (fieldName[i] != '\0')
 	{
 		if (isalpha(fieldName[i]) || isdigit(fieldName[i])|| fieldName[i] == ' ' || fieldName[i] == '-')
@@ -37,7 +37,7 @@ bool Address::CheckCharacters(const char* fieldName)
 
 bool Address::CheckCharactersOfZip(const char* fieldName)
 {
-	int i = 0;
+	unsigned int i = 0;
 	while (fieldName[i] != '\0')
 	{
 		if (isalnum(fieldName[i]) || fieldName[i] == '-')
@@ -78,15 +78,15 @@ bool Address::setStreet(const char* street)
 
 }
 
-bool Address::setBuildNo(const int buildNo)
+bool Address::setBuildNo(const unsigned int buildNo)
 {
-    m_buildNo=buildNo;
+    m_buildNo = buildNo;
     return true;
 }
 
-bool Address::setApartmentNo(const int apartmentNo)
+bool Address::setApartmentNo(const unsigned int apartmentNo)
 {
-    m_apartmentNo=apartmentNo;
+    m_apartmentNo = apartmentNo;
     return true;
 
 }
@@ -108,21 +108,24 @@ bool Address::setZipCode(const char* zipCode)
 const char* Address::getCountry() const
 {
     return m_country;
-    
 }
+
 const char* Address::getCity() const
 {
     return m_city;
 }
+
 const char* Address::getStreet() const
 {
     return m_street;
 }
-int Address::getBuildNo() const
+
+unsigned int Address::getBuildNo() const
 {
     return m_buildNo;
 }
-int Address::getApartmentNo() const
+
+unsigned int Address::getApartmentNo() const
 {
     return m_apartmentNo;
 }
@@ -132,7 +135,7 @@ const char* Address::getZipCode() const
     return m_zipCode;
 }
 
-Address::Address(char* country, char* city, char* street, int buildNo, int apartmentNo, char* zipCode)
+Address::Address(char* country, char* city, char* street, unsigned int buildNo, unsigned int apartmentNo, char* zipCode)
 {
     setCountry(country);
     setCity(city);

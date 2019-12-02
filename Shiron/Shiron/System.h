@@ -9,15 +9,13 @@ using namespace std;
 #include "Buyer.h"
 #include "Seller.h"
 //#include "Item.h"
-//class Seller;
 
 class System
 {
 public:
-	static const int MAX_LEN_SYSTEM_NAME = 20;
-	static const unsigned int INITIAL_LOGICAL_SIZE = 0;
-	static const unsigned int INITIAL_PHYSICAL_SIZE = 1;
-	//static int generalSerialId=0;
+	static constexpr unsigned int MAX_LEN_SYSTEM_NAME = 20;
+	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
+	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
 
 private:
 	char* m_systemName;
@@ -66,8 +64,6 @@ public:
 	void showAllBuyers() const;
 	void showAllSellers() const;
 	void showAllItemsMenu() const;
-
-
 };
 
 #endif //__SYSTEM_H

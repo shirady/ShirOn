@@ -26,7 +26,6 @@ public:
 	~Buyer(); //d'tor
 
 	User& getUser();
-
 };
 
 #endif //__BUYER_H

@@ -1,18 +1,5 @@
-//
-//  Address.cpp
-//  Shiron
-//
-//  Created by Oron Bortman on 17/11/2019.
-//  Copyright © 2019 Oron Bortman. All rights reserved.
-//
-
 #include "Feedback.h"
-/*
- static const int MAX_LEN_SELLER_NAME      = 255;
- static const int MAX_LEN_RESPONDER_NAME   = 255;
- static const int MAX_LEN_FEEDBACK         = 255;
 
- */
 bool Feedback::setSellerName(const char* sellerName)
 {
     //delete[] m_sellerName; //will not run unless m_userName was allocated
@@ -39,6 +26,7 @@ bool Feedback::setResponderName(const char* responderName)
     else
         return false;
 }
+
 bool Feedback::setFeedback(const char* feedback)
 {
     //delete[] m_feedback; //will not run unless m_userName was allocated
@@ -52,22 +40,23 @@ bool Feedback::setFeedback(const char* feedback)
     else
         return false;
 }
+
 const char* Feedback::getSellerName(const char* sellerName)
 {
     return m_sellerName;
 }
+
 const char* Feedback::getResponderName(const char* responderName)
 {
     return m_responderName;
 }
+
 const char* Feedback::getFeedback(const char* feedback)
 {
     return m_feedback;
 }
 
-
-
-Feedback::~Feedback()//d'tor, Shira added parenthesis
+Feedback::~Feedback()
 {
     delete[] m_sellerName;
     delete[] m_responderName;

@@ -7,12 +7,11 @@ using namespace std;
 #pragma warning(disable: 4996)
 #include "Address.h"
 
-
 class User
 {
 public:
-	static const int MAX_LEN_PASSWORD = 16;
-	static const int MAX_LEN_NAME = 16;
+	static constexpr unsigned int MAX_LEN_PASSWORD = 16;
+	static constexpr unsigned int MAX_LEN_NAME = 16;
 
 private:
 	char* m_userName;
