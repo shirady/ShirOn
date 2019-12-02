@@ -51,6 +51,7 @@ public:
 	bool addBuyerToSystem(Buyer* buyer);
 	bool addSellerToSystem(Seller* seller);
 	void addItemToSellerMenu();
+	void addItemToBasketMenu();
 
 	const Address readAddress();
 	const User readUser();
@@ -63,7 +64,9 @@ public:
 	Seller* findSeller(const char* nameOfSeller) const;
 	void showAllBuyers() const;
 	void showAllSellers() const;
-	void showAllItemsMenu() const;
+
+	bool showAllItemsMenu(const char* itemName) const;
+	void showAllItemsOption() const;
 };
 
 #endif //__SYSTEM_H

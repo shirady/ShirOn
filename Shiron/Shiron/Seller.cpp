@@ -9,12 +9,18 @@ Seller::Seller(const User& user, unsigned int physSizeItems) : m_user(user)
 
 Seller::Seller(const Seller& other) : m_user(other.m_user)
 {
-
+	setLogicSizeItems(other.m_logicSizeItems);
+	setPhysSizeItems(other.m_physSizeItems);
+	m_allItems = new Item*[m_physSizeItems];
+	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+	{
+		m_allItems[i] = new Item(*(other.m_allItems[i]));
+	}
 }
 
 Seller::~Seller()
 {
-
+	delete[] m_allItems;
 }
 
 User& Seller::getUser()
@@ -77,4 +83,20 @@ unsigned int Seller::ShowItemsOfSeller(const char* name) const
 		}
 	}
 	return counter;
+}
+
+
+Item* Seller::findSerialNumber(int serialNumber)
+{
+	Item* foundItem = nullptr;
+	bool ItemExists = false;
+	for (unsigned int i = 0; i < m_logicSizeItems && !ItemExists; i++)
+	{
+		if (m_allItems[i]->getSerialNumberOfItem() == serialNumber)
+		{
+			ItemExists = true;
+			foundItem = m_allItems[i];
+		}
+	}
+	return foundItem;
 }

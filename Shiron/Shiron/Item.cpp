@@ -81,6 +81,14 @@ Item::Item(const char* nameOfItem, Item::eCategory categoryOfItem, unsigned int 
 	m_serialNumberOfItem = ++m_serialNumberCounter;
 }
 
+Item::Item(const Item& other)
+{
+	setNameOfItem(other.m_nameOfItem);
+	setCategoryOfItem(other.m_categoryOfItem);
+	setPriceOfItem(other.m_priceOfItem);
+	m_serialNumberOfItem = other.m_serialNumberOfItem; //should it be the same number??
+}
+
 Item::~Item()
 {
 	delete[] m_nameOfItem;
@@ -93,4 +101,3 @@ void Item::showItem() const
 		<< ", Price: " << m_priceOfItem
 		<< ", Serial Number: " << m_serialNumberOfItem << endl;
 }
-

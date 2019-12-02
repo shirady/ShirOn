@@ -251,16 +251,25 @@ Buyer* System::findBuyer(const char* nameOfBuyer) const
 	return foundBuyer;
 }
 
-void System::showAllItemsMenu() const
+void System::showAllItemsOption() const
+{
+	char itemName[Item::MAX_LEN_NAME];
+	cout << "Please enter the name of the item: ";
+	cin.getline(itemName, Item::MAX_LEN_NAME);
+	cout << endl;
+	showAllItemsMenu(itemName);
+}
+
+bool System::showAllItemsMenu(const char* itemName) const
 {
 	bool itemFound = false;
-	char nameOfItem[Item::MAX_LEN_NAME];
+	/*char nameOfItem[Item::MAX_LEN_NAME];
 	cout << "Please enter the name of the item: ";
 	cin.getline(nameOfItem, Item::MAX_LEN_NAME);
-	cout << endl;
+	cout << endl;*/
 	for (unsigned int i = 0; i < m_logicSizeSellers; i++)
 	{
-		unsigned int counter=m_allSellers[i]->ShowItemsOfSeller(nameOfItem);
+		unsigned int counter = m_allSellers[i]->ShowItemsOfSeller(itemName);
 		if (counter > 0)
 		{
 			itemFound = true;
@@ -271,8 +280,9 @@ void System::showAllItemsMenu() const
 	}
 	if (!itemFound)
 	{
-		cout << nameOfItem << " was not found :(" << endl;
+		cout << itemName << " was not found :(" << endl;
 	}
+	return itemFound;
 }
 
 void System::headline()
@@ -294,7 +304,6 @@ void System::menu()
 		<< "(10) Show details of all the products of a certain name\n"
 		<< "(11) Exit\n";
 }
-
 
 void System::menuOptions()
 {
@@ -328,7 +337,7 @@ void System::menuOptions()
 			cout << "a";
 			break;
 		case 5:
-			cout << '5';
+			addItemToBasketMenu();
 			break;
 		case 6:
 			cout << '6';
@@ -343,7 +352,11 @@ void System::menuOptions()
 			showAllSellers();
 			break;
 		case 10:
-			showAllItemsMenu();
+			char nameOfItem[Item::MAX_LEN_NAME];
+			cout << "Please enter the name of the item: ";
+			cin.getline(nameOfItem, Item::MAX_LEN_NAME);
+			cout << endl;
+			showAllItemsMenu(nameOfItem);
 			break;
 		case 11:
 			exitMenu = true;
@@ -409,4 +422,54 @@ void System::addItemToSellerMenu()
 	{
 		cout << "Seller was not found in the system" << endl;
 	}
+}
+
+void System::addItemToBasketMenu()
+{
+	cout << "Please enter the name of the buyer: ";
+	char buyerName[User::MAX_LEN_NAME];
+	cin.getline(buyerName, User::MAX_LEN_NAME);
+	Buyer* buyer = findBuyer(buyerName);
+	if (buyer != nullptr)
+	{
+		char nameOfItem[Item::MAX_LEN_NAME];
+		cout << "Please enter the name of the item: ";
+		cin.getline(nameOfItem, Item::MAX_LEN_NAME);
+		cout << endl;
+		if (showAllItemsMenu(nameOfItem))
+		{
+			cout << "Enter the seller name from the list above: ";
+			char sellerName[User::MAX_LEN_NAME];
+			cin.getline(sellerName, User::MAX_LEN_NAME);
+			Seller* seller = findSeller(sellerName);
+			if (seller != nullptr)
+			{
+				unsigned int counter = seller->ShowItemsOfSeller(nameOfItem);
+				if (counter > 0)
+				{
+					cout << "Enter the serial number of the item to add to the basket" << endl;
+					unsigned int serialNumber;
+					cin >> serialNumber;
+					Item* item = seller->findSerialNumber(serialNumber);
+					if (item != nullptr)
+					{
+						buyer->getBasket()->addItemToBasket(item);
+					}
+				}
+				else
+				{
+					cout << "item was not found" << endl;
+				}
+			}
+			else
+			{
+				cout << "Seller was not found in the system" << endl;
+			}
+		}
+	}
+	else
+	{
+		cout << "Buyer was not found in the system" << endl;
+	}
+
 }

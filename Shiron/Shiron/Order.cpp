@@ -1,16 +1,35 @@
-//
-//  Address.cpp
-//  Shiron
-//
-//  Created by Oron Bortman on 17/11/2019.
-//  Copyright © 2019 Oron Bortman. All rights reserved.
-//
-
 #include "Order.h"
-/*
- static const int MAX_LEN_SELLER_NAME      = 255;
- static const int MAX_LEN_RESPONDER_NAME   = 255;
- static const int MAX_LEN_FEEDBACK         = 255;
-
- */
+//
+//Order::Order(unsigned int LogicSizeItemsOfBasket)
+//{
+//	setLogicSizeItems(INITIAL_LOGICAL_SIZE);
+//	setPhysSizeItems(LogicSizeItemsOfBasket); //LogicSizeItemsOfBasket is the physicSize of the order
+//	m_allItemsOfOrder = new Item*[m_physSizeItems];
+//	setOpenOrder(INITIAL_OPEN_ORDER);
+//}
+//
+//bool Order::setLogicSizeItems(unsigned int logicSizeItems)
+//{
+//	if (logicSizeItems >= 0)
+//	{
+//		m_logicSizeItems = logicSizeItems;
+//		return true;
+//	}
+//	return false;
+//}
+//
+//bool Order::setPhysSizeItems(unsigned int physSizeItems)
+//{
+//	if (physSizeItems >= 1)
+//	{
+//		m_physSizeItems = physSizeItems;
+//		return true;
+//	}
+//	return false;
+//}
+//
+//bool Order::setOpenOrder(bool openOrder)
+//{
+//	m_openOrder = openOrder;
+//}
 //

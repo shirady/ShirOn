@@ -16,7 +16,7 @@ class Buyer
 {
 private:
 	User m_user;
-	//Basket m_basket;
+	Basket* m_basket;
 	//Order** m_OrdersHistory;
 	//Order* m_OpenOrder;
 
@@ -25,7 +25,8 @@ public:
 	Buyer(const Buyer& other); //copy c'tor
 	~Buyer(); //d'tor
 
-	User& getUser();
+	User& getUser(); //const method?
+	Basket* getBasket() const;
 };
 
 #endif //__BUYER_H

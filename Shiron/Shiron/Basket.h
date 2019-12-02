@@ -18,18 +18,26 @@ using namespace std;
 class Basket
 {
 public:
-   static constexpr unsigned int MAX_LEN_SELLER_NAME = 255;
+	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
+	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
 
 private:
-    int m_current;
-    Item** m_basket;
+	unsigned int m_logicSizeItems;
+	unsigned int m_physSizeItems;
+	Item** m_allItemsOfBasket;
     
 public:
-    bool setCurrent(int current);
-	//bool AddItemToBasket(Item& newItem);
+	Basket(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor 
+	Basket(const Basket& other); //copy c'tor
+	~Basket(); //d'tor
 
-    //Basket();
-    //~Basket();
+	bool setLogicSizeItems(unsigned int logicSizeItems);
+	bool setPhysSizeItems(unsigned int physSizeItems);
+	void reallocItems();
+	bool addItemToBasket(Item* item);
+
+	unsigned int getLogicSizeItems();
+
     };
 
 #endif //__BASKET_H

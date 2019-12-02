@@ -31,6 +31,7 @@ public:
 	bool setPhysSizeItems(unsigned int physSizeItems);
 
 	unsigned int ShowItemsOfSeller(const char* name) const;
+	Item* findSerialNumber(int serialNumber);
 
 	User& getUser();
 };

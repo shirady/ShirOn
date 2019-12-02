@@ -40,8 +40,8 @@ public:
 	void showItem() const;
 
 	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem); //c'tor
-	//Item(const Item& other, int m_serialNumberOfItem); // copy c'tor //causes problems of static variables
-	//Item(Item&& other, int m_serialNumberOfItem); // move c'tor  //causes problems of static variables
+	Item(const Item& other);
+	// move c'tor
 	~Item(); //d'tor
 };
 
