@@ -74,6 +74,7 @@ public:
 	void chooseAllItemsFromCart(Buyer* buyer) const;
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
 	void removeItemsFromOrder(Buyer* buyer) const;
+	void payOrderMenu();
 };
 
 #endif //__SYSTEM_H

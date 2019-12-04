@@ -341,7 +341,7 @@ void System::menuOptions()
 			makeAnOrderMenu();
 			break;
 		case 7:
-			cout << '7';
+			payOrderMenu();
 			break;
 		case 8:
 			showAllBuyers();
@@ -631,5 +631,75 @@ void System::removeItemsFromOrder(Buyer* buyer) const
 		cout << "The number of items you items in the cart is "
 			<< numberOfItemInOrder << " and you entered "
 			<< numberOfItemsToDel << ":(" << endl;
+	}
+}
+
+
+void System::payOrderMenu()
+{
+	int option;
+	cout << "Please enter the name of the buyer: ";
+	char buyerName[User::MAX_LEN_NAME];
+	cin.getline(buyerName, User::MAX_LEN_NAME);
+	Buyer* buyer = findBuyer(buyerName);
+	if (buyer != nullptr)
+	{
+		Cart* cart = buyer->getCart();
+		Order* order = buyer->getOrder();
+		const Item** allItemsOfOrder = order->allItemsOfOrder();
+		const Item** allItemsOfCart = cart->allItemsOfCart();
+		unsigned int numberOfItemsInCart = cart->getLogicSizeItems();
+		unsigned int numberOfItemsInOrder = order->getLogicSizeItems();
+		if (numberOfItemsInOrder > 0)
+		{
+			int totalPriceOfOrder = order->getTotalPriceOfOrder();
+			cout << "The items in the order are:" << endl;
+			order->showOrder();
+			cout << "The total price is: " << totalPriceOfOrder << endl;
+			cout << "Choose option:" << endl
+				<< "1. Pay for the order" << endl
+				<< "2. Pay later" << endl;
+			cin >> option;
+			if (option == 1)
+			{
+				unsigned int amountPayed;
+				cout << "Enter the exact amount of money for the order" << endl;
+				cin >> amountPayed;
+				bool itemFound = false;
+				if (amountPayed == totalPriceOfOrder)
+				{
+					for (unsigned int i = 0; i < numberOfItemsInCart; i++)
+					{
+						for (unsigned int j = 0; i < numberOfItemsInOrder && !itemFound; j++)
+						{
+							if (allItemsOfCart[i] == allItemsOfOrder[j])
+							{
+								itemFound = true;
+							}
+						}
+						if (itemFound)
+							cart->removeItemFromCart(allItemsOfCart[i]);
+					}
+					cart->reallocItems();
+					order->setOpenOrder(false);
+					cout << "The order was payed." << endl;
+				}
+				else
+				{
+					cout << "You didn't enter the exact amount of money" << endl;
+				}
+			}
+
+
+
+		}
+		else
+		{
+		cout << "There are no items in the order" << endl;
+		}
+	}
+	else
+	{
+		cout << "Buyer was not found in the system" << endl;
 	}
 }

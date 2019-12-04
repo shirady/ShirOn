@@ -52,6 +52,18 @@ bool Cart::addItemToCart(const Item* item)
 	return true;
 }
 
+void Cart::removeItemFromCart(const Item* item)
+{
+	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+	{
+		if (m_allItemsOfCart[i] == item)
+		{
+			m_allItemsOfCart[i] = nullptr;
+			return;
+		}
+	}
+}
+
 bool Cart::setLogicSizeItems(unsigned int logicSizeItems)
 {
 	if (logicSizeItems >= INITIAL_LOGICAL_SIZE)

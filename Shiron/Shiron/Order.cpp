@@ -6,13 +6,11 @@ Order::Order(unsigned int physSizeItems)
 	setPhysSizeItems(physSizeItems);
 	m_allItemsOfOrder = new const Item*[m_physSizeItems];
 	setOpenOrder(INITIAL_OPEN_ORDER);
-	setOpenPayment(INITIAL_OPEN_PAYMENT);
 }
 
 Order::Order(const Order& other)
 {
 	setOpenOrder(other.m_openOrder);
-	setOpenPayment(other.m_openPayment);
 	setLogicSizeItems(other.m_logicSizeItems);
 	setPhysSizeItems(other.m_physSizeItems);
 	m_allItemsOfOrder = new const Item*[m_physSizeItems];
@@ -50,12 +48,6 @@ bool Order::setPhysSizeItems(unsigned int physSizeItems)
 bool Order::setOpenOrder(bool openOrder)
 {
 	m_openOrder = openOrder;
-	return true;
-}
-
-bool Order::setOpenPayment(bool openPayment)
-{
-	m_openPayment = openPayment;
 	return true;
 }
 
@@ -118,6 +110,16 @@ unsigned int Order::getLogicSizeItems() const
 const Item** Order::allItemsOfOrder() const
 {
 	return m_allItemsOfOrder;
+}
+
+unsigned int Order::getTotalPriceOfOrder() const
+{
+	unsigned int totalPriceOfOrder=0;
+	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+	{
+		totalPriceOfOrder+=m_allItemsOfOrder[i]->getPriceOfItem();
+	}
+	return totalPriceOfOrder;
 }
 
 const Item* Order::findSerialNumber(unsigned int serialNumber) const

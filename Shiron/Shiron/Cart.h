@@ -35,6 +35,8 @@ public:
 	bool setPhysSizeItems(unsigned int physSizeItems);
 	void reallocItems();
 	bool addItemToCart(const Item* item);
+	void removeItemFromCart(const Item* item);
+
 
 	unsigned int getLogicSizeItems() const;
 	const Item** allItemsOfCart() const;

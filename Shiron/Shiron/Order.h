@@ -13,14 +13,12 @@ public:
 	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
 	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
 	static constexpr bool INITIAL_OPEN_ORDER = true;
-	static constexpr bool INITIAL_OPEN_PAYMENT = true;
 
 private:
 	unsigned int m_logicSizeItems;
 	unsigned int m_physSizeItems;
 	const Item** m_allItemsOfOrder;
 	bool m_openOrder;
-	bool m_openPayment;
 
 public:
 	Order(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor
@@ -30,7 +28,6 @@ public:
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
 	bool setOpenOrder(bool openOrder);
-	bool setOpenPayment(bool openPayment);
 	void reallocItems();
 	bool addItemToOrder(const Item* item);
 	void removeItemFromOrder(const Item* item);
@@ -41,6 +38,8 @@ public:
 	void showOrder() const;
 
 	const Item* findSerialNumber(unsigned int serialNumber) const;
+	unsigned int getTotalPriceOfOrder() const;
+
 };
 
 #endif // __ORDER_H
