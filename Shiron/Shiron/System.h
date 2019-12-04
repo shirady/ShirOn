@@ -53,6 +53,7 @@ public:
 	bool addSellerToSystem(Seller* seller);
 	void addItemToSellerMenu();
 	void addItemToCartMenu();
+	void makeAnOrderMenu();
 
 	const Address readAddress();
 	const User readUser();

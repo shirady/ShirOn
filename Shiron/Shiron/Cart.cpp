@@ -69,3 +69,12 @@ unsigned int Cart::getLogicSizeItems()
 {
 	return m_logicSizeItems;
 }
+
+void Cart::showCart()
+{
+	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+	{
+		if (m_allItemsOfCart[i] !=nullptr)
+			m_allItemsOfCart[i]->showItem();
+	}
+}

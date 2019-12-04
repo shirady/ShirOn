@@ -471,3 +471,42 @@ void System::addItemToCartMenu()
 	}
 
 }
+
+void System::makeAnOrderMenu()
+{
+	int option;
+	cout << "Please enter the name of the buyer: ";
+	char buyerName[User::MAX_LEN_NAME];
+	cin.getline(buyerName, User::MAX_LEN_NAME);
+	Buyer* buyer = findBuyer(buyerName);
+	if (buyer != nullptr)
+	{
+		if (buyer->getCart()->getLogicSizeItems() > 0)
+		{
+			buyer->getCart()->showCart();
+			cout << "Please enter one of the options: " << endl
+				<< "1: Add all items from cart" << endl
+				<< "2: Choose item from cart" << endl
+				<< "3: Remove item from cart" << endl;
+			cin >> option;
+			switch (option)
+			{
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			}
+
+		}
+		else
+		{
+			cout << "Cart is empty" << endl;
+		}
+	}
+	else
+	{
+		cout << "Buyer was not found in the system" << endl;
+	}
+}

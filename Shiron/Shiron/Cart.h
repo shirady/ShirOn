@@ -38,6 +38,7 @@ public:
 
 	unsigned int getLogicSizeItems();
 
+	void showCart();
     };
 
 #endif //__Cart_H
