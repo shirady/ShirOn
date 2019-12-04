@@ -5,7 +5,7 @@ bool System::setSystemName(const char* systemName)
 	//delete[] m_systemName; //will not run unless m_systemName was allocated
 	unsigned int name_len = strlen(systemName);
 
-	if (name_len < MAX_LEN_SYSTEM_NAME)
+	if ( (name_len < MAX_LEN_SYSTEM_NAME) && (name_len >= MIN_LEN_SYSTEM_NAME) )
 	{
 		m_systemName = new char[name_len + 1];
 		strcpy(m_systemName, systemName);
@@ -17,7 +17,7 @@ bool System::setSystemName(const char* systemName)
 
 bool System::setLogicSizeBuyers(unsigned int logicSizeBuyers)
 {
-	if (logicSizeBuyers >= 0)
+	if (logicSizeBuyers >= INITIAL_LOGICAL_SIZE)
 	{
 		m_logicSizeBuyers = logicSizeBuyers;
 		return true;
@@ -27,7 +27,7 @@ bool System::setLogicSizeBuyers(unsigned int logicSizeBuyers)
 
 bool System::setPhysSizeBuyers(unsigned int physSizeBuyers)
 {
-	if (physSizeBuyers >= 1)
+	if (physSizeBuyers >= INITIAL_PHYSICAL_SIZE)
 	{
 		m_physSizeBuyers = physSizeBuyers;
 		return true;
@@ -37,7 +37,7 @@ bool System::setPhysSizeBuyers(unsigned int physSizeBuyers)
 
 bool System::setLogicSizeSellers(unsigned int logicSizeSellers)
 {
-	if (logicSizeSellers >= 0)
+	if (logicSizeSellers >= INITIAL_LOGICAL_SIZE)
 	{
 		m_logicSizeSellers = logicSizeSellers;
 		return true;
@@ -47,7 +47,7 @@ bool System::setLogicSizeSellers(unsigned int logicSizeSellers)
 
 bool System::setPhysSizeSellers(unsigned int physSizeSellers)
 {
-	if (physSizeSellers >= 1)
+	if (physSizeSellers >= INITIAL_PHYSICAL_SIZE)
 	{
 		m_physSizeSellers = physSizeSellers;
 		return true;
@@ -103,13 +103,12 @@ void System::cleanSellersArray()
 	delete[] m_allSellers;
 }
 
-
 void System::reallocBuyers()
 {
 	Buyer** newAllBuyers = new Buyer*[m_physSizeBuyers];
 	for (unsigned int i = 0; i < m_logicSizeBuyers; i++)
 	{
-		newAllBuyers[i] = new Buyer(*(m_allBuyers[i]));
+		newAllBuyers[i] = m_allBuyers[i]; //changed from new Buyer(*(m_allBuyers[i]))
 	}
 	delete []m_allBuyers;
 	m_allBuyers=newAllBuyers;
@@ -120,7 +119,7 @@ void System::reallocSellers()
 	Seller** newAllSellers = new Seller*[m_physSizeSellers];
 	for (unsigned int i = 0; i < m_logicSizeSellers; i++)
 	{
-		newAllSellers[i] = new Seller(*(m_allSellers[i]));
+		newAllSellers[i] = m_allSellers[i]; //changed from new Seller(*(m_allSellers[i]))
 	}
 	delete[]m_allSellers;
 	m_allSellers = newAllSellers;
@@ -177,7 +176,6 @@ const Address System::readAddress()
 
 	return Address(country, city, street, buildNo, apartmentNo, zipCode);
 }
-
 
 const User System::readUser()
 {

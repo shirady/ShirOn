@@ -6,9 +6,9 @@ bool Item::setNameOfItem(const char* nameOfItem)
 {
 	//delete[] m_nameOfItem; //will not run unless m_userName was allocated
 	unsigned int name_len = strlen(nameOfItem);
-	if ((name_len < MAX_LEN_NAME) && (CheckCharacters(nameOfItem)))
+	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (CheckCharacters(nameOfItem)))
 	{
-		m_nameOfItem = new char[strlen(nameOfItem) + 1]; //check allocation is missing
+		m_nameOfItem = new char[strlen(nameOfItem) + 1];
 		strcpy(m_nameOfItem, nameOfItem);
 		return true;
 	}

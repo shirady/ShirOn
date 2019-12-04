@@ -18,7 +18,7 @@ Order::Order(const Order& other)
 	m_allItemsOfOrder = new Item*[m_physSizeItems];
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
 	{
-		m_allItemsOfOrder[i] = new Item(*(other.m_allItemsOfOrder[i]));
+		m_allItemsOfOrder[i] = other.m_allItemsOfOrder[i]; //changed from new Item(*(other.m_allItemsOfOrder[i]))
 	}
 }
 
@@ -29,7 +29,7 @@ Order::~Order()
 
 bool Order::setLogicSizeItems(unsigned int logicSizeItems)
 {
-	if (logicSizeItems >= 0)
+	if (logicSizeItems >= INITIAL_LOGICAL_SIZE)
 	{
 		m_logicSizeItems = logicSizeItems;
 		return true;
@@ -39,7 +39,7 @@ bool Order::setLogicSizeItems(unsigned int logicSizeItems)
 
 bool Order::setPhysSizeItems(unsigned int physSizeItems)
 {
-	if (physSizeItems >= 1)
+	if (physSizeItems >= INITIAL_PHYSICAL_SIZE)
 	{
 		m_physSizeItems = physSizeItems;
 		return true;
@@ -50,11 +50,13 @@ bool Order::setPhysSizeItems(unsigned int physSizeItems)
 bool Order::setOpenOrder(bool openOrder)
 {
 	m_openOrder = openOrder;
+	return true;
 }
 
 bool Order::setOpenPayment(bool openPayment)
 {
 	m_openPayment = openPayment;
+	return true;
 }
 
 void Order::reallocItems()

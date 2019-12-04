@@ -5,9 +5,9 @@ bool User::setUserName(const char* userName) //where do we check if the user exi
 	//delete[] m_userName; //will not run unless m_userName was allocated
 	unsigned int name_len = strlen(userName);
 
-	if ((name_len < MAX_LEN_NAME) && (CheckWhiteSpace(userName)))
+	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (CheckWhiteSpace(userName)))
 	{
-		m_userName = new char[name_len + 1]; //check allocation is missing
+		m_userName = new char[name_len + 1];
 		strcpy(m_userName, userName);
 		return true;
 	}
@@ -32,9 +32,9 @@ bool User::setPassword(const char* passward) //Do we want to check if the passwo
 	//delete[] m_password; //will not run unless m_userName was allocated
 	unsigned int name_len = strlen(passward);
 
-	if ( (name_len < MAX_LEN_NAME) && ( CheckWhiteSpace(passward)) )
+	if ( (name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && ( CheckWhiteSpace(passward)) )
 	{
-		m_password = new char[name_len + 1]; //check allocation is missing
+		m_password = new char[name_len + 1];
 		strcpy(m_password, passward);
 		return true;
 	}
@@ -56,7 +56,6 @@ Address& User::getAddress()
 {
 	return m_userAddress;
 }
-
 
 User::User(const char* userName, const char* password, const Address& address): m_userAddress(address)
 {

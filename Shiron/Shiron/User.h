@@ -12,6 +12,8 @@ class User
 public:
 	static constexpr unsigned int MAX_LEN_PASSWORD = 16;
 	static constexpr unsigned int MAX_LEN_NAME = 16;
+	static constexpr unsigned int MIN_LEN_PASSWORD = 6;
+	static constexpr unsigned int MIN_LEN_NAME = 3;
 
 private:
 	char* m_userName;

@@ -15,6 +15,7 @@ public:
 	static constexpr unsigned int MAX_LEN_BUILD_NO = 1000;
 	static constexpr unsigned int MAX_LEN_APARTMENT_NO = 1000;
 	static constexpr unsigned int MAX_LEN_ZIP_CODE = 15; //check if its fine
+	static constexpr unsigned int MIN_LEN_ADDRESS_FIELD = 3;
 
 private:
 	char* m_country;

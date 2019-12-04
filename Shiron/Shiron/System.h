@@ -13,6 +13,7 @@ using namespace std;
 class System
 {
 public:
+	static constexpr unsigned int MIN_LEN_SYSTEM_NAME = 2;
 	static constexpr unsigned int MAX_LEN_SYSTEM_NAME = 20;
 	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
 	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;

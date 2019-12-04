@@ -12,6 +12,7 @@ public:
 	static constexpr unsigned int CATEGORY_SIZE = 4;
 	enum eCategory { KIDS, ELECTRONICS, OFFICE, CLOTHING }; //0,1,2,3 //static const?
 	const char* category[CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
+	static constexpr int MIN_LEN_NAME = 2;
 	static constexpr int MAX_LEN_NAME = 16;
 	static constexpr unsigned int MIN_PRICE = 0; //free
 	static constexpr unsigned int MAX_PRICE = 5000; //max price is up to 5,000 dollars
@@ -40,7 +41,7 @@ public:
 	void showItem() const;
 
 	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem); //c'tor
-	Item(const Item& other);
+	Item(const Item& other); //copy c'tor
 	// move c'tor
 	~Item(); //d'tor
 };

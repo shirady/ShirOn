@@ -14,7 +14,7 @@ Cart::Cart(const Cart& other)
 	m_allItemsOfCart = new Item*[m_physSizeItems];
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
 	{
-		m_allItemsOfCart[i] = new Item(*(other.m_allItemsOfCart[i]));
+		m_allItemsOfCart[i] = other.m_allItemsOfCart[i]; // changed from new Item(*(other.m_allItemsOfCart[i]))
 	}
 }
 
@@ -47,7 +47,7 @@ bool Cart::addItemToCart(Item* item)
 
 bool Cart::setLogicSizeItems(unsigned int logicSizeItems)
 {
-	if (logicSizeItems >= 0)
+	if (logicSizeItems >= INITIAL_LOGICAL_SIZE)
 	{
 		m_logicSizeItems = logicSizeItems;
 		return true;
@@ -57,7 +57,7 @@ bool Cart::setLogicSizeItems(unsigned int logicSizeItems)
 
 bool Cart::setPhysSizeItems(unsigned int physSizeItems)
 {
-	if (physSizeItems >= 1)
+	if (physSizeItems >= INITIAL_PHYSICAL_SIZE)
 	{
 		m_physSizeItems = physSizeItems;
 		return true;
@@ -69,4 +69,3 @@ unsigned int Cart::getLogicSizeItems()
 {
 	return m_logicSizeItems;
 }
-

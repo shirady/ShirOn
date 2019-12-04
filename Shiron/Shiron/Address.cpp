@@ -12,7 +12,7 @@ bool Address::setCountry(const char* country)
 {
     //delete[] m_country; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(country);
-    if ( (name_len < MAX_LEN_COUNTRY) && (CheckCharacters(country)) )
+    if ( (name_len < MAX_LEN_COUNTRY) && (name_len >= MIN_LEN_ADDRESS_FIELD) && (CheckCharacters(country)) )
     {
         m_country = new char[strlen(country) + 1]; //check allocation is missing
         strcpy(m_country, country);
@@ -52,7 +52,7 @@ bool Address::setCity(const char* city)
 {
     //delete[] m_city; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(city);
-    if (name_len < (MAX_LEN_CITY - 1) && (CheckCharacters(city)))
+    if (name_len < (MAX_LEN_CITY - 1) && (name_len >= MIN_LEN_ADDRESS_FIELD) && (CheckCharacters(city)))
     {
         m_city = new char[strlen(city) + 1]; //check allocation is missing
         strcpy(m_city, city);
@@ -67,7 +67,7 @@ bool Address::setStreet(const char* street)
 {
     //delete[] m_street; //will not run unless m_userName was allocated
     unsigned int name_len = strlen(street);
-    if (name_len < (MAX_LEN_STREET - 1) && (CheckCharacters(street)))
+    if (name_len < (MAX_LEN_STREET - 1) && (name_len >= MIN_LEN_ADDRESS_FIELD) && (CheckCharacters(street)))
     {
         m_street = new char[strlen(street) + 1]; //check allocation is missing
         strcpy(m_street, street);
@@ -88,14 +88,13 @@ bool Address::setApartmentNo(const unsigned int apartmentNo)
 {
     m_apartmentNo = apartmentNo;
     return true;
-
 }
 
 bool Address::setZipCode(const char* zipCode)
 {
 	//delete[] m_zipCode; 
 	unsigned int name_len = strlen(zipCode);
-	if (name_len < (MAX_LEN_STREET - 1) && CheckCharactersOfZip(zipCode))
+	if (name_len < (MAX_LEN_STREET - 1) && (name_len >= MIN_LEN_ADDRESS_FIELD) && CheckCharactersOfZip(zipCode))
 	{
 		m_zipCode = new char[strlen(zipCode) + 1];
 		strcpy(m_zipCode, zipCode);

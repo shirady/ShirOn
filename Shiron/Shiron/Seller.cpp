@@ -20,6 +20,9 @@ Seller::Seller(const Seller& other) : m_user(other.m_user)
 
 Seller::~Seller()
 {
+	for (unsigned int i= 0; i < m_logicSizeItems; i++)
+		delete m_allItems[i];
+
 	delete[] m_allItems;
 }
 
@@ -52,7 +55,7 @@ bool Seller::addItemToSeller(Item* item)
 
 bool Seller::setLogicSizeItems(unsigned int logicSizeItems)
 {
-	if (logicSizeItems >= 0)
+	if (logicSizeItems >= INITIAL_LOGICAL_SIZE)
 	{
 		m_logicSizeItems = logicSizeItems;
 		return true;
@@ -62,14 +65,13 @@ bool Seller::setLogicSizeItems(unsigned int logicSizeItems)
 
 bool Seller::setPhysSizeItems(unsigned int physSizeItems)
 {
-	if (physSizeItems >= 1)
+	if (physSizeItems >= INITIAL_PHYSICAL_SIZE)
 	{
 		m_physSizeItems = physSizeItems;
 		return true;
 	}
 	return false;
 }
-
 
 unsigned int Seller::ShowItemsOfSeller(const char* name) const
 {
