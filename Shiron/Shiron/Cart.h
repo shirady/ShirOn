@@ -6,8 +6,8 @@
 //  Copyright © 2019 Oron Bortman. All rights reserved.
 //
 
-#ifndef __BASKET_H
-#define __BASKET_H
+#ifndef __Cart_H
+#define __Cart_H
 
 #include <iostream>
 #include <string.h>
@@ -15,7 +15,7 @@
 using namespace std;
 #pragma warning(disable: 4996)
 
-class Basket
+class Cart
 {
 public:
 	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
@@ -24,20 +24,20 @@ public:
 private:
 	unsigned int m_logicSizeItems;
 	unsigned int m_physSizeItems;
-	Item** m_allItemsOfBasket;
+	Item** m_allItemsOfCart;
     
 public:
-	Basket(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor 
-	Basket(const Basket& other); //copy c'tor
-	~Basket(); //d'tor
+	Cart(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor 
+	Cart(const Cart& other); //copy c'tor
+	~Cart(); //d'tor
 
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
 	void reallocItems();
-	bool addItemToBasket(Item* item);
+	bool addItemToCart(Item* item);
 
 	unsigned int getLogicSizeItems();
 
     };
 
-#endif //__BASKET_H
+#endif //__Cart_H

@@ -21,7 +21,7 @@ private:
 	bool m_openOrder;
 
 public:
-	//Order(unsigned int LogicSizeItemsOfBasket); //c'tor
+	//Order(unsigned int LogicSizeItemsOfCart); //c'tor
 	//Order(const Order& other); //copy c'tor
 	//~Order(); //d'tor
 

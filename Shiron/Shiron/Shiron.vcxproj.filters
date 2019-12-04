@@ -42,10 +42,10 @@
     <ClCompile Include="Order.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Basket.cpp">
+    <ClCompile Include="Seller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Seller.cpp">
+    <ClCompile Include="Cart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,7 +77,7 @@
     <ClInclude Include="Seller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Basket.h">
+    <ClInclude Include="Cart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

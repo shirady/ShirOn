@@ -51,7 +51,7 @@ public:
 	bool addBuyerToSystem(Buyer* buyer);
 	bool addSellerToSystem(Seller* seller);
 	void addItemToSellerMenu();
-	void addItemToBasketMenu();
+	void addItemToCartMenu();
 
 	const Address readAddress();
 	const User readUser();

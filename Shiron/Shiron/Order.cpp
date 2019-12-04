@@ -1,9 +1,9 @@
 #include "Order.h"
 //
-//Order::Order(unsigned int LogicSizeItemsOfBasket)
+//Order::Order(unsigned int LogicSizeItemsOfCart)
 //{
 //	setLogicSizeItems(INITIAL_LOGICAL_SIZE);
-//	setPhysSizeItems(LogicSizeItemsOfBasket); //LogicSizeItemsOfBasket is the physicSize of the order
+//	setPhysSizeItems(LogicSizeItemsOfCart); //LogicSizeItemsOfCart is the physicSize of the order
 //	m_allItemsOfOrder = new Item*[m_physSizeItems];
 //	setOpenOrder(INITIAL_OPEN_ORDER);
 //}

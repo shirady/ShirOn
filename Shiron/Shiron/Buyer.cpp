@@ -2,17 +2,17 @@
 
 Buyer::Buyer(const User& user): m_user(user)
 {
-	m_basket = new Basket;
+	m_Cart = new Cart;
 }
 
 Buyer::Buyer(const Buyer& other): m_user(other.m_user)
 {
-	m_basket = new Basket(* (other.getBasket()));
+	m_Cart = new Cart(* (other.getCart()));
 }
 
 Buyer::~Buyer()
 {
-	delete m_basket;
+	delete m_Cart;
 }
 
 User& Buyer::getUser() 
@@ -20,7 +20,7 @@ User& Buyer::getUser()
 	return m_user;
 }
 
-Basket* Buyer::getBasket() const
+Cart* Buyer::getCart() const
 {
-	return m_basket;
+	return m_Cart;
 }

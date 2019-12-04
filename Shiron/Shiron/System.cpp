@@ -296,7 +296,7 @@ void System::menu()
 		<< "(2) Add a seller\n"
 		<< "(3) Add an item to a seller\n"
 		<< "(4) Add a feedback to a seller\n"
-		<< "(5) Add an item to basket of a buyer\n"
+		<< "(5) Add an item to Cart of a buyer\n"
 		<< "(6) Make an order for a buyer\n"
 		<< "(7) Pay for an order of a buyer\n"
 		<< "(8) Show details of all buyers\n"
@@ -337,7 +337,7 @@ void System::menuOptions()
 			cout << "a";
 			break;
 		case 5:
-			addItemToBasketMenu();
+			addItemToCartMenu();
 			break;
 		case 6:
 			cout << '6';
@@ -424,7 +424,7 @@ void System::addItemToSellerMenu()
 	}
 }
 
-void System::addItemToBasketMenu()
+void System::addItemToCartMenu()
 {
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
@@ -447,13 +447,13 @@ void System::addItemToBasketMenu()
 				unsigned int counter = seller->ShowItemsOfSeller(nameOfItem);
 				if (counter > 0)
 				{
-					cout << "Enter the serial number of the item to add to the basket" << endl;
+					cout << "Enter the serial number of the item to add to the Cart" << endl;
 					unsigned int serialNumber;
 					cin >> serialNumber;
 					Item* item = seller->findSerialNumber(serialNumber);
 					if (item != nullptr)
 					{
-						buyer->getBasket()->addItemToBasket(item);
+						buyer->getCart()->addItemToCart(item);
 					}
 				}
 				else

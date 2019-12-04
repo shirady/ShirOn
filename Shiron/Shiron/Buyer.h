@@ -8,7 +8,7 @@ using namespace std;
 #include "User.h"
 #include "Item.h"
 #include "Order.h"
-#include "Basket.h"
+#include "Cart.h"
 
 class Seller;
 
@@ -16,7 +16,7 @@ class Buyer
 {
 private:
 	User m_user;
-	Basket* m_basket;
+	Cart* m_Cart;
 	//Order** m_OrdersHistory;
 	//Order* m_OpenOrder;
 
@@ -26,7 +26,7 @@ public:
 	~Buyer(); //d'tor
 
 	User& getUser(); //const method?
-	Basket* getBasket() const;
+	Cart* getCart() const;
 };
 
 #endif //__BUYER_H
