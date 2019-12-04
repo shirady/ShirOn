@@ -1,7 +1,7 @@
 #include "Address.h"
 #include "user.h"
 #include "Buyer.h"
-#include "system.h"
+#include "Interface.h"
 
 //#include "Item.h"
 //#include "Feedback.h"
@@ -61,6 +61,7 @@ int main()
 
 	char systemName[System::MAX_LEN_SYSTEM_NAME] = "Shiron";
 	System system(systemName);
-	system.menuOptions();
+	Interface interface(system);
+	interface.menu();
 }
 

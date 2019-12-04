@@ -8,7 +8,6 @@ using namespace std;
 #include "User.h"
 #include "Buyer.h"
 #include "Seller.h"
-//#include "Item.h"
 
 class System
 {
@@ -37,6 +36,8 @@ public:
 	void cleanBuyersArray();
 	void cleanSellersArray();
 	const char* getSystemName();
+	unsigned int getLogicSizeSellers() const;
+	unsigned int getLogicSizeBuyers() const;
 	Buyer** getAllBuyers(); //const?
 	Seller** getAllSellers(); //const?
 
@@ -46,35 +47,12 @@ public:
 	System(char* systemName, unsigned int physSizeBuyers = INITIAL_PHYSICAL_SIZE, unsigned int physSizeSellers = INITIAL_PHYSICAL_SIZE); //c'tor
 	~System(); //d'tor
 
-	void headline();
-	void menu();
-	void menuOptions();
 	bool addBuyerToSystem(Buyer* buyer);
 	bool addSellerToSystem(Seller* seller);
-	void addItemToSellerMenu();
-	void addItemToCartMenu();
-	void makeAnOrderMenu();
 
-	const Address readAddress();
-	const User readUser();
-	Buyer* readBuyer();
-	Seller* readSeller();
-	void cleanBuffer();
-
-	Item* readItem();
 	Buyer* findBuyer(const char* nameOfBuyer) const;
 	Seller* findSeller(const char* nameOfSeller) const;
-	void showAllBuyers() const;
-	void showAllSellers() const;
-	void showUser(User& user) const;
 
-	bool showAllItemsMenu(const char* itemName) const;
-	void showAllItemsOption() const;
-
-	void chooseAllItemsFromCart(Buyer* buyer) const;
-	void chooseCertainItemsFromCart(Buyer* buyer) const;
-	void removeItemsFromOrder(Buyer* buyer) const;
-	void payOrderMenu();
 };
 
 #endif //__SYSTEM_H
