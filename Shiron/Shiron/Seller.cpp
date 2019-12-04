@@ -33,7 +33,7 @@ void Seller::reallocItems()
 	Item** newAllItems = new Item*[m_physSizeItems];
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
 	{
-		newAllItems[i] = new Item(*(m_allItems[i]));
+		newAllItems[i] = m_allItems[i];
 	}
 	delete[]m_allItems;
 	m_allItems = newAllItems;

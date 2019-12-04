@@ -23,13 +23,12 @@ Cart::~Cart()
 	delete[] m_allItemsOfCart;
 }
 
-
 void Cart::reallocItems()
 {
 	Item** newAllItems = new Item*[m_physSizeItems];
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
 	{
-		newAllItems[i] = new Item(*(m_allItemsOfCart[i]));
+		newAllItems[i] = m_allItemsOfCart[i];
 	}
 	delete[]m_allItemsOfCart;
 	m_allItemsOfCart = newAllItems;
