@@ -492,6 +492,7 @@ void System::makeAnOrderMenu()
 				<< "1: Choose all items from cart to the order" << endl
 				<< "2: Choose certain items from cart to the order" << endl
 				<< "3: Remove certain items from order" << endl;
+			cout << "Enter your option of order: ";
 			cin >> option;
 			switch (option)
 			{
@@ -499,7 +500,6 @@ void System::makeAnOrderMenu()
 				if (numberOfItemsInOrder < numberOfItemsInCart)
 				{
 					chooseAllItemsFromCart(buyer);
-					cout << "The items in the order are: " << endl;
 					order->showOrder();
 				}
 				else
@@ -508,10 +508,9 @@ void System::makeAnOrderMenu()
 			case 2:
 				if (numberOfItemsInOrder > 0)
 				{
-					cout << "The items in the order are: " << endl;
 					order->showOrder();
-					chooseCertainItemsFromCart(buyer);
 				}
+				chooseCertainItemsFromCart(buyer);
 				break;
 			case 3:
 				if (numberOfItemsInOrder > 0)
@@ -554,7 +553,7 @@ void System::chooseAllItemsFromCart(Buyer* buyer) const
 			if (allItemsOfCart[i] == allItemsOfOrder[j])
 				itemOfCartIsInOrder = true;
 		}
-		if((itemOfCartIsInOrder) || (orderLogicSizeItems ==0))
+		if((!itemOfCartIsInOrder) || (orderLogicSizeItems ==0))
 			order->addItemToOrder(allItemsOfCart[i]);
 		itemOfCartIsInOrder = false; //initialize
 	}

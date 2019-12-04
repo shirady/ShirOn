@@ -67,8 +67,7 @@ void Order::reallocItems()
 	{
 		if (m_allItemsOfOrder[i] != nullptr)
 		{
-			newAllItems[i] = m_allItemsOfOrder[i];
-			newArrSize++;
+			newAllItems[newArrSize++] = m_allItemsOfOrder[i];
 		}
 	}
 	if( newArrSize < m_logicSizeItems)
@@ -102,6 +101,7 @@ void Order::removeItemFromOrder(const Item* item)
 
 void Order::showOrder() const
 {
+	cout << "The items in the order are:" << endl;
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
 	{
 		if (m_allItemsOfOrder[i] != nullptr)

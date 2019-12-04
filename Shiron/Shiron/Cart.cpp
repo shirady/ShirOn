@@ -32,8 +32,7 @@ void Cart::reallocItems()
 	{
 		if (m_allItemsOfCart[i] != nullptr)
 		{
-			newAllItems[i] = m_allItemsOfCart[i];
-			newArrSize++;
+			newAllItems[newArrSize++] = m_allItemsOfCart[i];
 		}
 	}
 	if (newArrSize < m_logicSizeItems)
