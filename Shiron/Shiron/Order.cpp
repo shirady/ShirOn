@@ -1,10 +1,10 @@
 #include "Order.h"
 
-Order::Order(unsigned int LogicSizeItemsOfCart)
+Order::Order(unsigned int physSizeItems)
 {
 	setLogicSizeItems(INITIAL_LOGICAL_SIZE);
-	setPhysSizeItems(LogicSizeItemsOfCart); //LogicSizeItemsOfCart is the physicSize of the order
-	m_allItemsOfOrder = new Item*[m_physSizeItems];
+	setPhysSizeItems(physSizeItems);
+	m_allItemsOfOrder = new const Item*[m_physSizeItems];
 	setOpenOrder(INITIAL_OPEN_ORDER);
 	setOpenPayment(INITIAL_OPEN_PAYMENT);
 }
@@ -15,7 +15,7 @@ Order::Order(const Order& other)
 	setOpenPayment(other.m_openPayment);
 	setLogicSizeItems(other.m_logicSizeItems);
 	setPhysSizeItems(other.m_physSizeItems);
-	m_allItemsOfOrder = new Item*[m_physSizeItems];
+	m_allItemsOfOrder = new const Item*[m_physSizeItems];
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
 	{
 		m_allItemsOfOrder[i] = other.m_allItemsOfOrder[i]; //changed from new Item(*(other.m_allItemsOfOrder[i]))
@@ -61,17 +61,23 @@ bool Order::setOpenPayment(bool openPayment)
 
 void Order::reallocItems()
 {
-	Item** newAllItems = new Item*[m_physSizeItems];
-
+	const Item** newAllItems = new const Item*[m_physSizeItems];
+	unsigned int newArrSize=0;
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
 	{
-		newAllItems[i] = m_allItemsOfOrder[i];
+		if (m_allItemsOfOrder[i] != nullptr)
+		{
+			newAllItems[i] = m_allItemsOfOrder[i];
+			newArrSize++;
+		}
 	}
+	if( newArrSize < m_logicSizeItems)
+		setLogicSizeItems(newArrSize);
 	delete[]m_allItemsOfOrder;
 	m_allItemsOfOrder = newAllItems;
 }
 
-bool Order::addItemToOrder(Item* item)
+bool Order::addItemToOrder(const Item* item)
 {
 	if (m_logicSizeItems == m_physSizeItems)
 	{
@@ -80,4 +86,51 @@ bool Order::addItemToOrder(Item* item)
 	}
 	m_allItemsOfOrder[m_logicSizeItems++] = item;
 	return true;
+}
+
+void Order::removeItemFromOrder(const Item* item)
+{
+	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+	{
+		if (m_allItemsOfOrder[i] == item)
+		{
+			m_allItemsOfOrder[i] = nullptr;
+			return;
+		}
+	}
+}
+
+void Order::showOrder() const
+{
+	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+	{
+		if (m_allItemsOfOrder[i] != nullptr)
+			m_allItemsOfOrder[i]->showItem();
+	}
+	cout << endl;
+}
+
+unsigned int Order::getLogicSizeItems() const
+{
+	return m_logicSizeItems;
+}
+
+const Item** Order::allItemsOfOrder() const
+{
+	return m_allItemsOfOrder;
+}
+
+const Item* Order::findSerialNumber(unsigned int serialNumber) const
+{
+	const Item* foundItem = nullptr;
+	bool ItemExists = false;
+	for (unsigned int i = 0; i < m_logicSizeItems && !ItemExists; i++)
+	{
+		if (m_allItemsOfOrder[i]->getSerialNumberOfItem() == serialNumber)
+		{
+			ItemExists = true;
+			foundItem = m_allItemsOfOrder[i];
+		}
+	}
+	return foundItem;
 }

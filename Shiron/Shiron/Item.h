@@ -23,7 +23,7 @@ private:
 	char* m_nameOfItem;
 	eCategory m_categoryOfItem;
 	unsigned int m_priceOfItem; //change the price to decimal
-	unsigned int m_serialNumberOfItem; // need to have a mechanism for a new serial number
+	unsigned int m_serialNumberOfItem; // need to have a mechanism a new serial number
 	static unsigned int m_serialNumberCounter;
 
 public:

@@ -24,7 +24,7 @@ public:
 private:
 	unsigned int m_logicSizeItems;
 	unsigned int m_physSizeItems;
-	Item** m_allItemsOfCart;
+	const Item** m_allItemsOfCart;
     
 public:
 	Cart(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor 
@@ -34,11 +34,13 @@ public:
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
 	void reallocItems();
-	bool addItemToCart(Item* item);
+	bool addItemToCart(const Item* item);
 
-	unsigned int getLogicSizeItems();
+	unsigned int getLogicSizeItems() const;
+	const Item** allItemsOfCart() const;
+	const Item* findSerialNumber(unsigned int serialNumber) const;
 
-	void showCart();
+	void showCart() const;
     };
 
 #endif //__Cart_H

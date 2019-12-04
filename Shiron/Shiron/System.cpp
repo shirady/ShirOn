@@ -338,7 +338,7 @@ void System::menuOptions()
 			addItemToCartMenu();
 			break;
 		case 6:
-			cout << '6';
+			makeAnOrderMenu();
 			break;
 		case 7:
 			cout << '7';
@@ -373,19 +373,24 @@ void System::cleanBuffer()
 	} while (c != EOF && c != '\n');
 }
 
+void System::showUser(User& user) const
+{
+	Address address = user.getAddress();
+	cout << "User name: " << user.getUserName() << endl
+	<< "Country: " << address.getCountry()
+	<< ", City: " << address.getCity()
+	<< ", Street: " << address.getStreet()
+	<< ", Building Number: " << address.getBuildNo()
+	<< ", Apartment Number: " << address.getApartmentNo()
+	<< ", Zip Code: " << address.getZipCode() << endl;
+}
 void System::showAllBuyers() const
 {
 	cout << "There are " << m_logicSizeBuyers << " buyers in the system:" << endl;
 	for (unsigned int i = 0; i < m_logicSizeBuyers; i++)
 	{
-		cout << "#" << i + 1 << ": "
-			<< "User name: " << m_allBuyers[i]->getUser().getUserName() << endl
-			<< "Country: " << m_allBuyers[i]->getUser().getAddress().getCountry()
-			<< ", City: " << m_allBuyers[i]->getUser().getAddress().getCity()
-			<< ", Street: " << m_allBuyers[i]->getUser().getAddress().getStreet()
-			<< ", Building Number: " << m_allBuyers[i]->getUser().getAddress().getBuildNo()
-			<< ", Apartment Number: " << m_allBuyers[i]->getUser().getAddress().getApartmentNo()
-			<< ", Zip Code: " << m_allBuyers[i]->getUser().getAddress().getZipCode() << endl;
+		cout << "#" << i + 1 << ": ";
+		showUser(m_allBuyers[i]->getUser());
 	}
 }
 
@@ -394,14 +399,8 @@ void System::showAllSellers() const
 	cout << "There are " << m_logicSizeSellers << " sellers in the system:" << endl;
 	for (unsigned int i = 0; i < m_logicSizeSellers; i++)
 	{
-		cout << "#" << i + 1 << ": "
-			<< "User name: " << m_allSellers[i]->getUser().getUserName() << endl
-			<< "Country: " << m_allSellers[i]->getUser().getAddress().getCountry()
-			<< ", City: " << m_allSellers[i]->getUser().getAddress().getCity()
-			<< ", Street: " << m_allSellers[i]->getUser().getAddress().getStreet()
-			<< ", Building Number: " << m_allSellers[i]->getUser().getAddress().getBuildNo()
-			<< ", Apartment Number: " << m_allSellers[i]->getUser().getAddress().getApartmentNo()
-			<< ", Zip Code: " << m_allSellers[i]->getUser().getAddress().getZipCode() << endl;
+		cout << "#" << i + 1 << ": ";
+		showUser(m_allSellers[i]->getUser());
 	}
 }
 
@@ -445,7 +444,7 @@ void System::addItemToCartMenu()
 				unsigned int counter = seller->ShowItemsOfSeller(nameOfItem);
 				if (counter > 0)
 				{
-					cout << "Enter the serial number of the item to add to the Cart" << endl;
+					cout << "Enter the serial number of the item to add to the Cart: ";
 					unsigned int serialNumber;
 					cin >> serialNumber;
 					Item* item = seller->findSerialNumber(serialNumber);
@@ -481,24 +480,51 @@ void System::makeAnOrderMenu()
 	Buyer* buyer = findBuyer(buyerName);
 	if (buyer != nullptr)
 	{
-		if (buyer->getCart()->getLogicSizeItems() > 0)
+		Cart* cart = buyer->getCart();
+		unsigned int numberOfItemsInCart = cart->getLogicSizeItems();
+		if (numberOfItemsInCart > 0)
 		{
-			buyer->getCart()->showCart();
-			cout << "Please enter one of the options: " << endl
-				<< "1: Add all items from cart" << endl
-				<< "2: Choose item from cart" << endl
-				<< "3: Remove item from cart" << endl;
+			Order* order = buyer->getOrder(); 
+			unsigned int numberOfItemsInOrder = order->getLogicSizeItems();
+			cout << "The items in the cart are:" << endl;
+			cart->showCart();
+			cout << "\nPlease enter one of the options: " << endl
+				<< "1: Choose all items from cart to the order" << endl
+				<< "2: Choose certain items from cart to the order" << endl
+				<< "3: Remove certain items from order" << endl;
 			cin >> option;
 			switch (option)
 			{
 			case 1:
+				if (numberOfItemsInOrder < numberOfItemsInCart)
+				{
+					chooseAllItemsFromCart(buyer);
+					cout << "The items in the order are: " << endl;
+					order->showOrder();
+				}
+				else
+					cout << "All of the items are in the order" << endl;
 				break;
 			case 2:
+				if (numberOfItemsInOrder > 0)
+				{
+					cout << "The items in the order are: " << endl;
+					order->showOrder();
+					chooseCertainItemsFromCart(buyer);
+				}
 				break;
 			case 3:
+				if (numberOfItemsInOrder > 0)
+				{
+					order->showOrder();
+					removeItemsFromOrder(buyer);
+				}
+				else
+				{
+					cout << "There are no items in the order" << endl;
+				}
 				break;
 			}
-
 		}
 		else
 		{
@@ -508,5 +534,103 @@ void System::makeAnOrderMenu()
 	else
 	{
 		cout << "Buyer was not found in the system" << endl;
+	}
+}
+
+void System::chooseAllItemsFromCart(Buyer* buyer) const
+{
+	Cart* cart = buyer->getCart();
+	Order* order = buyer->getOrder();
+	const Item** allItemsOfCart = cart->allItemsOfCart();
+	const Item** allItemsOfOrder = order->allItemsOfOrder();
+	bool itemOfCartIsInOrder = false;
+	unsigned int cartLogicSizeItems = cart->getLogicSizeItems();
+	unsigned int orderLogicSizeItems = order->getLogicSizeItems();
+
+	for (unsigned int i = 0; i < cartLogicSizeItems; i++)
+	{
+		for (unsigned int j = 0; j < orderLogicSizeItems && !itemOfCartIsInOrder; j++)
+		{
+			if (allItemsOfCart[i] == allItemsOfOrder[j])
+				itemOfCartIsInOrder = true;
+		}
+		if((itemOfCartIsInOrder) || (orderLogicSizeItems ==0))
+			order->addItemToOrder(allItemsOfCart[i]);
+		itemOfCartIsInOrder = false; //initialize
+	}
+}
+void System::chooseCertainItemsFromCart(Buyer* buyer) const
+{
+	Cart* cart = buyer->getCart();
+	Order* order = buyer->getOrder();
+	unsigned int cartItemsAmount = cart->getLogicSizeItems();
+	const Item** allItemsOfCart = cart->allItemsOfCart();
+	unsigned int numberOfItems;
+	unsigned int serialNumber;
+	cout << "The number of items in the cart is: " << cartItemsAmount << endl;;
+	cout << "How many items do you want to add to the order? ";
+	cin >> numberOfItems;
+	if (numberOfItems <= cartItemsAmount && numberOfItems > 0)
+	{
+		for (unsigned int i = 0; i < numberOfItems; i++)
+		{
+			cout << "Enter the " << i + 1 << " serial number of item: ";
+			cin >> serialNumber;
+			const Item* item = cart->findSerialNumber(serialNumber);
+			if (item != nullptr)
+			{
+				order->addItemToOrder(item);
+			}
+			else
+			{
+				cout << "The serial number you entered is not valid" << endl;
+			}
+		}
+	}
+	else
+	{
+		cout << "The number of items you items in the cart is " 
+		<< cartItemsAmount << " and you entered " 
+		<< numberOfItems << ":(" << endl;
+	}
+}
+
+void System::removeItemsFromOrder(Buyer* buyer) const
+{
+	Order* order = buyer->getOrder();
+	unsigned int numberOfItemInOrder = order->getLogicSizeItems();
+	const Item** allItemsOfOrder = order->allItemsOfOrder();
+	unsigned int numberOfItemsToDel;
+	unsigned int serialNumber;
+
+	cout << "The number of items in the order is: " << numberOfItemInOrder << endl;
+	cout << "How many items do you want to remove from the order? " << endl;
+	cin >> numberOfItemsToDel;
+
+	if (numberOfItemsToDel <= numberOfItemInOrder && numberOfItemsToDel > 0)
+	{
+		for (unsigned int i = 0; i < numberOfItemsToDel; i++)
+		{
+			cout << "Enter the " << i + 1 << " serial number of item : ";
+			cin >> serialNumber;
+			const Item* item = order->findSerialNumber(serialNumber);
+			if (item != nullptr)
+			{
+				order->showOrder();
+				order->removeItemFromOrder(item);
+				order->reallocItems();
+				order->showOrder();
+			}
+			else
+			{
+				cout << "The serial number you entered is not valid" << endl;
+			}
+		}
+	}
+	else
+	{
+		cout << "The number of items you items in the cart is "
+			<< numberOfItemInOrder << " and you entered "
+			<< numberOfItemsToDel << ":(" << endl;
 	}
 }

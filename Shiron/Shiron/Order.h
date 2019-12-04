@@ -18,12 +18,12 @@ public:
 private:
 	unsigned int m_logicSizeItems;
 	unsigned int m_physSizeItems;
-	Item** m_allItemsOfOrder;
+	const Item** m_allItemsOfOrder;
 	bool m_openOrder;
 	bool m_openPayment;
 
 public:
-	Order(unsigned int LogicSizeItemsOfCart); //c'tor
+	Order(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor
 	Order(const Order& other); //copy c'tor
 	~Order(); //d'tor
 
@@ -32,7 +32,15 @@ public:
 	bool setOpenOrder(bool openOrder);
 	bool setOpenPayment(bool openPayment);
 	void reallocItems();
-	bool addItemToOrder(Item* item);
+	bool addItemToOrder(const Item* item);
+	void removeItemFromOrder(const Item* item);
+
+	unsigned int getLogicSizeItems() const;
+	const Item** allItemsOfOrder() const;
+
+	void showOrder() const;
+
+	const Item* findSerialNumber(unsigned int serialNumber) const;
 };
 
 #endif // __ORDER_H

@@ -18,7 +18,7 @@ private:
 	User m_user;
 	Cart* m_Cart;
 	//Order** m_OrdersHistory;
-	//Order* m_OpenOrder;
+	Order* m_Order;
 
 public:
 	Buyer(const User& user); //c'tor 
@@ -27,6 +27,7 @@ public:
 
 	User& getUser(); //const method?
 	Cart* getCart() const;
+	Order* getOrder() const;
 };
 
 #endif //__BUYER_H

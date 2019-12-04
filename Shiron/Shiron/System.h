@@ -66,9 +66,14 @@ public:
 	Seller* findSeller(const char* nameOfSeller) const;
 	void showAllBuyers() const;
 	void showAllSellers() const;
+	void showUser(User& user) const;
 
 	bool showAllItemsMenu(const char* itemName) const;
 	void showAllItemsOption() const;
+
+	void chooseAllItemsFromCart(Buyer* buyer) const;
+	void chooseCertainItemsFromCart(Buyer* buyer) const;
+	void removeItemsFromOrder(Buyer* buyer) const;
 };
 
 #endif //__SYSTEM_H
