@@ -44,7 +44,7 @@ public:
 	void reallocBuyers();
 	void reallocSellers();
 
-	System(char* systemName, unsigned int physSizeBuyers = INITIAL_PHYSICAL_SIZE, unsigned int physSizeSellers = INITIAL_PHYSICAL_SIZE); //c'tor
+	System(const char* systemName, unsigned int physSizeBuyers = INITIAL_PHYSICAL_SIZE, unsigned int physSizeSellers = INITIAL_PHYSICAL_SIZE); //c'tor
 	~System(); //d'tor
 
 	bool addBuyerToSystem(Buyer* buyer);

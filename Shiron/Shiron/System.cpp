@@ -80,7 +80,7 @@ Seller** System::getAllSellers()
 	return m_allSellers;
 }
 
-System::System(char* systemName, unsigned int physSizeBuyers, unsigned int physSizeSellers)
+System::System(const char* systemName, unsigned int physSizeBuyers, unsigned int physSizeSellers)
 {
 	setSystemName(systemName);
 
@@ -186,3 +186,4 @@ Buyer* System::findBuyer(const char* nameOfBuyer) const
 	}
 	return foundBuyer;
 }
+

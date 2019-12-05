@@ -1,17 +1,18 @@
 #ifndef __INTERFACE_H
 #define __INTERFACE_H
 
-#include <iostream>;
+#include <iostream>
 using namespace std;
+#pragma warning(disable: 4996)
 #include "system.h"
 
 class Interface
 {
 private:
-	System* m_system;
+	System* m_system = nullptr; //where to initialize?
 
 public:
-	 Interface(System& system); //c'tor
+	Interface();
 	 Interface(const System& other) = delete; //copt c'tor disabled
 	 ~Interface(); //d'tor
 
@@ -23,10 +24,14 @@ public:
 	 void addItemToCartMenu();
 	 void makeAnOrderMenu();
 
+	 void readSystem();
 	 const Address readAddress();
 	 const User readUser();
 	 Buyer* readBuyer();
 	 Seller* readSeller();
+
+	 bool setSystem(const char * systemName);
+
 	
 	 void cleanBuffer();
 	 Item* readItem();
@@ -41,7 +46,6 @@ public:
 	 void chooseCertainItemsFromCart(Buyer* buyer) const;
 	 void removeItemsFromOrder(Buyer* buyer) const;
 	 void payOrderMenu();
-
 };
 
 #endif// __INTERFACE_H

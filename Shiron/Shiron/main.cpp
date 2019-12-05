@@ -59,9 +59,8 @@ int main()
 	Address address(country, city, street, buildNo, apartmentNo, zipCode);
 	User user(name, password, address);*/
 
-	char systemName[System::MAX_LEN_SYSTEM_NAME] = "Shiron";
-	System system(systemName);
-	Interface interface(system);
-	interface.menu();
+	Interface interface;
+	interface.readSystem();
+	interface.menuOptions();
 }
 

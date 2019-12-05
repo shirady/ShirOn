@@ -1,13 +1,14 @@
 #include "Interface.h"
 
-/*Interface::Interface(System& system)
+Interface::Interface()
 {
-	m_system = new System(system.getSystemName());
-}*/
+
+}
 
 Interface::~Interface()
 {
-	delete m_system;
+	if (m_system != nullptr)
+		delete m_system;
 }
 
 const Address Interface::readAddress()
@@ -38,6 +39,19 @@ const Address Interface::readAddress()
 	cin.getline(zipCode, Address::MAX_LEN_ZIP_CODE);
 
 	return Address(country, city, street, buildNo, apartmentNo, zipCode);
+}
+
+void Interface::readSystem()
+{
+	char systemName[System::MAX_LEN_SYSTEM_NAME];
+	cout << "Enter system name: ";
+	cin.getline(systemName, System::MAX_LEN_SYSTEM_NAME);
+	setSystem(systemName);
+}
+bool Interface::setSystem(const char * systemName)
+{
+	m_system = new System(systemName);
+	return true;
 }
 
 const User Interface::readUser()
