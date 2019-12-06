@@ -58,7 +58,9 @@ public:
 	void removeItemsFromOrder(Buyer* buyer) const;
 	void payOrderMenu();
 
-	bool findSellerInOrder(Order* order, const char* sellerName) const;
+	bool findSellerInOrdersHistory(Seller* seller, Buyer* buyer);
+	//bool findSellerInOrder(Order* order, const char* sellerName) const;
+	bool findSellerInAOrder(Order* order, Seller* seller) const;
 };
 
 #endif// __INTERFACE_H

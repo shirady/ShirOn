@@ -348,7 +348,7 @@ void Interface::addItemToCartMenu()
 
 }
 
-/*void Interface::addFeedbackToSellerMenu()
+void Interface::addFeedbackToSellerMenu()
 {
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
@@ -377,9 +377,7 @@ void Interface::addItemToCartMenu()
 	{
 		cout << "Buyer was not found in the system" << endl;
 	}
-
-
-}*/
+}
 
 void Interface::makeAnOrderMenu()
 {
@@ -600,9 +598,6 @@ void Interface::payOrderMenu()
 					cout << "You didn't enter the exact amount of money" << endl;
 				}
 			}
-
-
-
 		}
 		else
 		{
@@ -647,8 +642,44 @@ void Interface::showAllSellers() const
 	cout << "The feedback is: " << m_feedback;
 */
 
+bool Interface::findSellerInOrdersHistory(Seller* seller, Buyer* buyer)
+{
+	bool foundSeller = false;
+	//bool foundSellerInOrder = false;
 
-bool Interface::findSellerInOrder(Order* order, const char* sellerName) const
+	Order** allOrdersInBuyer = buyer->getAllOrders();
+	unsigned int orderHistoryLogicSize = buyer->getLogicSizeOrders();
+	for (int i = 0; i < orderHistoryLogicSize && !foundSeller; i++)
+	{
+		foundSeller = findSellerInAOrder(allOrdersInBuyer[i], seller);
+		if (foundSeller)
+		{
+			foundSeller = true;
+		}
+	}
+	return foundSeller;
+
+}
+
+bool Interface::findSellerInAOrder(Order* order, Seller* seller) const
+{
+	//Seller* foundSeller = nullptr;
+	bool sellerExists = false;
+	const Item** allItemsInOrder = order->getAllItemsOfOrder();
+	unsigned int logicSizeItems = order->getLogicSizeItems();
+
+	for (unsigned int i = 0; i < logicSizeItems && !sellerExists; i++)
+	{
+		//const Item* itemInOrder = allItemsInOrder[i];
+		//Seller* seller = itemInOrder->getSeller()->getUser();
+		if (allItemsInOrder[i]->getSeller() == seller)
+		{
+			sellerExists = true;
+		}
+	}
+	return sellerExists;
+}
+/*bool Interface::findSellerInOrder(Order* order, const char* sellerName) const
 {
 	//Seller* foundSeller = nullptr;
 	bool sellerExists = false;
@@ -666,4 +697,4 @@ bool Interface::findSellerInOrder(Order* order, const char* sellerName) const
 	}
 	return sellerExists;
 }
-
+*/
