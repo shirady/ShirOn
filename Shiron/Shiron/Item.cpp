@@ -52,10 +52,20 @@ bool Item::setPriceOfItem(unsigned int priceOfItem)
 		return false;
 }
 
+bool Item::setSeller(Seller* seller)
+{
+	if (seller != nullptr)
+	{
+		m_seller = seller;
+		return true;
+	}
+	else
+		return false;
+}
+
 const char* Item::getNameOfItem() const
 {
 	return m_nameOfItem;
-
 }
 
 Item::eCategory Item::getCategoryOfItem() const
@@ -73,11 +83,12 @@ unsigned int Item::getSerialNumberOfItem() const
 	return m_serialNumberOfItem;
 }
 
-Item::Item(const char* nameOfItem, Item::eCategory categoryOfItem, unsigned int priceOfItem)
+Item::Item(const char* nameOfItem, Item::eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller)
 {
 	setNameOfItem(nameOfItem);
 	setCategoryOfItem(categoryOfItem);
 	setPriceOfItem(priceOfItem);
+	setSeller(seller);
 	m_serialNumberOfItem = ++m_serialNumberCounter;
 }
 
@@ -86,6 +97,7 @@ Item::Item(const Item& other)
 	setNameOfItem(other.m_nameOfItem);
 	setCategoryOfItem(other.m_categoryOfItem);
 	setPriceOfItem(other.m_priceOfItem);
+	setSeller(other.m_seller);
 	m_serialNumberOfItem = other.m_serialNumberOfItem; //should it be the same number??
 }
 
@@ -99,5 +111,5 @@ void Item::showItem() const
 	cout << "Item name: " << m_nameOfItem
 		<< ", Category: " << category[m_categoryOfItem]
 		<< ", Price: " << m_priceOfItem
-		<< ", Serial Number: " << m_serialNumberOfItem << endl;
+		<< ", Serial Number: " << m_serialNumberOfItem;
 }

@@ -12,7 +12,7 @@ private:
 	System* m_system = nullptr; //where to initialize?
 
 public:
-	Interface();
+	 Interface();
 	 Interface(const System& other) = delete; //copt c'tor disabled
 	 ~Interface(); //d'tor
 
@@ -29,12 +29,11 @@ public:
 	 const User readUser();
 	 Buyer* readBuyer();
 	 Seller* readSeller();
+	 Item* readItem(Seller* seller);
 
 	 bool setSystem(const char * systemName);
 
-	
 	 void cleanBuffer();
-	 Item* readItem();
 
 	 void showUser(User& user) const;
 	 bool showAllItemsMenu(const char* itemName) const;

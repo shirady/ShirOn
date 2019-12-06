@@ -77,7 +77,7 @@ Seller* Interface::readSeller()
 	return new Seller(readUser());
 }
 
-Item* Interface::readItem()
+Item* Interface::readItem(Seller* seller)
 {
 	char nameOfItem[Item::MAX_LEN_NAME];
 	cout << "Enter The item name: ";
@@ -93,7 +93,7 @@ Item* Interface::readItem()
 	cout << "Please enter the price of the product: ";
 	cin >> priceOfItem;
 
-	return new Item(nameOfItem, categoryOfItem, priceOfItem);
+	return new Item(nameOfItem, categoryOfItem, priceOfItem, seller);
 }
 
 
@@ -239,7 +239,7 @@ void Interface::addItemToSellerMenu()
 	Seller* seller = m_system->findSeller(sellerName);
 	if (seller != nullptr)
 	{
-		Item* item = readItem();
+		Item* item = readItem(seller);
 		seller->addItemToSeller(item);
 	}
 	else

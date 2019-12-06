@@ -6,6 +6,8 @@
 using namespace std;
 #pragma warning(disable: 4996)
 
+class Seller; //forward declaration 
+
 class Item
 {
 public:
@@ -25,11 +27,13 @@ private:
 	unsigned int m_priceOfItem; //change the price to decimal
 	unsigned int m_serialNumberOfItem; // need to have a mechanism a new serial number
 	static unsigned int m_serialNumberCounter;
+	Seller* m_seller;
 
 public:
 	bool setNameOfItem(const char* nameOfItem);
 	bool setCategoryOfItem(eCategory categoryOfItem);
 	bool setPriceOfItem(unsigned int priceOfItem);
+	bool setSeller(Seller* seller);
 
 	const char* getNameOfItem() const;
 	eCategory getCategoryOfItem() const;
@@ -40,7 +44,7 @@ public:
 
 	void showItem() const;
 
-	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem); //c'tor
+	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller=nullptr); //c'tor
 	Item(const Item& other); //copy c'tor
 	// move c'tor
 	~Item(); //d'tor

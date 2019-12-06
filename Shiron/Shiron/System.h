@@ -33,8 +33,10 @@ public:
 	bool setPhysSizeBuyers(unsigned int physSizeBuyers);
 	bool setLogicSizeSellers(unsigned int logicSizeSellers);
 	bool setPhysSizeSellers(unsigned int physSizeSellers);
+
 	void cleanBuyersArray();
 	void cleanSellersArray();
+
 	const char* getSystemName();
 	unsigned int getLogicSizeSellers() const;
 	unsigned int getLogicSizeBuyers() const;
@@ -52,7 +54,6 @@ public:
 
 	Buyer* findBuyer(const char* nameOfBuyer) const;
 	Seller* findSeller(const char* nameOfSeller) const;
-
 };
 
 #endif //__SYSTEM_H
