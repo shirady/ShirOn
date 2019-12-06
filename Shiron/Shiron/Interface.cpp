@@ -96,6 +96,35 @@ Item* Interface::readItem(Seller* seller)
 	return new Item(itemName, categoryOfItem, priceOfItem, seller);
 }
 
+Feedback* Interface::readFeedback(Buyer* buyer) 
+{
+	char feedbackText[Feedback::MAX_LEN_FEEDBACK];
+	cout << "Enter Your feedback: ";
+	cin.getline(feedbackText, Feedback::MAX_LEN_FEEDBACK);
+
+	return new Feedback(feedbackText, readDate(), buyer);
+}
+
+const Date Interface::readDate()
+{
+	unsigned int year, month, day;
+	cout << "Please enter the date, in the following format:" << endl;
+
+	cout << "year: ";
+	cin >> year;
+	cout << endl;
+
+	cout << "month: ";
+	cin >> month;
+	cout << endl;
+
+	cout << "day: ";
+	cin >> day;
+	cout << endl;
+
+	return Date(year, month, day);
+}
+
 
 void Interface::showAllItemsOption() const
 {
@@ -178,7 +207,7 @@ void Interface::menuOptions()
 			addItemToSellerMenu();
 			break;
 		case 4:
-			cout << "a";
+			addFeedbackToSellerMenu();
 			break;
 		case 5:
 			addItemToCartMenu();
@@ -364,14 +393,16 @@ void Interface::addFeedbackToSellerMenu()
 		Seller* seller = m_system->findSeller(sellerName);
 		if (seller != nullptr)
 		{
-
+			if (findSellerInOrdersHistory(seller, buyer))
+			{
+				Feedback* feedback = readFeedback(buyer); 
+				seller->addFeedbackToSeller(feedback);
+			}
 		}
 		else
 		{
 			cout << "Seller was not found in the system" << endl;
 		}
-		//Item* item = readItem(seller);
-		//seller->addItemToSeller(item);
 	}
 	else
 	{
@@ -542,7 +573,6 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 	}
 }
 
-
 void Interface::payOrderMenu()
 {
 	int option;
@@ -635,13 +665,6 @@ void Interface::showAllSellers() const
 	}
 }
 
-/* feedback
-	cout << "The date is: " << m_date.getYear() << "/" << m_date.getMonth() << "/" << m_date.getDay();
-	cout << "The seller name is: " << m_sellerName;
-	cout << "The responder name is: " << m_responderName;
-	cout << "The feedback is: " << m_feedback;
-*/
-
 bool Interface::findSellerInOrdersHistory(Seller* seller, Buyer* buyer)
 {
 	bool foundSeller = false;
@@ -649,7 +672,7 @@ bool Interface::findSellerInOrdersHistory(Seller* seller, Buyer* buyer)
 
 	Order** allOrdersInBuyer = buyer->getAllOrders();
 	unsigned int orderHistoryLogicSize = buyer->getLogicSizeOrders();
-	for (int i = 0; i < orderHistoryLogicSize && !foundSeller; i++)
+	for (unsigned int i = 0; i < orderHistoryLogicSize && !foundSeller; i++)
 	{
 		foundSeller = findSellerInAOrder(allOrdersInBuyer[i], seller);
 		if (foundSeller)
@@ -698,3 +721,5 @@ bool Interface::findSellerInAOrder(Order* order, Seller* seller) const
 	return sellerExists;
 }
 */
+
+

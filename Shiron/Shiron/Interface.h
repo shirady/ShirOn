@@ -36,6 +36,7 @@ public:
 	Seller* readSeller();
 	Item* readItem(Seller* seller);
 	Feedback* readFeedback(Buyer* buyer);
+	const Date readDate();
 
 	bool setSystem(const char * systemName);
 

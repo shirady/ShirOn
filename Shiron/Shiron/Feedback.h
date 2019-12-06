@@ -27,8 +27,8 @@ public:
 	const char* getFeedback(const char* feedback);
 	const Date& getDate();
 
-	Feedback(const char* feedback, const Date& date, Buyer* buyer);
-	Feedback(const Feedback& other) = delete;
+	Feedback(const char* feedback, const Date& date, Buyer* buyer); //c'tor
+	Feedback(const Feedback& other) = delete; //copy c'tor
 	~Feedback(); //d'tor
 };
 
