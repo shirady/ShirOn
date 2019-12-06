@@ -33,9 +33,9 @@ public:
 	void removeItemFromOrder(const Item* item);
 
 	unsigned int getLogicSizeItems() const;
-	const Item** allItemsOfOrder() const;
+	const Item** getAllItemsOfOrder() const;
 
-	void showOrder() const;
+	//void showOrder() const;
 
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 	unsigned int getTotalPriceOfOrder() const;

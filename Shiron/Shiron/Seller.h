@@ -27,13 +27,16 @@ public:
 
 	bool addItemToSeller(Item* item);
 	void reallocItems();
+
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
-
-	unsigned int ShowItemsOfSeller(const char* name) const;
-	Item* findSerialNumber(int serialNumber);
-
+	
+	unsigned int getLogicSizeItems() const;
+	Item** getAllItems() const;
 	User& getUser();
+
+	//unsigned int ShowItemsOfSeller(const char* name) const;
+	Item* findSerialNumber(int serialNumber);
 };
 
 #endif //__SELLER_H

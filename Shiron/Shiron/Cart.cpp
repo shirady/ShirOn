@@ -89,12 +89,12 @@ unsigned int Cart::getLogicSizeItems() const
 	return m_logicSizeItems;
 }
 
-const Item** Cart::allItemsOfCart() const
+const Item** Cart::getAllItemsOfCart() const
 {
 	return m_allItemsOfCart;
 }
 
-void Cart::showCart() const
+/*void Cart::showCart() const
 {
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
 	{
@@ -102,7 +102,7 @@ void Cart::showCart() const
 			m_allItemsOfCart[i]->showItem();
 	}
 	cout << endl;
-}
+}*/
 
 const Item* Cart::findSerialNumber(unsigned int serialNumber) const
 {

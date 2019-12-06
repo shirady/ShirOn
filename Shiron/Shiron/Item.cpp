@@ -2,14 +2,14 @@
 
 unsigned int Item::m_serialNumberCounter = 0;
 
-bool Item::setNameOfItem(const char* nameOfItem)
+bool Item::setNameOfItem(const char* itemName)
 {
 	//delete[] m_nameOfItem; //will not run unless m_userName was allocated
-	unsigned int name_len = strlen(nameOfItem);
-	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (CheckCharacters(nameOfItem)))
+	unsigned int name_len = strlen(itemName);
+	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (CheckCharacters(itemName)))
 	{
-		m_nameOfItem = new char[strlen(nameOfItem) + 1];
-		strcpy(m_nameOfItem, nameOfItem);
+		m_itemName = new char[strlen(itemName) + 1];
+		strcpy(m_itemName, itemName);
 		return true;
 	}
 	else
@@ -65,7 +65,7 @@ bool Item::setSeller(Seller* seller)
 
 const char* Item::getNameOfItem() const
 {
-	return m_nameOfItem;
+	return m_itemName;
 }
 
 Item::eCategory Item::getCategoryOfItem() const
@@ -83,9 +83,9 @@ unsigned int Item::getSerialNumberOfItem() const
 	return m_serialNumberOfItem;
 }
 
-Item::Item(const char* nameOfItem, Item::eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller)
+Item::Item(const char* itemName, Item::eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller)
 {
-	setNameOfItem(nameOfItem);
+	setNameOfItem(itemName);
 	setCategoryOfItem(categoryOfItem);
 	setPriceOfItem(priceOfItem);
 	setSeller(seller);
@@ -94,7 +94,7 @@ Item::Item(const char* nameOfItem, Item::eCategory categoryOfItem, unsigned int 
 
 Item::Item(const Item& other)
 {
-	setNameOfItem(other.m_nameOfItem);
+	setNameOfItem(other.m_itemName);
 	setCategoryOfItem(other.m_categoryOfItem);
 	setPriceOfItem(other.m_priceOfItem);
 	setSeller(other.m_seller);
@@ -103,13 +103,13 @@ Item::Item(const Item& other)
 
 Item::~Item()
 {
-	delete[] m_nameOfItem;
+	delete[] m_itemName;
 }
 
-void Item::showItem() const
-{
-	cout << "Item name: " << m_nameOfItem
-		<< ", Category: " << category[m_categoryOfItem]
-		<< ", Price: " << m_priceOfItem
-		<< ", Serial Number: " << m_serialNumberOfItem;
-}
+//void Item::showItem() const
+//{
+//	cout << "Item name: " << m_itemName
+//		<< ", Category: " << category[m_categoryOfItem]
+//		<< ", Price: " << m_priceOfItem
+//		<< ", Serial Number: " << m_serialNumberOfItem;
+//}

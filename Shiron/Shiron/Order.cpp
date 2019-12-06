@@ -91,7 +91,7 @@ void Order::removeItemFromOrder(const Item* item)
 	}
 }
 
-void Order::showOrder() const
+/*void Order::showOrder() const
 {
 	cout << "The items in the order are:" << endl;
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
@@ -100,14 +100,14 @@ void Order::showOrder() const
 			m_allItemsOfOrder[i]->showItem();
 	}
 	cout << endl;
-}
+}*/
 
 unsigned int Order::getLogicSizeItems() const
 {
 	return m_logicSizeItems;
 }
 
-const Item** Order::allItemsOfOrder() const
+const Item** Order::getAllItemsOfOrder() const
 {
 	return m_allItemsOfOrder;
 }

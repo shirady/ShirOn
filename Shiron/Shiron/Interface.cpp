@@ -79,9 +79,9 @@ Seller* Interface::readSeller()
 
 Item* Interface::readItem(Seller* seller)
 {
-	char nameOfItem[Item::MAX_LEN_NAME];
+	char itemName[Item::MAX_LEN_NAME];
 	cout << "Enter The item name: ";
-	cin.getline(nameOfItem, Item::MAX_LEN_NAME);
+	cin.getline(itemName, Item::MAX_LEN_NAME);
 
 	Item::eCategory categoryOfItem;
 	cout << "Choose category: 0 - KIDS, 1- ELECTRONICS, 2 - OFFICE, 3 - CLOTHING: ";
@@ -93,7 +93,7 @@ Item* Interface::readItem(Seller* seller)
 	cout << "Please enter the price of the product: ";
 	cin >> priceOfItem;
 
-	return new Item(nameOfItem, categoryOfItem, priceOfItem, seller);
+	return new Item(itemName, categoryOfItem, priceOfItem, seller);
 }
 
 
@@ -113,11 +113,11 @@ bool Interface::showAllItemsMenu(const char* itemName) const
 	{
 		Seller** allSellers = m_system->getAllSellers();
 		Seller* seller = allSellers[i];
-		unsigned int counter = seller->ShowItemsOfSeller(itemName);
+		unsigned int counter = ShowItemsOfSeller(seller, itemName);
 		if (counter > 0)
 		{
 			itemFound = true;
-			cout << "The seller name is: " << seller->getUser().getUserName() << endl;
+			cout << " The seller name is: " << seller->getUser().getUserName() << endl;
 			cout << "The seller " << seller->getUser().getUserName() << " has " << counter << " items" << endl;
 			cout << "--------------------------------------------------------" << endl << endl;
 		}
@@ -196,11 +196,11 @@ void Interface::menuOptions()
 			showAllSellers();
 			break;
 		case 10:
-			char nameOfItem[Item::MAX_LEN_NAME];
+			char itemName[Item::MAX_LEN_NAME];
 			cout << "Please enter the name of the item: ";
-			cin.getline(nameOfItem, Item::MAX_LEN_NAME);
+			cin.getline(itemName, Item::MAX_LEN_NAME);
 			cout << endl;
-			showAllItemsMenu(nameOfItem);
+			showAllItemsMenu(itemName);
 			break;
 		case 11:
 			exitMenu = true;
@@ -219,6 +219,7 @@ void Interface::cleanBuffer()
 	} while (c != EOF && c != '\n');
 }
 
+
 void Interface::showUser(User& user) const
 {
 	Address address = user.getAddress();
@@ -229,6 +230,55 @@ void Interface::showUser(User& user) const
 		<< ", Building Number: " << address.getBuildNo()
 		<< ", Apartment Number: " << address.getApartmentNo()
 		<< ", Zip Code: " << address.getZipCode() << endl;
+}
+
+void Interface::showItem(const Item* item) const
+{
+	cout << "Item name: " << item->getNameOfItem()
+		<< ", Category: " << category[item->getCategoryOfItem()]
+		<< ", Price: " << item->getPriceOfItem()
+		<< ", Serial Number: " << item->getSerialNumberOfItem() << endl;
+}
+
+void Interface::showOrder(Order* order) const
+{
+	unsigned int logicSizeItems = order->getLogicSizeItems();
+	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
+	cout << "\nThe items in the order are:" << endl;
+	for (unsigned int i = 0; i < logicSizeItems; i++)
+	{
+		if (allItemsOfOrder[i] != nullptr)
+			showItem(allItemsOfOrder[i]);
+	}
+	cout << endl;
+}
+
+void Interface::showCart(Cart* cart) const
+{
+	unsigned int logicSizeItems = cart->getLogicSizeItems();
+	const Item** allItemsOfCart= cart->getAllItemsOfCart();
+	for (unsigned int i = 0; i < logicSizeItems; i++)
+	{
+		if (allItemsOfCart[i] != nullptr)
+			showItem(allItemsOfCart[i]);
+	}
+	cout << endl;
+}
+
+unsigned int Interface::ShowItemsOfSeller(Seller* seller, const char* itemName) const
+{
+	unsigned int logicSizeItems = seller->getLogicSizeItems();
+	Item** allItemsOfSeller = seller->getAllItems();
+	unsigned int counter = 0;
+	for (unsigned int i = 0; i < logicSizeItems; i++)
+	{
+		if (strcmp(allItemsOfSeller[i]->getNameOfItem(), itemName) == 0)
+		{
+			showItem(allItemsOfSeller[i]);
+			counter++;
+		}
+	}
+	return counter;
 }
 
 void Interface::addItemToSellerMenu()
@@ -256,11 +306,11 @@ void Interface::addItemToCartMenu()
 	Buyer* buyer = m_system->findBuyer(buyerName);
 	if (buyer != nullptr)
 	{
-		char nameOfItem[Item::MAX_LEN_NAME];
+		char itemName[Item::MAX_LEN_NAME];
 		cout << "Please enter the name of the item: ";
-		cin.getline(nameOfItem, Item::MAX_LEN_NAME);
+		cin.getline(itemName, Item::MAX_LEN_NAME);
 		cout << endl;
-		if (showAllItemsMenu(nameOfItem))
+		if (showAllItemsMenu(itemName))
 		{
 			cout << "Enter the seller name from the list above: ";
 			char sellerName[User::MAX_LEN_NAME];
@@ -268,7 +318,7 @@ void Interface::addItemToCartMenu()
 			Seller* seller = m_system->findSeller(sellerName);
 			if (seller != nullptr)
 			{
-				unsigned int counter = seller->ShowItemsOfSeller(nameOfItem);
+				unsigned int counter = ShowItemsOfSeller(seller, itemName);
 				if (counter > 0)
 				{
 					cout << "Enter the serial number of the item to add to the Cart: ";
@@ -314,7 +364,7 @@ void Interface::makeAnOrderMenu()
 			Order* order = buyer->getOrder();
 			unsigned int numberOfItemsInOrder = order->getLogicSizeItems();
 			cout << "The items in the cart are:" << endl;
-			cart->showCart();
+			showCart(cart);
 			cout << "\nPlease enter one of the options: " << endl
 				<< "1: Choose all items from cart to the order" << endl
 				<< "2: Choose certain items from cart to the order" << endl
@@ -327,7 +377,7 @@ void Interface::makeAnOrderMenu()
 				if (numberOfItemsInOrder < numberOfItemsInCart)
 				{
 					chooseAllItemsFromCart(buyer);
-					order->showOrder();
+					showOrder(order);
 				}
 				else
 					cout << "All of the items are in the order" << endl;
@@ -335,14 +385,14 @@ void Interface::makeAnOrderMenu()
 			case 2:
 				if (numberOfItemsInOrder > 0)
 				{
-					order->showOrder();
+					showOrder(order);
 				}
 				chooseCertainItemsFromCart(buyer);
 				break;
 			case 3:
 				if (numberOfItemsInOrder > 0)
 				{
-					order->showOrder();
+					showOrder(order);
 					removeItemsFromOrder(buyer);
 				}
 				else
@@ -367,8 +417,8 @@ void Interface::chooseAllItemsFromCart(Buyer* buyer) const
 {
 	Cart* cart = buyer->getCart();
 	Order* order = buyer->getOrder();
-	const Item** allItemsOfCart = cart->allItemsOfCart();
-	const Item** allItemsOfOrder = order->allItemsOfOrder();
+	const Item** allItemsOfCart = cart->getAllItemsOfCart();
+	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
 	bool itemOfCartIsInOrder = false;
 	unsigned int cartLogicSizeItems = cart->getLogicSizeItems();
 	unsigned int orderLogicSizeItems = order->getLogicSizeItems();
@@ -390,7 +440,7 @@ void Interface::chooseCertainItemsFromCart(Buyer* buyer) const
 	Cart* cart = buyer->getCart();
 	Order* order = buyer->getOrder();
 	unsigned int cartItemsAmount = cart->getLogicSizeItems();
-	const Item** allItemsOfCart = cart->allItemsOfCart();
+	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 	unsigned int numberOfItems;
 	unsigned int serialNumber;
 	cout << "The number of items in the cart is: " << cartItemsAmount << endl;;
@@ -425,7 +475,7 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 {
 	Order* order = buyer->getOrder();
 	unsigned int numberOfItemInOrder = order->getLogicSizeItems();
-	const Item** allItemsOfOrder = order->allItemsOfOrder();
+	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
 	unsigned int numberOfItemsToDel;
 	unsigned int serialNumber;
 
@@ -442,10 +492,10 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 			const Item* item = order->findSerialNumber(serialNumber);
 			if (item != nullptr)
 			{
-				order->showOrder();
+				showOrder(order);
 				order->removeItemFromOrder(item);
 				order->reallocItems();
-				order->showOrder();
+				showOrder(order);
 			}
 			else
 			{
@@ -473,15 +523,15 @@ void Interface::payOrderMenu()
 	{
 		Cart* cart = buyer->getCart();
 		Order* order = buyer->getOrder();
-		const Item** allItemsOfOrder = order->allItemsOfOrder();
-		const Item** allItemsOfCart = cart->allItemsOfCart();
+		const Item** allItemsOfOrder = order->getAllItemsOfOrder();
+		const Item** allItemsOfCart = cart->getAllItemsOfCart();
 		unsigned int numberOfItemsInCart = cart->getLogicSizeItems();
 		unsigned int numberOfItemsInOrder = order->getLogicSizeItems();
 		if (numberOfItemsInOrder > 0)
 		{
 			int totalPriceOfOrder = order->getTotalPriceOfOrder();
 			cout << "The items in the order are:" << endl;
-			order->showOrder();
+			showOrder(order);
 			cout << "The total price is: " << totalPriceOfOrder << endl;
 			cout << "Choose option:" << endl
 				<< "1. Pay for the order" << endl

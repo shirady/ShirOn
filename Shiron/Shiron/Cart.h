@@ -39,7 +39,8 @@ public:
 
 
 	unsigned int getLogicSizeItems() const;
-	const Item** allItemsOfCart() const;
+	const Item** getAllItemsOfCart() const;
+
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 
 	void showCart() const;

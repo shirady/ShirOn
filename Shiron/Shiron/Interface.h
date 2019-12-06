@@ -8,6 +8,9 @@ using namespace std;
 
 class Interface
 {
+public:
+	const char* category[Item::CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
+
 private:
 	System* m_system = nullptr; //where to initialize?
 
@@ -35,11 +38,17 @@ public:
 
 	 void cleanBuffer();
 
-	 void showUser(User& user) const;
-	 bool showAllItemsMenu(const char* itemName) const;
-	 void showAllItemsOption() const;
 	 void showAllBuyers() const;
 	 void showAllSellers() const;
+	 void showUser(User& user) const;
+
+	 void showItem(const Item* item) const;
+	 void showOrder(Order* order) const;
+	 void showCart(Cart* cart) const;
+	 unsigned int ShowItemsOfSeller(Seller* seller, const char* itemName) const;
+
+	 bool showAllItemsMenu(const char* itemName) const;
+	 void showAllItemsOption() const;
 
 	 void chooseAllItemsFromCart(Buyer* buyer) const;
 	 void chooseCertainItemsFromCart(Buyer* buyer) const;
