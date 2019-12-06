@@ -51,6 +51,18 @@ bool Order::setOpenOrder(bool openOrder)
 	return true;
 }
 
+void Order::closeOrder(unsigned int totalPriceOfOrder)
+{
+	setOpenOrder(false);
+	setTotalPriceOfOrder(totalPriceOfOrder);
+}
+
+bool Order::setTotalPriceOfOrder(unsigned int totalPriceOfOrder)
+{
+	m_totalPriceOfOrder = totalPriceOfOrder;
+	return true;
+}
+
 void Order::reallocItems()
 {
 	const Item** newAllItems = new const Item*[m_physSizeItems];
@@ -122,6 +134,11 @@ unsigned int Order::getTotalPriceOfOrder() const
 	return totalPriceOfOrder;
 }
 
+bool Order::getIfOrderIsOpen() const
+{
+	return m_openOrder;
+}
+
 const Item* Order::findSerialNumber(unsigned int serialNumber) const
 {
 	const Item* foundItem = nullptr;
@@ -136,3 +153,38 @@ const Item* Order::findSerialNumber(unsigned int serialNumber) const
 	}
 	return foundItem;
 }
+
+const Seller* Order::findSellerInOrder(const char* sellerName) const
+{
+	Seller* foundSeller = nullptr;
+	bool sellerExists = false;
+
+	for (unsigned int i = 0; i < m_logicSizeItems && !sellerExists; i++)
+	{
+		Seller* seller = m_allItemsOfOrder[i]->getSeller();
+
+		if (strcmp(seller->getUser().getUserName(),sellerName) == 0)
+		{
+			sellerExists = true;
+			foundSeller = seller;
+		}
+	}
+	return foundSeller;
+}
+
+
+/*Seller* Order::findSeller(const char* nameOfSeller) const
+{
+	Seller * foundSeller = nullptr;
+	bool sellerExists = false;
+	for (unsigned int i = 0; i < m_logicSizeOrders && !sellerExists; i++)
+	{
+		Seller* searchSeller=m_allOrders[i]->getItem()->getSeller()
+		if (strcmp(seller->getUser().getUserName(), nameOfSeller) == 0)
+		{
+			sellerExists = true;
+			foundSeller = searchSeller;
+		}
+	}
+	return foundSeller;
+}*/

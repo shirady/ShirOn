@@ -25,6 +25,7 @@ public:
 
 	 void addItemToSellerMenu();
 	 void addItemToCartMenu();
+	 void addFeedbackToSellerMenu();
 	 void makeAnOrderMenu();
 
 	 void readSystem();
@@ -33,6 +34,7 @@ public:
 	 Buyer* readBuyer();
 	 Seller* readSeller();
 	 Item* readItem(Seller* seller);
+	 Feedback* readFeedback(Buyer* buyer);
 
 	 bool setSystem(const char * systemName);
 

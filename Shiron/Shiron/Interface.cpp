@@ -348,6 +348,39 @@ void Interface::addItemToCartMenu()
 
 }
 
+/*void Interface::addFeedbackToSellerMenu()
+{
+	cout << "Please enter the name of the buyer: ";
+	char buyerName[User::MAX_LEN_NAME];
+	cin.getline(buyerName, User::MAX_LEN_NAME);
+	Buyer* buyer = m_system->findBuyer(buyerName);
+
+	if (buyer != nullptr)
+	{
+		cout << "Please enter the name of the seller: ";
+		char sellerName[User::MAX_LEN_NAME];
+		cin.getline(sellerName, User::MAX_LEN_NAME);
+
+		Seller* seller = m_system->findSeller(sellerName);
+		if (seller != nullptr)
+		{
+			
+		}
+		else
+		{
+			cout << "Seller was not found in the system" << endl;
+		}
+		//Item* item = readItem(seller);
+		//seller->addItemToSeller(item);
+	}
+	else
+	{
+		cout << "Buyer was not found in the system" << endl;
+	}
+
+
+}*/
+
 void Interface::makeAnOrderMenu()
 {
 	int option;
@@ -361,7 +394,7 @@ void Interface::makeAnOrderMenu()
 		unsigned int numberOfItemsInCart = cart->getLogicSizeItems();
 		if (numberOfItemsInCart > 0)
 		{
-			Order* order = buyer->getOrder();
+			Order* order = buyer->getCurrentOrder();
 			unsigned int numberOfItemsInOrder = order->getLogicSizeItems();
 			cout << "The items in the cart are:" << endl;
 			showCart(cart);
@@ -416,7 +449,7 @@ void Interface::makeAnOrderMenu()
 void Interface::chooseAllItemsFromCart(Buyer* buyer) const
 {
 	Cart* cart = buyer->getCart();
-	Order* order = buyer->getOrder();
+	Order* order = buyer->getCurrentOrder();
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
 	bool itemOfCartIsInOrder = false;
@@ -438,7 +471,7 @@ void Interface::chooseAllItemsFromCart(Buyer* buyer) const
 void Interface::chooseCertainItemsFromCart(Buyer* buyer) const
 {
 	Cart* cart = buyer->getCart();
-	Order* order = buyer->getOrder();
+	Order* order = buyer->getCurrentOrder();
 	unsigned int cartItemsAmount = cart->getLogicSizeItems();
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 	unsigned int numberOfItems;
@@ -473,7 +506,7 @@ void Interface::chooseCertainItemsFromCart(Buyer* buyer) const
 
 void Interface::removeItemsFromOrder(Buyer* buyer) const
 {
-	Order* order = buyer->getOrder();
+	Order* order = buyer->getCurrentOrder();
 	unsigned int numberOfItemInOrder = order->getLogicSizeItems();
 	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
 	unsigned int numberOfItemsToDel;
@@ -522,7 +555,7 @@ void Interface::payOrderMenu()
 	if (buyer != nullptr)
 	{
 		Cart* cart = buyer->getCart();
-		Order* order = buyer->getOrder();
+		Order* order = buyer->getCurrentOrder();
 		const Item** allItemsOfOrder = order->getAllItemsOfOrder();
 		const Item** allItemsOfCart = cart->getAllItemsOfCart();
 		unsigned int numberOfItemsInCart = cart->getLogicSizeItems();
@@ -558,7 +591,8 @@ void Interface::payOrderMenu()
 							cart->removeItemFromCart(allItemsOfCart[i]);
 					}
 					cart->reallocItems();
-					order->setOpenOrder(false);
+					order->closeOrder(totalPriceOfOrder);
+					buyer->addOrderToHistory();
 					cout << "The order was payed." << endl;
 				}
 				else
@@ -605,4 +639,11 @@ void Interface::showAllSellers() const
 		showUser(allSellers[i]->getUser());
 	}
 }
+
+/* feedback
+	cout << "The date is: " << m_date.getYear() << "/" << m_date.getMonth() << "/" << m_date.getDay();
+	cout << "The seller name is: " << m_sellerName;
+	cout << "The responder name is: " << m_responderName;
+	cout << "The feedback is: " << m_feedback;
+*/
 

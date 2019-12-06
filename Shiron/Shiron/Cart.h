@@ -43,7 +43,7 @@ public:
 
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 
-	void showCart() const;
-    };
+	//void showCart() const;
+ };
 
 #endif //__Cart_H

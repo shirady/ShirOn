@@ -39,6 +39,7 @@ public:
 	eCategory getCategoryOfItem() const;
 	unsigned int getPriceOfItem() const;
 	unsigned int getSerialNumberOfItem() const;
+	Seller* getSeller() const;
 
 	bool CheckCharacters(const char* fieldName);
 
