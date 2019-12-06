@@ -5,6 +5,7 @@
 using namespace std;
 #pragma warning(disable: 4996)
 #include "system.h"
+//#include "Seller.h"
 
 class Interface
 {
@@ -56,6 +57,8 @@ public:
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
 	void removeItemsFromOrder(Buyer* buyer) const;
 	void payOrderMenu();
+
+	bool findSellerInOrder(Order* order, const char* sellerName) const;
 };
 
 #endif// __INTERFACE_H

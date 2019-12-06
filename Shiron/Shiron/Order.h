@@ -7,7 +7,6 @@ using namespace std;
 #pragma warning(disable: 4996)
 #include "Item.h"
 //#include "Seller.h"
-
 class Seller;
 
 class Order
@@ -47,7 +46,6 @@ public:
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 	void closeOrder(unsigned int totalPriceOfOrder);
 	const Seller* findSellerInOrder(const char* sellerName) const;
-
 };
 
 #endif // __ORDER_H
