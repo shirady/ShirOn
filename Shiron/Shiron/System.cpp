@@ -5,7 +5,7 @@ bool System::setSystemName(const char* systemName)
 	//delete[] m_systemName; //will not run unless m_systemName was allocated
 	unsigned int name_len = strlen(systemName);
 
-	if ( (name_len < MAX_LEN_SYSTEM_NAME) && (name_len >= MIN_LEN_SYSTEM_NAME) )
+	if ((name_len < MAX_LEN_SYSTEM_NAME) && (name_len >= MIN_LEN_SYSTEM_NAME))
 	{
 		m_systemName = new char[name_len + 1];
 		strcpy(m_systemName, systemName);
@@ -120,8 +120,8 @@ void System::reallocBuyers()
 	{
 		newAllBuyers[i] = m_allBuyers[i]; //changed from new Buyer(*(m_allBuyers[i]))
 	}
-	delete []m_allBuyers;
-	m_allBuyers=newAllBuyers;
+	delete[]m_allBuyers;
+	m_allBuyers = newAllBuyers;
 }
 
 void System::reallocSellers()
@@ -159,7 +159,7 @@ bool System::addSellerToSystem(Seller* seller)
 
 Seller* System::findSeller(const char* nameOfSeller) const
 {
-	Seller * foundSeller=nullptr;
+	Seller * foundSeller = nullptr;
 	bool sellerExists = false;
 	for (unsigned int i = 0; i < m_logicSizeSellers && !sellerExists; i++)
 	{

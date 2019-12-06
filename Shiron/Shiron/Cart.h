@@ -25,7 +25,7 @@ private:
 	unsigned int m_logicSizeItems;
 	unsigned int m_physSizeItems;
 	const Item** m_allItemsOfCart;
-    
+
 public:
 	Cart(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor 
 	Cart(const Cart& other); //copy c'tor
@@ -43,7 +43,7 @@ public:
 
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 
-	void showCart() const;
-    };
+	//void showCart() const;
+};
 
 #endif //__Cart_H

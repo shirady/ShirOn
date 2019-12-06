@@ -15,45 +15,47 @@ private:
 	System* m_system = nullptr; //where to initialize?
 
 public:
-	 Interface();
-	 Interface(const System& other) = delete; //copt c'tor disabled
-	 ~Interface(); //d'tor
+	Interface();
+	Interface(const System& other) = delete; //copt c'tor disabled
+	~Interface(); //d'tor
 
-	 void headline();
-	 void menu();
-	 void menuOptions();
+	void headline();
+	void menu();
+	void menuOptions();
 
-	 void addItemToSellerMenu();
-	 void addItemToCartMenu();
-	 void makeAnOrderMenu();
+	void addItemToSellerMenu();
+	void addItemToCartMenu();
+	void addFeedbackToSellerMenu();
+	void makeAnOrderMenu();
 
-	 void readSystem();
-	 const Address readAddress();
-	 const User readUser();
-	 Buyer* readBuyer();
-	 Seller* readSeller();
-	 Item* readItem(Seller* seller);
+	void readSystem();
+	const Address readAddress();
+	const User readUser();
+	Buyer* readBuyer();
+	Seller* readSeller();
+	Item* readItem(Seller* seller);
+	Feedback* readFeedback(Buyer* buyer);
 
-	 bool setSystem(const char * systemName);
+	bool setSystem(const char * systemName);
 
-	 void cleanBuffer();
+	void cleanBuffer();
 
-	 void showAllBuyers() const;
-	 void showAllSellers() const;
-	 void showUser(User& user) const;
+	void showAllBuyers() const;
+	void showAllSellers() const;
+	void showUser(User& user) const;
 
-	 void showItem(const Item* item) const;
-	 void showOrder(Order* order) const;
-	 void showCart(Cart* cart) const;
-	 unsigned int ShowItemsOfSeller(Seller* seller, const char* itemName) const;
+	void showItem(const Item* item) const;
+	void showOrder(Order* order) const;
+	void showCart(Cart* cart) const;
+	unsigned int ShowItemsOfSeller(Seller* seller, const char* itemName) const;
 
-	 bool showAllItemsMenu(const char* itemName) const;
-	 void showAllItemsOption() const;
+	bool showAllItemsMenu(const char* itemName) const;
+	void showAllItemsOption() const;
 
-	 void chooseAllItemsFromCart(Buyer* buyer) const;
-	 void chooseCertainItemsFromCart(Buyer* buyer) const;
-	 void removeItemsFromOrder(Buyer* buyer) const;
-	 void payOrderMenu();
+	void chooseAllItemsFromCart(Buyer* buyer) const;
+	void chooseCertainItemsFromCart(Buyer* buyer) const;
+	void removeItemsFromOrder(Buyer* buyer) const;
+	void payOrderMenu();
 };
 
 #endif// __INTERFACE_H

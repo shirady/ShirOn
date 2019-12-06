@@ -39,12 +39,13 @@ public:
 	eCategory getCategoryOfItem() const;
 	unsigned int getPriceOfItem() const;
 	unsigned int getSerialNumberOfItem() const;
+	Seller* getSeller() const;
 
 	bool CheckCharacters(const char* fieldName);
 
 	//void showItem() const;
 
-	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller=nullptr); //c'tor
+	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller = nullptr); //c'tor
 	Item(const Item& other); //copy c'tor
 	// move c'tor
 	~Item(); //d'tor

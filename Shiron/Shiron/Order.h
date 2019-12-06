@@ -6,6 +6,9 @@
 using namespace std;
 #pragma warning(disable: 4996)
 #include "Item.h"
+//#include "Seller.h"
+
+class Seller;
 
 class Order
 {
@@ -19,6 +22,7 @@ private:
 	unsigned int m_physSizeItems;
 	const Item** m_allItemsOfOrder;
 	bool m_openOrder;
+	unsigned int m_totalPriceOfOrder;
 
 public:
 	Order(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor
@@ -28,17 +32,21 @@ public:
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
 	bool setOpenOrder(bool openOrder);
+	bool setTotalPriceOfOrder(unsigned int totalPriceOfOrder);
 	void reallocItems();
 	bool addItemToOrder(const Item* item);
 	void removeItemFromOrder(const Item* item);
 
 	unsigned int getLogicSizeItems() const;
 	const Item** getAllItemsOfOrder() const;
+	unsigned int getTotalPriceOfOrder() const;
+	bool getIfOrderIsOpen() const;
 
 	//void showOrder() const;
 
 	const Item* findSerialNumber(unsigned int serialNumber) const;
-	unsigned int getTotalPriceOfOrder() const;
+	void closeOrder(unsigned int totalPriceOfOrder);
+	const Seller* findSellerInOrder(const char* sellerName) const;
 
 };
 

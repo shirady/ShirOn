@@ -83,6 +83,11 @@ unsigned int Item::getSerialNumberOfItem() const
 	return m_serialNumberOfItem;
 }
 
+Seller* Item::getSeller() const
+{
+	return m_seller;
+}
+
 Item::Item(const char* itemName, Item::eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller)
 {
 	setNameOfItem(itemName);
