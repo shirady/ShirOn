@@ -112,15 +112,12 @@ const Date Interface::readDate()
 
 	cout << "year: ";
 	cin >> year;
-	cout << endl;
 
 	cout << "month: ";
 	cin >> month;
-	cout << endl;
 
 	cout << "day: ";
 	cin >> day;
-	cout << endl;
 
 	return Date(year, month, day);
 }
@@ -702,24 +699,6 @@ bool Interface::findSellerInAOrder(Order* order, Seller* seller) const
 	}
 	return sellerExists;
 }
-/*bool Interface::findSellerInOrder(Order* order, const char* sellerName) const
-{
-	//Seller* foundSeller = nullptr;
-	bool sellerExists = false;
-	const Item** allItemsInOrder = order->getAllItemsOfOrder();
-	unsigned int logicSizeItems = order->getLogicSizeItems();
 
-	for (unsigned int i = 0; i < logicSizeItems && !sellerExists; i++)
-	{
-		//const Item* itemInOrder = allItemsInOrder[i];
-		//Seller* seller = itemInOrder->getSeller()->getUser();
-		if (strcmp(allItemsInOrder[i]->getSeller()->getUser().getUserName(), sellerName) == 0)
-		{
-			sellerExists = true;
-		}
-	}
-	return sellerExists;
-}
-*/
 
 

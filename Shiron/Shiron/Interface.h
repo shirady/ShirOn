@@ -26,8 +26,9 @@ public:
 
 	void addItemToSellerMenu();
 	void addItemToCartMenu();
-	void addFeedbackToSellerMenu();
 	void makeAnOrderMenu();
+	void payOrderMenu();
+	void addFeedbackToSellerMenu();
 
 	void readSystem();
 	const Address readAddress();
@@ -57,7 +58,6 @@ public:
 	void chooseAllItemsFromCart(Buyer* buyer) const;
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
 	void removeItemsFromOrder(Buyer* buyer) const;
-	void payOrderMenu();
 
 	bool findSellerInOrdersHistory(Seller* seller, Buyer* buyer);
 	//bool findSellerInOrder(Order* order, const char* sellerName) const;
