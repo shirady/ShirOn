@@ -16,8 +16,8 @@ private:
 	System* m_system = nullptr; //where to initialize?
 
 public:
-	Interface();
-	Interface(const System& other) = delete; //copt c'tor disabled
+	Interface(); //c'tor
+	Interface(const System& other) = delete; //copy c'tor disabled
 	~Interface(); //d'tor
 
 	void headline();
@@ -50,18 +50,18 @@ public:
 	void showItem(const Item* item) const;
 	void showOrder(Order* order) const;
 	void showCart(Cart* cart) const;
-	unsigned int ShowItemsOfSeller(Seller* seller, const char* itemName) const;
+	void showItemsOfSeller(Seller* seller, const char* itemName) const;
 
-	bool showAllItemsMenu(const char* itemName) const;
+	void showAllItemsOfSellers(const char* itemName) const;
 	void showAllItemsOption() const;
 
 	void chooseAllItemsFromCart(Buyer* buyer) const;
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
-	void removeItemsFromOrder(Buyer* buyer) const;
+	void removeItemsFromOrder(Buyer* buyer) const; 
 
-	bool findSellerInOrdersHistory(Seller* seller, Buyer* buyer);
+	bool findSellerInOrdersHistory(Seller* seller, Buyer* buyer); //*****
 	//bool findSellerInOrder(Order* order, const char* sellerName) const;
-	bool findSellerInAOrder(Order* order, Seller* seller) const;
+	bool findSellerInAOrder(Order* order, Seller* seller) const; //*****
 };
 
 #endif// __INTERFACE_H

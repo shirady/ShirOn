@@ -54,6 +54,9 @@ public:
 
 	Buyer* findBuyer(const char* nameOfBuyer) const;
 	Seller* findSeller(const char* nameOfSeller) const;
+
+	bool checkIfItemExistInSellers(const char* itemName) const;
+	unsigned int countItemsInAllSellers(const char* itemName) const;
 };
 
 #endif //__SYSTEM_H

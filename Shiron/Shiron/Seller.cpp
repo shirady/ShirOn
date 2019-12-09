@@ -180,3 +180,25 @@ Item* Seller::findSerialNumber(int serialNumber)
 	}
 	return foundItem;
 }
+
+unsigned int Seller::countItemsOfSeller(const char* itemName) const
+{
+	unsigned int counter = 0;
+	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+	{
+		if (strcmp(m_allItems[i]->getNameOfItem(), itemName) == 0)
+			counter++;
+	}
+	return counter;
+}
+
+bool Seller::checkIfItemExistInASeller(const char* itemName) const
+{
+	bool isExist = false;
+	for (unsigned int i = 0; i < m_logicSizeItems && !isExist; i++)
+	{
+		if (strcmp(m_allItems[i]->getNameOfItem(), itemName) == 0)
+			isExist = true;
+	}
+	return isExist;
+}

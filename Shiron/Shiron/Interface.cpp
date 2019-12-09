@@ -129,30 +129,25 @@ void Interface::showAllItemsOption() const
 	cout << "Please enter the name of the item: ";
 	cin.getline(itemName, Item::MAX_LEN_NAME);
 	cout << endl;
-	showAllItemsMenu(itemName);
+	showAllItemsOfSellers(itemName);
 }
 
-bool Interface::showAllItemsMenu(const char* itemName) const
+void Interface::showAllItemsOfSellers(const char* itemName) const
 {
-	bool itemFound = false;
-	for (unsigned int i = 0; i < m_system->getLogicSizeBuyers(); i++)
+	unsigned int logicSizeOfSellers = m_system->getLogicSizeSellers();
+	for (unsigned int i = 0; i < logicSizeOfSellers; i++)
 	{
 		Seller** allSellers = m_system->getAllSellers();
 		Seller* seller = allSellers[i];
-		unsigned int counter = ShowItemsOfSeller(seller, itemName);
+		unsigned int counter = seller->countItemsOfSeller(itemName);
 		if (counter > 0)
 		{
-			itemFound = true;
+			showItemsOfSeller(seller, itemName);
 			cout << " The seller name is: " << seller->getUser().getUserName() << endl;
 			cout << "The seller " << seller->getUser().getUserName() << " has " << counter << " items" << endl;
 			cout << "--------------------------------------------------------" << endl << endl;
 		}
 	}
-	if (!itemFound)
-	{
-		cout << itemName << " was not found :(" << endl;
-	}
-	return itemFound;
 }
 
 void Interface::headline()
@@ -226,7 +221,7 @@ void Interface::menuOptions()
 			cout << "Please enter the name of the item: ";
 			cin.getline(itemName, Item::MAX_LEN_NAME);
 			cout << endl;
-			showAllItemsMenu(itemName);
+			showAllItemsOfSellers(itemName);
 			break;
 		case 11:
 			exitMenu = true;
@@ -291,20 +286,15 @@ void Interface::showCart(Cart* cart) const
 	cout << endl;
 }
 
-unsigned int Interface::ShowItemsOfSeller(Seller* seller, const char* itemName) const
+void Interface::showItemsOfSeller(Seller* seller, const char* itemName) const
 {
 	unsigned int logicSizeItems = seller->getLogicSizeItems();
 	Item** allItemsOfSeller = seller->getAllItems();
-	unsigned int counter = 0;
 	for (unsigned int i = 0; i < logicSizeItems; i++)
 	{
 		if (strcmp(allItemsOfSeller[i]->getNameOfItem(), itemName) == 0)
-		{
 			showItem(allItemsOfSeller[i]);
-			counter++;
-		}
 	}
-	return counter;
 }
 
 void Interface::addItemToSellerMenu()
@@ -336,17 +326,23 @@ void Interface::addItemToCartMenu()
 		cout << "Please enter the name of the item: ";
 		cin.getline(itemName, Item::MAX_LEN_NAME);
 		cout << endl;
-		if (showAllItemsMenu(itemName))
+
+		unsigned int counterOfItemsInAllSellers = m_system->countItemsInAllSellers(itemName);
+		if (counterOfItemsInAllSellers > 0)
 		{
+			cout << "There are " << counterOfItemsInAllSellers << " items with the name " << itemName << endl;
+			cout << "The items are: " << endl;
+			showAllItemsOfSellers(itemName);
 			cout << "Enter the seller name from the list above: ";
 			char sellerName[User::MAX_LEN_NAME];
 			cin.getline(sellerName, User::MAX_LEN_NAME);
 			Seller* seller = m_system->findSeller(sellerName);
 			if (seller != nullptr)
 			{
-				unsigned int counter = ShowItemsOfSeller(seller, itemName);
+				unsigned int counter = seller->countItemsOfSeller(itemName);
 				if (counter > 0)
 				{
+					showItemsOfSeller(seller, itemName);
 					cout << "Enter the serial number of the item to add to the Cart: ";
 					unsigned int serialNumber;
 					cin >> serialNumber;

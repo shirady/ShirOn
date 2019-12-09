@@ -48,8 +48,10 @@ public:
 	Item** getAllItems() const;
 	User& getUser();
 
-	//unsigned int ShowItemsOfSeller(const char* name) const;
 	Item* findSerialNumber(int serialNumber);
+
+	unsigned int countItemsOfSeller(const char* itemName) const;
+	bool checkIfItemExistInASeller(const char* itemName) const;
 };
 
 #endif //__SELLER_H

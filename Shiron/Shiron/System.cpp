@@ -187,3 +187,27 @@ Buyer* System::findBuyer(const char* nameOfBuyer) const
 	return foundBuyer;
 }
 
+bool System::checkIfItemExistInSellers(const char* itemName) const
+{
+	bool isExist = false;
+
+	for (unsigned int i = 0; i < m_logicSizeSellers && !isExist; i++)
+		isExist = m_allSellers[i]->checkIfItemExistInASeller(itemName);
+
+	return isExist;
+}
+
+unsigned int System::countItemsInAllSellers(const char* itemName) const
+{
+	unsigned int counter = 0;
+
+	for (unsigned int i = 0; i < m_logicSizeSellers; i++)
+	{
+		if (m_allSellers[i]->checkIfItemExistInASeller(itemName))
+			counter += m_allSellers[i]->countItemsOfSeller(itemName);
+	}
+
+	return counter;
+}
+
+
