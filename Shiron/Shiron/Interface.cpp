@@ -64,9 +64,7 @@ const User Interface::readUser()
 		cin.getline(userName, User::MAX_LEN_NAME);
 
 		if (m_system->findBuyer(userName) != nullptr || m_system->findSeller(userName) != nullptr)
-		{
 			cout << "The user is already exist in the system, please enter again" << endl;
-		}
 		else
 			fcontinue = false;
 	} while (fcontinue);
@@ -133,7 +131,6 @@ const Date Interface::readDate()
 	return Date(year, month, day);
 }
 
-
 void Interface::showAllItemsOption() const
 {
 	char itemName[Item::MAX_LEN_NAME];
@@ -154,7 +151,6 @@ void Interface::showAllItemsOfSellers(const char* itemName) const
 		if (counter > 0)
 		{
 			showItemsOfSeller(seller, itemName);
-			cout << " The seller name is: " << seller->getUser().getUserName() << endl;
 			cout << "The seller " << seller->getUser().getUserName() << " has " << counter << " items" << endl;
 			cout << "--------------------------------------------------------" << endl << endl;
 		}
@@ -184,7 +180,7 @@ void Interface::menu()
 void Interface::menuOptions()
 {
 	bool exitMenu = false;
-	int option;
+	char option;
 	Buyer* buyer;
 	Seller* seller;
 
@@ -194,6 +190,8 @@ void Interface::menuOptions()
 		menu();
 		cout << "Enter your option: ";
 		cin >> option;
+		//if (cin.fail())
+		//	cout << "Error! bye" << endl;
 		cout << endl;
 		cin.ignore();
 		switch (option)
@@ -238,6 +236,13 @@ void Interface::menuOptions()
 			exitMenu = true;
 			cout << "Thank you for shopping " << m_system->getSystemName() << "! :)";
 			break;
+		default:
+			cout << "Invalid number. Please choose a number between 1-11" << endl;
+			//cin.ignore();
+			//std::cin.clear();
+			//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cleanBuffer();
+			break;
 		}
 	}
 }
@@ -270,7 +275,7 @@ void Interface::showItem(const Item* item) const
 		<< ", Category: " << category[item->getCategoryOfItem()]
 		<< ", Price: " << item->getPriceOfItem()
 		<< ", Serial Number: " << item->getSerialNumberOfItem()
-		<< ", Seller name: " << item->getSeller()->getUser().getUserName();
+		<< ", Seller name: " << item->getSeller()->getUser().getUserName() << endl;;
 }
 
 void Interface::showOrder(Order* order) const
@@ -433,9 +438,9 @@ void Interface::makeAnOrderMenu()
 			cout << "The items in the cart are:" << endl;
 			showCart(cart);
 			cout << "\nPlease enter one of the options: " << endl
-				<< "1: Choose all items from cart to the order" << endl
-				<< "2: Choose certain items from cart to the order" << endl
-				<< "3: Remove certain items from order" << endl;
+				<< "(1) Choose all items from cart to the order" << endl
+				<< "(2) Choose certain items from cart to the order" << endl
+				<< "(3) Remove certain items from order" << endl;
 			cout << "Enter your option of order: ";
 			cin >> option;
 			switch (option)
@@ -547,7 +552,7 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 	unsigned int serialNumber;
 
 	cout << "The number of items in the order is: " << numberOfItemInOrder << endl;
-	cout << "How many items do you want to remove from the order? " << endl;
+	cout << "How many items do you want to remove from the order? ";
 	cin >> numberOfItemsToDel;
 
 	if (numberOfItemsToDel <= numberOfItemInOrder && numberOfItemsToDel > 0)
@@ -562,7 +567,10 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 				showOrder(order);
 				order->removeItemFromOrder(item);
 				order->reallocItems();
-				showOrder(order);
+				if (order->getLogicSizeItems() == 0)
+				{
+					cout << "The order is empty" << endl;
+				}
 			}
 			else
 			{
