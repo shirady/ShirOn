@@ -657,7 +657,3 @@ void Interface::showAllSellers() const
 		showUser(allSellers[i]->getUser());
 	}
 }
-
-
-
-
