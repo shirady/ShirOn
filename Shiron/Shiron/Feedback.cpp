@@ -1,5 +1,17 @@
 #include "Feedback.h"
 
+Feedback::Feedback(const char* feedback, const Date& date, Buyer* buyer) : m_date(date)
+{
+	feedback = nullptr;
+
+	setBuyer(buyer);
+	setFeedback(feedback);
+}
+
+Feedback::~Feedback()
+{
+	delete[] m_feedback;
+}
 
 bool Feedback::setBuyer(Buyer* buyer)
 {
@@ -14,11 +26,11 @@ bool Feedback::setBuyer(Buyer* buyer)
 
 bool Feedback::setFeedback(const char* feedback)
 {
-	//delete[] m_feedback; //will not run unless m_userName was allocated
+	delete[] m_feedback;
 	unsigned int name_len = strlen(feedback);
 	if (name_len < (MAX_LEN_FEEDBACK - 1))
 	{
-		m_feedback = new char[strlen(feedback) + 1]; //check allocation is missing
+		m_feedback = new char[strlen(feedback) + 1];
 		strcpy(m_feedback, feedback);
 		return true;
 	}
@@ -34,15 +46,4 @@ const char* Feedback::getFeedback(const char* feedback)
 const Date& Feedback::getDate()
 {
 	return m_date;
-}
-
-Feedback::Feedback(const char* feedback, const Date& date, Buyer* buyer) : m_date(date)
-{
-	setBuyer(buyer);
-	setFeedback(feedback);
-}
-
-Feedback::~Feedback()
-{
-	delete[] m_feedback;
 }

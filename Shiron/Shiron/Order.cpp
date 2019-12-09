@@ -8,18 +8,6 @@ Order::Order(unsigned int physSizeItems)
 	setOpenOrder(INITIAL_OPEN_ORDER);
 }
 
-Order::Order(const Order& other)
-{
-	setOpenOrder(other.m_openOrder);
-	setLogicSizeItems(other.m_logicSizeItems);
-	setPhysSizeItems(other.m_physSizeItems);
-	m_allItemsOfOrder = new const Item*[m_physSizeItems];
-	for (unsigned int i = 0; i < m_logicSizeItems; i++)
-	{
-		m_allItemsOfOrder[i] = other.m_allItemsOfOrder[i]; //changed from new Item(*(other.m_allItemsOfOrder[i]))
-	}
-}
-
 Order::~Order()
 {
 	delete[] m_allItemsOfOrder;
@@ -70,9 +58,7 @@ void Order::reallocItems()
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
 	{
 		if (m_allItemsOfOrder[i] != nullptr)
-		{
 			newAllItems[newArrSize++] = m_allItemsOfOrder[i];
-		}
 	}
 	if (newArrSize < m_logicSizeItems)
 		setLogicSizeItems(newArrSize);
@@ -103,17 +89,6 @@ void Order::removeItemFromOrder(const Item* item)
 	}
 }
 
-/*void Order::showOrder() const
-{
-	cout << "The items in the order are:" << endl;
-	for (unsigned int i = 0; i < m_logicSizeItems; i++)
-	{
-		if (m_allItemsOfOrder[i] != nullptr)
-			m_allItemsOfOrder[i]->showItem();
-	}
-	cout << endl;
-}*/
-
 unsigned int Order::getLogicSizeItems() const
 {
 	return m_logicSizeItems;
@@ -128,9 +103,8 @@ unsigned int Order::getTotalPriceOfOrder() const
 {
 	unsigned int totalPriceOfOrder = 0;
 	for (unsigned int i = 0; i < m_logicSizeItems; i++)
-	{
 		totalPriceOfOrder += m_allItemsOfOrder[i]->getPriceOfItem();
-	}
+	
 	return totalPriceOfOrder;
 }
 

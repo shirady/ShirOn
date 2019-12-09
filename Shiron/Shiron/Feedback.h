@@ -8,8 +8,6 @@
 using namespace std;
 #pragma warning(disable: 4996)
 
-//class Buyer
-
 class Feedback
 {
 public:
@@ -21,15 +19,15 @@ private:
 	Date m_date;
 
 public:
+	Feedback(const char* feedback, const Date& date, Buyer* buyer); //c'tor
+	Feedback(const Feedback& other) = delete; //copy c'tor
+	~Feedback(); //d'tor
+
 	bool setBuyer(Buyer* buyer);
 	bool setFeedback(const char* feedback);
 
 	const char* getFeedback(const char* feedback);
 	const Date& getDate();
-
-	Feedback(const char* feedback, const Date& date, Buyer* buyer); //c'tor
-	Feedback(const Feedback& other) = delete; //copy c'tor
-	~Feedback(); //d'tor
 };
 
 #endif //__FEEDBACK_H

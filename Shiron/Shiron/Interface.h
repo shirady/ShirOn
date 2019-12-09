@@ -5,7 +5,6 @@
 using namespace std;
 #pragma warning(disable: 4996)
 #include "system.h"
-//#include "Seller.h"
 
 class Interface
 {

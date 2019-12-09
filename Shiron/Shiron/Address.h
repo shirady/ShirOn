@@ -25,6 +25,9 @@ private:
 	unsigned int m_apartmentNo;
 	char* m_zipCode;
 
+	bool CheckCharacters(const char* fieldName);
+	bool CheckCharactersOfZip(const char* zipCode);
+
 public:
 	Address(char* country, char* city, char* street, unsigned int buildNo, unsigned int apartmentNo, char* zipCode); //c'tor
 	Address(const Address& other); //copy c'tor
@@ -43,9 +46,6 @@ public:
 	unsigned int getBuildNo() const;
 	unsigned int getApartmentNo() const;
 	const char* getZipCode() const;
-
-	static bool CheckCharacters(const char* fieldName);
-	static bool CheckCharactersOfZip(const char* fieldName);
 };
 
 #endif /* Address_h */

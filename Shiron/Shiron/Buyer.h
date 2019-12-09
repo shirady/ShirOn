@@ -23,12 +23,12 @@ private:
 	unsigned int m_physSizeOrders;
 	Order** m_OrdersHistory;
 	Order* m_currentOrder;
+	void cleanOrderHistoryArray();
 
 public:
 	Buyer(const User& user, unsigned int physSizeOrders = INITIAL_PHYSICAL_SIZE); //c'tor 
 	Buyer(const Buyer& other) = delete; //copy c'tor
 	~Buyer(); //d'tor
-	void cleanOrderHistoryArray();
 
 	bool setLogicSizeOrders(unsigned int logicSizeOrders);
 	bool setPhysSizeOrders(unsigned int physSizeOrders);
@@ -38,11 +38,10 @@ public:
 	Order* getCurrentOrder() const;
 	unsigned int getLogicSizeOrders() const;
 	Order** getAllOrders();
+
 	void reallocOrders();
 	void addOrderToHistory();
 	bool checkIfSellerExistsInOrdersHistory(Seller* seller);
-	//old name of function checkIfSellerExistsInOrdersHistory: checkIfSellerExistsInOrdersHistory
-	//const Seller* checkIfSellerExistsInOrdersHistory(const char* sellerName) const;
 };
 
 #endif //__BUYER_H

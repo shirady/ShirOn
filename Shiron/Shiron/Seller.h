@@ -11,10 +11,10 @@ using namespace std;
 
 class Seller
 {
-
 public:
 	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
 	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
+
 private:
 	User m_user;
 	unsigned int m_logicSizeItems;
@@ -30,15 +30,8 @@ public:
 	Seller(const Seller& other) = delete; //copy c'tor
 	~Seller(); //d'tor
 
-	bool addItemToSeller(Item* item);
-	bool addFeedbackToSeller(Feedback* feedback);
-
-	void reallocItems();
-	void reallocFeedbacks();
-
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
-
 	bool setLogicSizeFeedbacks(unsigned int logicSizeFeedbacks);
 	bool setPhysSizeFeedbacks(unsigned int physSizeFeedbacks);
 
@@ -48,8 +41,12 @@ public:
 	Item** getAllItems() const;
 	User& getUser();
 
-	Item* findSerialNumber(int serialNumber);
+	bool addItemToSeller(Item* item);
+	bool addFeedbackToSeller(Feedback* feedback);
+	void reallocItems();
+	void reallocFeedbacks();
 
+	Item* findSerialNumber(int serialNumber);
 	unsigned int countItemsOfSeller(const char* itemName) const;
 	bool checkIfItemExistInASeller(const char* itemName) const;
 };

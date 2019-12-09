@@ -1,5 +1,17 @@
 #include "Date.h"
 
+Date::Date(unsigned int year, unsigned int month, unsigned int day)
+{
+	setYear(year);
+	setMonth(month);
+	setDay(day);
+}
+
+Date::~Date()
+{
+
+}
+
 bool Date::setYear(unsigned int year)
 {
     if(year >= MIN_YEAR && year <= MAX_YEAR)
@@ -46,16 +58,4 @@ unsigned int Date::getMonth() const
 unsigned int Date::getDay() const
 {
     return m_day;
-}
-
-Date::Date(unsigned int year, unsigned int month, unsigned int day)
-{
-    setYear(year);
-    setMonth(month);
-    setDay(day);
-}
-
-Date::~Date()
-{
-
 }

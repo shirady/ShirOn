@@ -3,9 +3,25 @@
 
 unsigned int Item::m_serialNumberCounter = 0;
 
+Item::Item(const char* itemName, Item::eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller)
+{
+	m_itemName = nullptr;
+
+	setNameOfItem(itemName);
+	setCategoryOfItem(categoryOfItem);
+	setPriceOfItem(priceOfItem);
+	setSeller(seller);
+	m_serialNumberOfItem = ++m_serialNumberCounter;
+}
+
+Item::~Item()
+{
+	delete[] m_itemName;
+}
+
 bool Item::setNameOfItem(const char* itemName)
 {
-	//delete[] m_nameOfItem; //will not run unless m_userName was allocated
+	delete[] m_itemName;
 	unsigned int name_len = strlen(itemName);
 	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (CheckCharacters(itemName)))
 	{
@@ -88,34 +104,3 @@ Seller* Item::getSeller() const
 {
 	return m_seller;
 }
-
-Item::Item(const char* itemName, Item::eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller)
-{
-	setNameOfItem(itemName);
-	setCategoryOfItem(categoryOfItem);
-	setPriceOfItem(priceOfItem);
-	setSeller(seller);
-	m_serialNumberOfItem = ++m_serialNumberCounter;
-}
-
-Item::Item(const Item& other)
-{
-	setNameOfItem(other.m_itemName);
-	setCategoryOfItem(other.m_categoryOfItem);
-	setPriceOfItem(other.m_priceOfItem);
-	setSeller(other.m_seller);
-	m_serialNumberOfItem = other.m_serialNumberOfItem; //should it be the same number??
-}
-
-Item::~Item()
-{
-	delete[] m_itemName;
-}
-
-//void Item::showItem() const
-//{
-//	cout << "Item name: " << m_itemName
-//		<< ", Category: " << category[m_categoryOfItem]
-//		<< ", Price: " << m_priceOfItem
-//		<< ", Serial Number: " << m_serialNumberOfItem;
-//}

@@ -22,6 +22,10 @@ private:
 	unsigned int m_day;
 
 public:
+	Date(unsigned int year, unsigned int month, unsigned int day); //c'tor
+	 //copy and move c'tor - we do not need to implement and we use the default constructor since it does not have memory allocation
+	~Date(); //d'tor
+
 	bool setYear(unsigned int year);
 	bool setMonth(unsigned int month);
 	bool setDay(unsigned int day);
@@ -29,9 +33,6 @@ public:
 	unsigned int getYear() const;
 	unsigned int getMonth() const;
 	unsigned int getDay() const;
-
-	Date(unsigned int year, unsigned int month, unsigned int day); //c'tor
-	~Date(); //d'tor
-}; //copy and move c'tor - we do not need since it does not have memory allocation
+};
 
 #endif //__DATE_H

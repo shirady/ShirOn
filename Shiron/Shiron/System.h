@@ -27,27 +27,28 @@ private:
 	unsigned int m_logicSizeSellers; //the number of buyers and buyers that sign in
 	unsigned int m_physSizeSellers; //the maximum number of buyers in the system
 
+	void cleanBuyersArray();
+	void cleanSellersArray();
+
 public:
+	System(const char* systemName, unsigned int physSizeBuyers = INITIAL_PHYSICAL_SIZE, unsigned int physSizeSellers = INITIAL_PHYSICAL_SIZE); //c'tor
+	System(const System& other) = delete; //copy c'tor
+	~System(); //d'tor
+
 	bool setSystemName(const char* systemName);
 	bool setLogicSizeBuyers(unsigned int logicSizeBuyers);
 	bool setPhysSizeBuyers(unsigned int physSizeBuyers);
 	bool setLogicSizeSellers(unsigned int logicSizeSellers);
 	bool setPhysSizeSellers(unsigned int physSizeSellers);
 
-	void cleanBuyersArray();
-	void cleanSellersArray();
-
 	const char* getSystemName();
 	unsigned int getLogicSizeSellers() const;
 	unsigned int getLogicSizeBuyers() const;
-	Buyer** getAllBuyers(); //const?
-	Seller** getAllSellers(); //const?
+	Buyer** getAllBuyers();
+	Seller** getAllSellers();
 
 	void reallocBuyers();
 	void reallocSellers();
-
-	System(const char* systemName, unsigned int physSizeBuyers = INITIAL_PHYSICAL_SIZE, unsigned int physSizeSellers = INITIAL_PHYSICAL_SIZE); //c'tor
-	~System(); //d'tor
 
 	bool addBuyerToSystem(Buyer* buyer);
 	bool addSellerToSystem(Seller* seller);

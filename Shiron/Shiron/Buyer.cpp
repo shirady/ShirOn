@@ -9,20 +9,6 @@ Buyer::Buyer(const User& user, unsigned int physSizeOrders) : m_user(user)
 	setPhysSizeOrders(physSizeOrders);
 	m_OrdersHistory = new Order*[m_physSizeOrders];
 }
-/*
-Buyer::Buyer(const Buyer& other): m_user(other.m_user)
-{
-	m_Cart = new Cart(*(other.getCart()));
-	m_currentOrder = new Order(*(other.getCurrentOrder()));
-
-	setLogicSizeOrders(other.m_logicSizeOrders);
-	setPhysSizeOrders(other.m_physSizeOrders);
-	m_OrdersHistory = new Order*[m_physSizeOrders];
-	for (unsigned int i = 0; i < m_logicSizeOrders; i++)
-	{
-		m_OrdersHistory[i] = new Order(*(other.m_OrdersHistory[i]));
-	}
-}*/
 
 Buyer::~Buyer()
 {
@@ -88,7 +74,7 @@ void Buyer::reallocOrders()
 	Order** newAllOrders = new Order*[m_physSizeOrders];
 	for (unsigned int i = 0; i < m_logicSizeOrders; i++)
 	{
-		newAllOrders[i] = m_OrdersHistory[i]; //changed from new Order(*(m_allOrders[i]))
+		newAllOrders[i] = m_OrdersHistory[i];
 	}
 	delete[]m_OrdersHistory;
 	m_OrdersHistory = newAllOrders;

@@ -28,22 +28,20 @@ private:
 
 public:
 	Cart(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor 
-	Cart(const Cart& other); //copy c'tor
+	Cart(const Cart& other) = delete; //copy c'tor
 	~Cart(); //d'tor
 
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
-	void reallocItems();
-	bool addItemToCart(const Item* item);
-	void removeItemFromCart(const Item* item);
-
 
 	unsigned int getLogicSizeItems() const;
 	const Item** getAllItemsOfCart() const;
 
-	const Item* findSerialNumber(unsigned int serialNumber) const;
+	void reallocItems();
+	bool addItemToCart(const Item* item);
+	void removeItemFromCart(const Item* item);
 
-	//void showCart() const;
+	const Item* findSerialNumber(unsigned int serialNumber) const;
 };
 
 #endif //__Cart_H
