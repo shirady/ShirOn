@@ -2,17 +2,33 @@
 
 Interface::Interface()
 {
-
+	System* m_system = nullptr; 
 }
 
 Interface::~Interface()
 {
-	if (m_system != nullptr)
-		delete m_system;
+	delete m_system;
 }
 
-const Address Interface::readAddress()
+bool Interface::setSystem(const char * systemName)
 {
+	m_system = new System(systemName);
+	return true;
+}
+
+void Interface::readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const
+{
+	cout << "Enter your build number: ";
+	cin >> buildNo;
+
+	cout << "Enter your apartment number: ";
+	cin >> apartmentNo;
+}
+
+const Address Interface::readAddress() const
+{
+	int apartmentNo, buildNo;
+
 	char country[Address::MAX_LEN_COUNTRY];
 	cout << "Enter your country: ";
 	cin.getline(country, Address::MAX_LEN_COUNTRY);
@@ -28,13 +44,7 @@ const Address Interface::readAddress()
 	cin.getline(street, Address::MAX_LEN_STREET);
 	cleanAfterGetLine();
 
-	int buildNo;
-	cout << "Enter your build number: ";
-	cin >> buildNo;
-
-	int apartmentNo;
-	cout << "Enter your apartment number: ";
-	cin >> apartmentNo;
+	readNumericValuesOfAddress(apartmentNo, buildNo);
 
 	char zipCode[Address::MAX_LEN_ZIP_CODE];
 	cout << "Enter your zip code: ";
@@ -53,13 +63,8 @@ void Interface::readSystem()
 	cleanAfterGetLine();
 	setSystem(systemName);
 }
-bool Interface::setSystem(const char * systemName)
-{
-	m_system = new System(systemName);
-	return true;
-}
 
-const User Interface::readUser()
+const User Interface::readUser() const
 {
 	char userName[User::MAX_LEN_NAME];
 	bool fcontinue = true;
@@ -83,17 +88,17 @@ const User Interface::readUser()
 	return User(userName, password, readAddress());
 }
 
-Buyer* Interface::readBuyer()
+Buyer* Interface::readBuyer() const
 {
 	return new Buyer(readUser());
 }
 
-Seller* Interface::readSeller()
+Seller* Interface::readSeller() const
 {
 	return new Seller(readUser());
 }
 
-Item* Interface::readItem(Seller* seller)
+Item* Interface::readItem(Seller* seller) const
 {
 	char itemName[Item::MAX_LEN_NAME];
 	cout << "Enter The item name: ";
@@ -113,7 +118,7 @@ Item* Interface::readItem(Seller* seller)
 	return new Item(itemName, categoryOfItem, priceOfItem, seller);
 }
 
-Feedback* Interface::readFeedback(Buyer* buyer) 
+Feedback* Interface::readFeedback(Buyer* buyer) const
 {
 	char feedbackText[Feedback::MAX_LEN_FEEDBACK];
 	cout << "Enter Your feedback: ";
@@ -123,7 +128,7 @@ Feedback* Interface::readFeedback(Buyer* buyer)
 	return new Feedback(feedbackText, readDate(), buyer);
 }
 
-const Date Interface::readDate()
+const Date Interface::readDate() const
 {
 	unsigned int year, month, day;
 	cout << "Please enter the date, in the following format:" << endl;
@@ -167,11 +172,11 @@ void Interface::showAllItemsOfSellers(const char* itemName) const
 	}
 }
 
-void Interface::headline()
+void Interface::headline() const
 {
 	cout << "Welcome to " << m_system->getSystemName() << " The world advanced shopping platform online\n";
 }
-void Interface::menu()
+void Interface::menu() const
 {
 	cout << "\nChoose your option:\n"
 		<< "(1) Add a buyer\n"
@@ -187,7 +192,7 @@ void Interface::menu()
 		<< "(11) Exit\n";
 }
 
-void Interface::menuOptions()
+void Interface::menuOptions() const
 {
 	bool exitMenu = false;
 	int option;
@@ -241,12 +246,7 @@ void Interface::menuOptions()
 				showAllSellers();
 				break;
 			case 10:
-				char itemName[Item::MAX_LEN_NAME];
-				cout << "Please enter the name of the item: ";
-				cin.getline(itemName, Item::MAX_LEN_NAME);
-				cleanAfterGetLine();
-				cout << endl;
-				showAllItemsOfSellers(itemName);
+				showAllItemsOfCeratinNameMenu();
 				break;
 			case 11:
 				exitMenu = true;
@@ -258,7 +258,6 @@ void Interface::menuOptions()
 				break;
 			}
 		}
-
 	}
 }
 
@@ -310,10 +309,8 @@ void Interface::showCart(Cart* cart) const
 	unsigned int logicSizeItems = cart->getLogicSizeItems();
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 	for (unsigned int i = 0; i < logicSizeItems; i++)
-	{
 		if (allItemsOfCart[i] != nullptr)
 			showItem(allItemsOfCart[i]);
-	}
 	cout << endl;
 }
 
@@ -328,7 +325,7 @@ void Interface::showItemsOfSeller(Seller* seller, const char* itemName) const
 	}
 }
 
-void Interface::addItemToSellerMenu()
+void Interface::addItemToSellerMenu() const
 {
 	cout << "Please enter the name of the seller: ";
 	char sellerName[User::MAX_LEN_NAME];
@@ -341,12 +338,10 @@ void Interface::addItemToSellerMenu()
 		seller->addItemToSeller(item);
 	}
 	else
-	{
 		cout << "Seller was not found in the system" << endl;
-	}
 }
 
-void Interface::addItemToCartMenu()
+void Interface::addItemToCartMenu() const
 {
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
@@ -360,52 +355,55 @@ void Interface::addItemToCartMenu()
 		cin.getline(itemName, Item::MAX_LEN_NAME);
 		cleanAfterGetLine();
 		cout << endl;
-
 		unsigned int counterOfItemsInAllSellers = m_system->countItemsInAllSellers(itemName);
+
 		if (counterOfItemsInAllSellers > 0)
 		{
-			cout << "There are " << counterOfItemsInAllSellers << " items with the name " << itemName << endl;
-			cout << "The items are: " << endl;
-			showAllItemsOfSellers(itemName);
-			cout << "Enter the seller name from the list above: ";
-			char sellerName[User::MAX_LEN_NAME];
-			cin.getline(sellerName, User::MAX_LEN_NAME);
-			cleanAfterGetLine();
-			Seller* seller = m_system->findSeller(sellerName);
+			Seller* seller = nullptr;
+			seller = FindSellerByChoise(itemName, counterOfItemsInAllSellers);
 			if (seller != nullptr)
-			{
-				unsigned int counter = seller->countItemsOfSeller(itemName);
-				if (counter > 0)
-				{
-					showItemsOfSeller(seller, itemName);
-					cout << "Enter the serial number of the item to add to the Cart: ";
-					unsigned int serialNumber;
-					cin >> serialNumber;
-					Item* item = seller->findSerialNumber(serialNumber);
-					if (item != nullptr)
-					{
-						buyer->getCart()->addItemToCart(item);
-					}
-				}
-				else
-				{
-					cout << "item was not found" << endl;
-				}
-			}
+				addItemToCartMenuHelper(seller, itemName, buyer);
 			else
-			{
 				cout << "Seller was not found in the system" << endl;
-			}
 		}
 	}
 	else
-	{
 		cout << "Buyer was not found in the system" << endl;
-	}
-
 }
 
-void Interface::addFeedbackToSellerMenu()
+Seller* Interface::FindSellerByChoise( char* const itemName, unsigned int counterOfItemsInAllSellers) const
+{
+	cout << "There are " << counterOfItemsInAllSellers << " items with the name " << itemName << endl;
+	cout << "The items are: " << endl;
+	showAllItemsOfSellers(itemName);
+	cout << "Enter the seller name from the list above: ";
+	char sellerName[User::MAX_LEN_NAME];
+	cin.getline(sellerName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
+	return(m_system->findSeller(sellerName));
+}
+
+
+void Interface::addItemToCartMenuHelper(Seller* seller, char* const itemName, Buyer* buyer) const
+{
+	unsigned int counter = seller->countItemsOfSeller(itemName);
+
+	if (counter > 0)
+	{
+		showItemsOfSeller(seller, itemName);
+		cout << "Enter the serial number of the item to add to the Cart: ";
+		unsigned int serialNumber;
+		cin >> serialNumber;
+		Item* item = seller->findSerialNumber(serialNumber);
+		if (item != nullptr)
+			buyer->getCart()->addItemToCart(item);
+	}
+	else
+		cout << "item was not found" << endl;
+}
+
+
+void Interface::addFeedbackToSellerMenu() const
 {
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
@@ -414,33 +412,33 @@ void Interface::addFeedbackToSellerMenu()
 	Buyer* buyer = m_system->findBuyer(buyerName);
 
 	if (buyer != nullptr)
-	{
-		cout << "Please enter the name of the seller: ";
-		char sellerName[User::MAX_LEN_NAME];
-		cin.getline(sellerName, User::MAX_LEN_NAME);
-		cleanAfterGetLine();
+		addFeedbackToSellerMenuHelper(buyer);
+	else
+		cout << "Buyer was not found in the system" << endl;
+}
 
-		Seller* seller = m_system->findSeller(sellerName);
-		if (seller != nullptr)
+void Interface::addFeedbackToSellerMenuHelper(Buyer* buyer) const
+{
+	cout << "Please enter the name of the seller: ";
+	char sellerName[User::MAX_LEN_NAME];
+	cin.getline(sellerName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
+
+	Seller* seller = m_system->findSeller(sellerName);
+	if (seller != nullptr)
+	{
+		if (buyer->checkIfSellerExistsInOrdersHistory(seller))
 		{
-			if (buyer->checkIfSellerExistsInOrdersHistory(seller))
-			{
-				Feedback* feedback = readFeedback(buyer); 
-				seller->addFeedbackToSeller(feedback);
-			}
-		}
-		else
-		{
-			cout << "Seller was not found in the system" << endl;
+			Feedback* feedback = readFeedback(buyer);
+			seller->addFeedbackToSeller(feedback);
 		}
 	}
 	else
-	{
-		cout << "Buyer was not found in the system" << endl;
-	}
+		cout << "Seller was not found in the system" << endl;
 }
 
-void Interface::makeAnOrderMenu()
+
+void Interface::makeAnOrderMenu() const
 {
 	int option;
 	cout << "Please enter the name of the buyer: ";
@@ -453,58 +451,64 @@ void Interface::makeAnOrderMenu()
 		Cart* cart = buyer->getCart();
 		unsigned int numberOfItemsInCart = cart->getLogicSizeItems();
 		if (numberOfItemsInCart > 0)
-		{
-			Order* order = buyer->getCurrentOrder();
-			unsigned int numberOfItemsInOrder = order->getLogicSizeItems();
-			cout << "The items in the cart are:" << endl;
-			showCart(cart);
-			cout << "\nPlease enter one of the options: " << endl
-				<< "(1) Choose all items from cart to the order" << endl
-				<< "(2) Choose certain items from cart to the order" << endl
-				<< "(3) Remove certain items from order" << endl;
-			cout << "Enter your option of order: ";
-			cin >> option;
-			switch (option)
-			{
-			case 1:
-				if (numberOfItemsInOrder < numberOfItemsInCart)
-				{
-					chooseAllItemsFromCart(buyer);
-					showOrder(order);
-				}
-				else
-					cout << "All of the items are in the order" << endl;
-				break;
-			case 2:
-				if (numberOfItemsInOrder > 0)
-				{
-					showOrder(order);
-				}
-				chooseCertainItemsFromCart(buyer);
-				break;
-			case 3:
-				if (numberOfItemsInOrder > 0)
-				{
-					showOrder(order);
-					removeItemsFromOrder(buyer);
-				}
-				else
-				{
-					cout << "There are no items in the order" << endl;
-				}
-				break;
-			}
-		}
+			chooseOptionForMakeAnOrder(buyer, cart,numberOfItemsInCart);
 		else
-		{
 			cout << "Cart is empty" << endl;
-		}
 	}
 	else
-	{
 		cout << "Buyer was not found in the system" << endl;
+}
+
+void Interface::chooseOptionForMakeAnOrderMenu(Cart* cart) const
+{
+	cout << "The items in the cart are:" << endl;
+	showCart(cart);
+	cout << "\nPlease enter one of the options: " << endl
+		<< "(1) Choose all items from cart to the order" << endl
+		<< "(2) Choose certain items from cart to the order" << endl
+		<< "(3) Remove certain items from order" << endl;
+	cout << "Enter your option of order: ";
+}
+
+
+void Interface::chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned int numberOfItemsInCart) const
+{
+	unsigned int option;
+	Order* order = buyer->getCurrentOrder();
+	unsigned int numberOfItemsInOrder = order->getLogicSizeItems();
+	chooseOptionForMakeAnOrderMenu(buyer->getCart());
+	cin >> option;
+
+	switch (option)
+	{
+	case 1:
+		if (numberOfItemsInOrder < numberOfItemsInCart)
+		{
+			chooseAllItemsFromCart(buyer);
+			showOrder(order);
+		}
+		else
+			cout << "All of the items are in the order" << endl;
+		break;
+	case 2:
+		if (numberOfItemsInOrder > 0)
+		{
+			showOrder(order);
+		}
+		chooseCertainItemsFromCart(buyer);
+		break;
+	case 3:
+		if (numberOfItemsInOrder > 0)
+		{
+			showOrder(order);
+			removeItemsFromOrder(buyer);
+		}
+		else
+			cout << "There are no items in the order" << endl;
+		break;
 	}
 }
+
 
 void Interface::chooseAllItemsFromCart(Buyer* buyer) const
 {
@@ -607,7 +611,7 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 	}
 }
 
-void Interface::payOrderMenu()
+void Interface::payOrderMenu() const
 {
 	int option;
 	cout << "Please enter the name of the buyer: ";
@@ -707,4 +711,19 @@ void Interface::cleanAfterGetLine() const
 		cin.clear(); //clean the failbit if cin.getline get more than the maximum 
 		cleanBuffer(); //clean the buffer
 	}
+}
+
+void Interface::showAllItemsOfCeratinNameMenu() const
+{
+	char itemName[Item::MAX_LEN_NAME];
+	cout << "Please enter the name of the item: ";
+	cin.getline(itemName, Item::MAX_LEN_NAME);
+	cleanAfterGetLine();
+	cout << endl;
+	
+	unsigned int counterOfItemsInAllSellers = m_system->countItemsInAllSellers(itemName);
+	if (counterOfItemsInAllSellers > 0)
+		showAllItemsOfSellers(itemName);
+	else
+		cout << itemName << " item was not found" << endl;
 }

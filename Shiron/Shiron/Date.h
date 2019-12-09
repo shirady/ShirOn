@@ -10,7 +10,7 @@ class Date
 {
 public:
 	static constexpr unsigned int MAX_YEAR = 3000;
-	static constexpr unsigned int MIN_YEAR = 2019;
+	static constexpr unsigned int MIN_YEAR = 2000;
 	static constexpr unsigned int MAX_MONTH = 12;
 	static constexpr unsigned int MIN_MONTH = 1;
 	static constexpr unsigned int MAX_DAY = 31;

@@ -19,26 +19,33 @@ public:
 	Interface(const System& other) = delete; //copy c'tor disabled
 	~Interface(); //d'tor
 
-	void headline();
-	void menu();
-	void menuOptions();
+	bool setSystem(const char * systemName);
 
-	void addItemToSellerMenu();
-	void addItemToCartMenu();
-	void makeAnOrderMenu();
-	void payOrderMenu();
-	void addFeedbackToSellerMenu();
+	void headline() const;
+	void menu() const;
+	void menuOptions() const;
+
+	void addItemToSellerMenu() const;
+	void addItemToCartMenu() const;
+	Seller* FindSellerByChoise(char* const itemName, unsigned int counterOfItemsInAllSellers) const;
+	void addItemToCartMenuHelper(Seller* seller, char* const itemName, Buyer* buyer) const;
+	void makeAnOrderMenu() const;
+	void chooseOptionForMakeAnOrderMenu(Cart* cart) const;
+	void chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned int numberOfItemsInCart) const;
+	void payOrderMenu() const;
+	void addFeedbackToSellerMenu() const;
+	void addFeedbackToSellerMenuHelper(Buyer* buyer) const;
+	void showAllItemsOfCeratinNameMenu() const;
 
 	void readSystem();
-	const Address readAddress();
-	const User readUser();
-	Buyer* readBuyer();
-	Seller* readSeller();
-	Item* readItem(Seller* seller);
-	Feedback* readFeedback(Buyer* buyer);
-	const Date readDate();
-
-	bool setSystem(const char * systemName);
+	void readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const;
+	const Address readAddress() const;
+	const User readUser() const;
+	Buyer* readBuyer() const;
+	Seller* readSeller() const;
+	Item* readItem(Seller* seller) const;
+	Feedback* readFeedback(Buyer* buyer) const;
+	const Date readDate() const;
 
 	void cleanBuffer() const;
 	void cleanAfterGetLine() const;
@@ -59,8 +66,6 @@ public:
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
 	void removeItemsFromOrder(Buyer* buyer) const; 
 
-	//bool findSellerInOrder(Order* order, const char* sellerName) const;
-	//bool findSellerInAOrder(Order* order, Seller* seller) const; //*****
 };
 
 #endif// __INTERFACE_H

@@ -9,9 +9,9 @@ using namespace std;
 class Address
 {
 public:
-	static constexpr unsigned int MAX_LEN_COUNTRY = 255;
-	static constexpr unsigned int MAX_LEN_CITY = 255;
-	static constexpr unsigned int MAX_LEN_STREET = 255;
+	static constexpr unsigned int MAX_LEN_COUNTRY = 100;
+	static constexpr unsigned int MAX_LEN_CITY = 100;
+	static constexpr unsigned int MAX_LEN_STREET = 100;
 	static constexpr unsigned int MAX_LEN_BUILD_NO = 1000;
 	static constexpr unsigned int MAX_LEN_APARTMENT_NO = 1000;
 	static constexpr unsigned int MAX_LEN_ZIP_CODE = 15; //check if its fine
