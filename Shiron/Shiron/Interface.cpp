@@ -16,14 +16,17 @@ const Address Interface::readAddress()
 	char country[Address::MAX_LEN_COUNTRY];
 	cout << "Enter your country: ";
 	cin.getline(country, Address::MAX_LEN_COUNTRY);
+	cleanAfterGetLine();
 
 	char city[Address::MAX_LEN_CITY];
 	cout << "Enter your city: ";
 	cin.getline(city, Address::MAX_LEN_CITY);
+	cleanAfterGetLine();
 
 	char street[Address::MAX_LEN_STREET];
 	cout << "Enter your street: ";
 	cin.getline(street, Address::MAX_LEN_STREET);
+	cleanAfterGetLine();
 
 	int buildNo;
 	cout << "Enter your build number: ";
@@ -37,6 +40,7 @@ const Address Interface::readAddress()
 	cout << "Enter your zip code: ";
 	cleanBuffer();
 	cin.getline(zipCode, Address::MAX_LEN_ZIP_CODE);
+	cleanAfterGetLine();
 
 	return Address(country, city, street, buildNo, apartmentNo, zipCode);
 }
@@ -46,6 +50,7 @@ void Interface::readSystem()
 	char systemName[System::MAX_LEN_SYSTEM_NAME];
 	cout << "Enter system name: ";
 	cin.getline(systemName, System::MAX_LEN_SYSTEM_NAME);
+	cleanAfterGetLine();
 	setSystem(systemName);
 }
 bool Interface::setSystem(const char * systemName)
@@ -56,14 +61,14 @@ bool Interface::setSystem(const char * systemName)
 
 const User Interface::readUser()
 {
-	//cin.ignore();
-
 	char userName[User::MAX_LEN_NAME];
 	bool fcontinue = true;
 	do 
 	{
 		cout << "Enter your user name: ";
 		cin.getline(userName, User::MAX_LEN_NAME);
+		cleanAfterGetLine();
+
 		if (m_system->findBuyer(userName) != nullptr || m_system->findSeller(userName) != nullptr)
 			cout << "The user is already exist in the system, please enter again" << endl;
 		else
@@ -73,6 +78,7 @@ const User Interface::readUser()
 	char password[User::MAX_LEN_PASSWORD];
 	cout << "Enter password: ";
 	cin.getline(password, User::MAX_LEN_PASSWORD);
+	cleanAfterGetLine();
 
 	return User(userName, password, readAddress());
 }
@@ -92,6 +98,7 @@ Item* Interface::readItem(Seller* seller)
 	char itemName[Item::MAX_LEN_NAME];
 	cout << "Enter The item name: ";
 	cin.getline(itemName, Item::MAX_LEN_NAME);
+	cleanAfterGetLine();
 
 	Item::eCategory categoryOfItem;
 	cout << "Choose category: 0 - KIDS, 1- ELECTRONICS, 2 - OFFICE, 3 - CLOTHING: ";
@@ -111,6 +118,7 @@ Feedback* Interface::readFeedback(Buyer* buyer)
 	char feedbackText[Feedback::MAX_LEN_FEEDBACK];
 	cout << "Enter Your feedback: ";
 	cin.getline(feedbackText, Feedback::MAX_LEN_FEEDBACK);
+	cleanAfterGetLine();
 
 	return new Feedback(feedbackText, readDate(), buyer);
 }
@@ -137,6 +145,7 @@ void Interface::showAllItemsOption() const
 	char itemName[Item::MAX_LEN_NAME];
 	cout << "Please enter the name of the item: ";
 	cin.getline(itemName, Item::MAX_LEN_NAME);
+	cleanAfterGetLine();
 	cout << endl;
 	showAllItemsOfSellers(itemName);
 }
@@ -235,6 +244,7 @@ void Interface::menuOptions()
 				char itemName[Item::MAX_LEN_NAME];
 				cout << "Please enter the name of the item: ";
 				cin.getline(itemName, Item::MAX_LEN_NAME);
+				cleanAfterGetLine();
 				cout << endl;
 				showAllItemsOfSellers(itemName);
 				break;
@@ -252,7 +262,7 @@ void Interface::menuOptions()
 	}
 }
 
-void Interface::cleanBuffer()
+void Interface::cleanBuffer() const
 {
 	int c;
 	do
@@ -323,6 +333,7 @@ void Interface::addItemToSellerMenu()
 	cout << "Please enter the name of the seller: ";
 	char sellerName[User::MAX_LEN_NAME];
 	cin.getline(sellerName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
 	Seller* seller = m_system->findSeller(sellerName);
 	if (seller != nullptr)
 	{
@@ -340,12 +351,14 @@ void Interface::addItemToCartMenu()
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
 	Buyer* buyer = m_system->findBuyer(buyerName);
 	if (buyer != nullptr)
 	{
 		char itemName[Item::MAX_LEN_NAME];
 		cout << "Please enter the name of the item: ";
 		cin.getline(itemName, Item::MAX_LEN_NAME);
+		cleanAfterGetLine();
 		cout << endl;
 
 		unsigned int counterOfItemsInAllSellers = m_system->countItemsInAllSellers(itemName);
@@ -357,6 +370,7 @@ void Interface::addItemToCartMenu()
 			cout << "Enter the seller name from the list above: ";
 			char sellerName[User::MAX_LEN_NAME];
 			cin.getline(sellerName, User::MAX_LEN_NAME);
+			cleanAfterGetLine();
 			Seller* seller = m_system->findSeller(sellerName);
 			if (seller != nullptr)
 			{
@@ -396,6 +410,7 @@ void Interface::addFeedbackToSellerMenu()
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
 	Buyer* buyer = m_system->findBuyer(buyerName);
 
 	if (buyer != nullptr)
@@ -403,6 +418,7 @@ void Interface::addFeedbackToSellerMenu()
 		cout << "Please enter the name of the seller: ";
 		char sellerName[User::MAX_LEN_NAME];
 		cin.getline(sellerName, User::MAX_LEN_NAME);
+		cleanAfterGetLine();
 
 		Seller* seller = m_system->findSeller(sellerName);
 		if (seller != nullptr)
@@ -430,6 +446,7 @@ void Interface::makeAnOrderMenu()
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
 	Buyer* buyer = m_system->findBuyer(buyerName);
 	if (buyer != nullptr)
 	{
@@ -596,6 +613,7 @@ void Interface::payOrderMenu()
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
 	Buyer* buyer = m_system->findBuyer(buyerName);
 	if (buyer != nullptr)
 	{
@@ -679,5 +697,14 @@ void Interface::showAllSellers() const
 	{
 		cout << "#" << i + 1 << ": ";
 		showUser(allSellers[i]->getUser());
+	}
+}
+
+void Interface::cleanAfterGetLine() const
+{
+	if (cin.fail())
+	{
+		cin.clear(); //clean the failbit if cin.getline get more than the maximum 
+		cleanBuffer(); //clean the buffer
 	}
 }

@@ -40,7 +40,8 @@ public:
 
 	bool setSystem(const char * systemName);
 
-	void cleanBuffer();
+	void cleanBuffer() const;
+	void cleanAfterGetLine() const;
 
 	void showAllBuyers() const;
 	void showAllSellers() const;
