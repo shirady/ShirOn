@@ -180,7 +180,7 @@ void Interface::menu()
 void Interface::menuOptions()
 {
 	bool exitMenu = false;
-	char option;
+	int option;
 	Buyer* buyer;
 	Seller* seller;
 
@@ -190,60 +190,63 @@ void Interface::menuOptions()
 		menu();
 		cout << "Enter your option: ";
 		cin >> option;
-		//if (cin.fail())
-		//	cout << "Error! bye" << endl;
-		cout << endl;
-		cin.ignore();
-		switch (option)
+		if (cin.fail())
 		{
-		case 1:
-			buyer = readBuyer();
-			m_system->addBuyerToSystem(buyer);
-			break;
-		case 2:
-			seller = readSeller();
-			m_system->addSellerToSystem(seller);
-			break;
-		case 3:
-			addItemToSellerMenu();
-			break;
-		case 4:
-			addFeedbackToSellerMenu();
-			break;
-		case 5:
-			addItemToCartMenu();
-			break;
-		case 6:
-			makeAnOrderMenu();
-			break;
-		case 7:
-			payOrderMenu();
-			break;
-		case 8:
-			showAllBuyers();
-			break;
-		case 9:
-			showAllSellers();
-			break;
-		case 10:
-			char itemName[Item::MAX_LEN_NAME];
-			cout << "Please enter the name of the item: ";
-			cin.getline(itemName, Item::MAX_LEN_NAME);
-			cout << endl;
-			showAllItemsOfSellers(itemName);
-			break;
-		case 11:
-			exitMenu = true;
-			cout << "Thank you for shopping " << m_system->getSystemName() << "! :)";
-			break;
-		default:
 			cout << "Invalid number. Please choose a number between 1-11" << endl;
-			//cin.ignore();
-			//std::cin.clear();
-			//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cin.clear();
 			cleanBuffer();
-			break;
 		}
+		else
+		{
+			switch (option)
+			{
+			case 1:
+				buyer = readBuyer();
+				m_system->addBuyerToSystem(buyer);
+				break;
+			case 2:
+				seller = readSeller();
+				m_system->addSellerToSystem(seller);
+				break;
+			case 3:
+				addItemToSellerMenu();
+				break;
+			case 4:
+				addFeedbackToSellerMenu();
+				break;
+			case 5:
+				addItemToCartMenu();
+				break;
+			case 6:
+				makeAnOrderMenu();
+				break;
+			case 7:
+				payOrderMenu();
+				break;
+			case 8:
+				showAllBuyers();
+				break;
+			case 9:
+				showAllSellers();
+				break;
+			case 10:
+				char itemName[Item::MAX_LEN_NAME];
+				cout << "Please enter the name of the item: ";
+				cin.getline(itemName, Item::MAX_LEN_NAME);
+				cout << endl;
+				showAllItemsOfSellers(itemName);
+				break;
+			case 11:
+				exitMenu = true;
+				cout << "Thank you for shopping " << m_system->getSystemName() << "! :)";
+				break;
+			default:
+				cout << "Invalid number. Please choose a number between 1-11" << endl;
+				cleanBuffer();
+				break;
+			}
+		}
+
 	}
 }
 
