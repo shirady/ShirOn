@@ -56,13 +56,14 @@ bool Interface::setSystem(const char * systemName)
 
 const User Interface::readUser()
 {
+	//cin.ignore();
+
 	char userName[User::MAX_LEN_NAME];
 	bool fcontinue = true;
 	do 
 	{
 		cout << "Enter your user name: ";
 		cin.getline(userName, User::MAX_LEN_NAME);
-
 		if (m_system->findBuyer(userName) != nullptr || m_system->findSeller(userName) != nullptr)
 			cout << "The user is already exist in the system, please enter again" << endl;
 		else
@@ -190,6 +191,7 @@ void Interface::menuOptions()
 		menu();
 		cout << "Enter your option: ";
 		cin >> option;
+		cin.ignore();
 		if (cin.fail())
 		{
 			cout << "Invalid number. Please choose a number between 1-11" << endl;
@@ -258,7 +260,6 @@ void Interface::cleanBuffer()
 		c = getchar();
 	} while (c != EOF && c != '\n');
 }
-
 
 void Interface::showUser(User& user) const
 {
