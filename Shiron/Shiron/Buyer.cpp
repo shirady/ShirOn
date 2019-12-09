@@ -108,19 +108,13 @@ void Buyer::addOrderToHistory()
 	}
 }
 
-//const Seller* Buyer::findSellerInOrdersHistory(const char* sellerName) const
-//{
-//	const Seller* foundSeller = nullptr;
-//	bool sellerExists = false;
-//
-//	for (unsigned int i = 0; i < m_logicSizeOrders && !sellerExists; i++)
-//	{
-//		const Seller* seller = m_OrdersHistory[i]->findSellerInOrder(sellerName);
-//		if (seller != nullptr)
-//		{
-//			foundSeller = seller;
-//			sellerExists = true;
-//		}
-//	}
-//	return foundSeller;
-//}
+bool Buyer::checkIfSellerExistsInOrdersHistory(Seller* seller)
+{
+	bool foundSeller = false;
+	for (unsigned int i = 0; i < m_logicSizeOrders && !foundSeller; i++)
+	{
+		if (m_OrdersHistory[i]->checkIfSellerIsInAOrder(seller))
+			foundSeller = true;
+	}
+	return foundSeller;
+}

@@ -59,9 +59,8 @@ public:
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
 	void removeItemsFromOrder(Buyer* buyer) const; 
 
-	bool findSellerInOrdersHistory(Seller* seller, Buyer* buyer); //*****
 	//bool findSellerInOrder(Order* order, const char* sellerName) const;
-	bool findSellerInAOrder(Order* order, Seller* seller) const; //*****
+	//bool findSellerInAOrder(Order* order, Seller* seller) const; //*****
 };
 
 #endif// __INTERFACE_H

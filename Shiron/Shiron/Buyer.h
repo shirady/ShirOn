@@ -40,7 +40,9 @@ public:
 	Order** getAllOrders();
 	void reallocOrders();
 	void addOrderToHistory();
-	//const Seller* findSellerInOrdersHistory(const char* sellerName) const;
+	bool checkIfSellerExistsInOrdersHistory(Seller* seller);
+	//old name of function checkIfSellerExistsInOrdersHistory: checkIfSellerExistsInOrdersHistory
+	//const Seller* checkIfSellerExistsInOrdersHistory(const char* sellerName) const;
 };
 
 #endif //__BUYER_H

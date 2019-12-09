@@ -154,23 +154,13 @@ const Item* Order::findSerialNumber(unsigned int serialNumber) const
 	return foundItem;
 }
 
-/*
-//////////The function has an error - "use of undefined type Seller"//////////
-const Seller* Order::findSellerInOrder(const char* sellerName) const
+bool Order::checkIfSellerIsInAOrder(Seller* seller) const
 {
-	Seller* foundSeller = nullptr;
 	bool sellerExists = false;
-
 	for (unsigned int i = 0; i < m_logicSizeItems && !sellerExists; i++)
 	{
-		Seller* seller = m_allItemsOfOrder[i]->getSeller();
-
-		if (strcmp(seller->getUser().getUserName(), sellerName) == 0)
-		{
+		if (m_allItemsOfOrder[i]->getSeller() == seller)
 			sellerExists = true;
-			foundSeller = seller;
-		}
 	}
-	return foundSeller;
+	return sellerExists;
 }
-*/

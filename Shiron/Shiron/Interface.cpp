@@ -386,7 +386,7 @@ void Interface::addFeedbackToSellerMenu()
 		Seller* seller = m_system->findSeller(sellerName);
 		if (seller != nullptr)
 		{
-			if (findSellerInOrdersHistory(seller, buyer))
+			if (buyer->checkIfSellerExistsInOrdersHistory(seller))
 			{
 				Feedback* feedback = readFeedback(buyer); 
 				seller->addFeedbackToSeller(feedback);
@@ -658,43 +658,6 @@ void Interface::showAllSellers() const
 	}
 }
 
-bool Interface::findSellerInOrdersHistory(Seller* seller, Buyer* buyer)
-{
-	bool foundSeller = false;
-	//bool foundSellerInOrder = false;
-
-	Order** allOrdersInBuyer = buyer->getAllOrders();
-	unsigned int orderHistoryLogicSize = buyer->getLogicSizeOrders();
-	for (unsigned int i = 0; i < orderHistoryLogicSize && !foundSeller; i++)
-	{
-		foundSeller = findSellerInAOrder(allOrdersInBuyer[i], seller);
-		if (foundSeller)
-		{
-			foundSeller = true;
-		}
-	}
-	return foundSeller;
-
-}
-
-bool Interface::findSellerInAOrder(Order* order, Seller* seller) const
-{
-	//Seller* foundSeller = nullptr;
-	bool sellerExists = false;
-	const Item** allItemsInOrder = order->getAllItemsOfOrder();
-	unsigned int logicSizeItems = order->getLogicSizeItems();
-
-	for (unsigned int i = 0; i < logicSizeItems && !sellerExists; i++)
-	{
-		//const Item* itemInOrder = allItemsInOrder[i];
-		//Seller* seller = itemInOrder->getSeller()->getUser();
-		if (allItemsInOrder[i]->getSeller() == seller)
-		{
-			sellerExists = true;
-		}
-	}
-	return sellerExists;
-}
 
 
 

@@ -41,11 +41,11 @@ public:
 	unsigned int getTotalPriceOfOrder() const;
 	bool getIfOrderIsOpen() const;
 
-	//void showOrder() const;
-
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 	void closeOrder(unsigned int totalPriceOfOrder);
-	const Seller* findSellerInOrder(const char* sellerName) const;
+	//const Seller* findSellerInOrder(const char* sellerName) const;
+	bool checkIfSellerIsInAOrder(Seller* seller) const;
+
 };
 
 #endif // __ORDER_H
