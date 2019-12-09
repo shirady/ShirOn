@@ -258,7 +258,8 @@ void Interface::showItem(const Item* item) const
 	cout << "Item name: " << item->getNameOfItem()
 		<< ", Category: " << category[item->getCategoryOfItem()]
 		<< ", Price: " << item->getPriceOfItem()
-		<< ", Serial Number: " << item->getSerialNumberOfItem() << endl;
+		<< ", Serial Number: " << item->getSerialNumberOfItem()
+		<< ", Seller name: " << item->getSeller()->getUser().getUserName();
 }
 
 void Interface::showOrder(Order* order) const

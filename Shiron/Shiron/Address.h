@@ -26,6 +26,10 @@ private:
 	char* m_zipCode;
 
 public:
+	Address(char* country, char* city, char* street, unsigned int buildNo, unsigned int apartmentNo, char* zipCode); //c'tor
+	Address(const Address& other); //copy c'tor
+	~Address(); //d'tor
+
 	bool setCountry(const char* country);
 	bool setCity(const char* city);
 	bool setStreet(const char* street);
@@ -42,10 +46,6 @@ public:
 
 	static bool CheckCharacters(const char* fieldName);
 	static bool CheckCharactersOfZip(const char* fieldName);
-
-	Address(char* country, char* city, char* street, unsigned int buildNo, unsigned int apartmentNo, char* zipCode); //c'tor
-	Address(const Address& other); //copy c'tor
-	~Address(); //d'tor
 };
 
 #endif /* Address_h */

@@ -1,8 +1,32 @@
 #include "user.h"
 
+User::User(const char* userName, const char* password, const Address& address) : m_userAddress(address)
+{
+	m_userName = nullptr;
+	m_password = nullptr;
+
+	setUserName(userName);
+	setPassword(password);
+}
+
+User::User(const User& other) : m_userAddress(other.m_userAddress)
+{
+	m_userName = nullptr;
+	m_password = nullptr;
+
+	setUserName(other.m_userName);
+	setPassword(other.m_password);
+}
+
+User::~User()
+{
+	delete[] m_userName;
+	delete[] m_password;
+}
+
 bool User::setUserName(const char* userName) //where do we check if the user exist?
 {
-	//delete[] m_userName; //will not run unless m_userName was allocated
+	delete[] m_userName;
 	unsigned int name_len = strlen(userName);
 
 	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (CheckWhiteSpace(userName)))
@@ -15,27 +39,27 @@ bool User::setUserName(const char* userName) //where do we check if the user exi
 		return false;
 }
 
-bool User::CheckWhiteSpace(const char* userName)
+bool User::CheckWhiteSpace(const char* fieldName)
 {
 	unsigned int i = 0;
-	while (userName[i] != '\0')
+	while (fieldName[i] != '\0')
 	{
-		if (isspace(userName[i]))
+		if (isspace(fieldName[i]))
 			return false;
 		i++;
 	}
 	return true;
 }
 
-bool User::setPassword(const char* passward) //Do we want to check if the password is "strong"?
+bool User::setPassword(const char* password) //Do we want to check if the password is "strong"?
 {
-	//delete[] m_password; //will not run unless m_userName was allocated
-	unsigned int name_len = strlen(passward);
+	delete[] m_password;
+	unsigned int name_len = strlen(password);
 
-	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (CheckWhiteSpace(passward)))
+	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (CheckWhiteSpace(password)))
 	{
 		m_password = new char[name_len + 1];
-		strcpy(m_password, passward);
+		strcpy(m_password, password);
 		return true;
 	}
 	else
@@ -55,22 +79,4 @@ const char* User::getPassword() const
 Address& User::getAddress()
 {
 	return m_userAddress;
-}
-
-User::User(const char* userName, const char* password, const Address& address) : m_userAddress(address)
-{
-	setUserName(userName);
-	setPassword(password);
-}
-
-User::User(const User& other) : m_userAddress(other.m_userAddress)
-{
-	setUserName(other.m_userName);
-	setPassword(other.m_password);
-}
-
-User::~User()
-{
-	delete[] m_userName;
-	delete[] m_password;
 }

@@ -20,18 +20,19 @@ private:
 	char* m_password;
 	Address m_userAddress;
 
+	static bool CheckWhiteSpace(const char* fieldName);
+
 public:
+	User(const char* userName, const char* password, const Address& address); //c'tor
+	User(const User& other); // copy c'tor
+	~User(); //d'tor
+
 	bool setUserName(const char* userName);
-	bool setPassword(const char* passward);
+	bool setPassword(const char* password);
 
 	const char* getUserName() const;
 	const char* getPassword() const;
 	Address& getAddress();
-	static bool CheckWhiteSpace(const char* userName);
-
-	User(const char* userName, const char* password, const Address& address); //c'tor
-	User(const User& other); // copy c'tor
-	~User(); //d'tor
 };
 
 #endif //__USER_H
