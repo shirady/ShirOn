@@ -33,6 +33,7 @@ public:
 	void chooseOptionForMakeAnOrderMenu(Cart* cart) const;
 	void chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned int numberOfItemsInCart) const;
 	void payOrderMenu() const;
+	void payOrderMenuHelper(Buyer* buyer, Cart* cart, Order* order, unsigned int numberOfItemsInCart, unsigned int numberOfItemsInOrder, unsigned int totalPriceOfOrder) const;
 	void addFeedbackToSellerMenu() const;
 	void addFeedbackToSellerMenuHelper(Buyer* buyer) const;
 	void showAllItemsOfCeratinNameMenu() const;
