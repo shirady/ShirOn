@@ -2,7 +2,7 @@
 
 System::System(const char* systemName, unsigned int physSizeBuyers, unsigned int physSizeSellers)
 {
-	systemName = nullptr;
+	m_systemName = nullptr;
 	setSystemName(systemName);
 
 	setLogicSizeBuyers(INITIAL_LOGICAL_SIZE);

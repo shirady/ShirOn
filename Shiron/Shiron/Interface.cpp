@@ -57,8 +57,19 @@ bool Interface::setSystem(const char * systemName)
 const User Interface::readUser()
 {
 	char userName[User::MAX_LEN_NAME];
-	cout << "Enter your user name: ";
-	cin.getline(userName, User::MAX_LEN_NAME);
+	bool fcontinue = true;
+	do 
+	{
+		cout << "Enter your user name: ";
+		cin.getline(userName, User::MAX_LEN_NAME);
+
+		if (m_system->findBuyer(userName) != nullptr || m_system->findSeller(userName) != nullptr)
+		{
+			cout << "The user is already exist in the system, please enter again" << endl;
+		}
+		else
+			fcontinue = false;
+	} while (fcontinue);
 
 	char password[User::MAX_LEN_PASSWORD];
 	cout << "Enter password: ";
