@@ -18,6 +18,7 @@ System::~System()
 {
 	cleanBuyersArray();
 	cleanSellersArray();
+	delete[] m_systemName;
 }
 
 void System::cleanBuyersArray()

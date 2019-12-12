@@ -8,6 +8,7 @@ Interface::Interface()
 Interface::~Interface()
 {
 	delete m_system;
+	//printf("%d\n", _CrtDumpMemoryLeaks());
 }
 
 bool Interface::setSystem(const char * systemName)
@@ -109,7 +110,10 @@ Item* Interface::readItem(Seller* seller) const
 		cleanAfterGetLine();
 		if (seller->countItemsOfSeller(itemName) != 0)
 		{
-			cout << "The item is already exist in the seller " << seller->getUser().getUserName() << "please enter again" << endl;
+			cout << "The item is already exist in the seller " << seller->getUser().getUserName() << " please enter again" << endl << endl;
+		}
+		else
+		{
 			fcontinue = false;
 		}
 	} while (fcontinue);
@@ -188,15 +192,15 @@ void Interface::headline() const
 void Interface::menu() const
 {
 	cout << "\nChoose your option:\n"
-		<< "(1) Add a buyer\n"
-		<< "(2) Add a seller\n"
-		<< "(3) Add an item to a seller\n"
-		<< "(4) Add a feedback to a seller\n"
-		<< "(5) Add an item to Cart of a buyer\n"
-		<< "(6) Make an order for a buyer\n"
-		<< "(7) Pay for an order of a buyer\n"
-		<< "(8) Show details of all buyers\n"
-		<< "(9) Show details of all sellers\n"
+		<< "(1)  Add a buyer\n"
+		<< "(2)  Add a seller\n"
+		<< "(3)  Add an item to a seller\n"
+		<< "(4)  Add a feedback to a seller\n"
+		<< "(5)  Add an item to cart of a buyer\n"
+		<< "(6)  Make an order for a buyer\n"
+		<< "(7)  Pay for an order of a buyer\n"
+		<< "(8)  Show details of all buyers\n"
+		<< "(9)  Show details of all sellers\n"
 		<< "(10) Show details of all the products of a certain name\n"
 		<< "(11) Exit\n";
 }

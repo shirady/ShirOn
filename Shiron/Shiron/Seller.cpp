@@ -17,6 +17,11 @@ Seller::~Seller()
 		delete m_allItems[i];
 
 	delete[] m_allItems;
+
+	for (unsigned int i = 0; i < m_logicSizeFeedbacks; i++)
+		delete m_allFeedbacks[i];
+
+	delete[] m_allFeedbacks;
 }
 
 bool Seller::setLogicSizeItems(unsigned int logicSizeItems)
