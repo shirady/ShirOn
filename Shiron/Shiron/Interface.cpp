@@ -101,9 +101,18 @@ Seller* Interface::readSeller() const
 Item* Interface::readItem(Seller* seller) const
 {
 	char itemName[Item::MAX_LEN_NAME];
-	cout << "Enter The item name: ";
-	cin.getline(itemName, Item::MAX_LEN_NAME);
-	cleanAfterGetLine();
+		bool fcontinue = true;
+	do
+	{
+		cout << "Enter The item name: ";
+		cin.getline(itemName, Item::MAX_LEN_NAME);
+		cleanAfterGetLine();
+		if (seller->countItemsOfSeller(itemName) != 0)
+		{
+			cout << "The item is already exist in the seller " << seller->getUser().getUserName() << "please enter again" << endl;
+			fcontinue = false;
+		}
+	} while (fcontinue);
 
 	Item::eCategory categoryOfItem;
 	cout << "Choose category: 0 - KIDS, 1- ELECTRONICS, 2 - OFFICE, 3 - CLOTHING: ";
