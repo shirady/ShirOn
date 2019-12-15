@@ -1,11 +1,3 @@
-//
-//  Address.h
-//  Shiron
-//
-//  Created by Oron Bortman on 17/11/2019.
-//  Copyright © 2019 Oron Bortman. All rights reserved.
-//
-
 #ifndef __Cart_H
 #define __Cart_H
 
@@ -24,7 +16,7 @@ public:
 private:
 	unsigned int m_logicSizeItems;
 	unsigned int m_physSizeItems;
-	const Item** m_allItemsOfCart;
+	const Item** m_allItemsOfCart; //an array of const item*
 
 public:
 	Cart(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor 

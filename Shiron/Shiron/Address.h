@@ -14,7 +14,7 @@ public:
 	static constexpr unsigned int MAX_LEN_STREET = 100;
 	static constexpr unsigned int MAX_LEN_BUILD_NO = 1000;
 	static constexpr unsigned int MAX_LEN_APARTMENT_NO = 1000;
-	static constexpr unsigned int MAX_LEN_ZIP_CODE = 15; //check if its fine
+	static constexpr unsigned int MAX_LEN_ZIP_CODE = 15;
 	static constexpr unsigned int MIN_LEN_ADDRESS_FIELD = 3;
 
 private:
@@ -25,19 +25,19 @@ private:
 	unsigned int m_apartmentNo;
 	char* m_zipCode;
 
-	bool CheckCharacters(const char* fieldName);
-	bool CheckCharactersOfZip(const char* zipCode);
+	bool CheckCharacters(const char* fieldName) const;
+	bool CheckCharactersOfZip(const char* zipCode) const;
 
 public:
-	Address(char* country, char* city, char* street, unsigned int buildNo, unsigned int apartmentNo, char* zipCode); //c'tor
+	Address(const char* country, const char* city, const char* street, unsigned int buildNo, unsigned int apartmentNo, const char* zipCode); //c'tor
 	Address(const Address& other); //copy c'tor
 	~Address(); //d'tor
 
 	bool setCountry(const char* country);
 	bool setCity(const char* city);
 	bool setStreet(const char* street);
-	bool setBuildNo(const unsigned int buildNo);
-	bool setApartmentNo(const unsigned int apartmentNo);
+	bool setBuildNo(unsigned int buildNo);
+	bool setApartmentNo(unsigned int apartmentNo);
 	bool setZipCode(const char* zipCode);
 
 	const char* getCountry() const;

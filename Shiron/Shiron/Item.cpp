@@ -33,7 +33,7 @@ bool Item::setNameOfItem(const char* itemName)
 		return false;
 }
 
-bool Item::CheckCharacters(const char* fieldName)
+bool Item::CheckCharacters(const char* fieldName) const
 {
 	int i = 0;
 	while (fieldName[i] != '\0')

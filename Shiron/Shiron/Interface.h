@@ -12,7 +12,7 @@ public:
 	const char* category[Item::CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
 
 private:
-	System* m_system = nullptr; //where to initialize?
+	System* m_system = nullptr; //initialize
 
 public:
 	Interface(); //c'tor
@@ -27,8 +27,8 @@ public:
 
 	void addItemToSellerMenu() const;
 	void addItemToCartMenu() const;
-	Seller* FindSellerByChoise(char* const itemName, unsigned int counterOfItemsInAllSellers) const;
-	void addItemToCartMenuHelper(Seller* seller, char* const itemName, Buyer* buyer) const;
+	Seller* FindSellerByChoise(const char* itemName, unsigned int counterOfItemsInAllSellers) const;
+	void addItemToCartMenuHelper(Seller* seller, const char* itemName, Buyer* buyer) const;
 	void makeAnOrderMenu() const;
 	void chooseOptionForMakeAnOrderMenu(Cart* cart) const;
 	void chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned int numberOfItemsInCart) const;
@@ -39,7 +39,7 @@ public:
 	void showAllItemsOfCeratinNameMenu() const;
 
 	void readSystem();
-	void readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const;
+	void readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const; //by ref since we want to change apartment number and building number variables that we are sending to this function
 	const Address readAddress() const;
 	const User readUser() const;
 	Buyer* readBuyer() const;
@@ -53,20 +53,18 @@ public:
 
 	void showAllBuyers() const;
 	void showAllSellers() const;
-	void showUser(User& user) const;
+	void showUser(const User& user) const;
 
 	void showItem(const Item* item) const;
-	void showOrder(Order* order) const;
-	void showCart(Cart* cart) const;
-	void showItemsOfSeller(Seller* seller, const char* itemName) const;
-
+	void showOrder(const Order* order) const;
+	void showCart(const Cart* cart) const;
+	void showItemsOfSeller(const Seller* seller, const char* itemName) const;
 	void showAllItemsOfSellers(const char* itemName) const;
 	void showAllItemsOption() const;
 
 	void chooseAllItemsFromCart(Buyer* buyer) const;
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
 	void removeItemsFromOrder(Buyer* buyer) const; 
-
 };
 
 #endif// __INTERFACE_H

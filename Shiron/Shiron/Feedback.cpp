@@ -38,12 +38,12 @@ bool Feedback::setFeedback(const char* feedback)
 		return false;
 }
 
-const char* Feedback::getFeedback(const char* feedback)
+const char* Feedback::getFeedback(const char* feedback) const
 {
 	return m_feedback;
 }
 
-const Date& Feedback::getDate()
+const Date& Feedback::getDate() const
 {
 	return m_date;
 }

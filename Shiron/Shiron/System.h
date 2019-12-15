@@ -41,7 +41,7 @@ public:
 	bool setLogicSizeSellers(unsigned int logicSizeSellers);
 	bool setPhysSizeSellers(unsigned int physSizeSellers);
 
-	const char* getSystemName();
+	const char* getSystemName() const;
 	unsigned int getLogicSizeSellers() const;
 	unsigned int getLogicSizeBuyers() const;
 	Buyer** getAllBuyers();
@@ -50,11 +50,11 @@ public:
 	void reallocBuyers();
 	void reallocSellers();
 
-	bool addBuyerToSystem(Buyer* buyer);
-	bool addSellerToSystem(Seller* seller);
+	bool addBuyerToSystem(Buyer* buyer); //const?
+	bool addSellerToSystem(Seller* seller); //const?
 
-	Buyer* findBuyer(const char* nameOfBuyer) const;
-	Seller* findSeller(const char* nameOfSeller) const;
+	Buyer* findBuyer(const char* nameOfBuyer) const; //const?
+	Seller* findSeller(const char* nameOfSeller) const; //const
 
 	bool checkIfItemExistInSellers(const char* itemName) const;
 	unsigned int countItemsInAllSellers(const char* itemName) const;

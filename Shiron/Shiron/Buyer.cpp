@@ -44,7 +44,7 @@ bool Buyer::setPhysSizeOrders(unsigned int physSizeOrders)
 	return false;
 }
 
-User& Buyer::getUser()
+const User& Buyer::getUser() const
 {
 	return m_user;
 }
@@ -94,7 +94,7 @@ void Buyer::addOrderToHistory()
 	}
 }
 
-bool Buyer::checkIfSellerExistsInOrdersHistory(Seller* seller)
+bool Buyer::checkIfSellerExistsInOrdersHistory(const Seller* seller) const
 {
 	bool foundSeller = false;
 	for (unsigned int i = 0; i < m_logicSizeOrders && !foundSeller; i++)

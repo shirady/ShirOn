@@ -90,7 +90,7 @@ bool System::setPhysSizeSellers(unsigned int physSizeSellers)
 	return false;
 }
 
-const char* System::getSystemName()
+const char* System::getSystemName() const
 {
 	return m_systemName;
 }

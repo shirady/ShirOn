@@ -16,22 +16,22 @@ public:
 	static constexpr int MIN_LEN_NAME = 2;
 	static constexpr int MAX_LEN_NAME = 16;
 	static constexpr unsigned int MIN_PRICE = 0; //free item
-	static constexpr unsigned int MAX_PRICE = 5000; //max price is up to 5,000 dollars
+	static constexpr unsigned int MAX_PRICE = 5000; //max price is up to 5,000
 	static constexpr unsigned int MIN_SERIAL = 0;
 	static constexpr unsigned int MAX_SERIAL = INT_MAX;
 
 private:
 	char* m_itemName;
 	eCategory m_categoryOfItem;
-	unsigned int m_priceOfItem; //change the price to decimal
+	unsigned int m_priceOfItem;
 	unsigned int m_serialNumberOfItem;
 	static unsigned int m_serialNumberCounter;
 	Seller* m_seller;
 
-	bool CheckCharacters(const char* fieldName);
+	bool CheckCharacters(const char* fieldName) const;
 
 public:
-	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller = nullptr); //c'tor
+	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller = nullptr); //c'tor //// decide to stay without const Seller seller* since we had assignment between non-const pointer and const pointer
 	Item(const Item& other) = delete; //copy c'tor
 	~Item(); //d'tor
 

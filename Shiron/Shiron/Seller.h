@@ -39,14 +39,14 @@ public:
 	Feedback** getAllFeedbacks() const;
 	unsigned int getLogicSizeItems() const;
 	Item** getAllItems() const;
-	User& getUser();
+	const User& getUser() const;
 
-	bool addItemToSeller(Item* item);
-	bool addFeedbackToSeller(Feedback* feedback);
+	bool addItemToSeller(Item* item); //const item?
+	bool addFeedbackToSeller(Feedback* feedback); //const item?
 	void reallocItems();
 	void reallocFeedbacks();
 
-	Item* findSerialNumber(int serialNumber);
+	Item* findSerialNumber(int serialNumber) const;
 	unsigned int countItemsOfSeller(const char* itemName) const;
 	bool checkIfItemExistInASeller(const char* itemName) const;
 };

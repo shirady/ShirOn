@@ -19,7 +19,7 @@ public:
 private:
 	unsigned int m_logicSizeItems;
 	unsigned int m_physSizeItems;
-	const Item** m_allItemsOfOrder;
+	const Item** m_allItemsOfOrder; //array of const item*
 	bool m_openOrder;
 	unsigned int m_totalPriceOfOrder;
 
@@ -44,7 +44,7 @@ public:
 
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 	void closeOrder(unsigned int totalPriceOfOrder);
-	bool checkIfSellerIsInAOrder(Seller* seller) const;
+	bool checkIfSellerIsInAOrder(const Seller* seller) const;
 };
 
 #endif // __ORDER_H

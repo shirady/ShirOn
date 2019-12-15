@@ -24,7 +24,7 @@ User::~User()
 	delete[] m_password;
 }
 
-bool User::setUserName(const char* userName) //where do we check if the user exist?
+bool User::setUserName(const char* userName)
 {
 	delete[] m_userName;
 	unsigned int name_len = strlen(userName);
@@ -39,7 +39,7 @@ bool User::setUserName(const char* userName) //where do we check if the user exi
 		return false;
 }
 
-bool User::CheckWhiteSpace(const char* fieldName)
+bool User::CheckWhiteSpace(const char* fieldName) const
 {
 	unsigned int i = 0;
 	while (fieldName[i] != '\0')
@@ -51,7 +51,7 @@ bool User::CheckWhiteSpace(const char* fieldName)
 	return true;
 }
 
-bool User::setPassword(const char* password) //Do we want to check if the password is "strong"?
+bool User::setPassword(const char* password) 
 {
 	delete[] m_password;
 	unsigned int name_len = strlen(password);
@@ -76,7 +76,7 @@ const char* User::getPassword() const
 	return m_password;
 }
 
-Address& User::getAddress()
+const Address& User::getAddress() const
 {
 	return m_userAddress;
 }

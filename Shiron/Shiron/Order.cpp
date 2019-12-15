@@ -128,7 +128,7 @@ const Item* Order::findSerialNumber(unsigned int serialNumber) const
 	return foundItem;
 }
 
-bool Order::checkIfSellerIsInAOrder(Seller* seller) const
+bool Order::checkIfSellerIsInAOrder(const Seller* seller) const
 {
 	bool sellerExists = false;
 	for (unsigned int i = 0; i < m_logicSizeItems && !sellerExists; i++)

@@ -5,6 +5,7 @@
 #include <string.h>
 using namespace std;
 #pragma warning(disable: 4996)
+
 #include "User.h"
 #include "Item.h"
 #include "Order.h"
@@ -33,7 +34,7 @@ public:
 	bool setLogicSizeOrders(unsigned int logicSizeOrders);
 	bool setPhysSizeOrders(unsigned int physSizeOrders);
 
-	User& getUser(); //const method?
+	const User& getUser() const;
 	Cart* getCart() const;
 	Order* getCurrentOrder() const;
 	unsigned int getLogicSizeOrders() const;
@@ -41,7 +42,7 @@ public:
 
 	void reallocOrders();
 	void addOrderToHistory();
-	bool checkIfSellerExistsInOrdersHistory(Seller* seller);
+	bool checkIfSellerExistsInOrdersHistory(const Seller* seller) const;
 };
 
 #endif //__BUYER_H

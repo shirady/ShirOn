@@ -85,7 +85,7 @@ Item** Seller::getAllItems() const
 	return m_allItems;
 }
 
-User& Seller::getUser()
+const User& Seller::getUser() const
 {
 	return m_user;
 }
@@ -134,7 +134,7 @@ bool Seller::addFeedbackToSeller(Feedback* feedback)
 	return true;
 }
 
-Item* Seller::findSerialNumber(int serialNumber)
+Item* Seller::findSerialNumber(int serialNumber) const
 {
 	Item* foundItem = nullptr;
 	bool ItemExists = false;

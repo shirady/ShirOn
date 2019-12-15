@@ -283,9 +283,9 @@ void Interface::cleanBuffer() const
 	} while (c != EOF && c != '\n');
 }
 
-void Interface::showUser(User& user) const
+void Interface::showUser(const User& user) const
 {
-	Address address = user.getAddress();
+	const Address address = user.getAddress();
 	cout << "User name: " << user.getUserName() << endl
 		<< "Country: " << address.getCountry()
 		<< ", City: " << address.getCity()
@@ -304,7 +304,7 @@ void Interface::showItem(const Item* item) const
 		<< ", Seller name: " << item->getSeller()->getUser().getUserName() << endl;;
 }
 
-void Interface::showOrder(Order* order) const
+void Interface::showOrder(const Order* order) const
 {
 	unsigned int logicSizeItems = order->getLogicSizeItems();
 	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
@@ -317,7 +317,7 @@ void Interface::showOrder(Order* order) const
 	cout << endl;
 }
 
-void Interface::showCart(Cart* cart) const
+void Interface::showCart(const Cart* cart) const
 {
 	unsigned int logicSizeItems = cart->getLogicSizeItems();
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
@@ -327,7 +327,7 @@ void Interface::showCart(Cart* cart) const
 	cout << endl;
 }
 
-void Interface::showItemsOfSeller(Seller* seller, const char* itemName) const
+void Interface::showItemsOfSeller(const Seller* seller, const char* itemName) const
 {
 	unsigned int logicSizeItems = seller->getLogicSizeItems();
 	Item** allItemsOfSeller = seller->getAllItems();
@@ -384,7 +384,7 @@ void Interface::addItemToCartMenu() const
 		cout << "Buyer was not found in the system" << endl;
 }
 
-Seller* Interface::FindSellerByChoise( char* const itemName, unsigned int counterOfItemsInAllSellers) const
+Seller* Interface::FindSellerByChoise(const char* itemName, unsigned int counterOfItemsInAllSellers) const
 {
 	cout << "There are " << counterOfItemsInAllSellers << " items with the name " << itemName << endl;
 	cout << "The items are: " << endl;
@@ -397,7 +397,7 @@ Seller* Interface::FindSellerByChoise( char* const itemName, unsigned int counte
 }
 
 
-void Interface::addItemToCartMenuHelper(Seller* seller, char* const itemName, Buyer* buyer) const
+void Interface::addItemToCartMenuHelper(Seller* seller, const char* itemName, Buyer* buyer) const
 {
 	unsigned int counter = seller->countItemsOfSeller(itemName);
 

@@ -1,6 +1,6 @@
 #include "Address.h"
 
-Address::Address(char* country, char* city, char* street, unsigned int buildNo, unsigned int apartmentNo, char* zipCode)
+Address::Address(const char* country, const char* city, const char* street, unsigned int buildNo, unsigned int apartmentNo, const char* zipCode)
 {
 	m_country = nullptr;
 	m_city = nullptr;
@@ -52,7 +52,7 @@ bool Address::setCountry(const char* country)
         return false;
 }
 
-bool Address::CheckCharacters(const char* fieldName)
+bool Address::CheckCharacters(const char* fieldName) const
 {
 	unsigned int i = 0;
 	while (fieldName[i] != '\0')
@@ -65,7 +65,7 @@ bool Address::CheckCharacters(const char* fieldName)
 	return true;
 }
 
-bool Address::CheckCharactersOfZip(const char* zipCode)
+bool Address::CheckCharactersOfZip(const char* zipCode) const
 {
 	unsigned int i = 0;
 	while (zipCode[i] != '\0')
@@ -84,7 +84,7 @@ bool Address::setCity(const char* city)
     unsigned int name_len = strlen(city);
     if (name_len < (MAX_LEN_CITY - 1) && (name_len >= MIN_LEN_ADDRESS_FIELD) && (CheckCharacters(city)))
     {
-        m_city = new char[strlen(city) + 1]; //check allocation is missing
+        m_city = new char[strlen(city) + 1];
         strcpy(m_city, city);
         return true;
     }
@@ -99,7 +99,7 @@ bool Address::setStreet(const char* street)
     unsigned int name_len = strlen(street);
     if (name_len < (MAX_LEN_STREET - 1) && (name_len >= MIN_LEN_ADDRESS_FIELD) && (CheckCharacters(street)))
     {
-        m_street = new char[strlen(street) + 1]; //check allocation is missing
+        m_street = new char[strlen(street) + 1];
         strcpy(m_street, street);
         return true;
     }
@@ -108,13 +108,13 @@ bool Address::setStreet(const char* street)
 
 }
 
-bool Address::setBuildNo(const unsigned int buildNo)
+bool Address::setBuildNo(unsigned int buildNo)
 {
     m_buildNo = buildNo;
     return true;
 }
 
-bool Address::setApartmentNo(const unsigned int apartmentNo)
+bool Address::setApartmentNo(unsigned int apartmentNo)
 {
     m_apartmentNo = apartmentNo;
     return true;

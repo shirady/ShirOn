@@ -20,7 +20,7 @@ private:
 	char* m_password;
 	Address m_userAddress;
 
-	static bool CheckWhiteSpace(const char* fieldName);
+	bool CheckWhiteSpace(const char* fieldName) const;
 
 public:
 	User(const char* userName, const char* password, const Address& address); //c'tor
@@ -32,7 +32,7 @@ public:
 
 	const char* getUserName() const;
 	const char* getPassword() const;
-	Address& getAddress();
+	const Address& getAddress() const;
 };
 
 #endif //__USER_H
