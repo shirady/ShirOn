@@ -41,7 +41,7 @@ public:
 	Item** getAllItems() const;
 	const User& getUser() const;
 
-	bool addItemToSeller(Item* item); //const item? //<----------- stopped here
+	bool addItemToSeller(Item* item);
 	bool addFeedbackToSeller(const Feedback* feedback);
 	void reallocItems();
 	void reallocFeedbacks();

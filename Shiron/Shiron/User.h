@@ -28,7 +28,7 @@ public:
 	User(const User& other); // copy c'tor
 	~User(); //d'tor
 
-	bool setPassword(const char* password);
+	bool setPassword(const char* password); //password can be change after it was created
 
 	const char* getUserName() const;
 	const char* getPassword() const;

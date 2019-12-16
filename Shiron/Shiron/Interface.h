@@ -14,12 +14,12 @@ public:
 private:
 	System* m_system = nullptr; //initialize
 
+	bool setSystem(const char *systemName);
+
 public:
 	Interface(); //c'tor
 	Interface(const System& other) = delete; //copy c'tor disabled
 	~Interface(); //d'tor
-
-	bool setSystem(const char * systemName);
 
 	void headline() const;
 	void menu() const;
@@ -28,14 +28,14 @@ public:
 	void addItemToSellerMenu() const;
 	void addItemToCartMenu() const;
 	Seller* FindSellerByChoise(const char* itemName, unsigned int counterOfItemsInAllSellers) const;
-	void addItemToCartMenuHelper(Seller* seller, const char* itemName, Buyer* buyer) const;
+	void addItemToCartMenuHelper(const Seller* seller, const char* itemName, Buyer* buyer) const;
 	void makeAnOrderMenu() const;
-	void chooseOptionForMakeAnOrderMenu(Cart* cart) const;
+	void chooseOptionForMakeAnOrderMenu(const Cart* cart) const;
 	void chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned int numberOfItemsInCart) const;
 	void payOrderMenu() const;
 	void payOrderMenuHelper(Buyer* buyer, Cart* cart, Order* order, unsigned int numberOfItemsInCart, unsigned int numberOfItemsInOrder, unsigned int totalPriceOfOrder) const;
 	void addFeedbackToSellerMenu() const;
-	void addFeedbackToSellerMenuHelper(Buyer* buyer) const;
+	void addFeedbackToSellerMenuHelper(const Buyer* buyer) const;
 	void showAllItemsOfCeratinNameMenu() const;
 
 	void readSystem();
@@ -44,8 +44,8 @@ public:
 	const User readUser() const;
 	Buyer* readBuyer() const;
 	Seller* readSeller() const;
-	Item* readItem(Seller* seller) const;
-	Feedback* readFeedback(Buyer* buyer) const;
+	Item* readItem(const Seller* seller) const;
+	Feedback* readFeedback(const Buyer* buyer) const;
 	const Date readDate() const;
 
 	void cleanBuffer() const;

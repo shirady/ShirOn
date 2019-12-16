@@ -99,7 +99,7 @@ Seller* Interface::readSeller() const
 	return new Seller(readUser());
 }
 
-Item* Interface::readItem(Seller* seller) const
+Item* Interface::readItem(const Seller* seller) const
 {
 	char itemName[Item::MAX_LEN_NAME];
 		bool fcontinue = true;
@@ -131,7 +131,7 @@ Item* Interface::readItem(Seller* seller) const
 	return new Item(itemName, categoryOfItem, priceOfItem, seller);
 }
 
-Feedback* Interface::readFeedback(Buyer* buyer) const
+Feedback* Interface::readFeedback(const Buyer* buyer) const
 {
 	char feedbackText[Feedback::MAX_LEN_FEEDBACK];
 	cout << "Enter Your feedback: ";
@@ -397,7 +397,7 @@ Seller* Interface::FindSellerByChoise(const char* itemName, unsigned int counter
 }
 
 
-void Interface::addItemToCartMenuHelper(Seller* seller, const char* itemName, Buyer* buyer) const
+void Interface::addItemToCartMenuHelper(const Seller* seller, const char* itemName, Buyer* buyer) const
 {
 	unsigned int counter = seller->countItemsOfSeller(itemName);
 
@@ -430,7 +430,7 @@ void Interface::addFeedbackToSellerMenu() const
 		cout << "Buyer was not found in the system" << endl;
 }
 
-void Interface::addFeedbackToSellerMenuHelper(Buyer* buyer) const
+void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 {
 	cout << "Please enter the name of the seller: ";
 	char sellerName[User::MAX_LEN_NAME];
@@ -472,7 +472,7 @@ void Interface::makeAnOrderMenu() const
 		cout << "Buyer was not found in the system" << endl;
 }
 
-void Interface::chooseOptionForMakeAnOrderMenu(Cart* cart) const
+void Interface::chooseOptionForMakeAnOrderMenu(const Cart* cart) const
 {
 	cout << "The items in the cart are:" << endl;
 	showCart(cart);
