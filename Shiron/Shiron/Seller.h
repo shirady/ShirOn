@@ -19,30 +19,30 @@ private:
 	User m_user;
 	unsigned int m_logicSizeItems;
 	unsigned int m_physSizeItems;
-	Item** m_allItems;
+	Item** m_allItems; //the seller is the one who defines the items he sells
 
 	unsigned int m_logicSizeFeedbacks;
 	unsigned int m_physSizeFeedbacks;
-	Feedback ** m_allFeedbacks;
-
-public:
-	Seller(const User& user, unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE, unsigned int physSizeFeedbacks = INITIAL_PHYSICAL_SIZE); //c'tor 
-	Seller(const Seller& other) = delete; //copy c'tor
-	~Seller(); //d'tor
+	const Feedback** m_allFeedbacks; //an array of const Feedback
 
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
 	bool setLogicSizeFeedbacks(unsigned int logicSizeFeedbacks);
 	bool setPhysSizeFeedbacks(unsigned int physSizeFeedbacks);
 
+public:
+	Seller(const User& user, unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE, unsigned int physSizeFeedbacks = INITIAL_PHYSICAL_SIZE); //c'tor 
+	Seller(const Seller& other) = delete; //copy c'tor
+	~Seller(); //d'tor
+
 	unsigned int getLogicSizeFeedbacks() const;
-	Feedback** getAllFeedbacks() const;
+	const Feedback** getAllFeedbacks() const;
 	unsigned int getLogicSizeItems() const;
 	Item** getAllItems() const;
 	const User& getUser() const;
 
-	bool addItemToSeller(Item* item); //const item?
-	bool addFeedbackToSeller(Feedback* feedback); //const item?
+	bool addItemToSeller(Item* item); //const item? //<----------- stopped here
+	bool addFeedbackToSeller(const Feedback* feedback);
 	void reallocItems();
 	void reallocFeedbacks();
 

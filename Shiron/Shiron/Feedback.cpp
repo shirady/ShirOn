@@ -1,6 +1,6 @@
 #include "Feedback.h"
 
-Feedback::Feedback(const char* feedback, const Date& date, Buyer* buyer) : m_date(date)
+Feedback::Feedback(const char* feedback, const Date& date, const Buyer* buyer) : m_date(date)
 {
 	feedback = nullptr;
 
@@ -13,7 +13,7 @@ Feedback::~Feedback()
 	delete[] m_feedback;
 }
 
-bool Feedback::setBuyer(Buyer* buyer)
+bool Feedback::setBuyer(const Buyer* buyer)
 {
 	if (buyer != nullptr)
 	{

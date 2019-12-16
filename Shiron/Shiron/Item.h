@@ -26,25 +26,25 @@ private:
 	unsigned int m_priceOfItem;
 	unsigned int m_serialNumberOfItem;
 	static unsigned int m_serialNumberCounter;
-	Seller* m_seller;
+	const Seller* m_seller;
 
 	bool CheckCharacters(const char* fieldName) const;
+	bool setNameOfItem(const char* itemName);
+	bool setSeller(const Seller* seller);
 
 public:
-	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller = nullptr); //c'tor //// decide to stay without const Seller seller* since we had assignment between non-const pointer and const pointer
+	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem, const Seller* seller = nullptr); //c'tor //// decide to stay without const Seller seller* since we had assignment between non-const pointer and const pointer
 	Item(const Item& other) = delete; //copy c'tor
 	~Item(); //d'tor
 
-	bool setNameOfItem(const char* itemName);
 	bool setCategoryOfItem(eCategory categoryOfItem);
 	bool setPriceOfItem(unsigned int priceOfItem);
-	bool setSeller(Seller* seller);
 
 	const char* getNameOfItem() const;
 	eCategory getCategoryOfItem() const;
 	unsigned int getPriceOfItem() const;
 	unsigned int getSerialNumberOfItem() const;
-	Seller* getSeller() const;
+	const Seller* getSeller() const;
 };
 
 #endif //__ITEM_H

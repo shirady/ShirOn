@@ -7,7 +7,7 @@ Buyer::Buyer(const User& user, unsigned int physSizeOrders) : m_user(user)
 
 	setLogicSizeOrders(INITIAL_LOGICAL_SIZE);
 	setPhysSizeOrders(physSizeOrders);
-	m_OrdersHistory = new Order*[m_physSizeOrders];
+	m_OrdersHistory = new const Order*[m_physSizeOrders];
 }
 
 Buyer::~Buyer()
@@ -64,14 +64,14 @@ unsigned int Buyer::getLogicSizeOrders() const
 	return m_logicSizeOrders;
 }
 
-Order** Buyer::getAllOrders()
+const Order** Buyer::getAllOrders()
 {
 	return m_OrdersHistory;
 }
 
 void Buyer::reallocOrders()
 {
-	Order** newAllOrders = new Order*[m_physSizeOrders];
+	const Order** newAllOrders = new const Order*[m_physSizeOrders];
 	for (unsigned int i = 0; i < m_logicSizeOrders; i++)
 	{
 		newAllOrders[i] = m_OrdersHistory[i];

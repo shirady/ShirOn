@@ -21,14 +21,14 @@ private:
 	unsigned int m_month;
 	unsigned int m_day;
 
+	bool setYear(unsigned int year);
+	bool setMonth(unsigned int month);
+	bool setDay(unsigned int day);
+
 public:
 	Date(unsigned int year, unsigned int month, unsigned int day); //c'tor
 	 //copy and move c'tor - we do not need to implement and we use the default constructor since it does not have memory allocation
 	~Date(); //d'tor
-
-	bool setYear(unsigned int year);
-	bool setMonth(unsigned int month);
-	bool setDay(unsigned int day);
 
 	unsigned int getYear() const;
 	unsigned int getMonth() const;

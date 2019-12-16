@@ -21,13 +21,13 @@ private:
 	Address m_userAddress;
 
 	bool CheckWhiteSpace(const char* fieldName) const;
+	bool setUserName(const char* userName);
 
 public:
 	User(const char* userName, const char* password, const Address& address); //c'tor
 	User(const User& other); // copy c'tor
 	~User(); //d'tor
 
-	bool setUserName(const char* userName);
 	bool setPassword(const char* password);
 
 	const char* getUserName() const;

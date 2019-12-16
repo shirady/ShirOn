@@ -23,15 +23,15 @@ private:
 	bool m_openOrder;
 	unsigned int m_totalPriceOfOrder;
 
-public:
-	Order(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor
-	Order(const Order& other) = delete; //copy c'tor
-	~Order(); //d'tor
-
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
 	bool setOpenOrder(bool openOrder);
 	bool setTotalPriceOfOrder(unsigned int totalPriceOfOrder);
+
+public:
+	Order(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor
+	Order(const Order& other) = delete; //copy c'tor
+	~Order(); //d'tor
 
 	unsigned int getLogicSizeItems() const;
 	const Item** getAllItemsOfOrder() const;

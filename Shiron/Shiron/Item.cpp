@@ -3,7 +3,7 @@
 
 unsigned int Item::m_serialNumberCounter = 0;
 
-Item::Item(const char* itemName, Item::eCategory categoryOfItem, unsigned int priceOfItem, Seller* seller)
+Item::Item(const char* itemName, Item::eCategory categoryOfItem, unsigned int priceOfItem, const Seller* seller)
 {
 	m_itemName = nullptr;
 
@@ -69,7 +69,7 @@ bool Item::setPriceOfItem(unsigned int priceOfItem)
 		return false;
 }
 
-bool Item::setSeller(Seller* seller)
+bool Item::setSeller(const Seller* seller)
 {
 	if (seller != nullptr)
 	{
@@ -100,7 +100,7 @@ unsigned int Item::getSerialNumberOfItem() const
 	return m_serialNumberOfItem;
 }
 
-Seller* Item::getSeller() const
+const Seller* Item::getSeller() const
 {
 	return m_seller;
 }

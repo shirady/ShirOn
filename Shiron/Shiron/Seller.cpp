@@ -8,7 +8,7 @@ Seller::Seller(const User& user, unsigned int physSizeItems, unsigned int physSi
 
 	setLogicSizeFeedbacks(INITIAL_LOGICAL_SIZE);
 	setPhysSizeFeedbacks(physSizeFeedbacks);
-	m_allFeedbacks = new Feedback*[m_physSizeFeedbacks];
+	m_allFeedbacks = new const Feedback*[m_physSizeFeedbacks];
 }
 
 Seller::~Seller()
@@ -70,7 +70,7 @@ unsigned int Seller::getLogicSizeFeedbacks() const
 	return m_logicSizeFeedbacks;
 }
 
-Feedback** Seller::getAllFeedbacks() const
+const Feedback** Seller::getAllFeedbacks() const
 {
 	return m_allFeedbacks;
 }
@@ -114,7 +114,7 @@ bool Seller::addItemToSeller(Item* item)
 
 void Seller::reallocFeedbacks()
 {
-	Feedback** newAllFeedbacks = new Feedback*[m_physSizeFeedbacks];
+	const Feedback** newAllFeedbacks = new const Feedback*[m_physSizeFeedbacks];
 	for (unsigned int i = 0; i < m_logicSizeFeedbacks; i++)
 	{
 		newAllFeedbacks[i] = m_allFeedbacks[i];
@@ -123,7 +123,7 @@ void Seller::reallocFeedbacks()
 	m_allFeedbacks = newAllFeedbacks;
 }
 
-bool Seller::addFeedbackToSeller(Feedback* feedback)
+bool Seller::addFeedbackToSeller(const Feedback* feedback)
 {
 	if (m_logicSizeFeedbacks == m_physSizeFeedbacks)
 	{
