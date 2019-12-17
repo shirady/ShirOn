@@ -30,6 +30,9 @@ private:
 	bool setLogicSizeFeedbacks(unsigned int logicSizeFeedbacks);
 	bool setPhysSizeFeedbacks(unsigned int physSizeFeedbacks);
 
+	void reallocItems();
+	void reallocFeedbacks();
+
 public:
 	Seller(const User& user, unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE, unsigned int physSizeFeedbacks = INITIAL_PHYSICAL_SIZE); //c'tor 
 	Seller(const Seller& other) = delete; //copy c'tor
@@ -43,8 +46,6 @@ public:
 
 	bool addItemToSeller(Item* item);
 	bool addFeedbackToSeller(const Feedback* feedback);
-	void reallocItems();
-	void reallocFeedbacks();
 
 	Item* findSerialNumber(int serialNumber) const;
 	unsigned int countItemsOfSeller(const char* itemName) const;

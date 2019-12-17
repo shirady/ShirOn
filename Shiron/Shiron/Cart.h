@@ -29,7 +29,7 @@ public:
 	unsigned int getLogicSizeItems() const;
 	const Item** getAllItemsOfCart() const;
 
-	void reallocItems();
+	void reallocItems(); //not in private since we use it from Interface
 	bool addItemToCart(const Item* item);
 	void removeItemFromCart(const Item* item);
 

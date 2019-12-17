@@ -36,6 +36,9 @@ private:
 	void cleanBuyersArray();
 	void cleanSellersArray();
 
+	void reallocBuyers();
+	void reallocSellers();
+
 public:
 	System(const char* systemName, unsigned int physSizeBuyers = INITIAL_PHYSICAL_SIZE, unsigned int physSizeSellers = INITIAL_PHYSICAL_SIZE); //c'tor
 	System(const System& other) = delete; //copy c'tor
@@ -48,9 +51,6 @@ public:
 	unsigned int getLogicSizeBuyers() const;
 	Buyer** getAllBuyers(); //not const by permission from Keren because it made problems (Buyer* const *)
 	Seller** getAllSellers(); //not const by permission from Keren because it made problems (Seller* const *)
-
-	void reallocBuyers();
-	void reallocSellers();
 
 	bool addBuyerToSystem(Buyer* buyer); 
 	bool addSellerToSystem(Seller* seller);

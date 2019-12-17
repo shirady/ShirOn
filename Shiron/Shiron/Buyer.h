@@ -29,6 +29,8 @@ private:
 	bool setLogicSizeOrders(unsigned int logicSizeOrders);
 	bool setPhysSizeOrders(unsigned int physSizeOrders);
 
+	void reallocOrders();
+
 public:
 	Buyer(const User& user, unsigned int physSizeOrders = INITIAL_PHYSICAL_SIZE); //c'tor 
 	Buyer(const Buyer& other) = delete; //copy c'tor
@@ -40,7 +42,6 @@ public:
 	unsigned int getLogicSizeOrders() const;
 	const Order** getAllOrders();
 
-	void reallocOrders();
 	void addOrderToHistory();
 	bool checkIfSellerExistsInOrdersHistory(const Seller* seller) const;
 };

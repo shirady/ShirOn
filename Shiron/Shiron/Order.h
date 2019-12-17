@@ -38,7 +38,7 @@ public:
 	unsigned int getTotalPriceOfOrder() const;
 	bool getIfOrderIsOpen() const;
 
-	void reallocItems();
+	void reallocItems(); //not in private since we use it from Interface
 	bool addItemToOrder(const Item* item);
 	void removeItemFromOrder(const Item* item);
 
