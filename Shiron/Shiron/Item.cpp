@@ -1,4 +1,4 @@
-#include "item.h"
+#include "Item.h"
 #include "Seller.h" //There is forward declaration of seller in item.h
 
 unsigned int Item::m_serialNumberCounter = 0;

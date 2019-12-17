@@ -453,7 +453,6 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 
 void Interface::makeAnOrderMenu() const
 {
-	int option=0;
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);
@@ -547,7 +546,6 @@ void Interface::chooseCertainItemsFromCart(Buyer* buyer) const
 	Cart* cart = buyer->getCart();
 	Order* order = buyer->getCurrentOrder();
 	unsigned int numberOfItems, serialNumber, cartItemsAmount = cart->getLogicSizeItems();
-	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 
 	cout << "The number of items in the cart is: " << cartItemsAmount << endl;;
 	cout << "How many items do you want to add to the order? ";
@@ -573,7 +571,6 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 {
 	Order* order = buyer->getCurrentOrder();
 	unsigned int numberOfItemsToDel, serialNumber,numberOfItemInOrder = order->getLogicSizeItems();
-	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
 
 	cout << "The number of items in the order is: " << numberOfItemInOrder << endl;
 	cout << "How many items do you want to remove from the order? ";
@@ -604,7 +601,6 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 
 void Interface::payOrderMenu() const
 {
-	int option=0;
 	cout << "Please enter the name of the buyer: ";
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);

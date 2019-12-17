@@ -1,4 +1,4 @@
-#include "user.h"
+#include "User.h"
 
 User::User(const char* userName, const char* password, const Address& address) : m_userAddress(address)
 {
