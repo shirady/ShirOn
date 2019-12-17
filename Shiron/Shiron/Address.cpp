@@ -30,6 +30,23 @@ Address::Address(const Address& other)
 	setZipCode(other.m_zipCode);
 }
 
+Address::Address(Address&& other)
+{
+	//We are assuming that the all of the values of the r-value address are valid
+	m_country = other.m_country;
+	m_city = other.m_city;
+	m_street = other.m_street;
+	m_zipCode = other.m_zipCode;
+	
+	m_buildNo = other.m_buildNo;
+	m_apartmentNo = other.m_apartmentNo;
+
+	other.m_country = nullptr;
+	other.m_city = nullptr;
+	other.m_street = nullptr;
+	other.m_zipCode = nullptr;
+}
+
 Address::~Address()
 {
 	delete[] m_country;

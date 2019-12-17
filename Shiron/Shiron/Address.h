@@ -31,6 +31,7 @@ private:
 public:
 	Address(const char* country, const char* city, const char* street, unsigned int buildNo, unsigned int apartmentNo, const char* zipCode); //c'tor
 	Address(const Address& other); //copy c'tor
+	Address(Address&& other); //move c'tor
 	~Address(); //d'tor
 
 	bool setCountry(const char* country);

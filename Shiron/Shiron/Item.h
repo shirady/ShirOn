@@ -26,7 +26,7 @@ private:
 	unsigned int m_priceOfItem;
 	unsigned int m_serialNumberOfItem;
 	static unsigned int m_serialNumberCounter;
-	const Seller* m_seller; //need to decided
+	const Seller* m_seller;
 
 	bool CheckCharacters(const char* fieldName) const;
 	bool setNameOfItem(const char* itemName);

@@ -14,7 +14,7 @@ public:
 	static constexpr unsigned int MAX_LEN_FEEDBACK = 1500; 
 
 private:
-	const Buyer* m_buyer; //need to decide
+	const Buyer* m_buyer;
 	char* m_feedback;
 	Date m_date;
 
