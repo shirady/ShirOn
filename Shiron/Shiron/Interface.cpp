@@ -633,7 +633,7 @@ void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsign
 	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 	unsigned int option = 0;
-	cout << "Choose option:" << endl << "1. Pay for the order" << endl << "2. Pay later" << endl;
+	cout << "(1) Pay for the order" << endl << "(2) Pay later:"<< endl <<"Choose option: ";
 	cin >> option;
 
 	if (option == 1)
