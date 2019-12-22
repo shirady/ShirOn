@@ -16,14 +16,8 @@ private:
 
 	bool setSystem(const char *systemName);
 
-public:
-	Interface(); //c'tor
-	Interface(const System& other) = delete; //copy c'tor disabled
-	~Interface(); //d'tor
-
 	void headline() const;
 	void menu() const;
-	void menuOptions() const;
 
 	void addItemToSellerMenu() const;
 	void addItemToCartMenu() const;
@@ -38,7 +32,6 @@ public:
 	void addFeedbackToSellerMenuHelper(const Buyer* buyer) const;
 	void showAllItemsOfCeratinNameMenu() const;
 
-	void readSystem();
 	void readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const; //by ref since we want to change apartment number and building number variables that we are sending to this function
 	const Address readAddress() const;
 	const User readUser() const;
@@ -64,7 +57,15 @@ public:
 
 	void chooseAllItemsFromCart(Buyer* buyer) const;
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
-	void removeItemsFromOrder(Buyer* buyer) const; 
+	void removeItemsFromOrder(Buyer* buyer) const;
+
+public:
+	Interface(); //c'tor
+	Interface(const System& other) = delete; //copy c'tor disabled
+	~Interface(); //d'tor
+
+	void menuOptions() const;
+	void readSystem();
 };
 
 #endif// __INTERFACE_H

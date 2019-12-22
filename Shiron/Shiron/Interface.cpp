@@ -189,6 +189,7 @@ void Interface::headline() const
 {
 	cout << "Welcome to " << m_system->getSystemName() << " The world advanced shopping platform online\n";
 }
+
 void Interface::menu() const
 {
 	cout << "\nChoose your option:\n"
@@ -218,6 +219,7 @@ void Interface::menuOptions() const
 		menu();
 		cout << "Enter your option: ";
 		cin >> option;
+		cout << endl;
 		cin.ignore();
 		if (cin.fail())
 		{
