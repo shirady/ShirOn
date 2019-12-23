@@ -5,34 +5,36 @@ System::System(const char* systemName, unsigned int physUsers)
 	m_systemName = nullptr;
 	setSystemName(systemName);
 
-	setLogicSizeBuyers(INITIAL_LOGICAL_SIZE);
-	setPhysSizeBuyers(physSizeBuyers);
-	m_allBuyers = new Buyer*[m_physSizeBuyers];
-
-	setLogicSizeSellers(INITIAL_LOGICAL_SIZE);
-	setPhysSizeSellers(physSizeSellers);
-	m_allSellers = new Seller*[m_physSizeSellers];
+	setLogicSizeUsers(INITIAL_LOGICAL_SIZE);
+	setPhysSizeUsers(physUsers);
+	m_allUsers = new User*[m_physSizeUsers];
 }
 
 System::~System()
 {
-	cleanBuyersArray();
-	cleanSellersArray();
+	cleanUsersArray();
 	delete[] m_systemName;
 }
 
-void System::cleanBuyersArray()
-{
-	for (unsigned int i = 0; i < m_logicSizeBuyers; ++i)
-		delete m_allBuyers[i];
-	delete[] m_allBuyers;
-}
+//void System::cleanBuyersArray()
+//{
+//	for (unsigned int i = 0; i < m_logicSizeBuyers; ++i)
+//		delete m_allBuyers[i];
+//	delete[] m_allBuyers;
+//}
+//
+//void System::cleanSellersArray()
+//{
+//	for (unsigned int i = 0; i < m_logicSizeSellers; ++i)
+//		delete m_allSellers[i];
+//	delete[] m_allSellers;
+//}
 
-void System::cleanSellersArray()
+void System::cleanUsersArray()
 {
-	for (unsigned int i = 0; i < m_logicSizeSellers; ++i)
-		delete m_allSellers[i];
-	delete[] m_allSellers;
+	for (unsigned int i = 0; i < m_logicSizeUsers; ++i)
+		delete m_allUsers[i];
+	delete[] m_allUsers;
 }
 
 bool System::setSystemName(const char* systemName)

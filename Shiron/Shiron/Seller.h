@@ -9,7 +9,7 @@ using namespace std;
 #include "Item.h"
 #include "Feedback.h"
 
-class Seller : public User //Public because seller can use methods of User
+class Seller : virtual public User //Public because seller can use methods of User
 {
 public:
 	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;

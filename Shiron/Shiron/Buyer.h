@@ -11,7 +11,7 @@ using namespace std;
 #include "Order.h"
 #include "Cart.h"
 
-class Buyer: public User //Public because buyer can use methods of User
+class Buyer: virtual public User //Public because buyer can use methods of User
 {
 public:
 	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;

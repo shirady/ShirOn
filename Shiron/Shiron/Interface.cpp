@@ -99,7 +99,7 @@ Buyer* Interface::readBuyer() const
 		cin.getline(userName, User::MAX_LEN_NAME);
 		cleanAfterGetLine();
 
-		if (m_system->findBuyer(userName) != nullptr || m_system->findSeller(userName) != nullptr)
+		if (m_system->findUser(userName) != nullptr)
 			cout << "The user is already exist in the system, please enter again" << endl;
 		else
 			fcontinue = false;
@@ -122,7 +122,7 @@ Seller* Interface::readSeller() const
 		cin.getline(userName, User::MAX_LEN_NAME);
 		cleanAfterGetLine();
 
-		if (m_system->findBuyer(userName) != nullptr || m_system->findSeller(userName) != nullptr)
+		if (m_system->findUser(userName) != nullptr)
 			cout << "The user is already exist in the system, please enter again" << endl;
 		else
 			fcontinue = false;
@@ -207,17 +207,20 @@ void Interface::showAllItemsOption() const
 
 void Interface::showAllItemsOfSellers(const char* itemName) const
 {
-	unsigned int logicSizeOfSellers = m_system->getLogicSizeSellers();
-	for (unsigned int i = 0; i < logicSizeOfSellers; i++)
+	unsigned int logicSizeOfUsers = m_system->getLogicSizeUsers();
+	for (unsigned int i = 0; i < logicSizeOfUsers; i++)
 	{
-		Seller** allSellers = m_system->getAllSellers();
-		Seller* seller = allSellers[i];
-		unsigned int counter = seller->countItemsOfSeller(itemName);
-		if (counter > 0)
+		User** allUsers = m_system->getAllUsers();
+		Seller* seller = dynamic_cast<Seller*>(allUsers[i]);
+		if (seller != nullptr)
 		{
-			showItemsOfSeller(seller, itemName);
-			cout << "The seller " << seller->getUserName() << " has " << counter << " items" << endl;
-			cout << "--------------------------------------------------------" << endl << endl;
+			unsigned int counter = seller->countItemsOfSeller(itemName);
+			if (counter > 0)
+			{
+				showItemsOfSeller(seller, itemName);
+				cout << "The seller " << seller->getUserName() << " has " << counter << " items" << endl;
+				cout << "--------------------------------------------------------" << endl << endl;
+			}
 		}
 	}
 }
@@ -270,11 +273,11 @@ void Interface::menuOptions() const
 			{
 			case 1:
 				buyer = readBuyer();
-				m_system->addBuyerToSystem(buyer);
+				m_system->addUserToSystem(buyer);
 				break;
 			case 2:
 				seller = readSeller();
-				m_system->addSellerToSystem(seller);
+				m_system->addUserToSystem(seller);
 				break;
 			case 3:
 				addItemToSellerMenu();
@@ -383,7 +386,8 @@ void Interface::addItemToSellerMenu() const
 	char sellerName[User::MAX_LEN_NAME];
 	cin.getline(sellerName, User::MAX_LEN_NAME);
 	cleanAfterGetLine();
-	Seller* seller = m_system->findSeller(sellerName);
+	User* user = m_system->findUser(sellerName);
+	Seller* seller = dynamic_cast<Seller*>(user); //what if user is nullptr?
 	if (seller != nullptr)
 	{
 		Item* item = readItem(seller);
@@ -399,7 +403,8 @@ void Interface::addItemToCartMenu() const
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);
 	cleanAfterGetLine();
-	Buyer* buyer = m_system->findBuyer(buyerName);
+	User* user = m_system->findUser(buyerName);
+	Buyer* buyer = dynamic_cast<Buyer*>(user);
 	if (buyer != nullptr)
 	{
 		char itemName[Item::MAX_LEN_NAME];
@@ -432,7 +437,9 @@ Seller* Interface::FindSellerByChoise(const char* itemName, unsigned int counter
 	char sellerName[User::MAX_LEN_NAME];
 	cin.getline(sellerName, User::MAX_LEN_NAME);
 	cleanAfterGetLine();
-	return(m_system->findSeller(sellerName));
+
+	User* user = m_system->findUser(sellerName);
+	return (dynamic_cast<Seller*>(user));
 }
 
 
@@ -461,8 +468,8 @@ void Interface::addFeedbackToSellerMenu() const
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);
 	cleanAfterGetLine();
-	Buyer* buyer = m_system->findBuyer(buyerName);
-
+	User* user = m_system->findUser(buyerName);
+	Buyer* buyer = dynamic_cast<Buyer*>(user);
 	if (buyer != nullptr)
 		addFeedbackToSellerMenuHelper(buyer);
 	else
@@ -475,8 +482,8 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 	char sellerName[User::MAX_LEN_NAME];
 	cin.getline(sellerName, User::MAX_LEN_NAME);
 	cleanAfterGetLine();
-
-	Seller* seller = m_system->findSeller(sellerName);
+	User* user = m_system->findUser(sellerName);
+	Seller* seller = dynamic_cast<Seller*>(user);
 	if (seller != nullptr)
 	{
 		if (buyer->checkIfSellerExistsInOrdersHistory(seller))
@@ -496,7 +503,8 @@ void Interface::makeAnOrderMenu() const
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);
 	cleanAfterGetLine();
-	Buyer* buyer = m_system->findBuyer(buyerName);
+	User* user = m_system->findUser(buyerName);
+	Buyer* buyer = dynamic_cast<Buyer*>(user);
 	if (buyer != nullptr)
 	{
 		Cart* cart = buyer->getCart();
@@ -644,7 +652,8 @@ void Interface::payOrderMenu() const
 	char buyerName[User::MAX_LEN_NAME];
 	cin.getline(buyerName, User::MAX_LEN_NAME);
 	cleanAfterGetLine();
-	Buyer* buyer = m_system->findBuyer(buyerName);
+	User* user = m_system->findUser(buyerName);
+	Buyer* buyer = dynamic_cast<Buyer*>(user);
 	if (buyer != nullptr)
 	{
 		Cart* cart = buyer->getCart();
@@ -705,26 +714,41 @@ void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsign
 
 void Interface::showAllBuyers() const
 {
-	Buyer** allBuyers = m_system->getAllBuyers();
-	unsigned int logicSizeBuyers = m_system->getLogicSizeBuyers();
-	cout << "There are " << logicSizeBuyers << " buyers in the system:" << endl;
-	for (unsigned int i = 0; i < logicSizeBuyers; i++)
+	unsigned int counter = 0;
+	User** allUsers = m_system->getAllUsers();
+	unsigned int logicSizeUsers = m_system->getLogicSizeUsers();
+
+	for (unsigned int i = 0; i < logicSizeUsers; i++)
 	{
-		cout << "#" << i + 1 << ": ";
-		showUser(*allBuyers[i]); //prints the User part of the Buyer
+		Buyer* buyer = dynamic_cast<Buyer*>(allUsers[i]);
+		if (buyer != nullptr)
+		{
+			cout << "#" << counter + 1 << ": ";
+			showUser(*allUsers[i]); //prints the User part of the Buyer
+			counter++;
+		}
 	}
+	cout << "__________________________________________________" << endl
+		<< "There are " << counter << " buyers in the system" << endl;
 }
 
 void Interface::showAllSellers() const
 {
-	Seller** allSellers = m_system->getAllSellers();
-	unsigned int logicSizeSellers = m_system->getLogicSizeSellers();
-	cout << "There are " << logicSizeSellers << " sellers in the system:" << endl;
-	for (unsigned int i = 0; i < logicSizeSellers; i++)
+	unsigned int counter=0;
+	User** allUsers = m_system->getAllUsers();
+	unsigned int logicSizeUsers = m_system->getLogicSizeUsers();
+	for (unsigned int i = 0; i < logicSizeUsers; i++)
 	{
-		cout << "#" << i + 1 << ": ";
-		showUser(*allSellers[i]); //prints the User part of the Seller
+		Seller* seller = dynamic_cast<Seller*>(allUsers[i]);
+		if (seller != nullptr)
+		{
+			cout << "#" << counter + 1 << ": ";
+			showUser(*allUsers[i]); //prints the User part of the Seller
+			counter++;
+		}
 	}
+	cout << "__________________________________________________" << endl
+	<< "There are " << counter << " sellers in the system" << endl;
 }
 
 void Interface::cleanAfterGetLine() const
