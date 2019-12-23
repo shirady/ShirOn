@@ -65,7 +65,31 @@ void Interface::readSystem()
 	setSystem(systemName);
 }
 
-const User Interface::readUser() const
+//const User Interface::readUser() const
+//{
+//	char userName[User::MAX_LEN_NAME];
+//	bool fcontinue = true;
+//	do 
+//	{
+//		cout << "Enter your user name: ";
+//		cin.getline(userName, User::MAX_LEN_NAME);
+//		cleanAfterGetLine();
+//
+//		if (m_system->findBuyer(userName) != nullptr || m_system->findSeller(userName) != nullptr)
+//			cout << "The user is already exist in the system, please enter again" << endl;
+//		else
+//			fcontinue = false;
+//	} while (fcontinue);
+//
+//	char password[User::MAX_LEN_PASSWORD];
+//	cout << "Enter password: ";
+//	cin.getline(password, User::MAX_LEN_PASSWORD);
+//	cleanAfterGetLine();
+//
+//	return User(userName, password, readAddress());
+//}
+
+Buyer* Interface::readBuyer() const
 {
 	char userName[User::MAX_LEN_NAME];
 	bool fcontinue = true;
@@ -85,18 +109,31 @@ const User Interface::readUser() const
 	cout << "Enter password: ";
 	cin.getline(password, User::MAX_LEN_PASSWORD);
 	cleanAfterGetLine();
-
-	return User(userName, password, readAddress());
-}
-
-Buyer* Interface::readBuyer() const
-{
-	return new Buyer(readUser());
+	return new Buyer(userName, password, readAddress());
 }
 
 Seller* Interface::readSeller() const
 {
-	return new Seller(readUser());
+	char userName[User::MAX_LEN_NAME];
+	bool fcontinue = true;
+	do
+	{
+		cout << "Enter your user name: ";
+		cin.getline(userName, User::MAX_LEN_NAME);
+		cleanAfterGetLine();
+
+		if (m_system->findBuyer(userName) != nullptr || m_system->findSeller(userName) != nullptr)
+			cout << "The user is already exist in the system, please enter again" << endl;
+		else
+			fcontinue = false;
+	} while (fcontinue);
+
+	char password[User::MAX_LEN_PASSWORD];
+	cout << "Enter password: ";
+	cin.getline(password, User::MAX_LEN_PASSWORD);
+	cleanAfterGetLine();
+
+	return new Seller(userName, password, readAddress());
 }
 
 Item* Interface::readItem(const Seller* seller) const
@@ -110,7 +147,7 @@ Item* Interface::readItem(const Seller* seller) const
 		cleanAfterGetLine();
 		if (seller->countItemsOfSeller(itemName) != 0)
 		{
-			cout << "The item is already exist in the seller " << seller->getUser().getUserName() << " please enter again" << endl << endl;
+			cout << "The item is already exist in the seller " << seller->getUserName() << " please enter again" << endl << endl;
 		}
 		else
 		{
@@ -179,7 +216,7 @@ void Interface::showAllItemsOfSellers(const char* itemName) const
 		if (counter > 0)
 		{
 			showItemsOfSeller(seller, itemName);
-			cout << "The seller " << seller->getUser().getUserName() << " has " << counter << " items" << endl;
+			cout << "The seller " << seller->getUserName() << " has " << counter << " items" << endl;
 			cout << "--------------------------------------------------------" << endl << endl;
 		}
 	}
@@ -303,7 +340,7 @@ void Interface::showItem(const Item* item) const
 		<< ", Category: " << category[item->getCategoryOfItem()]
 		<< ", Price: " << item->getPriceOfItem()
 		<< ", Serial Number: " << item->getSerialNumberOfItem()
-		<< ", Seller name: " << item->getSeller()->getUser().getUserName() << endl;;
+		<< ", Seller name: " << item->getSeller()->getUserName() << endl;;
 }
 
 void Interface::showOrder(const Order* order) const
@@ -674,7 +711,7 @@ void Interface::showAllBuyers() const
 	for (unsigned int i = 0; i < logicSizeBuyers; i++)
 	{
 		cout << "#" << i + 1 << ": ";
-		showUser(allBuyers[i]->getUser());
+		showUser(*allBuyers[i]); //prints the User part of the Buyer
 	}
 }
 
@@ -686,7 +723,7 @@ void Interface::showAllSellers() const
 	for (unsigned int i = 0; i < logicSizeSellers; i++)
 	{
 		cout << "#" << i + 1 << ": ";
-		showUser(allSellers[i]->getUser());
+		showUser(*allSellers[i]); //prints the User part of the Seller
 	}
 }
 

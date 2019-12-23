@@ -1,6 +1,6 @@
 #include "Buyer.h"
 
-Buyer::Buyer(const User& user, unsigned int physSizeOrders) : m_user(user)
+Buyer::Buyer(const char* userName, const char* password, const Address& address, unsigned int physSizeOrders) : User(userName, password, address)
 {
 	m_Cart = new Cart;
 	m_currentOrder = new Order;
@@ -42,11 +42,6 @@ bool Buyer::setPhysSizeOrders(unsigned int physSizeOrders)
 		return true;
 	}
 	return false;
-}
-
-const User& Buyer::getUser() const
-{
-	return m_user;
 }
 
 Cart* Buyer::getCart() const

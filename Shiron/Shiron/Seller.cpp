@@ -1,6 +1,6 @@
 #include "Seller.h"
 
-Seller::Seller(const User& user, unsigned int physSizeItems, unsigned int physSizeFeedbacks) : m_user(user)
+Seller::Seller(const char* userName, const char* password, const Address& address, unsigned int physSizeItems, unsigned int physSizeFeedbacks): User(userName, password, address)
 {
 	setLogicSizeItems(INITIAL_LOGICAL_SIZE);
 	setPhysSizeItems(physSizeItems);
@@ -83,11 +83,6 @@ unsigned int Seller::getLogicSizeItems() const
 Item** Seller::getAllItems() const
 {
 	return m_allItems;
-}
-
-const User& Seller::getUser() const
-{
-	return m_user;
 }
 
 void Seller::reallocItems()

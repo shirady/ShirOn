@@ -20,13 +20,15 @@ private:
 	char* m_password;
 	Address m_userAddress;
 
-	bool CheckWhiteSpace(const char* fieldName) const;
 	bool setUserName(const char* userName);
+	bool CheckWhiteSpace(const char* fieldName) const;
+
+protected:
+	User(const char* userName, const char* password, const Address& address); //c'tor - Protected because User is Abstract
+	User(const User& other); // copy c'tor - Protected because User is Abstract
 
 public:
-	User(const char* userName, const char* password, const Address& address); //c'tor
-	User(const User& other); // copy c'tor
-	~User(); //d'tor
+	virtual ~User(); //d'tor
 
 	bool setPassword(const char* password); //password can be change after it was created
 

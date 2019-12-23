@@ -165,7 +165,7 @@ Seller* System::findSeller(const char* nameOfSeller) const
 	bool sellerExists = false;
 	for (unsigned int i = 0; i < m_logicSizeSellers && !sellerExists; i++)
 	{
-		if (strcmp(m_allSellers[i]->getUser().getUserName(), nameOfSeller) == 0)
+		if (strcmp(m_allSellers[i]->getUserName(), nameOfSeller) == 0)
 		{
 			sellerExists = true;
 			foundSeller = m_allSellers[i];
@@ -180,7 +180,7 @@ Buyer* System::findBuyer(const char* nameOfBuyer) const
 	bool BuyerExists = false;
 	for (unsigned int i = 0; i < m_logicSizeBuyers && !BuyerExists; i++)
 	{
-		if (strcmp(m_allBuyers[i]->getUser().getUserName(), nameOfBuyer) == 0)
+		if (strcmp(m_allBuyers[i]->getUserName(), nameOfBuyer) == 0)
 		{
 			BuyerExists = true;
 			foundBuyer = m_allBuyers[i];

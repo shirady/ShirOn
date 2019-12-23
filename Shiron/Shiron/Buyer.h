@@ -11,14 +11,13 @@ using namespace std;
 #include "Order.h"
 #include "Cart.h"
 
-class Buyer
+class Buyer: public User //Public because buyer can use methods of User
 {
 public:
 	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
 	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
 
 private:
-	User m_user;
 	Cart* m_Cart;
 	unsigned int m_logicSizeOrders;
 	unsigned int m_physSizeOrders;
@@ -32,11 +31,10 @@ private:
 	void reallocOrders();
 
 public:
-	Buyer(const User& user, unsigned int physSizeOrders = INITIAL_PHYSICAL_SIZE); //c'tor 
+	Buyer(const char* userName, const char* password, const Address& address, unsigned int physSizeOrders = INITIAL_PHYSICAL_SIZE); //c'tor 
 	Buyer(const Buyer& other) = delete; //copy c'tor
-	~Buyer(); //d'tor
+	virtual ~Buyer(); //d'tor
 
-	const User& getUser() const;
 	Cart* getCart() const;
 	Order* getCurrentOrder() const;
 	unsigned int getLogicSizeOrders() const;
