@@ -26,6 +26,11 @@ private:
 protected:
 	User(const char* userName, const char* password, const Address& address); //c'tor - Protected because User is Abstract
 	User(const User& other); // copy c'tor - Protected because User is Abstract
+	User(User&& other); // move c'tor - Protected because User is Abstract
+
+	const User& operator=(const User& other);
+	const User& operator=(User&& other);
+
 
 public:
 	virtual ~User(); //d'tor

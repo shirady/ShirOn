@@ -14,14 +14,44 @@ User::User(const User& other) : m_userAddress(other.m_userAddress)
 	m_userName = nullptr;
 	m_password = nullptr;
 
-	setUserName(other.m_userName);
-	setPassword(other.m_password);
+	*this = other;
 }
+
+User::User(User&& other) : m_userAddress(other.m_userAddress)
+{
+	m_userName = nullptr;
+	m_password = nullptr;
+
+	*this = other;
+}
+
 
 User::~User()
 {
 	delete[] m_userName;
 	delete[] m_password;
+}
+
+const User& User::operator=(const User& other)
+{
+	if (this != &other)
+	{
+		setUserName(other.m_userName);
+		setPassword(other.m_password);
+		m_userAddress = other.m_userAddress; //using operator '=' of address
+	}
+	return *this;
+}
+
+const User& User::operator=(User&& other)
+{
+	if (this != &other)
+	{
+		swap(m_userName,other.m_userName);
+		swap(m_password,other.m_password);
+		m_userAddress = other.m_userAddress; //using operator '=' of address
+	}
+	return *this;
 }
 
 bool User::setUserName(const char* userName)
