@@ -849,11 +849,13 @@ void Interface::showAllItemsOfCeratinNameMenu() const
 
 void Interface::menuOperatorOptions() const
 {
-	Buyer* buyer;
+	Buyer* buyer, *firstBuyer, *secondBuyer;
 	Seller* seller;
+	char userName[User::MAX_LEN_NAME];
 	unsigned int option;
 
 	cout << "(1) +=: add buyer to system" << endl << "(2) +=: add seller to system" << endl <<
+	"(3) >: compare between buyers' carts" << endl <<
 	 "Choose option: ";
 	cin >> option;
 	cout << endl;
@@ -878,6 +880,32 @@ void Interface::menuOperatorOptions() const
 			*m_system += seller;
 			break;
 		case(3):
+			cout << "Enter The first buyer name: ";
+			cin.getline(userName, User::MAX_LEN_NAME);
+			cleanAfterGetLine();
+			firstBuyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
+			if (firstBuyer == nullptr)
+				cout << "The " << userName << " buyer is not exist in the system" << endl;
+			else
+			{
+				cout << "Enter The second buyer name: ";
+				cin.getline(userName, User::MAX_LEN_NAME);
+				cleanAfterGetLine();
+				secondBuyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
+				if (secondBuyer == nullptr)
+					cout << "The buyer " << userName << " is not exist in the system" << endl;
+				else
+				{
+					if (firstBuyer > secondBuyer)
+					{
+						cout << "The Total price of " << firstBuyer->getUserName() << "'s cart is higher than " << secondBuyer->getUserName() << "'s cart" << endl;
+					}
+					else
+					{
+						cout << "The Total price of " << firstBuyer->getUserName() << "'s cart is not higher than " << secondBuyer->getUserName() << "'s cart" << endl;
+					}
+				}
+			}
 			break;
 		default:
 			cout << "Invalid number. Please choose a number between 1-3" << endl;
