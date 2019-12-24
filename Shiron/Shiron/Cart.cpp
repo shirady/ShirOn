@@ -12,6 +12,11 @@ Cart::~Cart()
 	delete[] m_allItemsOfCart;
 }
 
+bool Cart::operator>(const Cart& other)
+{
+	return(this->getTotalPriceOfCart() > other.getTotalPriceOfCart());
+}
+
 bool Cart::setLogicSizeItems(unsigned int logicSizeItems)
 {
 	if (logicSizeItems >= INITIAL_LOGICAL_SIZE)
@@ -96,4 +101,13 @@ const Item* Cart::findSerialNumber(unsigned int serialNumber) const
 		}
 	}
 	return foundItem;
+}
+
+unsigned int Cart::getTotalPriceOfCart() const
+{
+	unsigned int totalPriceOfCart = 0;
+	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+		totalPriceOfCart += m_allItemsOfCart[i]->getPriceOfItem();
+
+	return totalPriceOfCart;
 }

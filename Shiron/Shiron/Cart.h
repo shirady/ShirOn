@@ -26,6 +26,8 @@ public:
 	Cart(const Cart& other) = delete; //copy c'tor
 	~Cart(); //d'tor
 
+	bool operator>(const Cart& other);
+
 	unsigned int getLogicSizeItems() const;
 	const Item** getAllItemsOfCart() const;
 
@@ -34,6 +36,7 @@ public:
 	void removeItemFromCart(const Item* item);
 
 	const Item* findSerialNumber(unsigned int serialNumber) const;
+	unsigned int getTotalPriceOfCart() const;
 };
 
 #endif //__Cart_H

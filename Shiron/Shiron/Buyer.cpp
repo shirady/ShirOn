@@ -17,6 +17,11 @@ Buyer::~Buyer()
 	cleanOrderHistoryArray();
 }
 
+bool Buyer::operator>(const Buyer& other)
+{
+	return(this->getCart() > other.getCart());
+}
+
 void Buyer::cleanOrderHistoryArray()
 {
 	for (unsigned int i = 0; i < m_logicSizeOrders; ++i)

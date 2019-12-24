@@ -34,6 +34,8 @@ public:
 	Buyer(const char* userName, const char* password, const Address& address, unsigned int physSizeOrders = INITIAL_PHYSICAL_SIZE); //c'tor 
 	Buyer(const Buyer& other) = delete; //copy c'tor
 	virtual ~Buyer(); //d'tor
+	
+	bool operator>(const Buyer& other);
 
 	Cart* getCart() const;
 	Order* getCurrentOrder() const;
