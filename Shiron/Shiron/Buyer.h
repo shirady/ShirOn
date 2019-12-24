@@ -28,7 +28,7 @@ private:
 	bool setLogicSizeOrders(unsigned int logicSizeOrders);
 	bool setPhysSizeOrders(unsigned int physSizeOrders);
 
-	void reallocOrders();
+	void reallocOrders(); 
 
 public:
 	Buyer(const char* userName, const char* password, const Address& address, unsigned int physSizeOrders = INITIAL_PHYSICAL_SIZE); //c'tor 

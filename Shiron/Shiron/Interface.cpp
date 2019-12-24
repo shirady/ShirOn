@@ -136,6 +136,30 @@ Seller* Interface::readSeller() const
 	return new Seller(userName, password, readAddress());
 }
 
+BuyerAndSeller* Interface::readBuyerAndSeller() const
+{
+	char userName[User::MAX_LEN_NAME];
+	bool fcontinue = true;
+	do
+	{
+		cout << "Enter your user name: ";
+		cin.getline(userName, User::MAX_LEN_NAME);
+		cleanAfterGetLine();
+
+		if (m_system->findUser(userName) != nullptr)
+			cout << "The user is already exist in the system, please enter again" << endl;
+		else
+			fcontinue = false;
+	} while (fcontinue);
+
+	char password[User::MAX_LEN_PASSWORD];
+	cout << "Enter password: ";
+	cin.getline(password, User::MAX_LEN_PASSWORD);
+	cleanAfterGetLine();
+
+	return new BuyerAndSeller(userName, password, readAddress());
+}
+
 Item* Interface::readItem(const Seller* seller) const
 {
 	char itemName[Item::MAX_LEN_NAME];
@@ -235,15 +259,18 @@ void Interface::menu() const
 	cout << "\nChoose your option:\n"
 		<< "(1)  Add a buyer\n"
 		<< "(2)  Add a seller\n"
-		<< "(3)  Add an item to a seller\n"
-		<< "(4)  Add a feedback to a seller\n"
-		<< "(5)  Add an item to cart of a buyer\n"
-		<< "(6)  Make an order for a buyer\n"
-		<< "(7)  Pay for an order of a buyer\n"
-		<< "(8)  Show details of all buyers\n"
-		<< "(9)  Show details of all sellers\n"
-		<< "(10) Show details of all the products of a certain name\n"
-		<< "(11) Exit\n";
+		<< "(3)  Add a user that is a buyer and a seller\n"
+		<< "(4)  Add an item to a seller\n"
+		<< "(5)  Add a feedback to a seller\n"
+		<< "(6)  Add an item to cart of a buyer\n"
+		<< "(7)  Make an order for a buyer\n"
+		<< "(8)  Pay for an order of a buyer\n"
+		<< "(9)  Show details of all buyers\n"
+		<< "(10)  Show details of all sellers\n"
+		<< "(11)  Show details of all users that are buyers and sellers\n"
+		<< "(12)  Show details of all users of a certain type\n"
+		<< "(13) Show details of all the products of a certain name\n"
+		<< "(14) Exit\n";
 }
 
 void Interface::menuOptions() const
@@ -252,6 +279,7 @@ void Interface::menuOptions() const
 	int option;
 	Buyer* buyer;
 	Seller* seller;
+	BuyerAndSeller* buyerAndSeller;
 
 	headline();
 	while (!exitMenu)
@@ -280,30 +308,40 @@ void Interface::menuOptions() const
 				m_system->addUserToSystem(seller);
 				break;
 			case 3:
-				addItemToSellerMenu();
+				buyerAndSeller = readBuyerAndSeller();
+				m_system->addUserToSystem(buyerAndSeller);
 				break;
 			case 4:
-				addFeedbackToSellerMenu();
+				addItemToSellerMenu();
 				break;
 			case 5:
-				addItemToCartMenu();
+				addFeedbackToSellerMenu();
 				break;
 			case 6:
-				makeAnOrderMenu();
+				addItemToCartMenu();
 				break;
 			case 7:
-				payOrderMenu();
+				makeAnOrderMenu();
 				break;
 			case 8:
-				showAllBuyers();
+				payOrderMenu();
 				break;
 			case 9:
-				showAllSellers();
+				showAllBuyers();
 				break;
 			case 10:
-				showAllItemsOfCeratinNameMenu();
+				showAllSellers();
 				break;
 			case 11:
+				showAllBuyersThatAreSellers();
+				break;
+			case 12:
+				//showAllUsersOfCertainType();
+				break;
+			case 13:
+				showAllItemsOfCeratinNameMenu();
+				break;
+			case 14:
 				exitMenu = true;
 				cout << "Thank you for shopping " << m_system->getSystemName() << "! :)";
 				break;
@@ -750,6 +788,26 @@ void Interface::showAllSellers() const
 	cout << "__________________________________________________" << endl
 	<< "There are " << counter << " sellers in the system" << endl;
 }
+
+void Interface::showAllBuyersThatAreSellers() const
+{
+	unsigned int counter = 0;
+	User** allUsers = m_system->getAllUsers();
+	unsigned int logicSizeUsers = m_system->getLogicSizeUsers();
+	for (unsigned int i = 0; i < logicSizeUsers; i++)
+	{
+		BuyerAndSeller* seller = dynamic_cast<BuyerAndSeller*>(allUsers[i]);
+		if (seller != nullptr)
+		{
+			cout << "#" << counter + 1 << ": ";
+			showUser(*allUsers[i]); //prints the User part of the SellerAndBuyer
+			counter++;
+		}
+	}
+	cout << "__________________________________________________" << endl
+		<< "There are " << counter << " buyer which are also sellers in the system" << endl;
+}
+
 
 void Interface::cleanAfterGetLine() const
 {

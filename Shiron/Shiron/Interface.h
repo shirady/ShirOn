@@ -37,6 +37,7 @@ private:
 	//const User readUser() const;
 	Buyer* readBuyer() const;
 	Seller* readSeller() const;
+	BuyerAndSeller* readBuyerAndSeller() const;
 	Item* readItem(const Seller* seller) const;
 	Feedback* readFeedback(const Buyer* buyer) const;
 	const Date readDate() const;
@@ -46,6 +47,7 @@ private:
 
 	void showAllBuyers() const;
 	void showAllSellers() const;
+	void showAllBuyersThatAreSellers() const;
 	void showUser(const User& user) const;
 
 	void showItem(const Item* item) const;

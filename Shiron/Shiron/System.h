@@ -8,6 +8,7 @@ using namespace std;
 #include "User.h"
 #include "Buyer.h"
 #include "Seller.h"
+#include "BuyerAndSeller.h"
 
 class System
 {
