@@ -22,29 +22,17 @@ Address::Address(const Address& other)
 	m_street = nullptr;
 	m_zipCode = nullptr;
 
-	setCountry(other.m_country);
-	setCity(other.m_city);
-	setStreet(other.m_street);
-	setBuildNo(other.m_buildNo);
-	setApartmentNo(other.m_apartmentNo);
-	setZipCode(other.m_zipCode);
+	*this = other;
 }
 
 Address::Address(Address&& other)
 {
-	//We are assuming that the all of the values of the r-value address are valid
-	m_country = other.m_country;
-	m_city = other.m_city;
-	m_street = other.m_street;
-	m_zipCode = other.m_zipCode;
-	
-	m_buildNo = other.m_buildNo;
-	m_apartmentNo = other.m_apartmentNo;
+	m_country = nullptr;
+	m_city = nullptr;
+	m_street = nullptr;
+	m_zipCode = nullptr;
 
-	other.m_country = nullptr;
-	other.m_city = nullptr;
-	other.m_street = nullptr;
-	other.m_zipCode = nullptr;
+	*this = other;
 }
 
 Address::~Address()
@@ -54,6 +42,35 @@ Address::~Address()
 	delete[] m_street;
 	delete[] m_zipCode;
 }
+
+const Address& Address::operator=(const Address& other)
+{
+	if (this != &other)
+	{
+		setCountry(other.m_country);
+		setCity(other.m_city);
+		setStreet(other.m_street);
+		setBuildNo(other.m_buildNo);
+		setApartmentNo(other.m_apartmentNo);
+		setZipCode(other.m_zipCode);
+	}
+	return *this;
+}
+
+const Address& Address::operator=(Address&& other)
+{
+	if (this != &other)
+	{
+		swap(m_country, other.m_country);
+		swap(m_city, other.m_city);
+		swap(m_street, other.m_street);
+		setBuildNo(other.m_buildNo);
+		setApartmentNo(other.m_apartmentNo);
+		swap(m_zipCode, other.m_zipCode);
+	}
+	return *this;
+}
+
 
 bool Address::setCountry(const char* country)
 {

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string.h>
+//#include <stdlib.h>
 using namespace std;
 #pragma warning(disable: 4996)
 
@@ -33,6 +34,9 @@ public:
 	Address(const Address& other); //copy c'tor
 	Address(Address&& other); //move c'tor
 	~Address(); //d'tor
+
+	const Address& operator=(const Address& other);
+	const Address& operator=(Address&& other);
 
 	bool setCountry(const char* country);
 	bool setCity(const char* city);

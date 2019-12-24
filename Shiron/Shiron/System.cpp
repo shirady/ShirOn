@@ -16,20 +16,6 @@ System::~System()
 	delete[] m_systemName;
 }
 
-//void System::cleanBuyersArray()
-//{
-//	for (unsigned int i = 0; i < m_logicSizeBuyers; ++i)
-//		delete m_allBuyers[i];
-//	delete[] m_allBuyers;
-//}
-//
-//void System::cleanSellersArray()
-//{
-//	for (unsigned int i = 0; i < m_logicSizeSellers; ++i)
-//		delete m_allSellers[i];
-//	delete[] m_allSellers;
-//}
-
 void System::cleanUsersArray()
 {
 	for (unsigned int i = 0; i < m_logicSizeUsers; ++i)
@@ -51,46 +37,6 @@ bool System::setSystemName(const char* systemName)
 	else
 		return false;
 }
-
-//bool System::setLogicSizeBuyers(unsigned int logicSizeBuyers)
-//{
-//	if (logicSizeBuyers >= INITIAL_LOGICAL_SIZE)
-//	{
-//		m_logicSizeBuyers = logicSizeBuyers;
-//		return true;
-//	}
-//	return false;
-//}
-//
-//bool System::setPhysSizeBuyers(unsigned int physSizeBuyers)
-//{
-//	if (physSizeBuyers >= INITIAL_PHYSICAL_SIZE)
-//	{
-//		m_physSizeBuyers = physSizeBuyers;
-//		return true;
-//	}
-//	return false;
-//}
-//
-//bool System::setLogicSizeSellers(unsigned int logicSizeSellers)
-//{
-//	if (logicSizeSellers >= INITIAL_LOGICAL_SIZE)
-//	{
-//		m_logicSizeSellers = logicSizeSellers;
-//		return true;
-//	}
-//	return false;
-//}
-//
-//bool System::setPhysSizeSellers(unsigned int physSizeSellers)
-//{
-//	if (physSizeSellers >= INITIAL_PHYSICAL_SIZE)
-//	{
-//		m_physSizeSellers = physSizeSellers;
-//		return true;
-//	}
-//	return false;
-//}
 
 bool System::setLogicSizeUsers(unsigned int logicSizeUsers)
 {
@@ -117,57 +63,15 @@ const char* System::getSystemName() const
 	return m_systemName;
 }
 
-//unsigned int System::getLogicSizeSellers() const
-//{
-//	return m_logicSizeSellers;
-//}
-//
-//unsigned int System::getLogicSizeBuyers() const
-//{
-//	return m_logicSizeBuyers;
-//}
-
 unsigned int System::getLogicSizeUsers() const
 {
 	return m_logicSizeUsers;
 }
 
-//Buyer** System::getAllBuyers()
-//{
-//	return m_allBuyers;
-//}
-//
-//Seller** System::getAllSellers()
-//{
-//	return m_allSellers;
-//}
-
 User** System::getAllUsers()
 {
 	return m_allUsers;
 }
-
-//void System::reallocBuyers()
-//{
-//	Buyer** newAllBuyers = new Buyer*[m_physSizeBuyers];
-//	for (unsigned int i = 0; i < m_logicSizeBuyers; i++)
-//	{
-//		newAllBuyers[i] = m_allBuyers[i];
-//	}
-//	delete[]m_allBuyers;
-//	m_allBuyers = newAllBuyers;
-//}
-//
-//void System::reallocSellers()
-//{
-//	Seller** newAllSellers = new Seller*[m_physSizeSellers];
-//	for (unsigned int i = 0; i < m_logicSizeSellers; i++)
-//	{
-//		newAllSellers[i] = m_allSellers[i];
-//	}
-//	delete[]m_allSellers;
-//	m_allSellers = newAllSellers;
-//}
 
 void System::reallocUsers()
 {
@@ -180,28 +84,6 @@ void System::reallocUsers()
 	m_allUsers = newAllUsers;
 }
 
-//bool System::addBuyerToSystem(Buyer* buyer)
-//{
-//	if (m_logicSizeBuyers == m_physSizeBuyers)
-//	{
-//		m_physSizeBuyers *= 2;
-//		reallocBuyers();
-//	}
-//	m_allBuyers[m_logicSizeBuyers++] = buyer;
-//	return true;
-//}
-//
-//bool System::addSellerToSystem(Seller* seller)
-//{
-//	if (m_logicSizeSellers == m_physSizeSellers)
-//	{
-//		m_physSizeSellers *= 2;
-//		reallocSellers();
-//	}
-//	m_allSellers[m_logicSizeSellers++] = seller;
-//	return true;
-//}
-
 bool System::addUserToSystem(User* user)
 {
 	if (m_logicSizeUsers == m_physSizeUsers)
@@ -212,36 +94,6 @@ bool System::addUserToSystem(User* user)
 	m_allUsers[m_logicSizeUsers++] = user;
 	return true;
 }
-
-//Seller* System::findSeller(const char* nameOfSeller) const
-//{
-//	Seller * foundSeller = nullptr;
-//	bool sellerExists = false;
-//	for (unsigned int i = 0; i < m_logicSizeSellers && !sellerExists; i++)
-//	{
-//		if (strcmp(m_allSellers[i]->getUserName(), nameOfSeller) == 0)
-//		{
-//			sellerExists = true;
-//			foundSeller = m_allSellers[i];
-//		}
-//	}
-//	return foundSeller;
-//}
-//
-//Buyer* System::findBuyer(const char* nameOfBuyer) const
-//{
-//	Buyer* foundBuyer = nullptr;
-//	bool BuyerExists = false;
-//	for (unsigned int i = 0; i < m_logicSizeBuyers && !BuyerExists; i++)
-//	{
-//		if (strcmp(m_allBuyers[i]->getUserName(), nameOfBuyer) == 0)
-//		{
-//			BuyerExists = true;
-//			foundBuyer = m_allBuyers[i];
-//		}
-//	}
-//	return foundBuyer;
-//}
 
 User* System::findUser(const char* nameOfUser) const
 {
@@ -287,19 +139,4 @@ unsigned int System::countItemsInAllSellers(const char* itemName) const
 	}
 	return counter;
 }
-
-//Seller* System::isUserSeller(User* user) const
-//{
-//	return dynamic_cast<Seller*>(user);
-//}
-//
-//bool System::isUserBuyer(User* user) const
-//{
-//	return (dynamic_cast<Buyer*>(user) != nullptr);
-//}
-
-//bool System::isUserBuyerAndSeller(User* user) const
-//{
-//	return (dynamic_cast<BuyerAndSeller*>(user) != nullptr);
-//}
 
