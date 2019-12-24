@@ -65,30 +65,6 @@ void Interface::readSystem()
 	setSystem(systemName);
 }
 
-//const User Interface::readUser() const
-//{
-//	char userName[User::MAX_LEN_NAME];
-//	bool fcontinue = true;
-//	do 
-//	{
-//		cout << "Enter your user name: ";
-//		cin.getline(userName, User::MAX_LEN_NAME);
-//		cleanAfterGetLine();
-//
-//		if (m_system->findBuyer(userName) != nullptr || m_system->findSeller(userName) != nullptr)
-//			cout << "The user is already exist in the system, please enter again" << endl;
-//		else
-//			fcontinue = false;
-//	} while (fcontinue);
-//
-//	char password[User::MAX_LEN_PASSWORD];
-//	cout << "Enter password: ";
-//	cin.getline(password, User::MAX_LEN_PASSWORD);
-//	cleanAfterGetLine();
-//
-//	return User(userName, password, readAddress());
-//}
-
 Buyer* Interface::readBuyer() const
 {
 	char userName[User::MAX_LEN_NAME];
@@ -266,11 +242,12 @@ void Interface::menu() const
 		<< "(7)  Make an order for a buyer\n"
 		<< "(8)  Pay for an order of a buyer\n"
 		<< "(9)  Show details of all buyers\n"
-		<< "(10)  Show details of all sellers\n"
-		<< "(11)  Show details of all users that are buyers and sellers\n"
-		<< "(12)  Show details of all users of a certain type\n"
+		<< "(10) Show details of all sellers\n"
+		<< "(11) Show details of all users that are buyers and sellers\n"
+		<< "(12) Show details of all users of a certain type\n"
 		<< "(13) Show details of all the products of a certain name\n"
-		<< "(14) Exit\n";
+		<< "(14) choose operation option\n"
+		<< "(15) Exit\n";
 }
 
 void Interface::menuOptions() const
@@ -336,12 +313,15 @@ void Interface::menuOptions() const
 				showAllBuyersThatAreSellers();
 				break;
 			case 12:
-				//showAllUsersOfCertainType();
+				showAllUsersOfCertainType();
 				break;
 			case 13:
 				showAllItemsOfCeratinNameMenu();
 				break;
 			case 14:
+				menuOperatorOptions();
+				break;
+			case 15:
 				exitMenu = true;
 				cout << "Thank you for shopping " << m_system->getSystemName() << "! :)";
 				break;
@@ -808,6 +788,40 @@ void Interface::showAllBuyersThatAreSellers() const
 		<< "There are " << counter << " buyer which are also sellers in the system" << endl;
 }
 
+void Interface::showAllUsersOfCertainType() const
+{
+	unsigned int option;
+	cout << "(1) Buyer" << endl << "(2) Seller" << endl << "(3) Buyer that is a Seller" << endl
+		<< "Choose type of user: ";
+	cin >> option;
+	cout << endl;
+
+	if (cin.fail())
+	{
+		cout << "Invalid number. Please choose a number between 1-3" << endl;
+		cin.clear();
+		cleanBuffer();
+	}
+	else
+	{
+		switch (option)
+		{
+		case(1):
+			showAllBuyers();
+			break;
+		case(2):
+			showAllSellers();
+			break;
+		case(3):
+			showAllBuyersThatAreSellers();
+			break;
+		default:
+			cout << "Invalid number. Please choose a number between 1-3" << endl;
+			cleanBuffer();
+			break;
+		}
+	}
+}
 
 void Interface::cleanAfterGetLine() const
 {
@@ -831,4 +845,44 @@ void Interface::showAllItemsOfCeratinNameMenu() const
 		showAllItemsOfSellers(itemName);
 	else
 		cout << itemName << " item was not found" << endl;
+}
+
+void Interface::menuOperatorOptions() const
+{
+	Buyer* buyer;
+	Seller* seller;
+	unsigned int option;
+
+	cout << "(1) +=: add buyer to system" << endl << "(2) +=: add seller to system" << endl <<
+	 "Choose option: ";
+	cin >> option;
+	cout << endl;
+
+	if (cin.fail())
+	{
+		cout << "Invalid number. Please choose a number between 1-6" << endl;
+		cin.clear();
+		cleanBuffer();
+	}
+	else
+	{
+		cleanBuffer();
+		switch (option)
+		{
+		case(1):
+			buyer = readBuyer();
+			*m_system+=buyer;
+			break;
+		case(2):
+			seller = readSeller();
+			*m_system += seller;
+			break;
+		case(3):
+			break;
+		default:
+			cout << "Invalid number. Please choose a number between 1-3" << endl;
+			cleanBuffer();
+			break;
+		}
+	}
 }

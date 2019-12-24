@@ -37,6 +37,11 @@ public:
 	System(const System& other) = delete; //copy c'tor
 	~System(); //d'tor
 
+	//x+=5
+	const System& operator+=(Buyer* buyer);
+	const System& operator+=(Seller* seller);
+
+
 	bool setSystemName(const char* systemName);
 
 	const char* getSystemName() const;

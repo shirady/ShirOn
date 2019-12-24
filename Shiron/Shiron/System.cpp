@@ -23,6 +23,18 @@ void System::cleanUsersArray()
 	delete[] m_allUsers;
 }
 
+const System& System::operator+=(Buyer* buyer)
+{
+	addUserToSystem(buyer);
+	return *this;
+}
+
+const System& System::operator+=(Seller* seller)
+{
+	addUserToSystem(seller);
+	return *this;
+}
+
 bool System::setSystemName(const char* systemName)
 {
 	delete[] m_systemName;
