@@ -8,7 +8,6 @@ Interface::Interface()
 Interface::~Interface()
 {
 	delete m_system;
-	//printf("%d\n", _CrtDumpMemoryLeaks());
 }
 
 bool Interface::setSystem(const char * systemName)
@@ -65,30 +64,7 @@ void Interface::readSystem()
 	setSystem(systemName);
 }
 
-Buyer* Interface::readBuyer() const
-{
-	char userName[User::MAX_LEN_NAME];
-	bool fcontinue = true;
-	do 
-	{
-		cout << "Enter your user name: ";
-		cin.getline(userName, User::MAX_LEN_NAME);
-		cleanAfterGetLine();
-
-		if (m_system->findUser(userName) != nullptr)
-			cout << "The user is already exist in the system, please enter again" << endl;
-		else
-			fcontinue = false;
-	} while (fcontinue);
-
-	char password[User::MAX_LEN_PASSWORD];
-	cout << "Enter password: ";
-	cin.getline(password, User::MAX_LEN_PASSWORD);
-	cleanAfterGetLine();
-	return new Buyer(userName, password, readAddress());
-}
-
-Seller* Interface::readSeller() const
+User* Interface::readUserGeneral(eUserType type) const
 {
 	char userName[User::MAX_LEN_NAME];
 	bool fcontinue = true;
@@ -109,31 +85,20 @@ Seller* Interface::readSeller() const
 	cin.getline(password, User::MAX_LEN_PASSWORD);
 	cleanAfterGetLine();
 
-	return new Seller(userName, password, readAddress());
-}
-
-BuyerAndSeller* Interface::readBuyerAndSeller() const
-{
-	char userName[User::MAX_LEN_NAME];
-	bool fcontinue = true;
-	do
+	switch (type)
 	{
-		cout << "Enter your user name: ";
-		cin.getline(userName, User::MAX_LEN_NAME);
-		cleanAfterGetLine();
-
-		if (m_system->findUser(userName) != nullptr)
-			cout << "The user is already exist in the system, please enter again" << endl;
-		else
-			fcontinue = false;
-	} while (fcontinue);
-
-	char password[User::MAX_LEN_PASSWORD];
-	cout << "Enter password: ";
-	cin.getline(password, User::MAX_LEN_PASSWORD);
-	cleanAfterGetLine();
-
-	return new BuyerAndSeller(userName, password, readAddress());
+		case BUYER:
+			return new Buyer(userName, password, readAddress());
+			break;
+		case SELLER:
+			return new Seller(userName, password, readAddress());
+			break;
+		case BUYER_AND_SELLER:
+			return new BuyerAndSeller(userName, password, readAddress());
+			break;
+		default:
+			return new Buyer(userName, password, readAddress());
+	}
 }
 
 Item* Interface::readItem(const Seller* seller) const
@@ -254,9 +219,10 @@ void Interface::menuOptions() const
 {
 	bool exitMenu = false;
 	int option;
-	Buyer* buyer;
-	Seller* seller;
-	BuyerAndSeller* buyerAndSeller;
+	User* user;
+	//Buyer* buyer;
+	//Seller* seller;
+	//BuyerAndSeller* buyerAndSeller;
 
 	headline();
 	while (!exitMenu)
@@ -277,16 +243,16 @@ void Interface::menuOptions() const
 			switch (option)
 			{
 			case 1:
-				buyer = readBuyer();
-				m_system->addUserToSystem(buyer);
+				user = readUserGeneral(BUYER);
+				m_system->addUserToSystem(user);
 				break;
 			case 2:
-				seller = readSeller();
-				m_system->addUserToSystem(seller);
+				user = readUserGeneral(SELLER);
+				m_system->addUserToSystem(user);
 				break;
 			case 3:
-				buyerAndSeller = readBuyerAndSeller();
-				m_system->addUserToSystem(buyerAndSeller);
+				user = readUserGeneral(BUYER_AND_SELLER);
+				m_system->addUserToSystem(user);
 				break;
 			case 4:
 				addItemToSellerMenu();
@@ -343,18 +309,6 @@ void Interface::cleanBuffer() const
 	} while (c != EOF && c != '\n');
 }
 
-void Interface::showUser(const User& user) const
-{
-	const Address address = user.getAddress();
-	cout << "User name: " << user.getUserName() << endl
-		<< "Country: " << address.getCountry()
-		<< ", City: " << address.getCity()
-		<< ", Street: " << address.getStreet()
-		<< ", Building Number: " << address.getBuildNo()
-		<< ", Apartment Number: " << address.getApartmentNo()
-		<< ", Zip Code: " << address.getZipCode() << endl;
-}
-
 void Interface::showItemsOfSeller(const Seller* seller, const char* itemName) const
 {
 	unsigned int logicSizeItems = seller->getLogicSizeItems();
@@ -409,6 +363,8 @@ void Interface::addItemToCartMenu() const
 			else
 				cout << "Seller was not found in the system" << endl;
 		}
+		else
+			cout << itemName << " was not found" << endl;
 	}
 	else
 		cout << "Buyer was not found in the system" << endl;
@@ -710,7 +666,7 @@ void Interface::showAllBuyers() const
 		if (buyer != nullptr)
 		{
 			cout << "#" << counter + 1 << ": ";
-			showUser(*allUsers[i]); //prints the User part of the Buyer
+			cout << *allUsers[i]; //prints the User part of the Buyer
 			counter++;
 		}
 	}
@@ -729,7 +685,7 @@ void Interface::showAllSellers() const
 		if (seller != nullptr)
 		{
 			cout << "#" << counter + 1 << ": ";
-			showUser(*allUsers[i]); //prints the User part of the Seller
+			cout << *allUsers[i]; //prints the User part of the Seller
 			counter++;
 		}
 	}
@@ -748,7 +704,7 @@ void Interface::showAllBuyersThatAreSellers() const
 		if (seller != nullptr)
 		{
 			cout << "#" << counter + 1 << ": ";
-			showUser(*allUsers[i]); //prints the User part of the SellerAndBuyer
+			cout << *allUsers[i]; //prints the User part of the SellerAndBuyer
 			counter++;
 		}
 	}
@@ -845,11 +801,13 @@ void Interface::menuOperatorOptions() const
 		switch (option)
 		{
 		case(1):
-			buyer = readBuyer();
-			*m_system+=buyer;
+			user = readUserGeneral(BUYER);
+			buyer = dynamic_cast<Buyer*>(user);
+			*m_system+= buyer;
 			break;
 		case(2):
-			seller = readSeller();
+			user = readUserGeneral(SELLER);
+			seller = dynamic_cast<Seller*>(user);
 			*m_system += seller;
 			break;
 		case(3):
