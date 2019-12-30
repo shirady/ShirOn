@@ -97,7 +97,7 @@ User* Interface::readUserGeneral(eUserType type) const
 			return new BuyerAndSeller(userName, password, readAddress());
 			break;
 		default:
-			return new Buyer(userName, password, readAddress());
+			return new Buyer(userName, password, readAddress()); //not supposed to enter to it, its technical only (if the type was not send correctly then it is a Buyer)
 	}
 }
 
@@ -220,9 +220,6 @@ void Interface::menuOptions() const
 	bool exitMenu = false;
 	int option;
 	User* user;
-	//Buyer* buyer;
-	//Seller* seller;
-	//BuyerAndSeller* buyerAndSeller;
 
 	headline();
 	while (!exitMenu)
@@ -327,7 +324,7 @@ void Interface::addItemToSellerMenu() const
 	cin.getline(sellerName, User::MAX_LEN_NAME);
 	cleanAfterGetLine();
 	User* user = m_system->findUser(sellerName);
-	Seller* seller = dynamic_cast<Seller*>(user); //what if user is nullptr?
+	Seller* seller = dynamic_cast<Seller*>(user);
 	if (seller != nullptr)
 	{
 		Item* item = readItem(seller);
@@ -530,6 +527,7 @@ void Interface::chooseAllItemsFromCart(Buyer* buyer) const
 		itemOfCartIsInOrder = false; //initialize
 	}
 }
+
 void Interface::chooseCertainItemsFromCart(Buyer* buyer) const
 {
 	Cart* cart = buyer->getCart();
@@ -622,36 +620,30 @@ void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsign
 {
 	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
-	unsigned int option = 0;
-	cout << "(1) Pay for the order" << endl << "(2) Pay later:"<< endl <<"Choose option: ";
-	cin >> option;
 
-	if (option == 1)
+	unsigned int amountPayed;
+	cout << "Enter the exact amount of money for the order" << endl;
+	cin >> amountPayed;
+	bool itemFound = false;
+	if (amountPayed == totalPriceOfOrder)
 	{
-		unsigned int amountPayed;
-		cout << "Enter the exact amount of money for the order" << endl;
-		cin >> amountPayed;
-		bool itemFound = false;
-		if (amountPayed == totalPriceOfOrder)
+		for (unsigned int i = 0; i < numberOfItemsInCart; i++)
 		{
-			for (unsigned int i = 0; i < numberOfItemsInCart; i++)
+			for (unsigned int j = 0; i < numberOfItemsInOrder && !itemFound; j++)
 			{
-				for (unsigned int j = 0; i < numberOfItemsInOrder && !itemFound; j++)
-				{
-					if (allItemsOfCart[i] == allItemsOfOrder[j])
-						itemFound = true;
-				}
-				if (itemFound)
-					cart->removeItemFromCart(allItemsOfCart[i]);
+				if (allItemsOfCart[i] == allItemsOfOrder[j])
+					itemFound = true;
 			}
-			cart->reallocItems();
-			order->closeOrder(totalPriceOfOrder);
-			buyer->addOrderToHistory();
-			cout << "The order was payed." << endl;
+			if (itemFound)
+				cart->removeItemFromCart(allItemsOfCart[i]);
 		}
-		else
-			cout << "You didn't enter the exact amount of money" << endl;
+		cart->reallocItems();
+		order->closeOrder(totalPriceOfOrder);
+		buyer->addOrderToHistory();
+		cout << "The order was payed." << endl;
 	}
+	else
+		cout << "You didn't enter the exact amount of money" << endl;
 }
 
 void Interface::showAllBuyers() const
@@ -771,21 +763,100 @@ void Interface::showAllItemsOfCeratinNameMenu() const
 		cout << itemName << " item was not found" << endl;
 }
 
-void Interface::menuOperatorOptions() const
+void Interface::menuOperatorOptionsHeadline() const
 {
-	Buyer* buyer, *firstBuyer, *secondBuyer;
-	Seller* seller;
-	User* user;
-	char userName[User::MAX_LEN_NAME];
-	unsigned int option;
-
 	cout << "(1) +=: add buyer to system" << endl
 		<< "(2) +=: add seller to system" << endl
 		<< "(3) >: compare between buyers' carts" << endl
 		<< "(4) << show User's details" << endl
 		<< "(5) << show cart's items" << endl
 		<< "(6) << show order's items" << endl
-	    << "Choose option: ";
+		<< "Choose option: ";
+}
+void Interface::menuOperatorOptionAddBuyer() const
+{
+	User* user = readUserGeneral(BUYER);
+	Buyer* buyer = dynamic_cast<Buyer*>(user);
+	*m_system += buyer;
+}
+
+void Interface::menuOperatorOptionAddSeller() const
+{
+	User* user = readUserGeneral(SELLER);
+	Seller* seller = dynamic_cast<Seller*>(user);
+	*m_system += seller;
+}
+
+void Interface::menuOperatorCompareBuyers() const
+{
+	char userName[User::MAX_LEN_NAME];
+	cout << "Enter The first buyer name: ";
+	cin.getline(userName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
+	Buyer* firstBuyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
+	if (firstBuyer == nullptr)
+		cout << "The " << userName << " buyer is not exist in the system" << endl;
+	else
+	{
+		cout << "Enter The second buyer name: ";
+		cin.getline(userName, User::MAX_LEN_NAME);
+		cleanAfterGetLine();
+		Buyer* secondBuyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
+		if (secondBuyer == nullptr)
+			cout << "The buyer " << userName << " is not exist in the system" << endl;
+		else
+		{
+			if (*firstBuyer > *secondBuyer)
+				cout << "The Total price of " << firstBuyer->getUserName() << "'s cart is higher than " << secondBuyer->getUserName() << "'s cart" << endl;
+			else
+				cout << "The Total price of " << firstBuyer->getUserName() << "'s cart is not higher than " << secondBuyer->getUserName() << "'s cart" << endl;
+		}
+	}
+}
+
+void Interface::menuOperatorShowUser() const
+{
+	char userName[User::MAX_LEN_NAME];
+	cout << "Enter The user's name: ";
+	cin.getline(userName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
+	User* user = m_system->findUser(userName);
+	if (user == nullptr)
+		cout << "The " << userName << " user is not exist in the system" << endl;
+	else
+		cout << *user;
+}
+
+void Interface::menuOperatorShowCart() const
+{
+	char userName[User::MAX_LEN_NAME];
+	cout << "Enter The buyer's name: ";
+	cin.getline(userName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
+	Buyer* buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
+	if (buyer == nullptr)
+		cout << "Buyer was not found" << endl;
+	else
+		cout << userName << "'s items in the cart are: " << endl << *(buyer->getCart());
+}
+
+void Interface::menuOperatorShowOrder() const
+{
+	char userName[User::MAX_LEN_NAME];
+	cout << "Enter The buyer's name: ";
+	cin.getline(userName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
+	Buyer* buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
+	if (buyer == nullptr)
+		cout << "Buyer was not found" << endl;
+	else
+		cout << userName << "'s items in the current order are: " << *(buyer->getCurrentOrder());
+}
+
+void Interface::menuOperatorOptions() const
+{
+	menuOperatorOptionsHeadline();
+	unsigned int option;
 	cin >> option;
 	cout << endl;
 
@@ -801,73 +872,22 @@ void Interface::menuOperatorOptions() const
 		switch (option)
 		{
 		case(1):
-			user = readUserGeneral(BUYER);
-			buyer = dynamic_cast<Buyer*>(user);
-			*m_system+= buyer;
+			menuOperatorOptionAddBuyer();
 			break;
 		case(2):
-			user = readUserGeneral(SELLER);
-			seller = dynamic_cast<Seller*>(user);
-			*m_system += seller;
+			menuOperatorOptionAddSeller();
 			break;
 		case(3):
-			cout << "Enter The first buyer name: ";
-			cin.getline(userName, User::MAX_LEN_NAME);
-			cleanAfterGetLine();
-			firstBuyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
-			if (firstBuyer == nullptr)
-				cout << "The " << userName << " buyer is not exist in the system" << endl;
-			else
-			{
-				cout << "Enter The second buyer name: ";
-				cin.getline(userName, User::MAX_LEN_NAME);
-				cleanAfterGetLine();
-				secondBuyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
-				if (secondBuyer == nullptr)
-					cout << "The buyer " << userName << " is not exist in the system" << endl;
-				else
-				{
-					if (*firstBuyer > *secondBuyer)
-					{
-						cout << "The Total price of " << firstBuyer->getUserName() << "'s cart is higher than " << secondBuyer->getUserName() << "'s cart" << endl;
-					}
-					else
-					{
-						cout << "The Total price of " << firstBuyer->getUserName() << "'s cart is not higher than " << secondBuyer->getUserName() << "'s cart" << endl;
-					}
-				}
-			}
+			menuOperatorCompareBuyers();
 			break;
 		case(4):
-			cout << "Enter The user's name: ";
-			cin.getline(userName, User::MAX_LEN_NAME);
-			cleanAfterGetLine();
-			//buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
-			user = m_system->findUser(userName);
-			if (user == nullptr)
-				cout << "The " << userName << " user is not exist in the system" << endl;
-			else
-				cout << *user;
+			menuOperatorShowUser();
 			break;
 		case(5):
-			cout << "Enter The buyer's name: ";
-			cin.getline(userName, User::MAX_LEN_NAME);
-			cleanAfterGetLine();
-			buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
-			if (buyer == nullptr)
-				cout << "Buyer was not found" << endl;
-			else
-				cout << userName << "'s items in the cart are: " << endl << *(buyer->getCart());
+			menuOperatorShowCart();
 			break;
 		case(6):
-			cout << "Enter The buyer's name: ";
-			cin.getline(userName, User::MAX_LEN_NAME);
-			cleanAfterGetLine();
-			buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
-			if (buyer == nullptr)
-				cout << "Buyer was not found" << endl;
-			else
-				cout << userName << "'s items in the current order are: " << *(buyer->getCurrentOrder());
+			menuOperatorShowOrder();
 			break;
 		default:
 			cout << "Invalid number. Please choose a number between 1-3" << endl;

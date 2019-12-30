@@ -32,7 +32,15 @@ private:
 	void addFeedbackToSellerMenu() const;
 	void addFeedbackToSellerMenuHelper(const Buyer* buyer) const;
 	void showAllItemsOfCeratinNameMenu() const;
+
 	void menuOperatorOptions() const;
+	void menuOperatorOptionsHeadline() const;
+	void menuOperatorOptionAddBuyer() const;
+	void menuOperatorOptionAddSeller() const;
+	void menuOperatorCompareBuyers() const;
+	void menuOperatorShowUser() const;
+	void menuOperatorShowCart() const;
+	void menuOperatorShowOrder() const;
 
 	void readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const; //by ref since we want to change apartment number and building number variables that we are sending to this function
 	const Address readAddress() const;
