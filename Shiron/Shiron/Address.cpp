@@ -71,6 +71,16 @@ const Address& Address::operator=(Address&& other)
 	return *this;
 }
 
+ostream& operator<<(ostream& os, const Address& address) //global function
+{
+	os << "Country: " << address.getCountry()
+		<< ", City: " << address.getCity()
+		<< ", Street: " << address.getStreet()
+		<< ", Building Number: " << address.getBuildNo()
+		<< ", Apartment Number: " << address.getApartmentNo()
+		<< ", Zip Code: " << address.getZipCode() << endl;
+	return os;
+}
 
 bool Address::setCountry(const char* country)
 {

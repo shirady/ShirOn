@@ -30,7 +30,7 @@ protected:
 
 	const User& operator=(const User& other);
 	const User& operator=(User&& other);
-
+	friend ostream& operator<<(ostream& os, const User& user);
 
 public:
 	virtual ~User(); //d'tor

@@ -19,7 +19,7 @@ Buyer::~Buyer()
 
 bool Buyer::operator>(const Buyer& other)
 {
-	return(this->getCart() > other.getCart());
+	return(*(this->getCart()) > *(other.getCart()));
 }
 
 void Buyer::cleanOrderHistoryArray()

@@ -54,6 +54,14 @@ const User& User::operator=(User&& other)
 	return *this;
 }
 
+ostream& operator<<(ostream& os, const User& user)//global function
+{
+	os << "User name: " << user.getUserName() << endl;
+	os << user.getAddress();
+	return os;
+}
+
+
 bool User::setUserName(const char* userName)
 {
 	delete[] m_userName;

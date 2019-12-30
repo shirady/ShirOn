@@ -33,7 +33,6 @@ private:
 	void showAllItemsOfCeratinNameMenu() const;
 	void menuOperatorOptions() const;
 
-
 	void readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const; //by ref since we want to change apartment number and building number variables that we are sending to this function
 	const Address readAddress() const;
 	Buyer* readBuyer() const;

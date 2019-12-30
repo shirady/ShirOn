@@ -36,6 +36,7 @@ public:
 
 	const Address& operator=(const Address& other);
 	const Address& operator=(Address&& other);
+	friend ostream& operator<<(ostream& os, const Address& address);
 
 	bool setCountry(const char* country);
 	bool setCity(const char* city);

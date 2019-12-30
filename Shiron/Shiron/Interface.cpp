@@ -851,11 +851,14 @@ void Interface::menuOperatorOptions() const
 {
 	Buyer* buyer, *firstBuyer, *secondBuyer;
 	Seller* seller;
+	User* user;
 	char userName[User::MAX_LEN_NAME];
 	unsigned int option;
 
-	cout << "(1) +=: add buyer to system" << endl << "(2) +=: add seller to system" << endl <<
-	"(3) >: compare between buyers' carts" << endl <<
+	cout << "(1) +=: add buyer to system" << endl
+		<< "(2) +=: add seller to system" << endl
+		<< "(3) >: compare between buyers' carts" << endl
+		<< "(4) << Show User's details" << endl;
 	 "Choose option: ";
 	cin >> option;
 	cout << endl;
@@ -896,7 +899,7 @@ void Interface::menuOperatorOptions() const
 					cout << "The buyer " << userName << " is not exist in the system" << endl;
 				else
 				{
-					if (firstBuyer > secondBuyer)
+					if (*firstBuyer > *secondBuyer)
 					{
 						cout << "The Total price of " << firstBuyer->getUserName() << "'s cart is higher than " << secondBuyer->getUserName() << "'s cart" << endl;
 					}
@@ -905,6 +908,19 @@ void Interface::menuOperatorOptions() const
 						cout << "The Total price of " << firstBuyer->getUserName() << "'s cart is not higher than " << secondBuyer->getUserName() << "'s cart" << endl;
 					}
 				}
+			}
+			break;
+		case(4):
+			cout << "Enter The user's name: ";
+			cin.getline(userName, User::MAX_LEN_NAME);
+			cleanAfterGetLine();
+			//buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
+			user = m_system->findUser(userName);
+			if (user == nullptr)
+				cout << "The " << userName << " user is not exist in the system" << endl;
+			else
+			{
+				cout << *user;
 			}
 			break;
 		default:
