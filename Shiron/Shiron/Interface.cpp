@@ -469,7 +469,7 @@ void Interface::chooseOptionForMakeAnOrderMenu(const Cart* cart) const
 		<< "(1) Choose all items from cart to the order" << endl
 		<< "(2) Choose certain items from cart to the order" << endl
 		<< "(3) Remove certain items from order" << endl;
-	cout << "Enter your option of order: ";
+	cout << "Enter your option: ";
 }
 
 
@@ -486,6 +486,7 @@ void Interface::chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned in
 		if (numberOfItemsInOrder < numberOfItemsInCart)
 		{
 			chooseAllItemsFromCart(buyer);
+			cout << endl << "The item in the order are:" << endl;
 			cout << *order;
 		}
 		else
@@ -506,9 +507,8 @@ void Interface::chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned in
 			cout << "There are no items in the order" << endl;
 		break;
 	default:
-		cout << "Incorrect input" << endl;
+		 cout << "Invalid number. Please choose a number between 1-3" << endl;
 	}
-
 }
 
 
@@ -613,7 +613,6 @@ void Interface::payOrderMenu() const
 			int totalPriceOfOrder = order->getTotalPriceOfOrder();
 			cout << "The items in the order are:" << endl;
 			cout << *order;
-			cout << "The total price is: " << totalPriceOfOrder << endl;
 			payOrderMenuHelper(buyer, cart, order, numberOfItemsInCart, numberOfItemsInOrder, totalPriceOfOrder);
 		}
 		else
@@ -629,7 +628,7 @@ void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsign
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 
 	unsigned int amountPayed;
-	cout << "Enter the exact amount of money for the order" << endl;
+	cout << "Enter the exact amount of money for the order: ";
 	cin >> amountPayed;
 	bool itemFound = false;
 	if (amountPayed == totalPriceOfOrder)
