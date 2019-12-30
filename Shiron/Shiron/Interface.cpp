@@ -430,6 +430,10 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 			Feedback* feedback = readFeedback(buyer);
 			seller->addFeedbackToSeller(feedback);
 		}
+		else
+		{
+			cout << "Cannot send feedback, the seller was not in orders' history" << endl;
+		}
 	}
 	else
 		cout << "Seller was not found in the system" << endl;
@@ -501,7 +505,10 @@ void Interface::chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned in
 		else
 			cout << "There are no items in the order" << endl;
 		break;
+	default:
+		cout << "Incorrect input" << endl;
 	}
+
 }
 
 
