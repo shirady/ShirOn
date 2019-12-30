@@ -12,6 +12,13 @@ Date::~Date()
 
 }
 
+ostream& operator<<(ostream& os, const Date& date)//global function
+{
+	os << date.m_day << "/" << date.m_month << "/" << date.m_year;
+	return os;
+}
+
+
 bool Date::setYear(unsigned int year)
 {
     if(year >= MIN_YEAR && year <= MAX_YEAR)

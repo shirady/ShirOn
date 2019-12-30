@@ -26,6 +26,8 @@ public:
 	Feedback(const Feedback& other) = delete; //copy c'tor
 	~Feedback(); //d'tor
 
+	friend ostream& operator<<(ostream& os, const Feedback& feedback);
+
 	const char* getFeedback(const char* feedback) const;
 	const Date& getDate() const;
 };

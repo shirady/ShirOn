@@ -777,6 +777,7 @@ void Interface::menuOperatorOptionsHeadline() const
 		<< "(4) << show User's details" << endl
 		<< "(5) << show cart's items" << endl
 		<< "(6) << show order's items" << endl
+		<< "(7) << show seller's feedbacks" << endl
 		<< "Choose option: ";
 }
 void Interface::menuOperatorOptionAddBuyer() const
@@ -859,6 +860,19 @@ void Interface::menuOperatorShowOrder() const
 		cout << userName << "'s items in the current order are: " << *(buyer->getCurrentOrder());
 }
 
+void Interface::menuOperatorShowAllFeedbacks() const
+{
+	char userName[User::MAX_LEN_NAME];
+	cout << "Enter The seller's name: ";
+	cin.getline(userName, User::MAX_LEN_NAME);
+	cleanAfterGetLine();
+	Seller* seller = dynamic_cast<Seller*>(m_system->findUser(userName));
+	if (seller == nullptr)
+		cout << "Seller was not found" << endl;
+	else
+		cout << userName << "'s feedbacks are:" << endl << *seller;
+}
+
 void Interface::menuOperatorOptions() const
 {
 	menuOperatorOptionsHeadline();
@@ -895,8 +909,11 @@ void Interface::menuOperatorOptions() const
 		case(6):
 			menuOperatorShowOrder();
 			break;
+		case(7):
+			menuOperatorShowAllFeedbacks();
+			break;
 		default:
-			cout << "Invalid number. Please choose a number between 1-3" << endl;
+			cout << "Invalid number. Please choose a number between 1-6" << endl;
 			cleanBuffer();
 			break;
 		}

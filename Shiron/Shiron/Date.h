@@ -30,6 +30,8 @@ public:
 	 //copy and move c'tor - we do not need to implement and we use the default constructor since it does not have memory allocation
 	~Date(); //d'tor
 
+	friend ostream& operator<<(ostream& os, const Date& date);
+
 	unsigned int getYear() const;
 	unsigned int getMonth() const;
 	unsigned int getDay() const;

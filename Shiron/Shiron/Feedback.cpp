@@ -2,7 +2,7 @@
 
 Feedback::Feedback(const char* feedback, const Date& date, const Buyer* buyer) : m_date(date)
 {
-	feedback = nullptr;
+	m_feedback = nullptr;
 
 	setBuyer(buyer);
 	setFeedback(feedback);
@@ -11,6 +11,12 @@ Feedback::Feedback(const char* feedback, const Date& date, const Buyer* buyer) :
 Feedback::~Feedback()
 {
 	delete[] m_feedback;
+}
+
+ostream& operator<<(ostream& os, const Feedback& feedback) //global function
+{
+	os << "From buyer: " << feedback.m_buyer->getUserName() << ", Date: " << feedback.m_date << ", The feedback:" << feedback.m_feedback;
+	return os;
 }
 
 bool Feedback::setBuyer(const Buyer* buyer)
