@@ -13,6 +13,22 @@ Order::~Order()
 	delete[] m_allItemsOfOrder;
 }
 
+
+ostream& operator<<(ostream& os, const Order& order) //global function
+{
+	if (order.m_logicSizeItems > 0)
+	{
+		for (unsigned int i = 0; i < order.m_logicSizeItems; i++)
+			os << "#" << i+1 << " " << *(order.m_allItemsOfOrder[i]) << endl;
+			os << "_______________" << endl;
+		os << "Total price: " << order.getTotalPriceOfOrder() << endl;
+	}
+	else
+		os << "Order is empty" << endl;
+
+	return os;
+}
+
 bool Order::setLogicSizeItems(unsigned int logicSizeItems)
 {
 	if (logicSizeItems >= INITIAL_LOGICAL_SIZE)

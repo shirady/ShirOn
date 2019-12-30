@@ -27,6 +27,7 @@ public:
 	~Cart(); //d'tor
 
 	bool operator>(const Cart& other);
+	friend ostream& operator<<(ostream& os, const Cart& cart);
 
 	unsigned int getLogicSizeItems() const;
 	const Item** getAllItemsOfCart() const;

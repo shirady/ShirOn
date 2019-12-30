@@ -19,6 +19,16 @@ Item::~Item()
 	delete[] m_itemName;
 }
 
+ostream& operator<<(ostream& os, const Item& item)
+{
+	os << "Item name: " << item.m_itemName
+		<< ", Category: " << item.category[item.m_categoryOfItem]
+		<< ", Price: " << item.m_priceOfItem
+		<< ", Serial Number: " << item.m_serialNumberOfItem
+		<< ", Seller name: " << item.m_seller->getUserName() << endl;
+	return os;
+}
+
 bool Item::setNameOfItem(const char* itemName)
 {
 	delete[] m_itemName;

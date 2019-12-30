@@ -56,8 +56,8 @@ const User& User::operator=(User&& other)
 
 ostream& operator<<(ostream& os, const User& user)//global function
 {
-	os << "User name: " << user.getUserName() << endl;
-	os << user.getAddress();
+	os << "User name: " << user.m_userName << endl;
+	os << user.m_userAddress;
 	return os;
 }
 

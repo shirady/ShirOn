@@ -6,10 +6,10 @@ using namespace std;
 #pragma warning(disable: 4996)
 #include "System.h"
 
+
 class Interface
 {
 public:
-	const char* category[Item::CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
 
 private:
 	System* m_system = nullptr; //initialize
@@ -51,9 +51,6 @@ private:
 	void showAllUsersOfCertainType() const;
 	void showUser(const User& user) const;
 
-	void showItem(const Item* item) const;
-	void showOrder(const Order* order) const;
-	void showCart(const Cart* cart) const;
 	void showItemsOfSeller(const Seller* seller, const char* itemName) const;
 	void showAllItemsOfSellers(const char* itemName) const;
 	void showAllItemsOption() const;

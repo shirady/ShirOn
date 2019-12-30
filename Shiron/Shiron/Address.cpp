@@ -73,12 +73,12 @@ const Address& Address::operator=(Address&& other)
 
 ostream& operator<<(ostream& os, const Address& address) //global function
 {
-	os << "Country: " << address.getCountry()
-		<< ", City: " << address.getCity()
-		<< ", Street: " << address.getStreet()
-		<< ", Building Number: " << address.getBuildNo()
-		<< ", Apartment Number: " << address.getApartmentNo()
-		<< ", Zip Code: " << address.getZipCode() << endl;
+	os << "Country: " << address.m_country
+		<< ", City: " << address.m_city
+		<< ", Street: " << address.m_street
+		<< ", Building Number: " << address.m_buildNo
+		<< ", Apartment Number: " << address.m_apartmentNo
+		<< ", Zip Code: " << address.m_zipCode << endl;
 	return os;
 }
 

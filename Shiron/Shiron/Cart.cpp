@@ -17,6 +17,22 @@ bool Cart::operator>(const Cart& other)
 	return(this->getTotalPriceOfCart() > other.getTotalPriceOfCart());
 }
 
+ostream& operator<<(ostream& os, const Cart& cart) //global function
+{
+	if (cart.m_logicSizeItems > 0)
+	{
+		for (unsigned int i = 0; i < cart.m_logicSizeItems; i++)
+			os << "#" << i+1 << " "<< *(cart.m_allItemsOfCart[i]);
+		os << "_______________" << endl;
+		os << "Total price: " << cart.getTotalPriceOfCart() << endl;
+	}
+	else
+		os << "Cart is empty" << endl;
+
+	return os;
+}
+
+
 bool Cart::setLogicSizeItems(unsigned int logicSizeItems)
 {
 	if (logicSizeItems >= INITIAL_LOGICAL_SIZE)

@@ -33,6 +33,8 @@ public:
 	Order(const Order& other) = delete; //copy c'tor
 	~Order(); //d'tor
 
+	friend ostream& operator<<(ostream& os, const Order& order);
+
 	unsigned int getLogicSizeItems() const;
 	const Item** getAllItemsOfOrder() const;
 	unsigned int getTotalPriceOfOrder() const;

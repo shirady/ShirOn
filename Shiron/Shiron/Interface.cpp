@@ -355,38 +355,6 @@ void Interface::showUser(const User& user) const
 		<< ", Zip Code: " << address.getZipCode() << endl;
 }
 
-void Interface::showItem(const Item* item) const
-{
-	cout << "Item name: " << item->getNameOfItem()
-		<< ", Category: " << category[item->getCategoryOfItem()]
-		<< ", Price: " << item->getPriceOfItem()
-		<< ", Serial Number: " << item->getSerialNumberOfItem()
-		<< ", Seller name: " << item->getSeller()->getUserName() << endl;;
-}
-
-void Interface::showOrder(const Order* order) const
-{
-	unsigned int logicSizeItems = order->getLogicSizeItems();
-	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
-	cout << "\nThe items in the order are:" << endl;
-	for (unsigned int i = 0; i < logicSizeItems; i++)
-	{
-		if (allItemsOfOrder[i] != nullptr)
-			showItem(allItemsOfOrder[i]);
-	}
-	cout << endl;
-}
-
-void Interface::showCart(const Cart* cart) const
-{
-	unsigned int logicSizeItems = cart->getLogicSizeItems();
-	const Item** allItemsOfCart = cart->getAllItemsOfCart();
-	for (unsigned int i = 0; i < logicSizeItems; i++)
-		if (allItemsOfCart[i] != nullptr)
-			showItem(allItemsOfCart[i]);
-	cout << endl;
-}
-
 void Interface::showItemsOfSeller(const Seller* seller, const char* itemName) const
 {
 	unsigned int logicSizeItems = seller->getLogicSizeItems();
@@ -394,7 +362,7 @@ void Interface::showItemsOfSeller(const Seller* seller, const char* itemName) co
 	for (unsigned int i = 0; i < logicSizeItems; i++)
 	{
 		if (strcmp(allItemsOfSeller[i]->getNameOfItem(), itemName) == 0)
-			showItem(allItemsOfSeller[i]);
+			cout << *allItemsOfSeller[i];
 	}
 }
 
@@ -539,7 +507,7 @@ void Interface::makeAnOrderMenu() const
 void Interface::chooseOptionForMakeAnOrderMenu(const Cart* cart) const
 {
 	cout << "The items in the cart are:" << endl;
-	showCart(cart);
+	cout << *cart;
 	cout << "\nPlease enter one of the options: " << endl
 		<< "(1) Choose all items from cart to the order" << endl
 		<< "(2) Choose certain items from cart to the order" << endl
@@ -561,20 +529,20 @@ void Interface::chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned in
 		if (numberOfItemsInOrder < numberOfItemsInCart)
 		{
 			chooseAllItemsFromCart(buyer);
-			showOrder(order);
+			cout << *order;
 		}
 		else
 			cout << "All of the items are in the order" << endl;
 		break;
 	case 2:
 		if (numberOfItemsInOrder > 0)
-			showOrder(order);
+			cout << *order;
 		chooseCertainItemsFromCart(buyer);
 		break;
 	case 3:
 		if (numberOfItemsInOrder > 0)
 		{
-			showOrder(order);
+			cout << *order;
 			removeItemsFromOrder(buyer);
 		}
 		else
@@ -650,7 +618,7 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 			const Item* item = order->findSerialNumber(serialNumber);
 			if (item != nullptr)
 			{
-				showOrder(order);
+				cout << *order;
 				order->removeItemFromOrder(item);
 				order->reallocItems();
 				if (order->getLogicSizeItems() == 0)
@@ -683,7 +651,7 @@ void Interface::payOrderMenu() const
 		{
 			int totalPriceOfOrder = order->getTotalPriceOfOrder();
 			cout << "The items in the order are:" << endl;
-			showOrder(order);
+			cout << *order;
 			cout << "The total price is: " << totalPriceOfOrder << endl;
 			payOrderMenuHelper(buyer, cart, order, numberOfItemsInCart, numberOfItemsInOrder, totalPriceOfOrder);
 		}
@@ -858,8 +826,10 @@ void Interface::menuOperatorOptions() const
 	cout << "(1) +=: add buyer to system" << endl
 		<< "(2) +=: add seller to system" << endl
 		<< "(3) >: compare between buyers' carts" << endl
-		<< "(4) << Show User's details" << endl;
-	 "Choose option: ";
+		<< "(4) << show User's details" << endl
+		<< "(5) << show cart's items" << endl
+		<< "(6) << show order's items" << endl
+	    << "Choose option: ";
 	cin >> option;
 	cout << endl;
 
@@ -919,9 +889,27 @@ void Interface::menuOperatorOptions() const
 			if (user == nullptr)
 				cout << "The " << userName << " user is not exist in the system" << endl;
 			else
-			{
 				cout << *user;
-			}
+			break;
+		case(5):
+			cout << "Enter The buyer's name: ";
+			cin.getline(userName, User::MAX_LEN_NAME);
+			cleanAfterGetLine();
+			buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
+			if (buyer == nullptr)
+				cout << "Buyer was not found" << endl;
+			else
+				cout << userName << "'s items in the cart are: " << endl << *(buyer->getCart());
+			break;
+		case(6):
+			cout << "Enter The buyer's name: ";
+			cin.getline(userName, User::MAX_LEN_NAME);
+			cleanAfterGetLine();
+			buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
+			if (buyer == nullptr)
+				cout << "Buyer was not found" << endl;
+			else
+				cout << userName << "'s items in the current order are: " << *(buyer->getCurrentOrder());
 			break;
 		default:
 			cout << "Invalid number. Please choose a number between 1-3" << endl;
