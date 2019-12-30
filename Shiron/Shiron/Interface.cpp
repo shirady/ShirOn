@@ -231,7 +231,7 @@ void Interface::menuOptions() const
 		cin.ignore();
 		if (cin.fail())
 		{
-			cout << "Invalid number. Please choose a number between 1-11" << endl;
+			cout << "Invalid number. Please choose a number between 1-15" << endl;
 			cin.clear();
 			cleanBuffer();
 		}
@@ -289,7 +289,7 @@ void Interface::menuOptions() const
 				cout << "Thank you for shopping " << m_system->getSystemName() << "! :)";
 				break;
 			default:
-				cout << "Invalid number. Please choose a number between 1-11" << endl;
+				cout << "Invalid number. Please choose a number between 1-15" << endl;
 				cleanBuffer();
 				break;
 			}
@@ -882,7 +882,7 @@ void Interface::menuOperatorOptions() const
 
 	if (cin.fail())
 	{
-		cout << "Invalid number. Please choose a number between 1-6" << endl;
+		cout << "Invalid number. Please choose a number between 1-7" << endl;
 		cin.clear();
 		cleanBuffer();
 	}
@@ -913,7 +913,7 @@ void Interface::menuOperatorOptions() const
 			menuOperatorShowAllFeedbacks();
 			break;
 		default:
-			cout << "Invalid number. Please choose a number between 1-6" << endl;
+			cout << "Invalid number. Please choose a number between 1-7" << endl;
 			cleanBuffer();
 			break;
 		}
