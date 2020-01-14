@@ -1,4 +1,5 @@
 #include "Order.h"
+#include "Seller.h"
 
 Order::Order(unsigned int physSizeItems)
 {
@@ -149,7 +150,7 @@ bool Order::checkIfSellerIsInAOrder(const Seller& seller) const
 	bool sellerExists = false;
 	for (unsigned int i = 0; i < m_logicSizeItems && !sellerExists; i++)
 	{
-		if (m_allItemsOfOrder[i]->getSeller() == seller)
+		if (strcmp(m_allItemsOfOrder[i]->getSeller().getUserName(), seller.getUserName()) == 0)
 			sellerExists = true;
 	}
 	return sellerExists;

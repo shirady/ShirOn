@@ -37,7 +37,6 @@ public:
 	virtual ~Seller(); //d'tor
 
 	friend ostream& operator<<(ostream& os, const Seller& seller); //printing the feedback of the seller
-	
 
 	unsigned int getLogicSizeFeedbacks() const;
 	const Feedback** getAllFeedbacks() const;
