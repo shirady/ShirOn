@@ -356,7 +356,12 @@ void Interface::addItemToCartMenu() const
 			Seller* seller = nullptr;
 			seller = FindSellerByChoise(itemName, counterOfItemsInAllSellers);
 			if (seller != nullptr)
-				addItemToCartMenuHelper(seller, itemName, buyer);
+			{
+				if (strcmp(seller->getUserName(), buyer->getUserName()) != 0)
+					addItemToCartMenuHelper(seller, itemName, buyer);
+				else //it is the same user name
+					cout << "Seller can't buy from himself" << endl;
+			}
 			else
 				cout << "Seller was not found in the system" << endl;
 		}
