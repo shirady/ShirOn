@@ -4,14 +4,14 @@
 unsigned int Item::m_serialNumberCounter = 0;
 const char* Item::category[CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
 
-Item::Item(const char* itemName, Item::eCategory categoryOfItem, int priceOfItem, const Seller* seller)
+Item::Item(const char* itemName, Item::eCategory categoryOfItem, int priceOfItem, const Seller& seller): m_seller(seller)
 {
 	m_itemName = nullptr;
 
 	setNameOfItem(itemName);
 	setCategoryOfItem(categoryOfItem);
 	setPriceOfItem(priceOfItem);
-	setSeller(seller);
+	//setSeller(seller);
 	m_serialNumberOfItem = ++m_serialNumberCounter;
 }
 
@@ -26,7 +26,7 @@ ostream& operator<<(ostream& os, const Item& item)
 		<< ", Category: " << item.category[item.m_categoryOfItem]
 		<< ", Price: " << item.m_priceOfItem
 		<< ", Serial Number: " << item.m_serialNumberOfItem
-		<< ", Seller name: " << item.m_seller->getUserName() << endl;
+		<< ", Seller name: " << item.m_seller.getUserName() << endl;
 	return os;
 }
 
@@ -80,16 +80,11 @@ bool Item::setPriceOfItem(int priceOfItem)
 		return false;
 }
 
-bool Item::setSeller(const Seller* seller)
-{
-	if (seller != nullptr)
-	{
-		m_seller = seller;
-		return true;
-	}
-	else
-		return false;
-}
+//bool Item::setSeller(const Seller& seller)
+//{
+//	m_seller = seller;
+//	return true;
+//}
 
 const char* Item::getNameOfItem() const
 {
@@ -111,7 +106,7 @@ unsigned int Item::getSerialNumberOfItem() const
 	return m_serialNumberOfItem;
 }
 
-const Seller* Item::getSeller() const
+const Seller& Item::getSeller() const
 {
 	return m_seller;
 }

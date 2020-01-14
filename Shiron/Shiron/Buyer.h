@@ -43,7 +43,7 @@ public:
 	const Order** getAllOrders();
 
 	void addOrderToHistory();
-	bool checkIfSellerExistsInOrdersHistory(const Seller* seller) const;
+	bool checkIfSellerExistsInOrdersHistory(const Seller& seller) const;
 };
 
 #endif //__BUYER_H

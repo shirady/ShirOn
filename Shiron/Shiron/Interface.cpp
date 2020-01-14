@@ -101,7 +101,7 @@ User* Interface::readUserGeneral(eUserType type) const
 	}
 }
 
-Item* Interface::readItem(const Seller* seller) const
+Item* Interface::readItem(const Seller& seller) const
 {
 	char itemName[Item::MAX_LEN_NAME];
 		bool fcontinue = true;
@@ -110,9 +110,9 @@ Item* Interface::readItem(const Seller* seller) const
 		cout << "Enter The item name: ";
 		cin.getline(itemName, Item::MAX_LEN_NAME);
 		cleanAfterGetLine();
-		if (seller->countItemsOfSeller(itemName) != 0)
+		if (seller.countItemsOfSeller(itemName) != 0)
 		{
-			cout << "The item is already exist in the seller " << seller->getUserName() << " please enter again" << endl << endl;
+			cout << "The item is already exist in the seller " << seller.getUserName() << " please enter again" << endl << endl;
 		}
 		else
 		{
@@ -327,7 +327,7 @@ void Interface::addItemToSellerMenu() const
 	Seller* seller = dynamic_cast<Seller*>(user);
 	if (seller != nullptr)
 	{
-		Item* item = readItem(seller);
+		Item* item = readItem(*seller);
 		seller->addItemToSeller(item);
 	}
 	else
@@ -425,7 +425,7 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 	Seller* seller = dynamic_cast<Seller*>(user);
 	if (seller != nullptr)
 	{
-		if (buyer->checkIfSellerExistsInOrdersHistory(seller))
+		if (buyer->checkIfSellerExistsInOrdersHistory(*seller))
 		{
 			Feedback* feedback = readFeedback(buyer);
 			seller->addFeedbackToSeller(feedback);

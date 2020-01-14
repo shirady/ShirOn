@@ -28,14 +28,14 @@ private:
 	int m_priceOfItem;
 	unsigned int m_serialNumberOfItem;
 	static unsigned int m_serialNumberCounter;
-	const Seller* m_seller;
+	const Seller& m_seller; //m_Seller is const ref as it must not be null
 
 	bool CheckCharacters(const char* fieldName) const;
 	bool setNameOfItem(const char* itemName);
-	bool setSeller(const Seller* seller);
+	//bool setSeller(const Seller& seller);
 
 public:
-	Item(const char* nameOfItem, eCategory categoryOfItem, int priceOfItem, const Seller* seller = nullptr); //c'tor //// decide to stay without const Seller seller* since we had assignment between non-const pointer and const pointer
+	Item(const char* nameOfItem, eCategory categoryOfItem, int priceOfItem, const Seller& seller); //c'tor 
 	Item(const Item& other) = delete; //copy c'tor
 	~Item(); //d'tor
 
@@ -48,7 +48,7 @@ public:
 	eCategory getCategoryOfItem() const;
 	int getPriceOfItem() const;
 	unsigned int getSerialNumberOfItem() const;
-	const Seller* getSeller() const;
+	const Seller& getSeller() const;
 };
 
 

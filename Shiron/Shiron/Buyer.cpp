@@ -94,7 +94,7 @@ void Buyer::addOrderToHistory()
 	}
 }
 
-bool Buyer::checkIfSellerExistsInOrdersHistory(const Seller* seller) const
+bool Buyer::checkIfSellerExistsInOrdersHistory(const Seller& seller) const
 {
 	bool foundSeller = false;
 	for (unsigned int i = 0; i < m_logicSizeOrders && !foundSeller; i++)

@@ -46,7 +46,7 @@ public:
 
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 	void closeOrder(unsigned int totalPriceOfOrder);
-	bool checkIfSellerIsInAOrder(const Seller* seller) const;
+	bool checkIfSellerIsInAOrder(const Seller& seller) const;
 };
 
 #endif // __ORDER_H

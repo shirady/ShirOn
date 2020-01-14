@@ -46,7 +46,7 @@ private:
 	void readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const; //by ref since we want to change apartment number and building number variables that we are sending to this function
 	const Address readAddress() const;
 	User* readUserGeneral(eUserType type) const;
-	Item* readItem(const Seller* seller) const;
+	Item* readItem(const Seller& seller) const;
 	Feedback* readFeedback(const Buyer* buyer) const;
 	const Date readDate() const;
 
