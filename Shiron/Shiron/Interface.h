@@ -38,7 +38,6 @@ private:
 	void menuOperatorOptionAddBuyer() const;
 	void menuOperatorOptionAddSeller() const;
 	void menuOperatorCompareBuyers() const;
-	void menuOperatorShowUser() const;
 	void menuOperatorShowCart() const;
 	void menuOperatorShowOrder() const;
 	void menuOperatorShowAllFeedbacks() const;

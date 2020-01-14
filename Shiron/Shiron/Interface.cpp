@@ -779,10 +779,9 @@ void Interface::menuOperatorOptionsHeadline() const
 	cout << "(1) +=: add buyer to system" << endl
 		<< "(2) +=: add seller to system" << endl
 		<< "(3) >: compare between buyers' carts" << endl
-		<< "(4) << show User's details" << endl
-		<< "(5) << show cart's items" << endl
-		<< "(6) << show order's items" << endl
-		<< "(7) << show seller's feedbacks" << endl
+		<< "(4) << show cart's items" << endl
+		<< "(5) << show order's items" << endl
+		<< "(6) << show seller's feedbacks" << endl
 		<< "Choose option: ";
 }
 void Interface::menuOperatorOptionAddBuyer() const
@@ -824,19 +823,6 @@ void Interface::menuOperatorCompareBuyers() const
 				cout << "The Total price of " << firstBuyer->getUserName() << "'s cart is not higher than " << secondBuyer->getUserName() << "'s cart" << endl;
 		}
 	}
-}
-
-void Interface::menuOperatorShowUser() const
-{
-	char userName[User::MAX_LEN_NAME];
-	cout << "Enter The user's name: ";
-	cin.getline(userName, User::MAX_LEN_NAME);
-	cleanAfterGetLine();
-	User* user = m_system->findUser(userName);
-	if (user == nullptr)
-		cout << "The " << userName << " user is not exist in the system" << endl;
-	else
-		user->show();
 }
 
 void Interface::menuOperatorShowCart() const
@@ -889,7 +875,7 @@ void Interface::menuOperatorOptions() const
 
 	if (cin.fail())
 	{
-		cout << "Invalid number. Please choose a number between 1-7" << endl;
+		cout << "Invalid number. Please choose a number between 1-6" << endl;
 		cin.clear();
 		cleanBuffer();
 	}
@@ -908,19 +894,16 @@ void Interface::menuOperatorOptions() const
 			menuOperatorCompareBuyers();
 			break;
 		case(4):
-			menuOperatorShowUser();
-			break;
-		case(5):
 			menuOperatorShowCart();
 			break;
-		case(6):
+		case(5):
 			menuOperatorShowOrder();
 			break;
-		case(7):
+		case(6):
 			menuOperatorShowAllFeedbacks();
 			break;
 		default:
-			cout << "Invalid number. Please choose a number between 1-7" << endl;
+			cout << "Invalid number. Please choose a number between 1-6" << endl;
 			cleanBuffer();
 			break;
 		}
