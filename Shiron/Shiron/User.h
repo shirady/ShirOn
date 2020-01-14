@@ -30,13 +30,13 @@ protected:
 
 	const User& operator=(const User& other);
 	const User& operator=(User&& other);
-	friend ostream& operator<<(ostream& os, const User& user);
+	void showMe() const;
 
 public:
 	virtual ~User(); //d'tor
 
 	bool setPassword(const char* password); //password can be change after it was created
-
+	void show() const;
 	const char* getUserName() const;
 	const char* getPassword() const;
 	const Address& getAddress() const;

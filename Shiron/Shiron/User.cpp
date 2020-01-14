@@ -54,13 +54,16 @@ const User& User::operator=(User&& other)
 	return *this;
 }
 
-ostream& operator<<(ostream& os, const User& user)//global function
+void User::show() const
 {
-	os << "User name: " << user.m_userName << endl;
-	os << user.m_userAddress;
-	return os;
+	showMe();
 }
 
+void User::showMe() const
+{
+	cout << "User name: " << m_userName << endl;
+	cout << m_userAddress;
+}
 
 bool User::setUserName(const char* userName)
 {

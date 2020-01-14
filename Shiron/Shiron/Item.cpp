@@ -11,7 +11,6 @@ Item::Item(const char* itemName, Item::eCategory categoryOfItem, int priceOfItem
 	setNameOfItem(itemName);
 	setCategoryOfItem(categoryOfItem);
 	setPriceOfItem(priceOfItem);
-	//setSeller(seller);
 	m_serialNumberOfItem = ++m_serialNumberCounter;
 }
 
@@ -79,12 +78,6 @@ bool Item::setPriceOfItem(int priceOfItem)
 	else
 		return false;
 }
-
-//bool Item::setSeller(const Seller& seller)
-//{
-//	m_seller = seller;
-//	return true;
-//}
 
 const char* Item::getNameOfItem() const
 {

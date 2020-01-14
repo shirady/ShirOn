@@ -664,7 +664,7 @@ void Interface::showAllBuyers() const
 		if (buyer != nullptr)
 		{
 			cout << "#" << counter + 1 << ": ";
-			cout << *allUsers[i]; //prints the User part of the Buyer
+			buyer->show();
 			counter++;
 		}
 	}
@@ -683,7 +683,7 @@ void Interface::showAllSellers() const
 		if (seller != nullptr)
 		{
 			cout << "#" << counter + 1 << ": ";
-			cout << *allUsers[i]; //prints the User part of the Seller
+			seller->show();
 			counter++;
 		}
 	}
@@ -698,11 +698,11 @@ void Interface::showAllBuyersThatAreSellers() const
 	unsigned int logicSizeUsers = m_system->getLogicSizeUsers();
 	for (unsigned int i = 0; i < logicSizeUsers; i++)
 	{
-		BuyerAndSeller* seller = dynamic_cast<BuyerAndSeller*>(allUsers[i]);
-		if (seller != nullptr)
+		BuyerAndSeller* buyerAndSeller = dynamic_cast<BuyerAndSeller*>(allUsers[i]);
+		if (buyerAndSeller != nullptr)
 		{
 			cout << "#" << counter + 1 << ": ";
-			cout << *allUsers[i]; //prints the User part of the SellerAndBuyer
+			buyerAndSeller->show();
 			counter++;
 		}
 	}
@@ -831,7 +831,7 @@ void Interface::menuOperatorShowUser() const
 	if (user == nullptr)
 		cout << "The " << userName << " user is not exist in the system" << endl;
 	else
-		cout << *user;
+		user->show();
 }
 
 void Interface::menuOperatorShowCart() const
@@ -870,7 +870,9 @@ void Interface::menuOperatorShowAllFeedbacks() const
 	if (seller == nullptr)
 		cout << "Seller was not found" << endl;
 	else
-		cout << userName << "'s feedbacks are:" << endl << *seller;
+	{
+		seller->showMe();
+	}
 }
 
 void Interface::menuOperatorOptions() const

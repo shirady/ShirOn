@@ -36,7 +36,8 @@ public:
 	Seller(const Seller& other) = delete; //copy c'tor
 	virtual ~Seller(); //d'tor
 
-	friend ostream& operator<<(ostream& os, const Seller& seller); //printing the feedback of the seller
+	void show() const;
+	void showMe() const;
 
 	unsigned int getLogicSizeFeedbacks() const;
 	const Feedback** getAllFeedbacks() const;

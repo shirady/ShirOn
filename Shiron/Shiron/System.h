@@ -37,7 +37,6 @@ public:
 	System(const System& other) = delete; //copy c'tor
 	~System(); //d'tor
 
-	//x+=5
 	const System& operator+=(Buyer* buyer);
 	const System& operator+=(Seller* seller);
 
@@ -51,7 +50,7 @@ public:
 
 	bool addUserToSystem(User* user);
 
-	User* findUser(const char* nameOfUser) const; //check
+	User* findUser(const char* nameOfUser) const;
 
 	bool checkIfItemExistInSellers(const char* itemName) const;
 	unsigned int countItemsInAllSellers(const char* itemName) const;

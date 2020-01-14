@@ -9,3 +9,15 @@ BuyerAndSeller::~BuyerAndSeller()
 {
 
 }
+
+void BuyerAndSeller::show() const
+{
+	User::show();
+	showMe();
+}
+
+void BuyerAndSeller::showMe() const
+{
+	Buyer::showMe();
+	Seller::showMe();
+}

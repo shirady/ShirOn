@@ -19,13 +19,13 @@ ostream& operator<<(ostream& os, const Order& order) //global function
 {
 	if (order.m_logicSizeItems > 0)
 	{
+		os << "The order's details" << endl;
 		for (unsigned int i = 0; i < order.m_logicSizeItems; i++)
 			os << "#" << i+1 << " " << *(order.m_allItemsOfOrder[i]);
-			os << "_______________" << endl;
-		os << "Total price: " << order.getTotalPriceOfOrder() << endl;
+		os << "Total price of order: " << order.getTotalPriceOfOrder() << endl;
 	}
 	else
-		os << "Order is empty" << endl;
+		os << "order is empty" << endl;
 
 	return os;
 }

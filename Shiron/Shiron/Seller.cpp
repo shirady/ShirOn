@@ -24,18 +24,24 @@ Seller::~Seller()
 	delete[] m_allFeedbacks;
 }
 
-ostream& operator<<(ostream& os, const Seller& seller) //global function
+void Seller::show() const
 {
-	if (seller.m_logicSizeFeedbacks > 0)
+	User::show();
+	showMe();
+}
+
+void Seller::showMe() const
+{
+	if (m_logicSizeFeedbacks > 0)
 	{
-		for (unsigned int i = 0; i < seller.m_logicSizeFeedbacks; i++)
-			os << "#" << i + 1 << " " << *(seller.m_allFeedbacks[i]);
+		cout << "The feedbacks are:" << endl;
+		for (unsigned int i = 0; i < m_logicSizeFeedbacks; i++)
+			cout << "#" << i + 1 << " " << *(m_allFeedbacks[i]);
 		cout << endl;
 	}
 	else
-		os << "Seller doesn't have feedbacks" << endl;
-
-	return os;
+		cout << this->getUserName() << " doesn't have feedbacks" << endl;
+	cout << "----------------------------------------------------------------------------------" << endl;
 }
 
 bool Seller::setLogicSizeItems(unsigned int logicSizeItems)

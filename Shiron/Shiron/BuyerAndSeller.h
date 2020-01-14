@@ -11,10 +11,14 @@ using namespace std;
 class BuyerAndSeller : public Buyer, Seller //Public because seller can use methods of User
 {
 public:
-	//BuyerAndSeller(const Buyer& buyer, const Seller& seller); //c'tor
 	BuyerAndSeller(const char* userName, const char* password, const Address& address);//c'tor when we do not have seller and buyer object which already created
 	BuyerAndSeller(const BuyerAndSeller& other) = delete; //copy c'tor
+
+	void show() const;
+	void showMe() const;
+
 	virtual ~BuyerAndSeller(); //d'tor
+	//virtual void toOs(ostream& os) const;
 };
 
 #endif //__BUYERANDSELLER_H

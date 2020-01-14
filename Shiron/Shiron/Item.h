@@ -32,7 +32,6 @@ private:
 
 	bool CheckCharacters(const char* fieldName) const;
 	bool setNameOfItem(const char* itemName);
-	//bool setSeller(const Seller& seller);
 
 public:
 	Item(const char* nameOfItem, eCategory categoryOfItem, int priceOfItem, const Seller& seller); //c'tor 

@@ -22,6 +22,19 @@ bool Buyer::operator>(const Buyer& other)
 	return(*(this->getCart()) > *(other.getCart()));
 }
 
+void Buyer::show() const
+{
+	User::show();
+	showMe();
+}
+
+void Buyer::showMe() const
+{
+	cout << *m_currentOrder;
+	cout << *m_Cart;
+	cout << "--------------" << endl;
+}
+
 void Buyer::cleanOrderHistoryArray()
 {
 	for (unsigned int i = 0; i < m_logicSizeOrders; ++i)
