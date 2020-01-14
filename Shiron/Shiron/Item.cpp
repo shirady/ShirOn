@@ -4,7 +4,7 @@
 unsigned int Item::m_serialNumberCounter = 0;
 const char* Item::category[CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
 
-Item::Item(const char* itemName, Item::eCategory categoryOfItem, unsigned int priceOfItem, const Seller* seller)
+Item::Item(const char* itemName, Item::eCategory categoryOfItem, int priceOfItem, const Seller* seller)
 {
 	m_itemName = nullptr;
 
@@ -69,7 +69,7 @@ bool Item::setCategoryOfItem(Item::eCategory categoryOfItem)
 	return false;
 }
 
-bool Item::setPriceOfItem(unsigned int priceOfItem)
+bool Item::setPriceOfItem(int priceOfItem)
 {
 	if (priceOfItem >= MIN_PRICE && priceOfItem <= MAX_PRICE)
 	{
@@ -101,7 +101,7 @@ Item::eCategory Item::getCategoryOfItem() const
 	return m_categoryOfItem;
 }
 
-unsigned int Item::getPriceOfItem() const
+int Item::getPriceOfItem() const
 {
 	return m_priceOfItem;
 }

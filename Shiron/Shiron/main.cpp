@@ -1,5 +1,5 @@
 /*
-Exercise number 1
+Exercise number 2
 Oron Bortman 311141188
 Shira Dymnik 302730692
 */
@@ -12,7 +12,7 @@ Shira Dymnik 302730692
 using namespace std;
 #pragma warning(disable: 4996)
 
-int main()
+int main(int argc, int argv[])
 {
 	Interface interface;
 	interface.readSystem();

@@ -1,6 +1,6 @@
 #include "Address.h"
 
-Address::Address(const char* country, const char* city, const char* street, unsigned int buildNo, unsigned int apartmentNo, const char* zipCode)
+Address::Address(const char* country, const char* city, const char* street, int buildNo, int apartmentNo, const char* zipCode)
 {
 	m_country = nullptr;
 	m_city = nullptr;
@@ -152,16 +152,27 @@ bool Address::setStreet(const char* street)
 
 }
 
-bool Address::setBuildNo(unsigned int buildNo)
+bool Address::setBuildNo(int buildNo)
 {
-    m_buildNo = buildNo;
-    return true;
+	if (buildNo > 0)
+	{
+		m_buildNo = buildNo;
+		return true;
+	}
+	else
+		return false;
+
 }
 
-bool Address::setApartmentNo(unsigned int apartmentNo)
+bool Address::setApartmentNo(int apartmentNo)
 {
-    m_apartmentNo = apartmentNo;
-    return true;
+	if (apartmentNo > 0)
+	{
+		m_apartmentNo = apartmentNo;
+		return true;
+	}
+	else
+		return false;
 }
 
 bool Address::setZipCode(const char* zipCode)
@@ -193,12 +204,12 @@ const char* Address::getStreet() const
     return m_street;
 }
 
-unsigned int Address::getBuildNo() const
+int Address::getBuildNo() const
 {
     return m_buildNo;
 }
 
-unsigned int Address::getApartmentNo() const
+int Address::getApartmentNo() const
 {
     return m_apartmentNo;
 }

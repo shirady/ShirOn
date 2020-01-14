@@ -126,7 +126,7 @@ Item* Interface::readItem(const Seller* seller) const
 	cin >> numOfCategory;
 	categoryOfItem = (Item::eCategory)(numOfCategory);
 
-	unsigned int priceOfItem;
+	int priceOfItem;
 	cout << "Please enter the price of the product: ";
 	cin >> priceOfItem;
 
@@ -145,7 +145,7 @@ Feedback* Interface::readFeedback(const Buyer* buyer) const
 
 const Date Interface::readDate() const
 {
-	unsigned int year, month, day;
+	int year, month, day;
 	cout << "Please enter the date, in the following format:" << endl;
 
 	cout << "year: ";
@@ -610,7 +610,7 @@ void Interface::payOrderMenu() const
 		unsigned int numberOfItemsInOrder = order->getLogicSizeItems();
 		if (numberOfItemsInOrder > 0)
 		{
-			int totalPriceOfOrder = order->getTotalPriceOfOrder();
+			unsigned int totalPriceOfOrder = order->getTotalPriceOfOrder();
 			cout << "The items in the order are:" << endl;
 			cout << *order;
 			payOrderMenuHelper(buyer, cart, order, numberOfItemsInCart, numberOfItemsInOrder, totalPriceOfOrder);

@@ -21,15 +21,15 @@ private:
 	char* m_country;
 	char* m_city;
 	char* m_street;
-	unsigned int m_buildNo;
-	unsigned int m_apartmentNo;
+	int m_buildNo;
+	int m_apartmentNo;
 	char* m_zipCode;
 
 	bool CheckCharacters(const char* fieldName) const;
 	bool CheckCharactersOfZip(const char* zipCode) const;
 
 public:
-	Address(const char* country, const char* city, const char* street, unsigned int buildNo, unsigned int apartmentNo, const char* zipCode); //c'tor
+	Address(const char* country, const char* city, const char* street, int buildNo, int apartmentNo, const char* zipCode); //c'tor
 	Address(const Address& other); //copy c'tor
 	Address(Address&& other); //move c'tor
 	~Address(); //d'tor
@@ -41,15 +41,15 @@ public:
 	bool setCountry(const char* country);
 	bool setCity(const char* city);
 	bool setStreet(const char* street);
-	bool setBuildNo(unsigned int buildNo);
-	bool setApartmentNo(unsigned int apartmentNo);
+	bool setBuildNo(int buildNo);
+	bool setApartmentNo(int apartmentNo);
 	bool setZipCode(const char* zipCode);
 
 	const char* getCountry() const;
 	const char* getCity() const;
 	const char* getStreet() const;
-	unsigned int getBuildNo() const;
-	unsigned int getApartmentNo() const;
+	int getBuildNo() const;
+	int getApartmentNo() const;
 	const char* getZipCode() const;
 };
 

@@ -25,7 +25,7 @@ public:
 private:
 	char* m_itemName;
 	eCategory m_categoryOfItem;
-	unsigned int m_priceOfItem;
+	int m_priceOfItem;
 	unsigned int m_serialNumberOfItem;
 	static unsigned int m_serialNumberCounter;
 	const Seller* m_seller;
@@ -35,18 +35,18 @@ private:
 	bool setSeller(const Seller* seller);
 
 public:
-	Item(const char* nameOfItem, eCategory categoryOfItem, unsigned int priceOfItem, const Seller* seller = nullptr); //c'tor //// decide to stay without const Seller seller* since we had assignment between non-const pointer and const pointer
+	Item(const char* nameOfItem, eCategory categoryOfItem, int priceOfItem, const Seller* seller = nullptr); //c'tor //// decide to stay without const Seller seller* since we had assignment between non-const pointer and const pointer
 	Item(const Item& other) = delete; //copy c'tor
 	~Item(); //d'tor
 
 	friend ostream& operator<<(ostream& os, const Item& item);
 
 	bool setCategoryOfItem(eCategory categoryOfItem);
-	bool setPriceOfItem(unsigned int priceOfItem);
+	bool setPriceOfItem(int priceOfItem);
 
 	const char* getNameOfItem() const;
 	eCategory getCategoryOfItem() const;
-	unsigned int getPriceOfItem() const;
+	int getPriceOfItem() const;
 	unsigned int getSerialNumberOfItem() const;
 	const Seller* getSeller() const;
 };
