@@ -532,34 +532,15 @@ void Interface::chooseAllItemsFromCart(Buyer* buyer) const
 	Cart* cart = buyer->getCart();
 	Order* order = buyer->getCurrentOrder();
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
-	bool itemOfCartIsInOrder = false;
 	unsigned int cartLogicSizeItems = cart->getLogicSizeItems();
 
 	if (order->checkEmptyOrder())
-	{
 		for (unsigned int i = 0; i < cartLogicSizeItems; i++)
-		{
 			order->addItemToOrder(allItemsOfCart[i]);
-		}
-	}
 	else
-	{
-		list<const Item*> allItemsOfOrder = order->getAllItemsOfOrderList();
-		list<const Item*>::const_iterator itr = order->getAllItemsOfOrderList().begin(); //const_iterator since the method is const
-		list<const Item*>::const_iterator itrEnd = order->getAllItemsOfOrderList().end(); ////const_iterator since the method is const
-		
 		for (unsigned int i = 0; i < cartLogicSizeItems; i++)
-		{
-			for (; itr != itrEnd && !itemOfCartIsInOrder; ++itr)
-			{
-				if (allItemsOfCart[i] == (*itr))
-					itemOfCartIsInOrder = true;
-			}
-			if ((!itemOfCartIsInOrder) || (order->checkEmptyOrder()))
+			if (!order->checkIfItemExists(allItemsOfCart[i]))
 				order->addItemToOrder(allItemsOfCart[i]);
-			itemOfCartIsInOrder = false; //initialize
-		}
-	}
 }
 
 void Interface::chooseCertainItemsFromCart(Buyer* buyer) const
@@ -651,24 +632,17 @@ void Interface::payOrderMenu() const
 void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsigned int numberOfItemsInCart, unsigned int numberOfItemsInOrder, unsigned int totalPriceOfOrder) const
 {
 	list<const Item*> allItemsOfOrder = order->getAllItemsOfOrderList();
-	list<const Item*>::const_iterator itr = order->getAllItemsOfOrderList().begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = order->getAllItemsOfOrderList().end(); ////const_iterator since the method is const
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 
 	unsigned int amountPayed;
 	cout << "Enter the exact amount of money for the order: ";
 	cin >> amountPayed;
-	bool itemFound = false;
+
 	if (amountPayed == totalPriceOfOrder)
 	{
 		for (unsigned int i = 0; i < numberOfItemsInCart; i++)
 		{
-			for (; itr != itrEnd && !itemFound; ++itr)
-			{
-				if (allItemsOfCart[i] == (*itr))
-					itemFound = true;
-			}
-			if (itemFound)
+			if (order->checkIfItemExists(allItemsOfCart[i]))
 				cart->removeItemFromCart(allItemsOfCart[i]);
 		}
 		cart->reallocItems();

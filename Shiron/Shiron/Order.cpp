@@ -132,3 +132,17 @@ bool Order::checkIfSellerIsInAOrder(const Seller& seller) const
 	}
 	return sellerExists;
 }
+
+bool Order::checkIfItemExists(const Item* item) const
+{
+	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); ////const_iterator since the method is const
+	bool itemFound = false;
+
+	for (; itr != itrEnd && !itemFound; ++itr)
+	{
+		if (item == (*itr))
+			itemFound = true;
+	}
+	return itemFound;
+}
