@@ -443,6 +443,7 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 		{
 			Feedback* feedback = readFeedback(*buyer);
 			seller->addFeedbackToSeller(feedback);
+			cout << "The feedback was added" << endl;
 		}
 		else
 		{
