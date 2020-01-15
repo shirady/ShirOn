@@ -407,6 +407,8 @@ void Interface::addItemToCartMenuHelper(const Seller* seller, const char* itemNa
 		Item* item = seller->findSerialNumber(serialNumber);
 		if (item != nullptr)
 			buyer->getCart()->addItemToCart(item);
+		else
+			cout << "serial number is not valid" << endl;
 	}
 	else
 		cout << "item was not found" << endl;

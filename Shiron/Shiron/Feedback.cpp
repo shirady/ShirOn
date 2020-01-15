@@ -3,8 +3,6 @@
 Feedback::Feedback(const char* feedback, const Date& date, const Buyer& buyer) : m_date(date), m_buyer(buyer)
 {
 	m_feedback = nullptr;
-
-	//setBuyer(buyer);
 	setFeedback(feedback);
 }
 
