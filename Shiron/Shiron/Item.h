@@ -29,7 +29,6 @@ private:
 	unsigned int m_serialNumberOfItem;
 	static unsigned int m_serialNumberCounter;
 	const Seller& m_seller; //m_Seller is const ref as it must not be null
-
 	bool CheckCharacters(const char* fieldName) const;
 	bool setNameOfItem(const char* itemName);
 

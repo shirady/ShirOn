@@ -18,10 +18,10 @@ bool Interface::setSystem(const char * systemName)
 
 void Interface::readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const
 {
-	cout << "Enter your build number: ";
+	cout << "Enter build number: ";
 	cin >> buildNo;
 
-	cout << "Enter your apartment number: ";
+	cout << "Enter apartment number: ";
 	cin >> apartmentNo;
 }
 
@@ -30,24 +30,24 @@ const Address Interface::readAddress() const
 	int apartmentNo, buildNo;
 
 	char country[Address::MAX_LEN_COUNTRY];
-	cout << "Enter your country: ";
+	cout << "Enter country: ";
 	cin.getline(country, Address::MAX_LEN_COUNTRY);
 	cleanAfterGetLine();
 
 	char city[Address::MAX_LEN_CITY];
-	cout << "Enter your city: ";
+	cout << "Enter city: ";
 	cin.getline(city, Address::MAX_LEN_CITY);
 	cleanAfterGetLine();
 
 	char street[Address::MAX_LEN_STREET];
-	cout << "Enter your street: ";
+	cout << "Enter street: ";
 	cin.getline(street, Address::MAX_LEN_STREET);
 	cleanAfterGetLine();
 
 	readNumericValuesOfAddress(apartmentNo, buildNo);
 
 	char zipCode[Address::MAX_LEN_ZIP_CODE];
-	cout << "Enter your zip code: ";
+	cout << "Enter zip code: ";
 	cleanBuffer();
 	cin.getline(zipCode, Address::MAX_LEN_ZIP_CODE);
 	cleanAfterGetLine();
@@ -70,7 +70,7 @@ User* Interface::readUserGeneral(eUserType type) const
 	bool fcontinue = true;
 	do
 	{
-		cout << "Enter your user name: ";
+		cout << "Enter user name: ";
 		cin.getline(userName, User::MAX_LEN_NAME);
 		cleanAfterGetLine();
 
@@ -129,14 +129,19 @@ Item* Interface::readItem(const Seller& seller) const
 	int priceOfItem;
 	cout << "Please enter the price of the product: ";
 	cin >> priceOfItem;
-
+	if (priceOfItem < 0)
+	{
+		cout << "A price lower than 0 is not valid!" << endl;
+		return nullptr;
+	}
+	
 	return new Item(itemName, categoryOfItem, priceOfItem, seller);
 }
 
-Feedback* Interface::readFeedback(const Buyer* buyer) const
+Feedback* Interface::readFeedback(const Buyer& buyer) const
 {
 	char feedbackText[Feedback::MAX_LEN_FEEDBACK];
-	cout << "Enter Your feedback: ";
+	cout << "Enter feedback: ";
 	cin.getline(feedbackText, Feedback::MAX_LEN_FEEDBACK);
 	cleanAfterGetLine();
 
@@ -328,7 +333,9 @@ void Interface::addItemToSellerMenu() const
 	if (seller != nullptr)
 	{
 		Item* item = readItem(*seller);
-		seller->addItemToSeller(item);
+		if (item !=nullptr)
+			seller->addItemToSeller(item);
+		// if item==nullptr the item will not be created
 	}
 	else
 		cout << "Seller was not found in the system" << endl;
@@ -432,7 +439,7 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 	{
 		if (buyer->checkIfSellerExistsInOrdersHistory(*seller))
 		{
-			Feedback* feedback = readFeedback(buyer);
+			Feedback* feedback = readFeedback(*buyer);
 			seller->addFeedbackToSeller(feedback);
 		}
 		else

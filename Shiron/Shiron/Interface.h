@@ -46,7 +46,7 @@ private:
 	const Address readAddress() const;
 	User* readUserGeneral(eUserType type) const;
 	Item* readItem(const Seller& seller) const;
-	Feedback* readFeedback(const Buyer* buyer) const;
+	Feedback* readFeedback(const Buyer& buyer) const;
 	const Date readDate() const;
 
 	void cleanBuffer() const;
