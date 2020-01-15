@@ -659,7 +659,7 @@ void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsign
 		cart->reallocItems();
 		order->closeOrder(totalPriceOfOrder);
 		buyer->addOrderToHistory();
-		cout << "The order was payed." << endl;
+		cout << "The order was payed" << endl;
 	}
 	else
 		cout << "You didn't enter the exact amount of money" << endl;
