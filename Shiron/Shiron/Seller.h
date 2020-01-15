@@ -8,6 +8,7 @@ using namespace std;
 #include "User.h"
 #include "Item.h"
 #include "Feedback.h"
+#include "Array.h"
 
 class Seller : virtual public User //Public because seller can use methods of User
 {
@@ -20,16 +21,16 @@ private:
 	unsigned int m_physSizeItems;
 	Item** m_allItems; //the seller is the one who defines the items he sells
 
-	unsigned int m_logicSizeFeedbacks;
-	unsigned int m_physSizeFeedbacks;
-	const Feedback** m_allFeedbacks; //an array of const Feedback
+	//unsigned int m_logicSizeFeedbacks;
+	//unsigned int m_physSizeFeedbacks;
+	//const Feedback** m_allFeedbacks; //an array of const Feedback
+	Array<const Feedback*> m_allFeedbacks;
 	bool setLogicSizeItems(unsigned int logicSizeItems);
 	bool setPhysSizeItems(unsigned int physSizeItems);
-	bool setLogicSizeFeedbacks(unsigned int logicSizeFeedbacks);
-	bool setPhysSizeFeedbacks(unsigned int physSizeFeedbacks);
-
+	//bool setLogicSizeFeedbacks(unsigned int logicSizeFeedbacks);
+	//bool setPhysSizeFeedbacks(unsigned int physSizeFeedbacks);
 	void reallocItems();
-	void reallocFeedbacks();
+	//void reallocFeedbacks();
 
 public:
 	Seller(const char* userName, const char* password, const Address& address, unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE, unsigned int physSizeFeedbacks = INITIAL_PHYSICAL_SIZE); //c'tor 
@@ -45,7 +46,8 @@ public:
 	Item** getAllItems() const;
 
 	bool addItemToSeller(Item* item);
-	bool addFeedbackToSeller(const Feedback* feedback);
+	//bool addFeedbackToSeller(const Feedback* feedback);
+	bool addFeedbackForSeller(const Feedback* feedback); //Relate to Array template class
 
 	Item* findSerialNumber(int serialNumber) const;
 	unsigned int countItemsOfSeller(const char* itemName) const;

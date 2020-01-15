@@ -6,9 +6,9 @@ Seller::Seller(const char* userName, const char* password, const Address& addres
 	setPhysSizeItems(physSizeItems);
 	m_allItems = new Item*[m_physSizeItems];
 
-	setLogicSizeFeedbacks(INITIAL_LOGICAL_SIZE);
-	setPhysSizeFeedbacks(physSizeFeedbacks);
-	m_allFeedbacks = new const Feedback*[m_physSizeFeedbacks];
+	//setLogicSizeFeedbacks(INITIAL_LOGICAL_SIZE);
+	//setPhysSizeFeedbacks(physSizeFeedbacks);
+	//m_allFeedbacks = new const Feedback*[m_physSizeFeedbacks];
 }
 
 Seller::~Seller()
@@ -18,10 +18,10 @@ Seller::~Seller()
 
 	delete[] m_allItems;
 
-	for (unsigned int i = 0; i < m_logicSizeFeedbacks; i++)
+	/*for (unsigned int i = 0; i < m_logicSizeFeedbacks; i++)
 		delete m_allFeedbacks[i];
 
-	delete[] m_allFeedbacks;
+	delete[] m_allFeedbacks;*/
 }
 
 void Seller::show() const
@@ -32,12 +32,13 @@ void Seller::show() const
 
 void Seller::showMe() const
 {
-	if (m_logicSizeFeedbacks > 0)
+	if (m_allFeedbacks.getLogicSize() > 0)
 	{
 		cout << "The feedbacks are:" << endl;
-		for (unsigned int i = 0; i < m_logicSizeFeedbacks; i++)
+		cout << m_allFeedbacks;
+		/*for (unsigned int i = 0; i < m_logicSizeFeedbacks; i++)
 			cout << "#" << i + 1 << " " << *(m_allFeedbacks[i]);
-		cout << endl;
+		cout << endl;*/
 	}
 	else
 		cout << this->getUserName() << " doesn't have feedbacks" << endl;
@@ -64,7 +65,7 @@ bool Seller::setPhysSizeItems(unsigned int physSizeItems)
 	return false;
 }
 
-bool Seller::setLogicSizeFeedbacks(unsigned int logicSizeFeedbacks)
+/*bool Seller::setLogicSizeFeedbacks(unsigned int logicSizeFeedbacks)
 {
 	if (logicSizeFeedbacks >= INITIAL_LOGICAL_SIZE)
 	{
@@ -72,9 +73,9 @@ bool Seller::setLogicSizeFeedbacks(unsigned int logicSizeFeedbacks)
 		return true;
 	}
 	return false;
-}
+}*/
 
-bool Seller::setPhysSizeFeedbacks(unsigned int physSizeFeedbacks)
+/*bool Seller::setPhysSizeFeedbacks(unsigned int physSizeFeedbacks)
 {
 	if (physSizeFeedbacks >= INITIAL_PHYSICAL_SIZE)
 	{
@@ -82,10 +83,10 @@ bool Seller::setPhysSizeFeedbacks(unsigned int physSizeFeedbacks)
 		return true;
 	}
 	return false;
-}
+}*/
 
 
-unsigned int Seller::getLogicSizeFeedbacks() const
+/*unsigned int Seller::getLogicSizeFeedbacks() const
 {
 	return m_logicSizeFeedbacks;
 }
@@ -93,7 +94,7 @@ unsigned int Seller::getLogicSizeFeedbacks() const
 const Feedback** Seller::getAllFeedbacks() const
 {
 	return m_allFeedbacks;
-}
+}*/
 
 unsigned int Seller::getLogicSizeItems() const
 {
@@ -127,7 +128,7 @@ bool Seller::addItemToSeller(Item* item)
 	return true;
 }
 
-void Seller::reallocFeedbacks()
+/*void Seller::reallocFeedbacks()
 {
 	const Feedback** newAllFeedbacks = new const Feedback*[m_physSizeFeedbacks];
 	for (unsigned int i = 0; i < m_logicSizeFeedbacks; i++)
@@ -136,9 +137,15 @@ void Seller::reallocFeedbacks()
 	}
 	delete[]m_allFeedbacks;
 	m_allFeedbacks = newAllFeedbacks;
+}*/
+
+bool Seller::addFeedbackForSeller(const Feedback* feedback)
+{
+	m_allFeedbacks += feedback;
+	return true;
 }
 
-bool Seller::addFeedbackToSeller(const Feedback* feedback)
+/*bool Seller::addFeedbackToSeller(const Feedback* feedback)
 {
 	if (m_logicSizeFeedbacks == m_physSizeFeedbacks)
 	{
@@ -147,7 +154,7 @@ bool Seller::addFeedbackToSeller(const Feedback* feedback)
 	}
 	m_allFeedbacks[m_logicSizeFeedbacks++] = feedback;
 	return true;
-}
+}*/
 
 Item* Seller::findSerialNumber(int serialNumber) const
 {

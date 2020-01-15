@@ -439,8 +439,8 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 	{
 		if (buyer->checkIfSellerExistsInOrdersHistory(*seller))
 		{
-			Feedback* feedback = readFeedback(*buyer);
-			seller->addFeedbackToSeller(feedback);
+			const Feedback* feedback = readFeedback(*buyer);
+			seller->addFeedbackForSeller(feedback);
 		}
 		else
 		{
