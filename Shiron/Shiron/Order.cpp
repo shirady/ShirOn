@@ -1,53 +1,33 @@
 #include "Order.h"
 #include "Seller.h"
+#include "General.h" //For printCollection
 
 Order::Order(unsigned int physSizeItems)
 {
-	setLogicSizeItems(INITIAL_LOGICAL_SIZE);
-	setPhysSizeItems(physSizeItems);
-	m_allItemsOfOrder = new const Item*[m_physSizeItems];
+	//(INITIAL_LOGICAL_SIZE);
+	//setPhysSizeItems(physSizeItems);
+	//m_allItemsOfOrder = new const Item*[m_physSizeItems];
 	setOpenOrder(INITIAL_OPEN_ORDER);
 }
 
 Order::~Order()
 {
-	delete[] m_allItemsOfOrder;
+	m_allItemsOfOrderList.clear();
+	//delete[] m_allItemsOfOrder;
 }
-
 
 ostream& operator<<(ostream& os, const Order& order) //global function
 {
-	if (order.m_logicSizeItems > 0)
+	if (!order.m_allItemsOfOrderList.empty())
 	{
 		os << "The order's details" << endl;
-		for (unsigned int i = 0; i < order.m_logicSizeItems; i++)
-			os << "#" << i+1 << " " << *(order.m_allItemsOfOrder[i]);
+		General::printCollection(order.m_allItemsOfOrderList);
 		os << "Total price of order: " << order.getTotalPriceOfOrder() << endl;
 	}
 	else
 		os << "order is empty" << endl;
 
 	return os;
-}
-
-bool Order::setLogicSizeItems(unsigned int logicSizeItems)
-{
-	if (logicSizeItems >= INITIAL_LOGICAL_SIZE)
-	{
-		m_logicSizeItems = logicSizeItems;
-		return true;
-	}
-	return false;
-}
-
-bool Order::setPhysSizeItems(unsigned int physSizeItems)
-{
-	if (physSizeItems >= INITIAL_PHYSICAL_SIZE)
-	{
-		m_physSizeItems = physSizeItems;
-		return true;
-	}
-	return false;
 }
 
 bool Order::setOpenOrder(bool openOrder)
@@ -68,60 +48,41 @@ bool Order::setTotalPriceOfOrder(unsigned int totalPriceOfOrder)
 	return true;
 }
 
-void Order::reallocItems()
-{
-	const Item** newAllItems = new const Item*[m_physSizeItems];
-	unsigned int newArrSize = 0;
-	for (unsigned int i = 0; i < m_logicSizeItems; i++)
-	{
-		if (m_allItemsOfOrder[i] != nullptr)
-			newAllItems[newArrSize++] = m_allItemsOfOrder[i];
-	}
-	if (newArrSize < m_logicSizeItems)
-		setLogicSizeItems(newArrSize);
-	delete[]m_allItemsOfOrder;
-	m_allItemsOfOrder = newAllItems;
-}
-
 bool Order::addItemToOrder(const Item* item)
 {
-	if (m_logicSizeItems == m_physSizeItems)
-	{
-		m_physSizeItems *= 2;
-		reallocItems();
-	}
-	m_allItemsOfOrder[m_logicSizeItems++] = item;
+	m_allItemsOfOrderList.push_back(item); //add a copy to the end of the list
 	return true;
 }
 
 void Order::removeItemFromOrder(const Item* item)
 {
-	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+	list<const Item*>::iterator itr = m_allItemsOfOrderList.begin();
+	list<const Item*>::iterator itrEnd = m_allItemsOfOrderList.end();
+	for (; itr != itrEnd; ++itr)
 	{
-		if (m_allItemsOfOrder[i] == item)
+		if (*itr == item)
 		{
-			m_allItemsOfOrder[i] = nullptr;
+			m_allItemsOfOrderList.erase(itr);
 			return;
 		}
 	}
 }
 
-unsigned int Order::getLogicSizeItems() const
+list<const Item*> Order::getAllItemsOfOrderList() const
 {
-	return m_logicSizeItems;
-}
-
-const Item** Order::getAllItemsOfOrder() const
-{
-	return m_allItemsOfOrder;
+	return m_allItemsOfOrderList;
 }
 
 unsigned int Order::getTotalPriceOfOrder() const
 {
+	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); ////const_iterator since the method is const
 	unsigned int totalPriceOfOrder = 0;
-	for (unsigned int i = 0; i < m_logicSizeItems; i++)
-		totalPriceOfOrder += m_allItemsOfOrder[i]->getPriceOfItem();
-	
+
+	for (; itr != itrEnd; ++itr)
+	{
+		totalPriceOfOrder += (*itr)->getPriceOfItem();
+	}
 	return totalPriceOfOrder;
 }
 
@@ -130,16 +91,29 @@ bool Order::getIfOrderIsOpen() const
 	return m_openOrder;
 }
 
+int Order::numberOfItemsInOrder() const
+{
+	return m_allItemsOfOrderList.size();
+}
+
+bool Order::checkEmptyOrder() const
+{
+	return m_allItemsOfOrderList.empty();
+}
+
 const Item* Order::findSerialNumber(unsigned int serialNumber) const
 {
+	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); ////const_iterator since the method is const
 	const Item* foundItem = nullptr;
 	bool ItemExists = false;
-	for (unsigned int i = 0; i < m_logicSizeItems && !ItemExists; i++)
+
+	for (; itr != itrEnd && !ItemExists; ++itr)
 	{
-		if (m_allItemsOfOrder[i]->getSerialNumberOfItem() == serialNumber)
+		if ((*itr)->getSerialNumberOfItem() == serialNumber)
 		{
 			ItemExists = true;
-			foundItem = m_allItemsOfOrder[i];
+			foundItem = (*itr);
 		}
 	}
 	return foundItem;
@@ -147,10 +121,13 @@ const Item* Order::findSerialNumber(unsigned int serialNumber) const
 
 bool Order::checkIfSellerIsInAOrder(const Seller& seller) const
 {
+	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); ////const_iterator since the method is const
 	bool sellerExists = false;
-	for (unsigned int i = 0; i < m_logicSizeItems && !sellerExists; i++)
+
+	for (; itr != itrEnd && !sellerExists; ++itr)
 	{
-		if (strcmp(m_allItemsOfOrder[i]->getSeller().getUserName(), seller.getUserName()) == 0)
+		if (strcmp((*itr)->getSeller().getUserName(), seller.getUserName()) == 0)
 			sellerExists = true;
 	}
 	return sellerExists;

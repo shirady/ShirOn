@@ -6,6 +6,7 @@
 using namespace std;
 #pragma warning(disable: 4996)
 #include "Item.h"
+#include <list> //STL
 
 class Seller;
 
@@ -17,14 +18,10 @@ public:
 	static constexpr bool INITIAL_OPEN_ORDER = true;
 
 private:
-	unsigned int m_logicSizeItems;
-	unsigned int m_physSizeItems;
-	const Item** m_allItemsOfOrder; //array of const item*
+	list<const Item*> m_allItemsOfOrderList; //list of const item*
 	bool m_openOrder;
 	unsigned int m_totalPriceOfOrder;
 
-	bool setLogicSizeItems(unsigned int logicSizeItems);
-	bool setPhysSizeItems(unsigned int physSizeItems);
 	bool setOpenOrder(bool openOrder);
 	bool setTotalPriceOfOrder(unsigned int totalPriceOfOrder);
 
@@ -35,15 +32,14 @@ public:
 
 	friend ostream& operator<<(ostream& os, const Order& order);
 
-	unsigned int getLogicSizeItems() const;
-	const Item** getAllItemsOfOrder() const;
+	list<const Item*> getAllItemsOfOrderList() const;
 	unsigned int getTotalPriceOfOrder() const;
 	bool getIfOrderIsOpen() const;
+	int numberOfItemsInOrder() const;
+	bool checkEmptyOrder() const;
 
-	void reallocItems(); //not in private since we use it from Interface
 	bool addItemToOrder(const Item* item);
 	void removeItemFromOrder(const Item* item);
-
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 	void closeOrder(unsigned int totalPriceOfOrder);
 	bool checkIfSellerIsInAOrder(const Seller& seller) const;

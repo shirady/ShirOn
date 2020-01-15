@@ -64,7 +64,6 @@ private:
 	void chooseAllItemsFromCart(Buyer* buyer) const;
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
 	void removeItemsFromOrder(Buyer* buyer) const;
-
 public:
 	Interface(); //c'tor
 	Interface(const System& other) = delete; //copy c'tor disabled

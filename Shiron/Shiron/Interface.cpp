@@ -489,7 +489,7 @@ void Interface::chooseOptionForMakeAnOrderMenu(const Cart* cart) const
 void Interface::chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned int numberOfItemsInCart) const
 {
 	Order* order = buyer->getCurrentOrder();
-	unsigned int option=0, numberOfItemsInOrder = order->getLogicSizeItems();
+	unsigned int option=0, numberOfItemsInOrder = order->numberOfItemsInOrder();
 	chooseOptionForMakeAnOrderMenu(buyer->getCart());
 	cin >> option;
 
@@ -530,21 +530,33 @@ void Interface::chooseAllItemsFromCart(Buyer* buyer) const
 	Cart* cart = buyer->getCart();
 	Order* order = buyer->getCurrentOrder();
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
-	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
 	bool itemOfCartIsInOrder = false;
 	unsigned int cartLogicSizeItems = cart->getLogicSizeItems();
-	unsigned int orderLogicSizeItems = order->getLogicSizeItems();
 
-	for (unsigned int i = 0; i < cartLogicSizeItems; i++)
+	if (order->checkEmptyOrder())
 	{
-		for (unsigned int j = 0; j < orderLogicSizeItems && !itemOfCartIsInOrder; j++)
+		for (unsigned int i = 0; i < cartLogicSizeItems; i++)
 		{
-			if (allItemsOfCart[i] == allItemsOfOrder[j])
-				itemOfCartIsInOrder = true;
-		}
-		if ((!itemOfCartIsInOrder) || (orderLogicSizeItems == 0))
 			order->addItemToOrder(allItemsOfCart[i]);
-		itemOfCartIsInOrder = false; //initialize
+		}
+	}
+	else
+	{
+		list<const Item*> allItemsOfOrder = order->getAllItemsOfOrderList();
+		list<const Item*>::const_iterator itr = order->getAllItemsOfOrderList().begin(); //const_iterator since the method is const
+		list<const Item*>::const_iterator itrEnd = order->getAllItemsOfOrderList().end(); ////const_iterator since the method is const
+		
+		for (unsigned int i = 0; i < cartLogicSizeItems; i++)
+		{
+			for (; itr != itrEnd && !itemOfCartIsInOrder; ++itr)
+			{
+				if (allItemsOfCart[i] == (*itr))
+					itemOfCartIsInOrder = true;
+			}
+			if ((!itemOfCartIsInOrder) || (order->checkEmptyOrder()))
+				order->addItemToOrder(allItemsOfCart[i]);
+			itemOfCartIsInOrder = false; //initialize
+		}
 	}
 }
 
@@ -577,7 +589,7 @@ void Interface::chooseCertainItemsFromCart(Buyer* buyer) const
 void Interface::removeItemsFromOrder(Buyer* buyer) const
 {
 	Order* order = buyer->getCurrentOrder();
-	unsigned int numberOfItemsToDel, serialNumber,numberOfItemInOrder = order->getLogicSizeItems();
+	unsigned int numberOfItemsToDel, serialNumber,numberOfItemInOrder = order->numberOfItemsInOrder();
 
 	cout << "The number of items in the order is: " << numberOfItemInOrder << endl;
 	cout << "How many items do you want to remove from the order? ";
@@ -594,8 +606,7 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 			{
 				cout << *order;
 				order->removeItemFromOrder(item);
-				order->reallocItems();
-				if (order->getLogicSizeItems() == 0)
+				if (order->checkEmptyOrder())
 					cout << "The order is empty" << endl;
 			}
 			else
@@ -620,7 +631,7 @@ void Interface::payOrderMenu() const
 		Order* order = buyer->getCurrentOrder();
 
 		unsigned int numberOfItemsInCart = cart->getLogicSizeItems();
-		unsigned int numberOfItemsInOrder = order->getLogicSizeItems();
+		unsigned int numberOfItemsInOrder = order->numberOfItemsInOrder();
 		if (numberOfItemsInOrder > 0)
 		{
 			unsigned int totalPriceOfOrder = order->getTotalPriceOfOrder();
@@ -637,7 +648,9 @@ void Interface::payOrderMenu() const
 
 void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsigned int numberOfItemsInCart, unsigned int numberOfItemsInOrder, unsigned int totalPriceOfOrder) const
 {
-	const Item** allItemsOfOrder = order->getAllItemsOfOrder();
+	list<const Item*> allItemsOfOrder = order->getAllItemsOfOrderList();
+	list<const Item*>::const_iterator itr = order->getAllItemsOfOrderList().begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = order->getAllItemsOfOrderList().end(); ////const_iterator since the method is const
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 
 	unsigned int amountPayed;
@@ -648,9 +661,9 @@ void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsign
 	{
 		for (unsigned int i = 0; i < numberOfItemsInCart; i++)
 		{
-			for (unsigned int j = 0; i < numberOfItemsInOrder && !itemFound; j++)
+			for (; itr != itrEnd && !itemFound; ++itr)
 			{
-				if (allItemsOfCart[i] == allItemsOfOrder[j])
+				if (allItemsOfCart[i] == (*itr))
 					itemFound = true;
 			}
 			if (itemFound)

@@ -18,7 +18,6 @@ public:
 	void showMe() const;
 
 	virtual ~BuyerAndSeller(); //d'tor
-	//virtual void toOs(ostream& os) const;
 };
 
 #endif //__BUYERANDSELLER_H

@@ -5,6 +5,7 @@
 using namespace std;
 #pragma warning(disable: 4996)
 
+//was used for an array of const Feedback* in Seller
 template<class T>
 class Array 
 {
