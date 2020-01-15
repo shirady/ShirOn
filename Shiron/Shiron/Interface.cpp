@@ -466,7 +466,7 @@ void Interface::makeAnOrderMenu() const
 	if (buyer != nullptr)
 	{
 		Cart* cart = buyer->getCart();
-		unsigned int numberOfItemsInCart = cart->getLogicSizeItems();
+		unsigned int numberOfItemsInCart = cart->numberOfItemsInCart();
 		if (numberOfItemsInCart > 0)
 			chooseOptionForMakeAnOrder(buyer, cart,numberOfItemsInCart);
 		else
@@ -534,7 +534,7 @@ void Interface::chooseAllItemsFromCart(Buyer* buyer) const
 	const Item** allItemsOfCart = cart->getAllItemsOfCart();
 	unsigned int cartLogicSizeItems = cart->getLogicSizeItems();
 
-	if (order->checkEmptyOrder())
+	if (order->checkEmptyOrder()) //in case the order is empty we put all the items in the order
 		for (unsigned int i = 0; i < cartLogicSizeItems; i++)
 			order->addItemToOrder(allItemsOfCart[i]);
 	else

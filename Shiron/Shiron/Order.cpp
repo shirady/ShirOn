@@ -80,9 +80,8 @@ unsigned int Order::getTotalPriceOfOrder() const
 	unsigned int totalPriceOfOrder = 0;
 
 	for (; itr != itrEnd; ++itr)
-	{
 		totalPriceOfOrder += (*itr)->getPriceOfItem();
-	}
+	
 	return totalPriceOfOrder;
 }
 

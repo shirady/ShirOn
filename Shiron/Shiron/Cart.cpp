@@ -1,15 +1,15 @@
 #include "Cart.h"
+#include "General.h" //For printCollection
 
-Cart::Cart(unsigned int physSizeItems)
+//delete later
+Cart::Cart()
 {
-	setLogicSizeItems(INITIAL_LOGICAL_SIZE);
-	setPhysSizeItems(physSizeItems);
-	m_allItemsOfCart = new const Item*[m_physSizeItems];
+
 }
 
 Cart::~Cart()
 {
-	delete[] m_allItemsOfCart;
+	m_allItemsOfCart.clear();
 }
 
 bool Cart::operator>(const Cart& other)
@@ -19,11 +19,10 @@ bool Cart::operator>(const Cart& other)
 
 ostream& operator<<(ostream& os, const Cart& cart) //global function
 {
-	if (cart.m_logicSizeItems > 0)
+	if(!(cart.m_allItemsOfCart.empty()))
 	{
 		os << "The cart's details" << endl;
-		for (unsigned int i = 0; i < cart.m_logicSizeItems; i++)
-			os << "#" << i+1 << " "<< *(cart.m_allItemsOfCart[i]);
+		General::printCollection(cart.m_allItemsOfCart);
 		os << "Total price of cart: " << cart.getTotalPriceOfCart() << endl;
 	}
 	else
@@ -32,73 +31,36 @@ ostream& operator<<(ostream& os, const Cart& cart) //global function
 	return os;
 }
 
-
-bool Cart::setLogicSizeItems(unsigned int logicSizeItems)
-{
-	if (logicSizeItems >= INITIAL_LOGICAL_SIZE)
-	{
-		m_logicSizeItems = logicSizeItems;
-		return true;
-	}
-	return false;
-}
-
-bool Cart::setPhysSizeItems(unsigned int physSizeItems)
-{
-	if (physSizeItems >= INITIAL_PHYSICAL_SIZE)
-	{
-		m_physSizeItems = physSizeItems;
-		return true;
-	}
-	return false;
-}
-
-unsigned int Cart::getLogicSizeItems() const
-{
-	return m_logicSizeItems;
-}
-
-const Item** Cart::getAllItemsOfCart() const
+list<const Item*> Cart::getAllItemsOfCart() const
 {
 	return m_allItemsOfCart;
 }
 
-void Cart::reallocItems()
+int Cart::numberOfItemsInCart() const
 {
-	const Item** newAllItems = new const Item*[m_physSizeItems];
-	unsigned int newArrSize = 0;
+	return m_allItemsOfCart.size();
+}
 
-	for (unsigned int i = 0; i < m_logicSizeItems; i++)
-	{
-		if (m_allItemsOfCart[i] != nullptr)
-		{
-			newAllItems[newArrSize++] = m_allItemsOfCart[i];
-		}
-	}
-	if (newArrSize < m_logicSizeItems)
-		setLogicSizeItems(newArrSize);
-	delete[]m_allItemsOfCart;
-	m_allItemsOfCart = newAllItems;
+bool Cart::checkEmptyCart() const
+{
+	return m_allItemsOfCart.empty();
 }
 
 bool Cart::addItemToCart(const Item* item)
 {
-	if (m_logicSizeItems == m_physSizeItems)
-	{
-		m_physSizeItems *= 2;
-		reallocItems();
-	}
-	m_allItemsOfCart[m_logicSizeItems++] = item;
+	m_allItemsOfCart.push_back(item); //add a copy to the end of the list
 	return true;
 }
 
 void Cart::removeItemFromCart(const Item* item)
 {
-	for (unsigned int i = 0; i < m_logicSizeItems; i++)
+	list<const Item*>::iterator itr = m_allItemsOfCart.begin();
+	list<const Item*>::iterator itrEnd = m_allItemsOfCart.end();
+	for (; itr != itrEnd; ++itr)
 	{
-		if (m_allItemsOfCart[i] == item)
+		if (*itr == item)
 		{
-			m_allItemsOfCart[i] = nullptr;
+			m_allItemsOfCart.erase(itr);
 			return;
 		}
 	}
@@ -106,14 +68,17 @@ void Cart::removeItemFromCart(const Item* item)
 
 const Item* Cart::findSerialNumber(unsigned int serialNumber) const
 {
+	list<const Item*>::const_iterator itr = m_allItemsOfCart.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCart.end(); ////const_iterator since the method is const
 	const Item* foundItem = nullptr;
 	bool ItemExists = false;
-	for (unsigned int i = 0; i < m_logicSizeItems && !ItemExists; i++)
+
+	for (; itr != itrEnd && !ItemExists; ++itr)
 	{
-		if (m_allItemsOfCart[i]->getSerialNumberOfItem() == serialNumber)
+		if ((*itr)->getSerialNumberOfItem() == serialNumber)
 		{
 			ItemExists = true;
-			foundItem = m_allItemsOfCart[i];
+			foundItem = (*itr);
 		}
 	}
 	return foundItem;
@@ -121,9 +86,26 @@ const Item* Cart::findSerialNumber(unsigned int serialNumber) const
 
 unsigned int Cart::getTotalPriceOfCart() const
 {
-	unsigned int totalPriceOfCart = 0;
-	for (unsigned int i = 0; i < m_logicSizeItems; i++)
-		totalPriceOfCart += m_allItemsOfCart[i]->getPriceOfItem();
+	list<const Item*>::const_iterator itr = m_allItemsOfCart.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCart.end(); ////const_iterator since the method is const
+	unsigned int totalPriceOfOrder = 0;
 
-	return totalPriceOfCart;
+	for (; itr != itrEnd; ++itr)
+		totalPriceOfOrder += (*itr)->getPriceOfItem();
+
+	return totalPriceOfOrder;
+}
+
+bool Cart::checkIfItemExists(const Item* item) const
+{
+	list<const Item*>::const_iterator itr = m_allItemsOfCart.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCart.end(); ////const_iterator since the method is const
+	bool itemFound = false;
+
+	for (; itr != itrEnd && !itemFound; ++itr)
+	{
+		if (item == (*itr))
+			itemFound = true;
+	}
+	return itemFound;
 }
