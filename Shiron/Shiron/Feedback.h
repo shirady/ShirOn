@@ -14,15 +14,14 @@ public:
 	static constexpr unsigned int MAX_LEN_FEEDBACK = 1500; 
 
 private:
-	const Buyer* m_buyer;
+	const Buyer& m_buyer; //m_buyer is const ref as it must not be null
 	char* m_feedback;
 	Date m_date;
 
-	bool setBuyer(const Buyer* buyer);
 	bool setFeedback(const char* feedback); //you cannot change a feedback after it was sent
 
 public:
-	Feedback(const char* feedback, const Date& date, const Buyer* buyer); //c'tor // decide to stay without const Buyer buyer* since we had assignment between non-const pointer and const pointer
+	Feedback(const char* feedback, const Date& date, const Buyer& buyer); //c'tor // decide to stay without const Buyer buyer* since we had assignment between non-const pointer and const pointer
 	Feedback(const Feedback& other) = delete; //copy c'tor
 	~Feedback(); //d'tor
 

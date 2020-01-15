@@ -1,10 +1,10 @@
 #include "Feedback.h"
 
-Feedback::Feedback(const char* feedback, const Date& date, const Buyer* buyer) : m_date(date)
+Feedback::Feedback(const char* feedback, const Date& date, const Buyer& buyer) : m_date(date), m_buyer(buyer)
 {
 	m_feedback = nullptr;
 
-	setBuyer(buyer);
+	//setBuyer(buyer);
 	setFeedback(feedback);
 }
 
@@ -15,19 +15,8 @@ Feedback::~Feedback()
 
 ostream& operator<<(ostream& os, const Feedback& feedback) //global function
 {
-	os << "From buyer: " << feedback.m_buyer->getUserName() << ", Date: " << feedback.m_date << ", The feedback:" << feedback.m_feedback;
+	os << "From buyer: " << feedback.m_buyer.getUserName() << ", Date: " << feedback.m_date << ", The feedback:" << feedback.m_feedback;
 	return os;
-}
-
-bool Feedback::setBuyer(const Buyer* buyer)
-{
-	if (buyer != nullptr)
-	{
-		m_buyer = buyer;
-		return true;
-	}
-	else
-		return false;
 }
 
 bool Feedback::setFeedback(const char* feedback)

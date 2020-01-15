@@ -138,7 +138,7 @@ Item* Interface::readItem(const Seller& seller) const
 	return new Item(itemName, categoryOfItem, priceOfItem, seller);
 }
 
-Feedback* Interface::readFeedback(const Buyer* buyer) const
+Feedback* Interface::readFeedback(const Buyer& buyer) const
 {
 	char feedbackText[Feedback::MAX_LEN_FEEDBACK];
 	cout << "Enter feedback: ";
@@ -439,7 +439,7 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 	{
 		if (buyer->checkIfSellerExistsInOrdersHistory(*seller))
 		{
-			Feedback* feedback = readFeedback(buyer);
+			Feedback* feedback = readFeedback(*buyer);
 			seller->addFeedbackToSeller(feedback);
 		}
 		else
