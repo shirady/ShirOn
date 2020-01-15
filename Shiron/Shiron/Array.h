@@ -90,7 +90,7 @@ const Array<T>& Array<T>::operator+=(const T& newVal)
 {
 	if (m_logicSize == m_physSize)
 	{
-		m_logicSize *= 2;
+		m_physSize *= 2;
 		reallocArray();
 	}
 	m_arr[m_logicSize++] = newVal;

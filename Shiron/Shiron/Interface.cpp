@@ -216,7 +216,7 @@ void Interface::menu() const
 		<< "(11) Show details of all users that are buyers and sellers\n"
 		<< "(12) Show details of all users of a certain type\n"
 		<< "(13) Show details of all the products of a certain name\n"
-		<< "(14) choose operation option\n"
+		<< "(14)  Check operations\n"
 		<< "(15) Exit\n";
 }
 
@@ -441,6 +441,7 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 		{
 			const Feedback* feedback = readFeedback(*buyer);
 			seller->addFeedbackForSeller(feedback);
+			cout << "The feedback was added" << endl;
 		}
 		else
 		{
