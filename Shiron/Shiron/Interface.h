@@ -52,12 +52,8 @@ private:
 	void cleanBuffer() const;
 	void cleanAfterGetLine() const;
 
-	void showAllBuyers() const;
-	void showAllSellers() const;
-	void showAllBuyersThatAreSellers() const;
 	void showAllUsersOfCertainType() const;
 
-	void showAllItemsOfSellers(const char* itemName) const;
 	void showAllItemsOption() const;
 
 	void chooseAllItemsFromCart(Buyer* buyer) const;

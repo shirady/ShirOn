@@ -15,25 +15,15 @@ class System
 public:
 	static constexpr unsigned int MIN_LEN_SYSTEM_NAME = 2;
 	static constexpr unsigned int MAX_LEN_SYSTEM_NAME = 20;
-	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
-	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
 
 private:
 	char* m_systemName;
-	User** m_allUsers;
+	list<User*> m_allUsersList;
 
-	unsigned int m_logicSizeUsers; //the number of users that sign in
-	unsigned int m_physSizeUsers; //the maximum number of users in the system
-
-	bool setLogicSizeUsers(unsigned int logicSizeUsers);
-	bool setPhysSizeUsers(unsigned int physSizeUsers);
-
-	void cleanUsersArray();
-
-	void reallocUsers();
+	void cleanUsersList();
 
 public:
-	System(const char* systemName, unsigned int physUsers = INITIAL_PHYSICAL_SIZE); //c'tor
+	System(const char* systemName); //c'tor
 	System(const System& other) = delete; //copy c'tor
 	~System(); //d'tor
 
@@ -44,16 +34,20 @@ public:
 	bool setSystemName(const char* systemName);
 
 	const char* getSystemName() const;
-	unsigned int getLogicSizeUsers() const;
+	unsigned int numberOfUsersInSystem() const;
 
-	User** getAllUsers(); //not const by permission from Keren because it made problems (Users* const *)
-
-	bool addUserToSystem(User* user);
+	const list<User*>& getAllUsersList() const;
+	void addUserToSystem(User* user);
 
 	User* findUser(const char* nameOfUser) const;
 
 	bool checkIfItemExistInSellers(const char* itemName) const;
 	unsigned int countItemsInAllSellers(const char* itemName) const;
+
+	void showAllBuyers() const;
+	void showAllSellers() const;
+	void showAllBuyersThatAreSellers() const;
+	void showAllItemsOfSellers(const char* itemName) const;
 };
 
 #endif //__SYSTEM_H

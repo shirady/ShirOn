@@ -1,26 +1,26 @@
 #include "System.h"
 
-System::System(const char* systemName, unsigned int physUsers)
+System::System(const char* systemName)
 {
 	m_systemName = nullptr;
 	setSystemName(systemName);
 
-	setLogicSizeUsers(INITIAL_LOGICAL_SIZE);
-	setPhysSizeUsers(physUsers);
-	m_allUsers = new User*[m_physSizeUsers];
 }
 
 System::~System()
 {
-	cleanUsersArray();
+	cleanUsersList();
 	delete[] m_systemName;
 }
 
-void System::cleanUsersArray()
+void System::cleanUsersList()
 {
-	for (unsigned int i = 0; i < m_logicSizeUsers; ++i)
-		delete m_allUsers[i];
-	delete[] m_allUsers;
+	list<User*>::iterator itr = m_allUsersList.begin();
+	list<User*>::iterator itrEnd = m_allUsersList.end();
+	for (; itr != itrEnd; ++itr)
+		delete *itr; //frees the pointer of User inside the cell of list
+
+	m_allUsersList.clear();
 }
 
 const System& System::operator+=(Buyer* buyer)
@@ -50,24 +50,9 @@ bool System::setSystemName(const char* systemName)
 		return false;
 }
 
-bool System::setLogicSizeUsers(unsigned int logicSizeUsers)
+const list<User*>& System::getAllUsersList() const
 {
-	if (logicSizeUsers >= INITIAL_LOGICAL_SIZE)
-	{
-		m_logicSizeUsers = logicSizeUsers;
-		return true;
-	}
-	return false;
-}
-
-bool System::setPhysSizeUsers(unsigned int physSizeUsers)
-{
-	if (physSizeUsers >= INITIAL_PHYSICAL_SIZE)
-	{
-		m_physSizeUsers = physSizeUsers;
-		return true;
-	}
-	return false;
+	return m_allUsersList;
 }
 
 const char* System::getSystemName() const
@@ -75,48 +60,30 @@ const char* System::getSystemName() const
 	return m_systemName;
 }
 
-unsigned int System::getLogicSizeUsers() const
+unsigned int System::numberOfUsersInSystem() const
 {
-	return m_logicSizeUsers;
+	return m_allUsersList.size();
 }
 
-User** System::getAllUsers()
+void System::addUserToSystem(User* user)
 {
-	return m_allUsers;
-}
-
-void System::reallocUsers()
-{
-	User** newAllUsers = new User*[m_physSizeUsers];
-	for (unsigned int i = 0; i < m_logicSizeUsers; i++)
-	{
-		newAllUsers[i] = m_allUsers[i];
-	}
-	delete[]m_allUsers;
-	m_allUsers = newAllUsers;
-}
-
-bool System::addUserToSystem(User* user)
-{
-	if (m_logicSizeUsers == m_physSizeUsers)
-	{
-		m_physSizeUsers *= 2;
-		reallocUsers();
-	}
-	m_allUsers[m_logicSizeUsers++] = user;
-	return true;
+	m_allUsersList.push_back(user);
 }
 
 User* System::findUser(const char* nameOfUser) const
 {
 	User* foundUser = nullptr;
 	bool UserExists = false;
-	for (unsigned int i = 0; i < m_logicSizeUsers && !UserExists; i++)
+
+	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
+	list<User*>::const_iterator itrEnd = m_allUsersList.end(); //const_iterator since the method is const
+
+	for (; itr != itrEnd && !UserExists; ++itr)
 	{
-		if (strcmp(m_allUsers[i]->getUserName(), nameOfUser) == 0)
+		if (strcmp((*itr)->getUserName(), nameOfUser) == 0)
 		{
 			UserExists = true;
-			foundUser = m_allUsers[i];
+			foundUser = *itr;
 		}
 	}
 	return foundUser;
@@ -126,9 +93,12 @@ bool System::checkIfItemExistInSellers(const char* itemName) const
 {
 	bool isExist = false;
 
-	for (unsigned int i = 0; i < m_logicSizeUsers && !isExist; i++)
+	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
+	list<User*>::const_iterator itrEnd = m_allUsersList.end(); //const_iterator since the method is const
+
+	for (; itr != itrEnd && !isExist; ++itr)
 	{
-		Seller* seller = dynamic_cast<Seller*>(m_allUsers[i]);
+		Seller* seller = dynamic_cast<Seller*>(*itr);
 		if (seller !=nullptr)
 			isExist = seller->checkIfItemExistInASeller(itemName);
 	}
@@ -139,16 +109,98 @@ bool System::checkIfItemExistInSellers(const char* itemName) const
 unsigned int System::countItemsInAllSellers(const char* itemName) const
 {
 	unsigned int counter = 0;
+	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
+	list<User*>::const_iterator itrEnd = m_allUsersList.end(); //const_iterator since the method is const
 
-	for (unsigned int i = 0; i < m_logicSizeUsers; i++)
+	for (; itr != itrEnd; ++itr)
 	{
-		Seller* seller = dynamic_cast<Seller*>(m_allUsers[i]);
+		Seller* seller = dynamic_cast<Seller*>((*itr));
 		if (seller != nullptr)
-		{
 			if(seller->checkIfItemExistInASeller(itemName))
 				counter += seller->countItemsOfSeller(itemName);
-		}
 	}
 	return counter;
 }
 
+
+void System::showAllBuyers() const
+{
+	unsigned int counter = 0;
+	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
+	list<User*>::const_iterator itrEnd = m_allUsersList.end(); //const_iterator since the method is const
+
+	for (; itr != itrEnd; ++itr)
+	{
+		Buyer* buyer = dynamic_cast<Buyer*>(*itr);
+		if (buyer != nullptr)
+		{
+			cout << "#" << counter + 1 << ": ";
+			buyer->show();
+			counter++;
+		}
+	}
+	cout << "__________________________________________________" << endl
+		<< "There are " << counter << " buyers in the system" << endl;
+}
+
+void System::showAllSellers() const
+{
+	unsigned int counter = 0;
+	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
+	list<User*>::const_iterator itrEnd = m_allUsersList.end(); //const_iterator since the method is const
+
+	for (; itr != itrEnd; ++itr)
+	{
+		Seller* seller = dynamic_cast<Seller*>(*itr);
+		if (seller != nullptr)
+		{
+			cout << "#" << counter + 1 << ": ";
+			seller->show();
+			counter++;
+		}
+	}
+	cout << "__________________________________________________" << endl
+		<< "There are " << counter << " sellers in the system" << endl;
+}
+
+
+void System::showAllBuyersThatAreSellers() const
+{
+	unsigned int counter = 0;
+	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
+	list<User*>::const_iterator itrEnd = m_allUsersList.end(); //const_iterator since the method is const
+
+	for (; itr != itrEnd; ++itr)
+	{
+		BuyerAndSeller* seller = dynamic_cast<BuyerAndSeller*>(*itr);
+		if (seller != nullptr)
+		{
+			cout << "#" << counter + 1 << ": ";
+			seller->show();
+			counter++;
+		}
+	}
+	cout << "__________________________________________________" << endl
+		<< "There are " << counter << " sellers in the system" << endl;
+}
+
+void System::showAllItemsOfSellers(const char* itemName) const
+{
+	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
+	list<User*>::const_iterator itrEnd = m_allUsersList.end(); //const_iterator since the method is const
+
+	for (; itr != itrEnd; ++itr)
+	{
+		Seller* seller = dynamic_cast<Seller*>(*itr);
+		if (seller != nullptr)
+		{
+			unsigned int counter = seller->countItemsOfSeller(itemName);
+			if (counter > 0)
+			{
+				seller->showItemsOfSeller(itemName);
+				cout << "The seller " << seller->getUserName() << " has " << counter << " items" << endl;
+				cout << "--------------------------------------------------------" << endl << endl;
+			}
+		}
+	}
+}

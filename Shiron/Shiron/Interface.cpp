@@ -172,27 +172,7 @@ void Interface::showAllItemsOption() const
 	cin.getline(itemName, Item::MAX_LEN_NAME);
 	cleanAfterGetLine();
 	cout << endl;
-	showAllItemsOfSellers(itemName);
-}
-
-void Interface::showAllItemsOfSellers(const char* itemName) const
-{
-	unsigned int logicSizeOfUsers = m_system->getLogicSizeUsers();
-	for (unsigned int i = 0; i < logicSizeOfUsers; i++)
-	{
-		User** allUsers = m_system->getAllUsers();
-		Seller* seller = dynamic_cast<Seller*>(allUsers[i]);
-		if (seller != nullptr)
-		{
-			unsigned int counter = seller->countItemsOfSeller(itemName);
-			if (counter > 0)
-			{
-				seller->showItemsOfSeller(itemName);
-				cout << "The seller " << seller->getUserName() << " has " << counter << " items" << endl;
-				cout << "--------------------------------------------------------" << endl << endl;
-			}
-		}
-	}
+	m_system->showAllItemsOfSellers(itemName);
 }
 
 void Interface::headline() const
@@ -272,13 +252,13 @@ void Interface::menuOptions() const
 				payOrderMenu();
 				break;
 			case 9:
-				showAllBuyers();
+				m_system->showAllBuyers();
 				break;
 			case 10:
-				showAllSellers();
+				m_system->showAllSellers();
 				break;
 			case 11:
-				showAllBuyersThatAreSellers();
+				m_system->showAllBuyersThatAreSellers();
 				break;
 			case 12:
 				showAllUsersOfCertainType();
@@ -372,7 +352,7 @@ Seller* Interface::FindSellerByChoise(const char* itemName, unsigned int counter
 {
 	cout << "There are " << counterOfItemsInAllSellers << " items with the name " << itemName << endl;
 	cout << "The items are: " << endl;
-	showAllItemsOfSellers(itemName);
+	m_system->showAllItemsOfSellers(itemName);
 	cout << "Enter the seller name from the list above: ";
 	char sellerName[User::MAX_LEN_NAME];
 	cin.getline(sellerName, User::MAX_LEN_NAME);
@@ -626,64 +606,6 @@ void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsign
 		cout << "You didn't enter the exact amount of money" << endl;
 }
 
-void Interface::showAllBuyers() const
-{
-	unsigned int counter = 0;
-	User** allUsers = m_system->getAllUsers();
-	unsigned int logicSizeUsers = m_system->getLogicSizeUsers();
-
-	for (unsigned int i = 0; i < logicSizeUsers; i++)
-	{
-		Buyer* buyer = dynamic_cast<Buyer*>(allUsers[i]);
-		if (buyer != nullptr)
-		{
-			cout << "#" << counter + 1 << ": ";
-			buyer->show();
-			counter++;
-		}
-	}
-	cout << "__________________________________________________" << endl
-		<< "There are " << counter << " buyers in the system" << endl;
-}
-
-void Interface::showAllSellers() const
-{
-	unsigned int counter=0;
-	User** allUsers = m_system->getAllUsers();
-	unsigned int logicSizeUsers = m_system->getLogicSizeUsers();
-	for (unsigned int i = 0; i < logicSizeUsers; i++)
-	{
-		Seller* seller = dynamic_cast<Seller*>(allUsers[i]);
-		if (seller != nullptr)
-		{
-			cout << "#" << counter + 1 << ": ";
-			seller->show();
-			counter++;
-		}
-	}
-	cout << "__________________________________________________" << endl
-	<< "There are " << counter << " sellers in the system" << endl;
-}
-
-void Interface::showAllBuyersThatAreSellers() const
-{
-	unsigned int counter = 0;
-	User** allUsers = m_system->getAllUsers();
-	unsigned int logicSizeUsers = m_system->getLogicSizeUsers();
-	for (unsigned int i = 0; i < logicSizeUsers; i++)
-	{
-		BuyerAndSeller* buyerAndSeller = dynamic_cast<BuyerAndSeller*>(allUsers[i]);
-		if (buyerAndSeller != nullptr)
-		{
-			cout << "#" << counter + 1 << ": ";
-			buyerAndSeller->show();
-			counter++;
-		}
-	}
-	cout << "__________________________________________________" << endl
-		<< "There are " << counter << " buyer which are also sellers in the system" << endl;
-}
-
 void Interface::showAllUsersOfCertainType() const
 {
 	unsigned int option;
@@ -703,13 +625,13 @@ void Interface::showAllUsersOfCertainType() const
 		switch (option)
 		{
 		case(1):
-			showAllBuyers();
+			m_system->showAllBuyers();
 			break;
 		case(2):
-			showAllSellers();
+			m_system->showAllSellers();
 			break;
 		case(3):
-			showAllBuyersThatAreSellers();
+			m_system->showAllBuyersThatAreSellers();
 			break;
 		default:
 			cout << "Invalid number. Please choose a number between 1-3" << endl;
@@ -738,7 +660,7 @@ void Interface::showAllItemsOfCeratinNameMenu() const
 	
 	unsigned int counterOfItemsInAllSellers = m_system->countItemsInAllSellers(itemName);
 	if (counterOfItemsInAllSellers > 0)
-		showAllItemsOfSellers(itemName);
+		m_system->showAllItemsOfSellers(itemName);
 	else
 		cout << itemName << " item was not found" << endl;
 }
