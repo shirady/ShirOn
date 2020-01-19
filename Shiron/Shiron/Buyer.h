@@ -5,6 +5,7 @@
 #include <string.h>
 using namespace std;
 #pragma warning(disable: 4996)
+#include <list> //STL
 
 #include "User.h"
 #include "Item.h"
@@ -13,25 +14,15 @@ using namespace std;
 
 class Buyer: virtual public User //Public because buyer can use methods of User
 {
-public:
-	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
-	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
-
 private:
-	Cart* m_Cart;
-	unsigned int m_logicSizeOrders;
-	unsigned int m_physSizeOrders;
-	const Order** m_OrdersHistory; //an array of const Order*
+	Cart* m_cart;
 	Order* m_currentOrder;
+	list<const Order*> m_ordersHistoryList; //a list of const Order*
 
-	void cleanOrderHistoryArray();
-	bool setLogicSizeOrders(unsigned int logicSizeOrders);
-	bool setPhysSizeOrders(unsigned int physSizeOrders);
-
-	void reallocOrders(); 
+	void cleanOrderHistoryList();
 
 public:
-	Buyer(const char* userName, const char* password, const Address& address, unsigned int physSizeOrders = INITIAL_PHYSICAL_SIZE); //c'tor 
+	Buyer(const char* userName, const char* password, const Address& address); //c'tor 
 	Buyer(const Buyer& other) = delete; //copy c'tor
 	virtual ~Buyer(); //d'tor
 	void show() const;
@@ -40,8 +31,7 @@ public:
 
 	Cart* getCart() const;
 	Order* getCurrentOrder() const;
-	unsigned int getLogicSizeOrders() const;
-	const Order** getAllOrders();
+	const list<const Order*>& getOrdersHistoryList() const;
 
 	void addOrderToHistory();
 	bool checkIfSellerExistsInOrdersHistory(const Seller& seller) const;

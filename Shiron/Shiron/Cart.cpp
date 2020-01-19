@@ -47,10 +47,9 @@ bool Cart::checkEmptyCart() const
 	return m_allItemsOfCartList.empty();
 }
 
-bool Cart::addItemToCart(const Item* item)
+void Cart::addItemToCart(const Item* item)
 {
 	m_allItemsOfCartList.push_back(item); //add a copy to the end of the list
-	return true;
 }
 
 void Cart::removeItemFromCart(const Item* item)

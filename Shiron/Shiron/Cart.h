@@ -27,7 +27,7 @@ public:
 	unsigned int numberOfItemsInCart() const;
 	bool checkEmptyCart() const;
 
-	bool addItemToCart(const Item* item);
+	void addItemToCart(const Item* item);
 	void removeItemFromCart(const Item* item);
 	const Item* findSerialNumber(unsigned int serialNumber) const;
 	unsigned int getTotalPriceOfCart() const;

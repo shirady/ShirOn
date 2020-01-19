@@ -33,7 +33,7 @@ bool Item::setNameOfItem(const char* itemName)
 {
 	delete[] m_itemName;
 	unsigned int name_len = strlen(itemName);
-	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (CheckCharacters(itemName)))
+	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (checkCharacters(itemName)))
 	{
 		m_itemName = new char[strlen(itemName) + 1];
 		strcpy(m_itemName, itemName);
@@ -43,7 +43,7 @@ bool Item::setNameOfItem(const char* itemName)
 		return false;
 }
 
-bool Item::CheckCharacters(const char* fieldName) const
+bool Item::checkCharacters(const char* fieldName) const
 {
 	int i = 0;
 	while (fieldName[i] != '\0')

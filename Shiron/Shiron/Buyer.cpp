@@ -1,20 +1,16 @@
 #include "Buyer.h"
 
-Buyer::Buyer(const char* userName, const char* password, const Address& address, unsigned int physSizeOrders) : User(userName, password, address)
+Buyer::Buyer(const char* userName, const char* password, const Address& address) : User(userName, password, address)
 {
-	m_Cart = new Cart;
+	m_cart = new Cart;
 	m_currentOrder = new Order;
-
-	setLogicSizeOrders(INITIAL_LOGICAL_SIZE);
-	setPhysSizeOrders(physSizeOrders);
-	m_OrdersHistory = new const Order*[m_physSizeOrders];
 }
 
 Buyer::~Buyer()
 {
-	delete m_Cart;
+	delete m_cart;
 	delete m_currentOrder;
-	cleanOrderHistoryArray();
+	cleanOrderHistoryList();
 }
 
 bool Buyer::operator>(const Buyer& other)
@@ -31,40 +27,23 @@ void Buyer::show() const
 void Buyer::showMe() const
 {
 	cout << *m_currentOrder;
-	cout << *m_Cart;
+	cout << *m_cart;
 	cout << "--------------" << endl;
 }
 
-void Buyer::cleanOrderHistoryArray()
+void Buyer::cleanOrderHistoryList()
 {
-	for (unsigned int i = 0; i < m_logicSizeOrders; ++i)
-		delete m_OrdersHistory[i];
-	delete[] m_OrdersHistory;
-}
+	list<const Order*>::iterator itr = m_ordersHistoryList.begin();
+	list<const Order*>::iterator itrEnd = m_ordersHistoryList.end();
+	for (; itr != itrEnd; ++itr)
+		delete *itr; //frees the pointer of order inside the cell of list
 
-bool Buyer::setLogicSizeOrders(unsigned int logicSizeOrders)
-{
-	if (logicSizeOrders >= INITIAL_LOGICAL_SIZE)
-	{
-		m_logicSizeOrders = logicSizeOrders;
-		return true;
-	}
-	return false;
-}
-
-bool Buyer::setPhysSizeOrders(unsigned int physSizeOrders)
-{
-	if (physSizeOrders >= INITIAL_PHYSICAL_SIZE)
-	{
-		m_physSizeOrders = physSizeOrders;
-		return true;
-	}
-	return false;
+	m_ordersHistoryList.clear();
 }
 
 Cart* Buyer::getCart() const
 {
-	return m_Cart;
+	return m_cart;
 }
 
 Order* Buyer::getCurrentOrder() const
@@ -72,48 +51,29 @@ Order* Buyer::getCurrentOrder() const
 	return m_currentOrder;
 }
 
-unsigned int Buyer::getLogicSizeOrders() const
+const list<const Order*>& Buyer::getOrdersHistoryList() const
 {
-	return m_logicSizeOrders;
-}
-
-const Order** Buyer::getAllOrders()
-{
-	return m_OrdersHistory;
-}
-
-void Buyer::reallocOrders()
-{
-	const Order** newAllOrders = new const Order*[m_physSizeOrders];
-	for (unsigned int i = 0; i < m_logicSizeOrders; i++)
-	{
-		newAllOrders[i] = m_OrdersHistory[i];
-	}
-	delete[]m_OrdersHistory;
-	m_OrdersHistory = newAllOrders;
+	return m_ordersHistoryList;
 }
 
 void Buyer::addOrderToHistory()
 {
 	if (!m_currentOrder->getIfOrderIsOpen())
 	{
-		if (m_logicSizeOrders == m_physSizeOrders)
-		{
-			m_physSizeOrders *= 2;
-			reallocOrders();
-		}
-		m_OrdersHistory[m_logicSizeOrders++] = m_currentOrder;
+		m_ordersHistoryList.push_back(m_currentOrder); //add a copy to the end of the list
 		m_currentOrder = new Order;
 	}
 }
 
 bool Buyer::checkIfSellerExistsInOrdersHistory(const Seller& seller) const
 {
+	list<const Order*>::const_iterator itr = m_ordersHistoryList.begin(); //const_iterator since the method is const
+	list<const Order*>::const_iterator itrEnd = m_ordersHistoryList.end(); ////const_iterator since the method is const
 	bool foundSeller = false;
-	for (unsigned int i = 0; i < m_logicSizeOrders && !foundSeller; i++)
-	{
-		if (m_OrdersHistory[i]->checkIfSellerIsInAOrder(seller))
+
+	for (; itr != itrEnd && !foundSeller; ++itr)
+		if ((*itr)->checkIfSellerIsInAOrder(seller))
 			foundSeller = true;
-	}
+	
 	return foundSeller;
 }

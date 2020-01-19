@@ -5,16 +5,12 @@
 
 Order::Order(unsigned int physSizeItems)
 {
-	//(INITIAL_LOGICAL_SIZE);
-	//setPhysSizeItems(physSizeItems);
-	//m_allItemsOfOrder = new const Item*[m_physSizeItems];
 	setOpenOrder(INITIAL_OPEN_ORDER);
 }
 
 Order::~Order()
 {
 	m_allItemsOfOrderList.clear();
-	//delete[] m_allItemsOfOrder;
 }
 
 ostream& operator<<(ostream& os, const Order& order) //global function
