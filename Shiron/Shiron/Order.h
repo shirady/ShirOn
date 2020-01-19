@@ -9,6 +9,7 @@ using namespace std;
 #include <list> //STL
 
 class Seller;
+class Cart;
 
 class Order
 {
@@ -32,11 +33,11 @@ public:
 
 	friend ostream& operator<<(ostream& os, const Order& order);
 
-	list<const Item*> getAllItemsOfOrderList() const;
+	const list<const Item*>& getAllItemsOfOrderList() const;
 	unsigned int getTotalPriceOfOrder() const;
 	bool getIfOrderIsOpen() const;
 
-	int numberOfItemsInOrder() const;
+	unsigned int numberOfItemsInOrder() const;
 	bool checkEmptyOrder() const;
 
 	bool addItemToOrder(const Item* item);
@@ -45,6 +46,8 @@ public:
 	void closeOrder(unsigned int totalPriceOfOrder);
 	bool checkIfSellerIsInAOrder(const Seller& seller) const;
 	bool checkIfItemExists(const Item* item) const;
+
+	void chooseAllItemsFromCart(Cart* cart);
 };
 
 #endif // __ORDER_H

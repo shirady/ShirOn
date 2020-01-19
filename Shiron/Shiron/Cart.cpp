@@ -1,5 +1,6 @@
 #include "Cart.h"
 #include "General.h" //For printCollection
+#include "Order.h" //For RemoveItemByOrder
 
 //delete later
 Cart::Cart()
@@ -9,7 +10,7 @@ Cart::Cart()
 
 Cart::~Cart()
 {
-	m_allItemsOfCart.clear();
+	m_allItemsOfCartList.clear();
 }
 
 bool Cart::operator>(const Cart& other)
@@ -19,10 +20,10 @@ bool Cart::operator>(const Cart& other)
 
 ostream& operator<<(ostream& os, const Cart& cart) //global function
 {
-	if(!(cart.m_allItemsOfCart.empty()))
+	if(!(cart.m_allItemsOfCartList.empty()))
 	{
 		os << "The cart's details" << endl;
-		General::printCollection(cart.m_allItemsOfCart);
+		General::printCollection(cart.m_allItemsOfCartList);
 		os << "Total price of cart: " << cart.getTotalPriceOfCart() << endl;
 	}
 	else
@@ -31,36 +32,36 @@ ostream& operator<<(ostream& os, const Cart& cart) //global function
 	return os;
 }
 
-list<const Item*> Cart::getAllItemsOfCart() const
+const list<const Item*>& Cart::getAllItemsOfCart() const
 {
-	return m_allItemsOfCart;
+	return m_allItemsOfCartList;
 }
 
-int Cart::numberOfItemsInCart() const
+unsigned int Cart::numberOfItemsInCart() const
 {
-	return m_allItemsOfCart.size();
+	return m_allItemsOfCartList.size();
 }
 
 bool Cart::checkEmptyCart() const
 {
-	return m_allItemsOfCart.empty();
+	return m_allItemsOfCartList.empty();
 }
 
 bool Cart::addItemToCart(const Item* item)
 {
-	m_allItemsOfCart.push_back(item); //add a copy to the end of the list
+	m_allItemsOfCartList.push_back(item); //add a copy to the end of the list
 	return true;
 }
 
 void Cart::removeItemFromCart(const Item* item)
 {
-	list<const Item*>::iterator itr = m_allItemsOfCart.begin();
-	list<const Item*>::iterator itrEnd = m_allItemsOfCart.end();
+	list<const Item*>::iterator itr = m_allItemsOfCartList.begin();
+	list<const Item*>::iterator itrEnd = m_allItemsOfCartList.end();
 	for (; itr != itrEnd; ++itr)
 	{
 		if (*itr == item)
 		{
-			m_allItemsOfCart.erase(itr);
+			m_allItemsOfCartList.erase(itr);
 			return;
 		}
 	}
@@ -68,8 +69,8 @@ void Cart::removeItemFromCart(const Item* item)
 
 const Item* Cart::findSerialNumber(unsigned int serialNumber) const
 {
-	list<const Item*>::const_iterator itr = m_allItemsOfCart.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfCart.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); ////const_iterator since the method is const
 	const Item* foundItem = nullptr;
 	bool ItemExists = false;
 
@@ -86,8 +87,8 @@ const Item* Cart::findSerialNumber(unsigned int serialNumber) const
 
 unsigned int Cart::getTotalPriceOfCart() const
 {
-	list<const Item*>::const_iterator itr = m_allItemsOfCart.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfCart.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); ////const_iterator since the method is const
 	unsigned int totalPriceOfOrder = 0;
 
 	for (; itr != itrEnd; ++itr)
@@ -98,8 +99,8 @@ unsigned int Cart::getTotalPriceOfCart() const
 
 bool Cart::checkIfItemExists(const Item* item) const
 {
-	list<const Item*>::const_iterator itr = m_allItemsOfCart.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfCart.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); ////const_iterator since the method is const
 	bool itemFound = false;
 
 	for (; itr != itrEnd && !itemFound; ++itr)
@@ -108,4 +109,16 @@ bool Cart::checkIfItemExists(const Item* item) const
 			itemFound = true;
 	}
 	return itemFound;
+}
+
+void Cart::RemoveItemByOrder(Order* order)
+{
+	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); ////const_iterator since the method is const
+
+	for (; itr != itrEnd; ++itr)
+	{
+		if (order->checkIfItemExists(*itr))
+			this->removeItemFromCart(*itr);
+	}
 }

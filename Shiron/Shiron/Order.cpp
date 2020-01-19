@@ -1,6 +1,7 @@
 #include "Order.h"
 #include "Seller.h"
 #include "General.h" //For printCollection
+#include "Cart.h" //For the method chooseAllItemsFromCart
 
 Order::Order(unsigned int physSizeItems)
 {
@@ -68,7 +69,7 @@ void Order::removeItemFromOrder(const Item* item)
 	}
 }
 
-list<const Item*> Order::getAllItemsOfOrderList() const
+const list<const Item*>& Order::getAllItemsOfOrderList() const
 {
 	return m_allItemsOfOrderList;
 }
@@ -90,7 +91,7 @@ bool Order::getIfOrderIsOpen() const
 	return m_openOrder;
 }
 
-int Order::numberOfItemsInOrder() const
+unsigned int Order::numberOfItemsInOrder() const
 {
 	return m_allItemsOfOrderList.size();
 }
@@ -144,4 +145,18 @@ bool Order::checkIfItemExists(const Item* item) const
 			itemFound = true;
 	}
 	return itemFound;
+}
+
+void Order::chooseAllItemsFromCart(Cart* cart)
+{
+	list<const Item*>::const_iterator itr = cart->getAllItemsOfCart().begin();
+	list<const Item*>::const_iterator itrEnd = cart->getAllItemsOfCart().end();
+
+	if (this->checkEmptyOrder()) //in case the order is empty we put all the items in the order
+		for (; itr != itrEnd; ++itr)
+			this->addItemToOrder(*itr);
+	else
+		for (; itr != itrEnd; ++itr)
+			if (!this->checkIfItemExists(*itr))
+				this->addItemToOrder(*itr);
 }

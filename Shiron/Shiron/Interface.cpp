@@ -531,30 +531,21 @@ void Interface::chooseAllItemsFromCart(Buyer* buyer) const
 {
 	Cart* cart = buyer->getCart();
 	Order* order = buyer->getCurrentOrder();
-	const Item** allItemsOfCart = cart->getAllItemsOfCart();
-	unsigned int cartLogicSizeItems = cart->getLogicSizeItems();
-
-	if (order->checkEmptyOrder()) //in case the order is empty we put all the items in the order
-		for (unsigned int i = 0; i < cartLogicSizeItems; i++)
-			order->addItemToOrder(allItemsOfCart[i]);
-	else
-		for (unsigned int i = 0; i < cartLogicSizeItems; i++)
-			if (!order->checkIfItemExists(allItemsOfCart[i]))
-				order->addItemToOrder(allItemsOfCart[i]);
+	order->chooseAllItemsFromCart(cart);
 }
 
 void Interface::chooseCertainItemsFromCart(Buyer* buyer) const
 {
 	Cart* cart = buyer->getCart();
 	Order* order = buyer->getCurrentOrder();
-	unsigned int numberOfItems, serialNumber, cartItemsAmount = cart->getLogicSizeItems();
+	unsigned int numberOfItemsByUser, serialNumber, numberOfItemsByCart = cart->numberOfItemsInCart();
 
-	cout << "The number of items in the cart is: " << cartItemsAmount << endl;;
+	cout << "The number of items in the cart is: " << numberOfItemsByCart << endl;;
 	cout << "How many items do you want to add to the order? ";
-	cin >> numberOfItems;
-	if (numberOfItems <= cartItemsAmount && numberOfItems > 0)
+	cin >> numberOfItemsByUser;
+	if (numberOfItemsByUser <= numberOfItemsByCart && numberOfItemsByUser > 0)
 	{
-		for (unsigned int i = 0; i < numberOfItems; i++)
+		for (unsigned int i = 0; i < numberOfItemsByUser; i++)
 		{
 			cout << "Enter the " << i + 1 << " serial number of item: ";
 			cin >> serialNumber;
@@ -566,7 +557,7 @@ void Interface::chooseCertainItemsFromCart(Buyer* buyer) const
 		}
 	}
 	else
-		cout << "The number of items you items in the cart is " << cartItemsAmount << " and you entered " << numberOfItems << endl;
+		cout << "The number of items you items in the cart is " << numberOfItemsByCart << " and you entered " << numberOfItemsByUser << endl;
 }
 
 void Interface::removeItemsFromOrder(Buyer* buyer) const
@@ -613,7 +604,7 @@ void Interface::payOrderMenu() const
 		Cart* cart = buyer->getCart();
 		Order* order = buyer->getCurrentOrder();
 
-		unsigned int numberOfItemsInCart = cart->getLogicSizeItems();
+		unsigned int numberOfItemsInCart = cart->numberOfItemsInCart();
 		unsigned int numberOfItemsInOrder = order->numberOfItemsInOrder();
 		if (numberOfItemsInOrder > 0)
 		{
@@ -631,21 +622,13 @@ void Interface::payOrderMenu() const
 
 void Interface::payOrderMenuHelper(Buyer* buyer,Cart* cart, Order* order, unsigned int numberOfItemsInCart, unsigned int numberOfItemsInOrder, unsigned int totalPriceOfOrder) const
 {
-	list<const Item*> allItemsOfOrder = order->getAllItemsOfOrderList();
-	const Item** allItemsOfCart = cart->getAllItemsOfCart();
-
 	unsigned int amountPayed;
 	cout << "Enter the exact amount of money for the order: ";
 	cin >> amountPayed;
 
 	if (amountPayed == totalPriceOfOrder)
 	{
-		for (unsigned int i = 0; i < numberOfItemsInCart; i++)
-		{
-			if (order->checkIfItemExists(allItemsOfCart[i]))
-				cart->removeItemFromCart(allItemsOfCart[i]);
-		}
-		cart->reallocItems();
+		cart->RemoveItemByOrder(order);
 		order->closeOrder(totalPriceOfOrder);
 		buyer->addOrderToHistory();
 		cout << "The order was payed" << endl;
