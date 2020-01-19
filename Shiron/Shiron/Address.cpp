@@ -1,74 +1,13 @@
 #include "Address.h"
 
-Address::Address(const char* country, const char* city, const char* street, int buildNo, int apartmentNo, const char* zipCode)
+Address::Address(const string& country, const string& city, const string& street, int buildNo, int apartmentNo, const string& zipCode)
 {
-	m_country = nullptr;
-	m_city = nullptr;
-	m_street = nullptr;
-	m_zipCode = nullptr;
-
 	setCountry(country);
 	setCity(city);
 	setStreet(street);
 	setBuildNo(buildNo);
 	setApartmentNo(apartmentNo);
 	setZipCode(zipCode);
-}
-
-Address::Address(const Address& other)
-{
-	m_country = nullptr;
-	m_city = nullptr;
-	m_street = nullptr;
-	m_zipCode = nullptr;
-
-	*this = other;
-}
-
-Address::Address(Address&& other)
-{
-	m_country = nullptr;
-	m_city = nullptr;
-	m_street = nullptr;
-	m_zipCode = nullptr;
-
-	*this = other;
-}
-
-Address::~Address()
-{
-	delete[] m_country;
-	delete[] m_city;
-	delete[] m_street;
-	delete[] m_zipCode;
-}
-
-const Address& Address::operator=(const Address& other)
-{
-	if (this != &other)
-	{
-		setCountry(other.m_country);
-		setCity(other.m_city);
-		setStreet(other.m_street);
-		setBuildNo(other.m_buildNo);
-		setApartmentNo(other.m_apartmentNo);
-		setZipCode(other.m_zipCode);
-	}
-	return *this;
-}
-
-const Address& Address::operator=(Address&& other)
-{
-	if (this != &other)
-	{
-		swap(m_country, other.m_country);
-		swap(m_city, other.m_city);
-		swap(m_street, other.m_street);
-		setBuildNo(other.m_buildNo);
-		setApartmentNo(other.m_apartmentNo);
-		swap(m_zipCode, other.m_zipCode);
-	}
-	return *this;
 }
 
 ostream& operator<<(ostream& os, const Address& address) //global function
@@ -82,21 +21,19 @@ ostream& operator<<(ostream& os, const Address& address) //global function
 	return os;
 }
 
-bool Address::setCountry(const char* country)
+bool Address::setCountry(const string& country)
 {
-    delete[] m_country;
-    unsigned int name_len = strlen(country);
+    unsigned int name_len = country.length();
     if ( (name_len < MAX_LEN_COUNTRY) && (name_len >= MIN_LEN_ADDRESS_FIELD) && (CheckCharacters(country)) )
     {
-        m_country = new char[strlen(country) + 1];
-        strcpy(m_country, country);
+		m_country = country;
         return true;
     }
     else
         return false;
 }
 
-bool Address::CheckCharacters(const char* fieldName) const
+bool Address::CheckCharacters(const string& fieldName) const
 {
 	unsigned int i = 0;
 	while (fieldName[i] != '\0')
@@ -109,7 +46,7 @@ bool Address::CheckCharacters(const char* fieldName) const
 	return true;
 }
 
-bool Address::CheckCharactersOfZip(const char* zipCode) const
+bool Address::CheckCharactersOfZip(const string& zipCode) const
 {
 	unsigned int i = 0;
 	while (zipCode[i] != '\0')
@@ -122,14 +59,12 @@ bool Address::CheckCharactersOfZip(const char* zipCode) const
 	return true;
 }
 
-bool Address::setCity(const char* city)
+bool Address::setCity(const string& city)
 {
-	delete[] m_city;
-    unsigned int name_len = strlen(city);
+	unsigned int name_len = city.length();
     if (name_len < (MAX_LEN_CITY - 1) && (name_len >= MIN_LEN_ADDRESS_FIELD) && (CheckCharacters(city)))
     {
-        m_city = new char[strlen(city) + 1];
-        strcpy(m_city, city);
+		m_city = city;
         return true;
     }
     else
@@ -137,14 +72,12 @@ bool Address::setCity(const char* city)
 
 }
 
-bool Address::setStreet(const char* street)
+bool Address::setStreet(const string& street)
 {
-    delete[] m_street;
-    unsigned int name_len = strlen(street);
+	unsigned int name_len = street.length();
     if (name_len < (MAX_LEN_STREET - 1) && (name_len >= MIN_LEN_ADDRESS_FIELD) && (CheckCharacters(street)))
     {
-        m_street = new char[strlen(street) + 1];
-        strcpy(m_street, street);
+		m_street = street;
         return true;
     }
     else
@@ -175,31 +108,29 @@ bool Address::setApartmentNo(int apartmentNo)
 		return false;
 }
 
-bool Address::setZipCode(const char* zipCode)
+bool Address::setZipCode(const string& zipCode)
 {
-	delete[] m_zipCode; 
-	unsigned int name_len = strlen(zipCode);
+	unsigned int name_len = zipCode.length();
 	if (name_len < (MAX_LEN_STREET - 1) && (name_len >= MIN_LEN_ADDRESS_FIELD) && CheckCharactersOfZip(zipCode))
 	{
-		m_zipCode = new char[strlen(zipCode) + 1];
-		strcpy(m_zipCode, zipCode);
+		m_zipCode = zipCode;
 		return true;
 	}
 	else
 		return false;
 }
 
-const char* Address::getCountry() const
+const string& Address::getCountry() const
 {
     return m_country;
 }
 
-const char* Address::getCity() const
+const string& Address::getCity() const
 {
     return m_city;
 }
 
-const char* Address::getStreet() const
+const string& Address::getStreet() const
 {
     return m_street;
 }
@@ -214,7 +145,7 @@ int Address::getApartmentNo() const
     return m_apartmentNo;
 }
 
-const char* Address::getZipCode() const
+const string& Address::getZipCode() const
 {
     return m_zipCode;
 }

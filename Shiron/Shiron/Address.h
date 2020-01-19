@@ -2,7 +2,9 @@
 #define __ADDRESS_H
 
 #include <iostream>
-#include <string.h>
+//#include <string.h>
+#include <string>
+
 using namespace std;
 #pragma warning(disable: 4996)
 
@@ -18,39 +20,34 @@ public:
 	static constexpr unsigned int MIN_LEN_ADDRESS_FIELD = 3;
 
 private:
-	char* m_country;
-	char* m_city;
-	char* m_street;
+	string m_country;
+	string m_city;
+	string m_street;
 	int m_buildNo;
 	int m_apartmentNo;
-	char* m_zipCode;
+	string m_zipCode;
 
-	bool CheckCharacters(const char* fieldName) const;
-	bool CheckCharactersOfZip(const char* zipCode) const;
+	bool CheckCharacters(const string& fieldName) const;
+	bool CheckCharactersOfZip(const string& zipCode) const;
 
 public:
-	Address(const char* country, const char* city, const char* street, int buildNo, int apartmentNo, const char* zipCode); //c'tor
-	Address(const Address& other); //copy c'tor
-	Address(Address&& other); //move c'tor
-	~Address(); //d'tor
+	Address(const string& country, const string& city, const string& street, int buildNo, int apartmentNo, const string& zipCode); //c'tor
 
-	const Address& operator=(const Address& other);
-	const Address& operator=(Address&& other);
 	friend ostream& operator<<(ostream& os, const Address& address);
 
-	bool setCountry(const char* country);
-	bool setCity(const char* city);
-	bool setStreet(const char* street);
+	bool setCountry(const string& country);
+	bool setCity(const string& city);
+	bool setStreet(const string& street);
 	bool setBuildNo(int buildNo);
 	bool setApartmentNo(int apartmentNo);
-	bool setZipCode(const char* zipCode);
+	bool setZipCode(const string& zipCode);
 
-	const char* getCountry() const;
-	const char* getCity() const;
-	const char* getStreet() const;
+	const string& getCountry() const;
+	const string& getCity() const;
+	const string& getStreet() const;
 	int getBuildNo() const;
 	int getApartmentNo() const;
-	const char* getZipCode() const;
+	const string& getZipCode() const;
 };
 
-#endif /* Address_h */
+#endif // __ADDRESS_H
