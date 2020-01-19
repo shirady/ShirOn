@@ -57,7 +57,6 @@ private:
 	void showAllBuyersThatAreSellers() const;
 	void showAllUsersOfCertainType() const;
 
-	void showItemsOfSeller(const Seller* seller, const char* itemName) const;
 	void showAllItemsOfSellers(const char* itemName) const;
 	void showAllItemsOption() const;
 

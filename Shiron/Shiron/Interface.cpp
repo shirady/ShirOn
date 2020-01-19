@@ -187,7 +187,7 @@ void Interface::showAllItemsOfSellers(const char* itemName) const
 			unsigned int counter = seller->countItemsOfSeller(itemName);
 			if (counter > 0)
 			{
-				showItemsOfSeller(seller, itemName);
+				seller->showItemsOfSeller(itemName);
 				cout << "The seller " << seller->getUserName() << " has " << counter << " items" << endl;
 				cout << "--------------------------------------------------------" << endl << endl;
 			}
@@ -311,17 +311,6 @@ void Interface::cleanBuffer() const
 	} while (c != EOF && c != '\n');
 }
 
-void Interface::showItemsOfSeller(const Seller* seller, const char* itemName) const
-{
-	unsigned int logicSizeItems = seller->getLogicSizeItems();
-	Item** allItemsOfSeller = seller->getAllItems();
-	for (unsigned int i = 0; i < logicSizeItems; i++)
-	{
-		if (strcmp(allItemsOfSeller[i]->getNameOfItem(), itemName) == 0)
-			cout << *allItemsOfSeller[i];
-	}
-}
-
 void Interface::addItemToSellerMenu() const
 {
 	cout << "Please enter the name of the seller: ";
@@ -400,7 +389,7 @@ void Interface::addItemToCartMenuHelper(const Seller* seller, const char* itemNa
 
 	if (counter > 0)
 	{
-		showItemsOfSeller(seller, itemName);
+		seller->showItemsOfSeller(itemName);
 		cout << "Enter the serial number of the item to add to the Cart: ";
 		unsigned int serialNumber;
 		cin >> serialNumber;
