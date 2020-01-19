@@ -1,16 +1,13 @@
 #include "System.h"
 
-System::System(const char* systemName)
+System::System(const string& systemName)
 {
-	m_systemName = nullptr;
 	setSystemName(systemName);
-
 }
 
 System::~System()
 {
 	cleanUsersList();
-	delete[] m_systemName;
 }
 
 void System::cleanUsersList()
@@ -35,15 +32,13 @@ const System& System::operator+=(Seller* seller)
 	return *this;
 }
 
-bool System::setSystemName(const char* systemName)
+bool System::setSystemName(const string& systemName)
 {
-	delete[] m_systemName;
-	unsigned int name_len = strlen(systemName);
+	unsigned int name_len = systemName.length();
 
 	if ((name_len < MAX_LEN_SYSTEM_NAME) && (name_len >= MIN_LEN_SYSTEM_NAME))
 	{
-		m_systemName = new char[name_len + 1];
-		strcpy(m_systemName, systemName);
+		m_systemName = systemName;
 		return true;
 	}
 	else
@@ -55,7 +50,7 @@ const list<User*>& System::getAllUsersList() const
 	return m_allUsersList;
 }
 
-const char* System::getSystemName() const
+const string& System::getSystemName() const
 {
 	return m_systemName;
 }
@@ -70,7 +65,7 @@ void System::addUserToSystem(User* user)
 	m_allUsersList.push_back(user);
 }
 
-User* System::findUser(const char* nameOfUser) const
+User* System::findUser(const string& UserName) const
 {
 	User* foundUser = nullptr;
 	bool UserExists = false;
@@ -80,7 +75,7 @@ User* System::findUser(const char* nameOfUser) const
 
 	for (; itr != itrEnd && !UserExists; ++itr)
 	{
-		if (strcmp((*itr)->getUserName(), nameOfUser) == 0)
+		if(UserName.compare((*itr)->getUserName()) == 0)
 		{
 			UserExists = true;
 			foundUser = *itr;
@@ -89,7 +84,7 @@ User* System::findUser(const char* nameOfUser) const
 	return foundUser;
 }
 
-bool System::checkIfItemExistInSellers(const char* itemName) const
+bool System::checkIfItemExistInSellers(const string& itemName) const
 {
 	bool isExist = false;
 
@@ -106,7 +101,7 @@ bool System::checkIfItemExistInSellers(const char* itemName) const
 	return isExist;
 }
 
-unsigned int System::countItemsInAllSellers(const char* itemName) const
+unsigned int System::countItemsInAllSellers(const string& itemName) const
 {
 	unsigned int counter = 0;
 	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
@@ -121,7 +116,6 @@ unsigned int System::countItemsInAllSellers(const char* itemName) const
 	}
 	return counter;
 }
-
 
 void System::showAllBuyers() const
 {
