@@ -1,6 +1,6 @@
 #include "Seller.h"
 
-Seller::Seller(const char* userName, const char* password, const Address& address): User(userName, password, address)
+Seller::Seller(const string& userName, const string& password, const Address& address): User(userName, password, address)
 {
 
 }
@@ -37,13 +37,13 @@ void Seller::showMe() const
 	cout << "----------------------------------------------------------------------------------" << endl;
 }
 
-void Seller::showItemsOfSeller(const char* itemName) const
+void Seller::showItemsOfSeller(const string& itemName) const
 {
 	list<Item*>::const_iterator itr = m_allItemsList.begin(); //const_iterator since the method is const
 	list<Item*>::const_iterator itrEnd = m_allItemsList.end(); //const_iterator since the method is const
 
 	for (; itr != itrEnd; ++itr)
-		if (strcmp((*itr)->getNameOfItem(), itemName) == 0)
+		if ((*itr)->getNameOfItem().compare(itemName) == 0)
 			cout << *(*itr);
 }
 
@@ -85,27 +85,27 @@ Item* Seller::findSerialNumber(int serialNumber) const
 	return foundItem;
 }
 
-unsigned int Seller::countItemsOfSeller(const char* itemName) const
+unsigned int Seller::countItemsOfSeller(const string& itemName) const
 {
 	list<Item*>::const_iterator itr = m_allItemsList.begin(); //const_iterator since the method is const
 	list<Item*>::const_iterator itrEnd = m_allItemsList.end(); //const_iterator since the method is const
 	unsigned int counter = 0;
 
 	for (; itr != itrEnd; ++itr)
-		if (strcmp((*itr)->getNameOfItem(), itemName) == 0)
+		if (((*itr)->getNameOfItem().compare(itemName) == 0))
 			counter++;
 
 	return counter;
 }
 
-bool Seller::checkIfItemExistInASeller(const char* itemName) const
+bool Seller::checkIfItemExistInASeller(const string& itemName) const
 {
 	list<Item*>::const_iterator itr = m_allItemsList.begin(); //const_iterator since the method is const
 	list<Item*>::const_iterator itrEnd = m_allItemsList.end(); //const_iterator since the method is const
 	bool isExist = false;
 
 	for (; itr != itrEnd && !isExist; ++itr)
-		if (strcmp((*itr)->getNameOfItem(), itemName) == 0)
+		if (((*itr)->getNameOfItem().compare(itemName) == 0))
 			isExist = true;
 
 	return isExist;

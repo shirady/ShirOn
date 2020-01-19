@@ -2,7 +2,7 @@
 #define __BUYER_H
 
 #include <iostream>
-#include <string.h>
+#include <string>
 using namespace std;
 #pragma warning(disable: 4996)
 #include <list> //STL
@@ -22,7 +22,7 @@ private:
 	void cleanOrderHistoryList();
 
 public:
-	Buyer(const char* userName, const char* password, const Address& address); //c'tor 
+	Buyer(const string& userName, const string& password, const string& address); //c'tor 
 	Buyer(const Buyer& other) = delete; //copy c'tor
 	virtual ~Buyer(); //d'tor
 	void show() const;

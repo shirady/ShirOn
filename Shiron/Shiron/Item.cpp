@@ -4,7 +4,7 @@
 unsigned int Item::m_serialNumberCounter = 0;
 const char* Item::category[CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
 
-Item::Item(const char* itemName, Item::eCategory categoryOfItem, int priceOfItem, const Seller& seller): m_seller(seller)
+Item::Item(const string& itemName, Item::eCategory categoryOfItem, int priceOfItem, const Seller& seller): m_seller(seller)
 {
 	m_itemName = nullptr;
 
@@ -12,11 +12,6 @@ Item::Item(const char* itemName, Item::eCategory categoryOfItem, int priceOfItem
 	setCategoryOfItem(categoryOfItem);
 	setPriceOfItem(priceOfItem);
 	m_serialNumberOfItem = ++m_serialNumberCounter;
-}
-
-Item::~Item()
-{
-	delete[] m_itemName;
 }
 
 ostream& operator<<(ostream& os, const Item& item)
@@ -29,21 +24,20 @@ ostream& operator<<(ostream& os, const Item& item)
 	return os;
 }
 
-bool Item::setNameOfItem(const char* itemName)
+bool Item::setNameOfItem(const string& itemName)
 {
-	delete[] m_itemName;
-	unsigned int name_len = strlen(itemName);
+    unsigned int name_len = itemName.length();
+
 	if ((name_len < MAX_LEN_NAME) && (name_len >= MIN_LEN_NAME) && (checkCharacters(itemName)))
 	{
-		m_itemName = new char[strlen(itemName) + 1];
-		strcpy(m_itemName, itemName);
+        m_itemName=itemName;
 		return true;
 	}
 	else
 		return false;
 }
 
-bool Item::checkCharacters(const char* fieldName) const
+bool Item::checkCharacters(const string& fieldName) const
 {
 	int i = 0;
 	while (fieldName[i] != '\0')
@@ -79,7 +73,7 @@ bool Item::setPriceOfItem(int priceOfItem)
 		return false;
 }
 
-const char* Item::getNameOfItem() const
+const string& Item::getNameOfItem() const
 {
 	return m_itemName;
 }

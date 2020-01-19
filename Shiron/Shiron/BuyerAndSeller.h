@@ -2,7 +2,7 @@
 #define __BUYERANDSELLER_H
 
 #include <iostream>
-#include <string.h>
+#include <string>
 using namespace std;
 #pragma warning(disable: 4996)
 #include "Buyer.h"
@@ -11,7 +11,7 @@ using namespace std;
 class BuyerAndSeller : public Buyer, Seller //Public because seller can use methods of User
 {
 public:
-	BuyerAndSeller(const char* userName, const char* password, const Address& address);//c'tor when we do not have seller and buyer object which already created
+	BuyerAndSeller(const string& userName, const string& password, const Address& address);//c'tor when we do not have seller and buyer object which already created
 	BuyerAndSeller(const BuyerAndSeller& other) = delete; //copy c'tor
 
 	void show() const;

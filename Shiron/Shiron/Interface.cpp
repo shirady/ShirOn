@@ -10,7 +10,7 @@ Interface::~Interface()
 	delete m_system;
 }
 
-bool Interface::setSystem(const char * systemName)
+bool Interface::setSystem(const string& systemName)
 {
 	m_system = new System(systemName);
 	return true;
@@ -29,27 +29,27 @@ const Address Interface::readAddress() const
 {
 	int apartmentNo, buildNo;
 
-	char country[Address::MAX_LEN_COUNTRY];
+	string country;
 	cout << "Enter country: ";
-	cin.getline(country, Address::MAX_LEN_COUNTRY);
+	getline(cin, country);
 	cleanAfterGetLine();
 
-	char city[Address::MAX_LEN_CITY];
+	string city;
 	cout << "Enter city: ";
-	cin.getline(city, Address::MAX_LEN_CITY);
+	getline(cin, city);
 	cleanAfterGetLine();
 
-	char street[Address::MAX_LEN_STREET];
+	string street;
 	cout << "Enter street: ";
-	cin.getline(street, Address::MAX_LEN_STREET);
+	getline(cin, street);
 	cleanAfterGetLine();
 
 	readNumericValuesOfAddress(apartmentNo, buildNo);
 
-	char zipCode[Address::MAX_LEN_ZIP_CODE];
+	string zipCode;
 	cout << "Enter zip code: ";
 	cleanBuffer();
-	cin.getline(zipCode, Address::MAX_LEN_ZIP_CODE);
+	getline(cin, zipCode);
 	cleanAfterGetLine();
 
 	return Address(country, city, street, buildNo, apartmentNo, zipCode);
@@ -57,21 +57,21 @@ const Address Interface::readAddress() const
 
 void Interface::readSystem()
 {
-	char systemName[System::MAX_LEN_SYSTEM_NAME];
+	string systemName;
 	cout << "Enter system name: ";
-	cin.getline(systemName, System::MAX_LEN_SYSTEM_NAME);
+	getline(cin, systemName);
 	cleanAfterGetLine();
 	setSystem(systemName);
 }
 
 User* Interface::readUserGeneral(eUserType type) const
 {
-	char userName[User::MAX_LEN_NAME];
+	string userName;
 	bool fcontinue = true;
 	do
 	{
 		cout << "Enter user name: ";
-		cin.getline(userName, User::MAX_LEN_NAME);
+		getline(cin, userName);
 		cleanAfterGetLine();
 
 		if (m_system->findUser(userName) != nullptr)
@@ -80,9 +80,9 @@ User* Interface::readUserGeneral(eUserType type) const
 			fcontinue = false;
 	} while (fcontinue);
 
-	char password[User::MAX_LEN_PASSWORD];
+	string password;
 	cout << "Enter password: ";
-	cin.getline(password, User::MAX_LEN_PASSWORD);
+	getline(cin, password);
 	cleanAfterGetLine();
 
 	switch (type)
@@ -103,12 +103,12 @@ User* Interface::readUserGeneral(eUserType type) const
 
 Item* Interface::readItem(const Seller& seller) const
 {
-	char itemName[Item::MAX_LEN_NAME];
+	string itemName;
 		bool fcontinue = true;
 	do
 	{
 		cout << "Enter The item name: ";
-		cin.getline(itemName, Item::MAX_LEN_NAME);
+		getline(cin,itemName);
 		cleanAfterGetLine();
 		if (seller.countItemsOfSeller(itemName) != 0)
 		{
@@ -140,9 +140,9 @@ Item* Interface::readItem(const Seller& seller) const
 
 Feedback* Interface::readFeedback(const Buyer& buyer) const
 {
-	char feedbackText[Feedback::MAX_LEN_FEEDBACK];
+	string feedbackText;
 	cout << "Enter feedback: ";
-	cin.getline(feedbackText, Feedback::MAX_LEN_FEEDBACK);
+	getline(cin, feedbackText);
 	cleanAfterGetLine();
 
 	return new Feedback(feedbackText, readDate(), buyer);
@@ -167,9 +167,9 @@ const Date Interface::readDate() const
 
 void Interface::showAllItemsOption() const
 {
-	char itemName[Item::MAX_LEN_NAME];
+	string itemName;
 	cout << "Please enter the name of the item: ";
-	cin.getline(itemName, Item::MAX_LEN_NAME);
+	getline(cin, itemName);
 	cleanAfterGetLine();
 	cout << endl;
 	m_system->showAllItemsOfSellers(itemName);
@@ -294,8 +294,8 @@ void Interface::cleanBuffer() const
 void Interface::addItemToSellerMenu() const
 {
 	cout << "Please enter the name of the seller: ";
-	char sellerName[User::MAX_LEN_NAME];
-	cin.getline(sellerName, User::MAX_LEN_NAME);
+	string sellerName;
+	getline(cin,sellerName);
 	cleanAfterGetLine();
 	User* user = m_system->findUser(sellerName);
 	Seller* seller = dynamic_cast<Seller*>(user);
@@ -313,16 +313,16 @@ void Interface::addItemToSellerMenu() const
 void Interface::addItemToCartMenu() const
 {
 	cout << "Please enter the name of the buyer: ";
-	char buyerName[User::MAX_LEN_NAME];
-	cin.getline(buyerName, User::MAX_LEN_NAME);
+	string buyerName;
+	getline(cin, buyerName);
 	cleanAfterGetLine();
 	User* user = m_system->findUser(buyerName);
 	Buyer* buyer = dynamic_cast<Buyer*>(user);
 	if (buyer != nullptr)
 	{
-		char itemName[Item::MAX_LEN_NAME];
+		string itemName;
 		cout << "Please enter the name of the item: ";
-		cin.getline(itemName, Item::MAX_LEN_NAME);
+		getline(cin,itemName);
 		cleanAfterGetLine();
 		cout << endl;
 		unsigned int counterOfItemsInAllSellers = m_system->countItemsInAllSellers(itemName);
@@ -348,14 +348,14 @@ void Interface::addItemToCartMenu() const
 		cout << "Buyer was not found in the system" << endl;
 }
 
-Seller* Interface::FindSellerByChoise(const char* itemName, unsigned int counterOfItemsInAllSellers) const
+Seller* Interface::FindSellerByChoise(const string& itemName, unsigned int counterOfItemsInAllSellers) const
 {
 	cout << "There are " << counterOfItemsInAllSellers << " items with the name " << itemName << endl;
 	cout << "The items are: " << endl;
 	m_system->showAllItemsOfSellers(itemName);
 	cout << "Enter the seller name from the list above: ";
-	char sellerName[User::MAX_LEN_NAME];
-	cin.getline(sellerName, User::MAX_LEN_NAME);
+	string sellerName;
+	getline(cin,sellerName);
 	cleanAfterGetLine();
 
 	User* user = m_system->findUser(sellerName);
@@ -363,7 +363,7 @@ Seller* Interface::FindSellerByChoise(const char* itemName, unsigned int counter
 }
 
 
-void Interface::addItemToCartMenuHelper(const Seller* seller, const char* itemName, Buyer* buyer) const
+void Interface::addItemToCartMenuHelper(const Seller* seller, const string& itemName, Buyer* buyer) const
 {
 	unsigned int counter = seller->countItemsOfSeller(itemName);
 
@@ -387,8 +387,8 @@ void Interface::addItemToCartMenuHelper(const Seller* seller, const char* itemNa
 void Interface::addFeedbackToSellerMenu() const
 {
 	cout << "Please enter the name of the buyer: ";
-	char buyerName[User::MAX_LEN_NAME];
-	cin.getline(buyerName, User::MAX_LEN_NAME);
+	string buyerName;
+	getline(cin, buyerName);
 	cleanAfterGetLine();
 	User* user = m_system->findUser(buyerName);
 	Buyer* buyer = dynamic_cast<Buyer*>(user);
@@ -401,8 +401,8 @@ void Interface::addFeedbackToSellerMenu() const
 void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 {
 	cout << "Please enter the name of the seller: ";
-	char sellerName[User::MAX_LEN_NAME];
-	cin.getline(sellerName, User::MAX_LEN_NAME);
+	string sellerName;
+	getline(cin,sellerName);
 	cleanAfterGetLine();
 	User* user = m_system->findUser(sellerName);
 	Seller* seller = dynamic_cast<Seller*>(user);
@@ -427,8 +427,8 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 void Interface::makeAnOrderMenu() const
 {
 	cout << "Please enter the name of the buyer: ";
-	char buyerName[User::MAX_LEN_NAME];
-	cin.getline(buyerName, User::MAX_LEN_NAME);
+	string buyerName;
+	getline(cin,buyerName);
 	cleanAfterGetLine();
 	User* user = m_system->findUser(buyerName);
 	Buyer* buyer = dynamic_cast<Buyer*>(user);
@@ -563,8 +563,8 @@ void Interface::removeItemsFromOrder(Buyer* buyer) const
 void Interface::payOrderMenu() const
 {
 	cout << "Please enter the name of the buyer: ";
-	char buyerName[User::MAX_LEN_NAME];
-	cin.getline(buyerName, User::MAX_LEN_NAME);
+	string buyerName;
+	getline(cin,buyerName);
 	cleanAfterGetLine();
 	User* user = m_system->findUser(buyerName);
 	Buyer* buyer = dynamic_cast<Buyer*>(user);
@@ -652,9 +652,9 @@ void Interface::cleanAfterGetLine() const
 
 void Interface::showAllItemsOfCeratinNameMenu() const
 {
-	char itemName[Item::MAX_LEN_NAME];
+	string itemName;
 	cout << "Please enter the name of the item: ";
-	cin.getline(itemName, Item::MAX_LEN_NAME);
+	getline(cin, itemName);
 	cleanAfterGetLine();
 	cout << endl;
 	
@@ -691,9 +691,9 @@ void Interface::menuOperatorOptionAddSeller() const
 
 void Interface::menuOperatorCompareBuyers() const
 {
-	char userName[User::MAX_LEN_NAME];
+	string userName;
 	cout << "Enter The first buyer name: ";
-	cin.getline(userName, User::MAX_LEN_NAME);
+	getline(cin, userName);
 	cleanAfterGetLine();
 	Buyer* firstBuyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
 	if (firstBuyer == nullptr)
@@ -701,7 +701,7 @@ void Interface::menuOperatorCompareBuyers() const
 	else
 	{
 		cout << "Enter The second buyer name: ";
-		cin.getline(userName, User::MAX_LEN_NAME);
+		getline(cin,userName);
 		cleanAfterGetLine();
 		Buyer* secondBuyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
 		if (secondBuyer == nullptr)
@@ -718,9 +718,9 @@ void Interface::menuOperatorCompareBuyers() const
 
 void Interface::menuOperatorShowCart() const
 {
-	char userName[User::MAX_LEN_NAME];
+	string userName;
 	cout << "Enter The buyer's name: ";
-	cin.getline(userName, User::MAX_LEN_NAME);
+	getline(cin,userName);
 	cleanAfterGetLine();
 	Buyer* buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
 	if (buyer == nullptr)
@@ -731,9 +731,9 @@ void Interface::menuOperatorShowCart() const
 
 void Interface::menuOperatorShowOrder() const
 {
-	char userName[User::MAX_LEN_NAME];
+	string userName;
 	cout << "Enter The buyer's name: ";
-	cin.getline(userName, User::MAX_LEN_NAME);
+	getline(cin,userName);
 	cleanAfterGetLine();
 	Buyer* buyer = dynamic_cast<Buyer*>(m_system->findUser(userName));
 	if (buyer == nullptr)
@@ -744,9 +744,9 @@ void Interface::menuOperatorShowOrder() const
 
 void Interface::menuOperatorShowAllFeedbacks() const
 {
-	char userName[User::MAX_LEN_NAME];
+	string userName;
 	cout << "Enter The seller's name: ";
-	cin.getline(userName, User::MAX_LEN_NAME);
+	getline(cin,userName);
 	cleanAfterGetLine();
 	Seller* seller = dynamic_cast<Seller*>(m_system->findUser(userName));
 	if (seller == nullptr)

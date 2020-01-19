@@ -1,14 +1,8 @@
 #include "Feedback.h"
 
-Feedback::Feedback(const char* feedback, const Date& date, const Buyer& buyer) : m_date(date), m_buyer(buyer)
+Feedback::Feedback(const string& feedback, const Date& date, const Buyer& buyer) : m_date(date), m_buyer(buyer)
 {
-	m_feedback = nullptr;
 	setFeedback(feedback);
-}
-
-Feedback::~Feedback()
-{
-	delete[] m_feedback;
 }
 
 ostream& operator<<(ostream& os, const Feedback& feedback) //global function
@@ -17,21 +11,19 @@ ostream& operator<<(ostream& os, const Feedback& feedback) //global function
 	return os;
 }
 
-bool Feedback::setFeedback(const char* feedback)
+bool Feedback::setFeedback(const string& feedback)
 {
-	delete[] m_feedback;
-	unsigned int name_len = strlen(feedback);
-	if (name_len < (MAX_LEN_FEEDBACK - 1))
+    unsigned int feedback_len = feedback.length();
+	if (feedback_len < (MAX_LEN_FEEDBACK - 1))
 	{
-		m_feedback = new char[strlen(feedback) + 1];
-		strcpy(m_feedback, feedback);
+        m_feedback=feedback;
 		return true;
 	}
 	else
 		return false;
 }
 
-const char* Feedback::getFeedback(const char* feedback) const
+const string& Feedback::getFeedback() const
 {
 	return m_feedback;
 }

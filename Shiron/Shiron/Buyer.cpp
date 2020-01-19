@@ -1,6 +1,6 @@
 #include "Buyer.h"
 
-Buyer::Buyer(const char* userName, const char* password, const Address& address) : User(userName, password, address)
+Buyer::Buyer(const string& userName, const string& password, const Address& address) : User(userName, password, address)
 {
 	m_cart = new Cart;
 	m_currentOrder = new Order;

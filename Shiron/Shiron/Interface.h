@@ -2,6 +2,8 @@
 #define __INTERFACE_H
 
 #include <iostream>
+#include <string>
+#include <string.h>
 using namespace std;
 #pragma warning(disable: 4996)
 #include "System.h"
@@ -15,15 +17,15 @@ public:
 private:
 	System* m_system = nullptr; //initialize
 
-	bool setSystem(const char *systemName);
+	bool setSystem(const string& systemName);
 
 	void headline() const;
 	void menu() const;
 
 	void addItemToSellerMenu() const;
 	void addItemToCartMenu() const;
-	Seller* FindSellerByChoise(const char* itemName, unsigned int counterOfItemsInAllSellers) const;
-	void addItemToCartMenuHelper(const Seller* seller, const char* itemName, Buyer* buyer) const;
+	Seller* FindSellerByChoise(const string& itemName, unsigned int counterOfItemsInAllSellers) const;
+	void addItemToCartMenuHelper(const Seller* seller, const string& itemName, Buyer* buyer) const;
 	void makeAnOrderMenu() const;
 	void chooseOptionForMakeAnOrderMenu(const Cart* cart) const;
 	void chooseOptionForMakeAnOrder(Buyer* buyer, Cart* cart, unsigned int numberOfItemsInCart) const;

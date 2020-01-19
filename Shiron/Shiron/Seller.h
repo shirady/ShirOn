@@ -25,7 +25,7 @@ private:
 	Array<const Feedback*> m_allFeedbacks;
 
 public:
-	Seller(const char* userName, const char* password, const Address& address); //c'tor 
+	Seller(const string& userName, const string& password, const Address& address); //c'tor 
 	Seller(const Seller& other) = delete; //copy c'tor
 	virtual ~Seller(); //d'tor
 	void cleanItemsList();
