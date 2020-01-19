@@ -5,6 +5,7 @@
 #include <string.h>
 using namespace std;
 #pragma warning(disable: 4996)
+#include <list> //STL
 #include "User.h"
 #include "Buyer.h"
 #include "Seller.h"

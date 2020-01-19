@@ -115,9 +115,16 @@ void Cart::RemoveItemByOrder(Order* order)
 	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
 	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); ////const_iterator since the method is const
 
-	for (; itr != itrEnd; ++itr)
+	while(itr != itrEnd)
 	{
 		if (order->checkIfItemExists(*itr))
+		{
+			list<const Item*>::const_iterator itrTmp = ++itr;
+			--itr;
 			this->removeItemFromCart(*itr);
+			itr = itrTmp;
+		}
+		else
+			++itr;
 	}
 }
