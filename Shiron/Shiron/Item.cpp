@@ -6,8 +6,6 @@ const string Item::category[CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", 
 
 Item::Item(const string& itemName, Item::eCategory categoryOfItem, int priceOfItem, const Seller& seller): m_seller(seller)
 {
-	m_itemName = nullptr;
-
 	setNameOfItem(itemName);
 	setCategoryOfItem(categoryOfItem);
 	setPriceOfItem(priceOfItem);

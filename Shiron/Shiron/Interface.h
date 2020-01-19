@@ -2,12 +2,13 @@
 #define __INTERFACE_H
 
 #include <iostream>
-#include <string>
-#include <string.h>
 using namespace std;
 #pragma warning(disable: 4996)
-#include "System.h"
+#include <string>
+#include <string.h>
+#include <fstream> //for files
 
+#include "System.h"
 
 class Interface
 {
@@ -61,6 +62,7 @@ private:
 	void chooseAllItemsFromCart(Buyer* buyer) const;
 	void chooseCertainItemsFromCart(Buyer* buyer) const;
 	void removeItemsFromOrder(Buyer* buyer) const;
+
 public:
 	Interface(); //c'tor
 	Interface(const System& other) = delete; //copy c'tor disabled

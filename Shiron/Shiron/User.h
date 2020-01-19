@@ -2,9 +2,10 @@
 #define __USER_H
 
 #include <iostream>
-#include <string>
 using namespace std;
 #pragma warning(disable: 4996)
+#include <string>
+#include <fstream> //for files
 
 #include "Address.h"
 
@@ -37,6 +38,9 @@ public:
 	const string& getUserName() const;
 	const string& getPassword() const;
 	const Address& getAddress() const;
+
+	void saveType(ofstream& outFile) const;
+	void save(ofstream& outFile) const;
 };
 
 #endif //__USER_H

@@ -1,4 +1,5 @@
 #include "User.h"
+#include "UserGenerator.h"
 
 User::User(const string& userName, const string& password, const Address& address) : m_userAddress(address)
 {
@@ -74,4 +75,24 @@ const string& User::getPassword() const
 const Address& User::getAddress() const
 {
 	return m_userAddress;
+}
+
+//This method writes to the file the first 3 letters of the object type
+void User::saveType(ofstream& outFile) const
+{
+	UsersGenerator::eUsersType type = UsersGenerator::getType(this);
+	outFile << type << endl;
+}
+
+void User::save(ofstream& outFile) const
+{
+	int lenUserName = m_userName.length();
+	outFile << lenUserName << endl;
+	outFile << m_userName << endl;
+
+	int lenPassword = m_password.length();
+	outFile << lenPassword << endl;
+	outFile << m_password << endl;
+
+	m_userAddress.save(outFile);
 }

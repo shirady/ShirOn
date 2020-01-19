@@ -2,11 +2,11 @@
 #define __ADDRESS_H
 
 #include <iostream>
-//#include <string.h>
-#include <string>
-
 using namespace std;
 #pragma warning(disable: 4996)
+//#include <string.h>
+#include <string>
+#include <fstream> //for files
 
 class Address
 {
@@ -48,6 +48,8 @@ public:
 	int getBuildNo() const;
 	int getApartmentNo() const;
 	const string& getZipCode() const;
+
+	void save(ofstream& outFile) const;
 };
 
 #endif // __ADDRESS_H

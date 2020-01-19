@@ -270,6 +270,7 @@ void Interface::menuOptions() const
 				menuOperatorOptions();
 				break;
 			case 15:
+				m_system->saveUsersToFile("users.txt");
 				exitMenu = true;
 				cout << "Thank you for shopping " << m_system->getSystemName() << "! :)";
 				break;
@@ -800,3 +801,4 @@ void Interface::menuOperatorOptions() const
 		}
 	}
 }
+

@@ -198,3 +198,23 @@ void System::showAllItemsOfSellers(const string& itemName) const
 		}
 	}
 }
+
+//saving in the file the number of elements
+// for each object we save the type of the object and its data
+void System::saveUsersToFile(const string& fileName)
+{
+	ofstream outFile(fileName, ios::trunc);
+
+	//save num of users
+	outFile << numberOfUsersInSystem() << endl;
+
+	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
+	list<User*>::const_iterator itrEnd = m_allUsersList.end(); //const_iterator since the method is const
+
+	for (; itr != itrEnd; ++itr)
+	{
+		(*itr)->saveType(outFile);
+		(*itr)->save(outFile);
+	}
+	outFile.close();
+}

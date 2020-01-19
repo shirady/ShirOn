@@ -46,6 +46,8 @@ public:
 	void showAllSellers() const;
 	void showAllBuyersThatAreSellers() const;
 	void showAllItemsOfSellers(const string& itemName) const;
+
+	void saveUsersToFile(const string& fileName);
 };
 
 #endif //__SYSTEM_H
