@@ -2,9 +2,10 @@
 #define __USER_H
 
 #include <iostream>
-#include <string.h>
+#include <string>
 using namespace std;
 #pragma warning(disable: 4996)
+
 #include "Address.h"
 
 class User
@@ -16,29 +17,23 @@ public:
 	static constexpr unsigned int MIN_LEN_NAME = 3;
 
 private:
-	char* m_userName;
-	char* m_password;
+	string m_userName;
+	string m_password;
 	Address m_userAddress;
 
-	bool setUserName(const char* userName);
-	bool CheckWhiteSpace(const char* fieldName) const;
+	bool setUserName(const string& userName);
+	bool CheckWhiteSpace(const string& fieldName) const;
 
 protected:
-	User(const char* userName, const char* password, const Address& address); //c'tor - Protected because User is Abstract
-	User(const User& other); // copy c'tor - Protected because User is Abstract
-	User(User&& other); // move c'tor - Protected because User is Abstract
+	User(const string& userName, const string& password, const Address& address); //c'tor - Protected because User is Abstract
 
-	const User& operator=(const User& other);
-	const User& operator=(User&& other);
 	void showMe() const;
 
 public:
-	virtual ~User(); //d'tor
-
-	bool setPassword(const char* password); //password can be change after it was created
+	bool setPassword(const string& password); //password can be change after it was created
 	void show() const;
-	const char* getUserName() const;
-	const char* getPassword() const;
+	const string& getUserName() const;
+	const string& getPassword() const;
 	const Address& getAddress() const;
 };
 
