@@ -122,10 +122,9 @@ bool Order::checkIfSellerIsInAOrder(const Seller& seller) const
 	bool sellerExists = false;
 
 	for (; itr != itrEnd && !sellerExists; ++itr)
-	{
-		if (strcmp((*itr)->getSeller().getUserName(), seller.getUserName()) == 0)
+		if ((*itr)->getSeller().getUserName().compare(seller.getUserName()) == 0)
 			sellerExists = true;
-	}
+	
 	return sellerExists;
 }
 

@@ -5,7 +5,13 @@ User::User(const string& userName, const string& password, const Address& addres
 	setUserName(userName);
 	setPassword(password);
 }
+/*User::User(const User& other) : m_userAddress(other.m_userAddress)
+{
+}
 
+User::User(User&& other) : m_userAddress(other.m_userAddress)
+{
+}*/
 void User::show() const
 {
 	showMe();

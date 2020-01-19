@@ -22,7 +22,7 @@ private:
 	void cleanOrderHistoryList();
 
 public:
-	Buyer(const string& userName, const string& password, const string& address); //c'tor 
+	Buyer(const string& userName, const string& password, const Address& address); //c'tor 
 	Buyer(const Buyer& other) = delete; //copy c'tor
 	virtual ~Buyer(); //d'tor
 	void show() const;

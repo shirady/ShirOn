@@ -26,10 +26,12 @@ private:
 
 protected:
 	User(const string& userName, const string& password, const Address& address); //c'tor - Protected because User is Abstract
-
+	//User(const User& other); // copy c'tor - Protected because User is Abstract
+	//User(User&& other); // move c'tor - Protected because User is Abstract
 	void showMe() const;
 
 public:
+	virtual ~User() {};
 	bool setPassword(const string& password); //password can be change after it was created
 	void show() const;
 	const string& getUserName() const;

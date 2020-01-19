@@ -2,7 +2,7 @@
 #include "Seller.h" //There is forward declaration of seller in item.h
 
 unsigned int Item::m_serialNumberCounter = 0;
-const char* Item::category[CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
+const string Item::category[CATEGORY_SIZE] = { "KIDS", "ELECTRONICS", "OFFICE", "CLOTHING" };
 
 Item::Item(const string& itemName, Item::eCategory categoryOfItem, int priceOfItem, const Seller& seller): m_seller(seller)
 {

@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 #pragma warning(disable: 4996)
-
+#include <vector>
 class Seller; //forward declaration 
 
 
@@ -14,7 +14,7 @@ class Item
 public:
 	static constexpr unsigned int CATEGORY_SIZE = 4;
 	enum eCategory { KIDS, ELECTRONICS, OFFICE, CLOTHING };
-	static char* category[CATEGORY_SIZE];
+	static const string category[CATEGORY_SIZE];
 	static constexpr int MIN_LEN_NAME = 2;
 	static constexpr int MAX_LEN_NAME = 16;
 	static constexpr unsigned int MIN_PRICE = 0; //free item

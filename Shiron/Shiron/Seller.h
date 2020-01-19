@@ -32,7 +32,7 @@ public:
 
 	void show() const;
 	void showMe() const;
-	void showItemsOfSeller(const char* itemName) const;
+	void showItemsOfSeller(const string& itemName) const;
 
 	unsigned int numberOfItemsInSeller() const;
 	const list<Item*>& getAllItemsList() const;
@@ -41,8 +41,8 @@ public:
 	void addFeedbackForSeller(const Feedback* feedback); //Relate to Array template class
 
 	Item* findSerialNumber(int serialNumber) const;
-	unsigned int countItemsOfSeller(const char* itemName) const;
-	bool checkIfItemExistInASeller(const char* itemName) const;
+	unsigned int countItemsOfSeller(const string& itemName) const;
+	bool checkIfItemExistInASeller(const string& itemName) const;
 };
 
 #endif //__SELLER_H

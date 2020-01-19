@@ -333,7 +333,7 @@ void Interface::addItemToCartMenu() const
 			seller = FindSellerByChoise(itemName, counterOfItemsInAllSellers);
 			if (seller != nullptr)
 			{
-				if (strcmp(seller->getUserName(), buyer->getUserName()) != 0)
+				if (seller->getUserName().compare(buyer->getUserName()) != 0)
 					addItemToCartMenuHelper(seller, itemName, buyer);
 				else //it is the same user name
 					cout << "Seller can't buy from himself" << endl;

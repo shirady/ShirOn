@@ -178,7 +178,7 @@ void System::showAllBuyersThatAreSellers() const
 		<< "There are " << counter << " sellers in the system" << endl;
 }
 
-void System::showAllItemsOfSellers(const char* itemName) const
+void System::showAllItemsOfSellers(const string& itemName) const
 {
 	list<User*>::const_iterator itr = m_allUsersList.begin(); //const_iterator since the method is const
 	list<User*>::const_iterator itrEnd = m_allUsersList.end(); //const_iterator since the method is const
