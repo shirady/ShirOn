@@ -13,14 +13,6 @@ User::User(ifstream& inFile): m_userAddress(inFile)
 	getline(inFile, m_password);
 }
 
-/*User::User(const User& other) : m_userAddress(other.m_userAddress)
-{
-}
-
-User::User(User&& other) : m_userAddress(other.m_userAddress)
-{
-}*/
-
 void User::show() const
 {
 	showMe();

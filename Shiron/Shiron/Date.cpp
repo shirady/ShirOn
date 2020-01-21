@@ -7,12 +7,6 @@ Date::Date(int year, int month, int day)
 	setDay(day);
 }
 
-//Empty d'tor - hidden
-//Date::~Date()
-//{
-//
-//}
-
 ostream& operator<<(ostream& os, const Date& date)//global function
 {
 	os << date.m_day << "/" << date.m_month << "/" << date.m_year;

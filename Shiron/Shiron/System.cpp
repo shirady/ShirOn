@@ -1,5 +1,6 @@
 #include "System.h"
 #include "UserGenerator.h" //for loadAllUsers
+#include "General.h"
 
 System::System(const string& systemName)
 {

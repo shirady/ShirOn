@@ -66,7 +66,7 @@ void Interface::readSystem()
 	setSystem(systemName);
 }
 
-User* Interface::readUserGeneral(eUserType type) const
+User* Interface::readUserGeneral(System::eUserType type) const
 {
 	string userName;
 	bool fcontinue = true;
@@ -89,13 +89,13 @@ User* Interface::readUserGeneral(eUserType type) const
 
 	switch (type)
 	{
-		case BUYER:
+		case System::BUYER:
 			return new Buyer(userName, password, readAddress());
 			break;
-		case SELLER:
+		case System::SELLER:
 			return new Seller(userName, password, readAddress());
 			break;
-		case BUYER_AND_SELLER:
+		case System::BUYER_AND_SELLER:
 			return new BuyerAndSeller(userName, password, readAddress());
 			break;
 		default:
@@ -113,13 +113,10 @@ Item* Interface::readItem(const Seller& seller) const
 		getline(cin,itemName);
 		cleanAfterGetLine();
 		if (seller.countItemsOfSeller(itemName) != 0)
-		{
 			cout << "The item is already exist in the seller " << seller.getUserName() << " please enter again" << endl << endl;
-		}
 		else
-		{
 			fcontinue = false;
-		}
+		
 	} while (fcontinue);
 
 	Item::eCategory categoryOfItem;
@@ -227,15 +224,15 @@ void Interface::menuOptions() const
 			switch (option)
 			{
 			case 1:
-				user = readUserGeneral(BUYER);
+				user = readUserGeneral(System::BUYER);
 				m_system->addUserToSystem(user);
 				break;
 			case 2:
-				user = readUserGeneral(SELLER);
+				user = readUserGeneral(System::SELLER);
 				m_system->addUserToSystem(user);
 				break;
 			case 3:
-				user = readUserGeneral(BUYER_AND_SELLER);
+				user = readUserGeneral(System::BUYER_AND_SELLER);
 				m_system->addUserToSystem(user);
 				break;
 			case 4:
@@ -418,9 +415,7 @@ void Interface::addFeedbackToSellerMenuHelper(const Buyer* buyer) const
 			cout << "The feedback was added" << endl;
 		}
 		else
-		{
 			cout << "Cannot send feedback, the seller was not in orders' history" << endl;
-		}
 	}
 	else
 		cout << "Seller was not found in the system" << endl;
@@ -678,16 +673,17 @@ void Interface::menuOperatorOptionsHeadline() const
 		<< "(6) << show seller's feedbacks" << endl
 		<< "Choose option: ";
 }
+
 void Interface::menuOperatorOptionAddBuyer() const
 {
-	User* user = readUserGeneral(BUYER);
+	User* user = readUserGeneral(System::BUYER);
 	Buyer* buyer = dynamic_cast<Buyer*>(user);
 	*m_system += buyer;
 }
 
 void Interface::menuOperatorOptionAddSeller() const
 {
-	User* user = readUserGeneral(SELLER);
+	User* user = readUserGeneral(System::SELLER);
 	Seller* seller = dynamic_cast<Seller*>(user);
 	*m_system += seller;
 }
@@ -804,9 +800,8 @@ void Interface::menuOperatorOptions() const
 	}
 }
 
-void Interface::readSystemInformation()
+void Interface::readUsersInformationFromFile()
 {
 	unsigned int numOfUsers;
 	m_system->loadAllUsers("users.txt", numOfUsers);
 }
-

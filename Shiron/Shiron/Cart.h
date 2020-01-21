@@ -15,6 +15,8 @@ class Cart
 private:
 	list<const Item*> m_allItemsOfCartList; //a list of const item*
 
+	void removeItemFromCart(const Item* item);
+
 public:
 	Cart(); //c'tor
 	Cart(const Cart& other) = delete; //copy c'tor
@@ -26,13 +28,10 @@ public:
 	const list<const Item*>&  getAllItemsOfCart() const;
 	unsigned int numberOfItemsInCart() const;
 	bool checkEmptyCart() const;
-
 	void addItemToCart(const Item* item);
-	void removeItemFromCart(const Item* item);
 	const Item* findSerialNumber(unsigned int serialNumber) const;
-	//unsigned int getTotalPriceOfCart() const;
+	unsigned int getTotalPriceOfCart() const;
 	bool checkIfItemExists(const Item* item) const;
-
 	void RemoveItemByOrder(Order* order);
 };
 

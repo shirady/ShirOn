@@ -13,7 +13,6 @@ using namespace std;
 class Interface
 {
 public:
-	enum eUserType { BUYER, SELLER, BUYER_AND_SELLER};
 
 private:
 	System* m_system = nullptr; //initialize
@@ -47,7 +46,7 @@ private:
 
 	void readNumericValuesOfAddress(int& apartmentNo, int& buildNo) const; //by ref since we want to change apartment number and building number variables that we are sending to this function
 	const Address readAddress() const;
-	User* readUserGeneral(eUserType type) const;
+	User* readUserGeneral(System::eUserType type) const;
 	Item* readItem(const Seller& seller) const;
 	Feedback* readFeedback(const Buyer& buyer) const;
 	const Date readDate() const;
@@ -70,7 +69,7 @@ public:
 
 	void menuOptions() const;
 	void readSystem();
-	void readSystemInformation();
+	void readUsersInformationFromFile();
 };
 
 #endif// __INTERFACE_H

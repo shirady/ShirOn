@@ -29,24 +29,20 @@ private:
 public:
 	Order(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor
 	Order(const Order& other) = delete; //copy c'tor
-	//~Order(); //d'tor
 
 	friend ostream& operator<<(ostream& os, const Order& order);
 
 	const list<const Item*>& getAllItemsOfOrderList() const;
-	//unsigned int getTotalPriceOfOrder() const;
+	unsigned int getTotalPriceOfOrder() const;
 	bool getIfOrderIsOpen() const;
-
+	void closeOrder(unsigned int totalPriceOfOrder);
 	unsigned int numberOfItemsInOrder() const;
 	bool checkEmptyOrder() const;
-
-	bool addItemToOrder(const Item* item);
+	void addItemToOrder(const Item* item);
 	void removeItemFromOrder(const Item* item);
 	const Item* findSerialNumber(unsigned int serialNumber) const;
-	void closeOrder(unsigned int totalPriceOfOrder);
 	bool checkIfSellerIsInAOrder(const Seller& seller) const;
 	bool checkIfItemExists(const Item* item) const;
-
 	void chooseAllItemsFromCart(Cart* cart);
 };
 

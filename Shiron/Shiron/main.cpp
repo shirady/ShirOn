@@ -12,11 +12,11 @@ Shira Dymnik 302730692
 using namespace std;
 #pragma warning(disable: 4996)
 
-int main(int argc, int argv[])
+int main()
 {
 	Interface interface;
 	interface.readSystem();
-	interface.readSystemInformation();
+	interface.readUsersInformationFromFile();
 	interface.menuOptions();
-
+	return 0;
 }

@@ -8,18 +8,12 @@ Order::Order(unsigned int physSizeItems)
 	setOpenOrder(INITIAL_OPEN_ORDER);
 }
 
-//Order::~Order()
-//{
-//
-//}
-
 ostream& operator<<(ostream& os, const Order& order) //global function
 {
 	if (!order.m_allItemsOfOrderList.empty())
 	{
 		os << "The order's details" << endl;
 		General::printCollection(order.m_allItemsOfOrderList);
-		//os << "Total price of order: " << order.getTotalPriceOfOrder() << endl;
 		os << "Total price of order: " << General::getTotalPrice(order.m_allItemsOfOrderList) << endl;
 	}
 	else
@@ -46,10 +40,9 @@ bool Order::setTotalPriceOfOrder(unsigned int totalPriceOfOrder)
 	return true;
 }
 
-bool Order::addItemToOrder(const Item* item)
+void Order::addItemToOrder(const Item* item)
 {
 	m_allItemsOfOrderList.push_back(item); //add a copy to the end of the list
-	return true;
 }
 
 void Order::removeItemFromOrder(const Item* item)
@@ -71,17 +64,11 @@ const list<const Item*>& Order::getAllItemsOfOrderList() const
 	return m_allItemsOfOrderList;
 }
 
-//unsigned int Order::getTotalPriceOfOrder() const
-//{
-//	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
-//	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); //const_iterator since the method is const
-//	unsigned int totalPriceOfOrder = 0;
-//
-//	for (; itr != itrEnd; ++itr)
-//		totalPriceOfOrder += (*itr)->getPriceOfItem();
-//	
-//	return totalPriceOfOrder;
-//}
+unsigned int Order::getTotalPriceOfOrder() const
+{
+	return (General::getTotalPrice(m_allItemsOfOrderList));
+}
+
 
 bool Order::getIfOrderIsOpen() const
 {

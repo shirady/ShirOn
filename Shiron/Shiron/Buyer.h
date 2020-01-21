@@ -27,6 +27,7 @@ public:
 	Buyer(ifstream& inFile); //c'tor when reading from file
 	Buyer(const Buyer& other) = delete; //copy c'tor
 	virtual ~Buyer(); //d'tor
+
 	void show() const;
 	void showMe() const;
 	bool operator>(const Buyer& other);

@@ -5,6 +5,8 @@
 using namespace std;
 #pragma warning(disable: 4996)
 
+class User;
+
 //template<class T>
 class General
 {
@@ -61,4 +63,5 @@ unsigned int General::getTotalPrice(const T& collection)
 
 	return totalPriceOfOrder;
 }
+
 #endif //__GENERAL_H

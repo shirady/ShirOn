@@ -15,6 +15,7 @@ using namespace std;
 class System
 {
 public:
+	enum eUserType { BUYER, SELLER, BUYER_AND_SELLER };
 	static constexpr unsigned int MIN_LEN_SYSTEM_NAME = 2;
 	static constexpr unsigned int MAX_LEN_SYSTEM_NAME = 20;
 

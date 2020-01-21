@@ -33,8 +33,11 @@ protected:
 
 public:
 	virtual ~User() {};
+
 	bool setPassword(const string& password); //password can be change after it was created
+
 	void show() const;
+
 	const string& getUserName() const;
 	const string& getPassword() const;
 	const Address& getAddress() const;
