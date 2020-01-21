@@ -13,12 +13,12 @@ class Order;
 class Cart
 {
 private:
-	list<const Item*> m_allItemsOfCartList; //an array of const item*
+	list<const Item*> m_allItemsOfCartList; //a list of const item*
 
 public:
-	Cart(); //c'tor 
+	Cart(); //c'tor
 	Cart(const Cart& other) = delete; //copy c'tor
-	~Cart(); //d'tor
+	//~Cart(); //d'tor
 
 	bool operator>(const Cart& other);
 	friend ostream& operator<<(ostream& os, const Cart& cart);

@@ -17,8 +17,6 @@ void System::cleanUsersList()
 	list<User*>::iterator itrEnd = m_allUsersList.end();
 	for (; itr != itrEnd; ++itr)
 		delete *itr; //frees the pointer of User inside the cell of list
-
-	m_allUsersList.clear();
 }
 
 const System& System::operator+=(Buyer* buyer)
@@ -222,7 +220,7 @@ void System::saveUsersToFile(const string& fileName) const
 
 void System::loadAllUsers(const string& fileName, unsigned int& numOfUsers)
 {
-	ifstream inFile(fileName, ios::in);
+	ifstream inFile(fileName); //by default ios::in
 	if (!inFile.fail())
 	{
 		inFile >> numOfUsers;

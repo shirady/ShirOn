@@ -28,8 +28,7 @@ private:
 protected:
 	User(const string& userName, const string& password, const Address& address); //c'tor - Protected because User is Abstract
 	User(ifstream& inFile); // c'tor - Protected because User is Abstract
-	//User(const User& other); // copy c'tor - Protected because User is Abstract
-	//User(User&& other); // move c'tor - Protected because User is Abstract
+
 	void showMe() const;
 
 public:

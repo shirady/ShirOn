@@ -63,6 +63,7 @@ Array<T>::~Array()
 {
 	cleanArray();
 }
+
 template<class T>
 void Array<T>::cleanArray()
 {

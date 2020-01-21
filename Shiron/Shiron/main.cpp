@@ -5,7 +5,7 @@ Shira Dymnik 302730692
 */
 
 #include "Interface.h"
-//#include <crtdbg.h>
+#include <crtdbg.h>
 
 #include <iostream>
 #include <string.h>
@@ -18,5 +18,5 @@ int main(int argc, int argv[])
 	interface.readSystem();
 	interface.readSystemInformation();
 	interface.menuOptions();
-}
 
+}

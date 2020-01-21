@@ -21,7 +21,7 @@ private:
 	bool setFeedback(const string& feedback); //you cannot change a feedback after it was sent
 
 public:
-	Feedback(const string& feedback, const Date& date, const Buyer& buyer); //c'tor // decide to stay without const Buyer buyer* since we had assignment between non-const pointer and const pointer
+	Feedback(const string& feedback, const Date& date, const Buyer& buyer); //c'tor
 	Feedback(const Feedback& other) = delete; //copy c'tor
 
 	friend ostream& operator<<(ostream& os, const Feedback& feedback);

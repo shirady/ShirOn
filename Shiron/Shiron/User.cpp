@@ -20,6 +20,7 @@ User::User(ifstream& inFile): m_userAddress(inFile)
 User::User(User&& other) : m_userAddress(other.m_userAddress)
 {
 }*/
+
 void User::show() const
 {
 	showMe();
@@ -84,7 +85,6 @@ const Address& User::getAddress() const
 	return m_userAddress;
 }
 
-//This method writes to the file the first 3 letters of the object type
 void User::saveType(ofstream& outFile) const
 {
 	UsersGenerator::eUsersType type = UsersGenerator::getType(this);
@@ -94,12 +94,6 @@ void User::saveType(ofstream& outFile) const
 void User::save(ofstream& outFile) const
 {
 	m_userAddress.save(outFile); //the address is contain in User, that's why we write it first
-
-	//int lenUserName = m_userName.length();
-	//outFile << lenUserName << endl;
 	outFile << m_userName << endl;
-
-	//int lenPassword = m_password.length();
-	//outFile << lenPassword << endl;
 	outFile << m_password << endl;
 }

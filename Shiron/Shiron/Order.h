@@ -29,7 +29,7 @@ private:
 public:
 	Order(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor
 	Order(const Order& other) = delete; //copy c'tor
-	~Order(); //d'tor
+	//~Order(); //d'tor
 
 	friend ostream& operator<<(ostream& os, const Order& order);
 

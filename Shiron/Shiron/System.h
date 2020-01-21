@@ -12,12 +12,9 @@ using namespace std;
 #include "Seller.h"
 #include "BuyerAndSeller.h"
 
-//const string FILE_NAME = "users.txt";
-
 class System
 {
 public:
-	//static const string FILE_NAME; //check later
 	static constexpr unsigned int MIN_LEN_SYSTEM_NAME = 2;
 	static constexpr unsigned int MAX_LEN_SYSTEM_NAME = 20;
 

@@ -8,10 +8,10 @@ Order::Order(unsigned int physSizeItems)
 	setOpenOrder(INITIAL_OPEN_ORDER);
 }
 
-Order::~Order()
-{
-	m_allItemsOfOrderList.clear();
-}
+//Order::~Order()
+//{
+//
+//}
 
 ostream& operator<<(ostream& os, const Order& order) //global function
 {
@@ -73,7 +73,7 @@ const list<const Item*>& Order::getAllItemsOfOrderList() const
 unsigned int Order::getTotalPriceOfOrder() const
 {
 	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); //const_iterator since the method is const
 	unsigned int totalPriceOfOrder = 0;
 
 	for (; itr != itrEnd; ++itr)
@@ -100,7 +100,7 @@ bool Order::checkEmptyOrder() const
 const Item* Order::findSerialNumber(unsigned int serialNumber) const
 {
 	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); //const_iterator since the method is const
 	const Item* foundItem = nullptr;
 	bool ItemExists = false;
 
@@ -118,7 +118,7 @@ const Item* Order::findSerialNumber(unsigned int serialNumber) const
 bool Order::checkIfSellerIsInAOrder(const Seller& seller) const
 {
 	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); //const_iterator since the method is const
 	bool sellerExists = false;
 
 	for (; itr != itrEnd && !sellerExists; ++itr)
@@ -131,7 +131,7 @@ bool Order::checkIfSellerIsInAOrder(const Seller& seller) const
 bool Order::checkIfItemExists(const Item* item) const
 {
 	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); //const_iterator since the method is const
 	bool itemFound = false;
 
 	for (; itr != itrEnd && !itemFound; ++itr)

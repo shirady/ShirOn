@@ -2,16 +2,15 @@
 #include "General.h" //For printCollection
 #include "Order.h" //For RemoveItemByOrder
 
-//delete later
 Cart::Cart()
 {
 
 }
 
-Cart::~Cart()
-{
-	m_allItemsOfCartList.clear();
-}
+//Cart::~Cart()
+//{
+//
+//}
 
 bool Cart::operator>(const Cart& other)
 {
@@ -69,7 +68,7 @@ void Cart::removeItemFromCart(const Item* item)
 const Item* Cart::findSerialNumber(unsigned int serialNumber) const
 {
 	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); //const_iterator since the method is const
 	const Item* foundItem = nullptr;
 	bool ItemExists = false;
 
@@ -87,7 +86,7 @@ const Item* Cart::findSerialNumber(unsigned int serialNumber) const
 unsigned int Cart::getTotalPriceOfCart() const
 {
 	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); //const_iterator since the method is const
 	unsigned int totalPriceOfOrder = 0;
 
 	for (; itr != itrEnd; ++itr)
@@ -99,7 +98,7 @@ unsigned int Cart::getTotalPriceOfCart() const
 bool Cart::checkIfItemExists(const Item* item) const
 {
 	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); //const_iterator since the method is const
 	bool itemFound = false;
 
 	for (; itr != itrEnd && !itemFound; ++itr)
@@ -113,7 +112,7 @@ bool Cart::checkIfItemExists(const Item* item) const
 void Cart::RemoveItemByOrder(Order* order)
 {
 	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); ////const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); //const_iterator since the method is const
 
 	while(itr != itrEnd)
 	{

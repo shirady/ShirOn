@@ -14,14 +14,13 @@ Seller::~Seller()
 {
 	cleanItemsList();
 }
+
 void Seller::cleanItemsList()
 {
 	list<Item*>::iterator itr = m_allItemsList.begin();
 	list<Item*>::iterator itrEnd = m_allItemsList.end();
 	for (; itr != itrEnd; ++itr)
 		delete *itr; //frees the pointer of item inside the cell of list
-
-	m_allItemsList.clear();
 }
 
 void Seller::show() const
