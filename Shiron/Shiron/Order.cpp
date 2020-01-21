@@ -3,7 +3,7 @@
 #include "General.h" //For printCollection
 #include "Cart.h" //For the method chooseAllItemsFromCart
 
-Order::Order(unsigned int physSizeItems)
+Order::Order()
 {
 	setOpenOrder(INITIAL_OPEN_ORDER);
 }

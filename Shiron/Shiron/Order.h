@@ -14,8 +14,6 @@ class Cart;
 class Order
 {
 public:
-	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
-	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
 	static constexpr bool INITIAL_OPEN_ORDER = true;
 
 private:
@@ -27,7 +25,7 @@ private:
 	bool setTotalPriceOfOrder(unsigned int totalPriceOfOrder);
 
 public:
-	Order(unsigned int physSizeItems = INITIAL_PHYSICAL_SIZE); //c'tor
+	Order(); //c'tor
 	Order(const Order& other) = delete; //copy c'tor
 
 	friend ostream& operator<<(ostream& os, const Order& order);

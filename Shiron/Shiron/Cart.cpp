@@ -2,6 +2,7 @@
 #include "General.h" //For printCollection
 #include "Order.h" //For RemoveItemByOrder
 
+//since we wrote "Cart(const Cart& other) = delete" we had to write the c'tor (even if it is empty)
 Cart::Cart()
 {
 

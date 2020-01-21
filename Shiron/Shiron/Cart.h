@@ -20,7 +20,6 @@ private:
 public:
 	Cart(); //c'tor
 	Cart(const Cart& other) = delete; //copy c'tor
-	//~Cart(); //d'tor
 
 	bool operator>(const Cart& other);
 	friend ostream& operator<<(ostream& os, const Cart& cart);

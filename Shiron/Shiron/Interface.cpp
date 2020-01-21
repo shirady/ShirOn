@@ -195,7 +195,7 @@ void Interface::menu() const
 		<< "(11) Show details of all users that are buyers and sellers\n"
 		<< "(12) Show details of all users of a certain type\n"
 		<< "(13) Show details of all the products of a certain name\n"
-		<< "(14)  Check operations\n"
+		<< "(14) Check operators\n"
 		<< "(15) Exit\n";
 }
 
