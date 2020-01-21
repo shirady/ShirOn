@@ -34,7 +34,7 @@ public:
 	friend ostream& operator<<(ostream& os, const Order& order);
 
 	const list<const Item*>& getAllItemsOfOrderList() const;
-	unsigned int getTotalPriceOfOrder() const;
+	//unsigned int getTotalPriceOfOrder() const;
 	bool getIfOrderIsOpen() const;
 
 	unsigned int numberOfItemsInOrder() const;

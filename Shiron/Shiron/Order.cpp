@@ -19,7 +19,8 @@ ostream& operator<<(ostream& os, const Order& order) //global function
 	{
 		os << "The order's details" << endl;
 		General::printCollection(order.m_allItemsOfOrderList);
-		os << "Total price of order: " << order.getTotalPriceOfOrder() << endl;
+		//os << "Total price of order: " << order.getTotalPriceOfOrder() << endl;
+		os << "Total price of order: " << General::getTotalPrice(order.m_allItemsOfOrderList) << endl;
 	}
 	else
 		os << "order is empty" << endl;
@@ -70,17 +71,17 @@ const list<const Item*>& Order::getAllItemsOfOrderList() const
 	return m_allItemsOfOrderList;
 }
 
-unsigned int Order::getTotalPriceOfOrder() const
-{
-	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); //const_iterator since the method is const
-	unsigned int totalPriceOfOrder = 0;
-
-	for (; itr != itrEnd; ++itr)
-		totalPriceOfOrder += (*itr)->getPriceOfItem();
-	
-	return totalPriceOfOrder;
-}
+//unsigned int Order::getTotalPriceOfOrder() const
+//{
+//	list<const Item*>::const_iterator itr = m_allItemsOfOrderList.begin(); //const_iterator since the method is const
+//	list<const Item*>::const_iterator itrEnd = m_allItemsOfOrderList.end(); //const_iterator since the method is const
+//	unsigned int totalPriceOfOrder = 0;
+//
+//	for (; itr != itrEnd; ++itr)
+//		totalPriceOfOrder += (*itr)->getPriceOfItem();
+//	
+//	return totalPriceOfOrder;
+//}
 
 bool Order::getIfOrderIsOpen() const
 {

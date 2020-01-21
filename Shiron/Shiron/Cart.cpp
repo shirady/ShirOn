@@ -14,7 +14,7 @@ Cart::Cart()
 
 bool Cart::operator>(const Cart& other)
 {
-	return(this->getTotalPriceOfCart() > other.getTotalPriceOfCart());
+	return(General::getTotalPrice(m_allItemsOfCartList) > General::getTotalPrice(other.m_allItemsOfCartList));
 }
 
 ostream& operator<<(ostream& os, const Cart& cart) //global function
@@ -23,7 +23,8 @@ ostream& operator<<(ostream& os, const Cart& cart) //global function
 	{
 		os << "The cart's details" << endl;
 		General::printCollection(cart.m_allItemsOfCartList);
-		os << "Total price of cart: " << cart.getTotalPriceOfCart() << endl;
+		//	os << "Total price of cart: " << cart.getTotalPriceOfCart() << endl;
+		os << "Total price of cart: " << General::getTotalPrice(cart.m_allItemsOfCartList) << endl;
 	}
 	else
 		os << "cart is empty" << endl;
@@ -83,17 +84,17 @@ const Item* Cart::findSerialNumber(unsigned int serialNumber) const
 	return foundItem;
 }
 
-unsigned int Cart::getTotalPriceOfCart() const
-{
-	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
-	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); //const_iterator since the method is const
-	unsigned int totalPriceOfOrder = 0;
-
-	for (; itr != itrEnd; ++itr)
-		totalPriceOfOrder += (*itr)->getPriceOfItem();
-
-	return totalPriceOfOrder;
-}
+//unsigned int Cart::getTotalPriceOfCart() const
+//{
+//	list<const Item*>::const_iterator itr = m_allItemsOfCartList.begin(); //const_iterator since the method is const
+//	list<const Item*>::const_iterator itrEnd = m_allItemsOfCartList.end(); //const_iterator since the method is const
+//	unsigned int totalPriceOfOrder = 0;
+//
+//	for (; itr != itrEnd; ++itr)
+//		totalPriceOfOrder += (*itr)->getPriceOfItem();
+//
+//	return totalPriceOfOrder;
+//}
 
 bool Cart::checkIfItemExists(const Item* item) const
 {

@@ -12,6 +12,9 @@ public:
 
 	template<class T>
 	 static void printCollection(const T& collection);
+
+	 template<class T>
+	 static unsigned int getTotalPrice(const T& collection);
 };
 
 /*
@@ -39,4 +42,23 @@ void General::printCollection(const T& collection)
 	
 }
 
+
+/*
+T should have the following:
+const_iterator, methods 'begin' and 'end', (*itr)->getPriceOfItem()
+(T will be type of Cart or Order)
+*/
+
+template <class T>
+unsigned int General::getTotalPrice(const T& collection)
+{
+	list<const Item*>::const_iterator itr = collection.begin(); //const_iterator since the method is const
+	list<const Item*>::const_iterator itrEnd = collection.end(); //const_iterator since the method is const
+	unsigned int totalPriceOfOrder = 0;
+
+	for (; itr != itrEnd; ++itr)
+		totalPriceOfOrder += (*itr)->getPriceOfItem();
+
+	return totalPriceOfOrder;
+}
 #endif //__GENERAL_H
