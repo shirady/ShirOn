@@ -2,12 +2,6 @@
 #include "General.h" //For printCollection
 #include "Order.h" //For RemoveItemByOrder
 
-//since we wrote "Cart(const Cart& other) = delete" we had to write the c'tor (even if it is empty)
-Cart::Cart()
-{
-
-}
-
 bool Cart::operator>(const Cart& other)
 {
 	return(General::getTotalPrice(m_allItemsOfCartList) > General::getTotalPrice(other.m_allItemsOfCartList));

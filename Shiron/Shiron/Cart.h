@@ -18,7 +18,7 @@ private:
 	void removeItemFromCart(const Item* item);
 
 public:
-	Cart(); //c'tor
+	Cart() = default; //c'tor, since we wrote "Cart(const Cart& other) = delete" we had to write the c'tor (even if it is empty)
 	Cart(const Cart& other) = delete; //copy c'tor
 
 	bool operator>(const Cart& other);

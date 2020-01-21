@@ -15,10 +15,6 @@ using namespace std;
 
 class Seller : virtual public User //Public because seller can use methods of User
 {
-public:
-	static constexpr unsigned int INITIAL_PHYSICAL_SIZE = 1;
-	static constexpr unsigned int INITIAL_LOGICAL_SIZE = 0;
-
 private:
 	unsigned int m_logicSizeItems;
 	unsigned int m_physSizeItems;

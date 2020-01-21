@@ -16,7 +16,7 @@ public:
 	BuyerAndSeller(const string& userName, const string& password, const Address& address);//c'tor when we do not have seller and buyer object which already created
 	BuyerAndSeller(ifstream& inFile); //c'tor when reading from file
 	BuyerAndSeller(const BuyerAndSeller& other) = delete; //copy c'tor
-	virtual ~BuyerAndSeller(); //d'tor
+	virtual ~BuyerAndSeller() {}; //d'tor
 
 	void show() const;
 	void showMe() const;

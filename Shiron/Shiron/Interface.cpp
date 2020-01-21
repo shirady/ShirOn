@@ -8,8 +8,6 @@ Interface::Interface()
 Interface::~Interface()
 {
 	delete m_system;
-	//cout << "\nMemory Leaks:" << endl;
-	//cout << _CrtDumpMemoryLeaks();
 }
 
 bool Interface::setSystem(const string& systemName)

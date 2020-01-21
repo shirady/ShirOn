@@ -10,7 +10,6 @@ Address::Address(const string& country, const string& city, const string& street
 	setZipCode(zipCode);
 }
 
-
 //Assumption: all attributes from the file are valid (that's why we don't use the setter)
 Address::Address(ifstream& inFile)
 {

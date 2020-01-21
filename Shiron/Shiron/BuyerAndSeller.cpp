@@ -10,11 +10,6 @@ BuyerAndSeller::BuyerAndSeller(ifstream& inFile): User(inFile), Buyer(inFile), S
 
 }
 
-BuyerAndSeller::~BuyerAndSeller()
-{
-
-}
-
 void BuyerAndSeller::show() const
 {
 	User::show();

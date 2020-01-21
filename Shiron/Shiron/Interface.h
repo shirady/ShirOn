@@ -15,7 +15,7 @@ class Interface
 public:
 
 private:
-	System* m_system = nullptr; //initialize
+	System* m_system ;
 
 	bool setSystem(const string& systemName);
 
