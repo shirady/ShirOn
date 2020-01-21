@@ -6,6 +6,12 @@ Buyer::Buyer(const string& userName, const string& password, const Address& addr
 	m_currentOrder = new Order;
 }
 
+Buyer::Buyer(ifstream& inFile): User(inFile)
+{
+	m_cart = new Cart;
+	m_currentOrder = new Order;
+}
+
 Buyer::~Buyer()
 {
 	delete m_cart;

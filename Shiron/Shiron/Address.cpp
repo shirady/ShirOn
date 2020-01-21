@@ -10,6 +10,21 @@ Address::Address(const string& country, const string& city, const string& street
 	setZipCode(zipCode);
 }
 
+
+//Assumption: all attributes from the file are valid (that's why we don't use the setter)
+Address::Address(ifstream& inFile)
+{
+	string temp; //for the '\n' after reading a number
+	getline(inFile, temp); //for the '\n' after reading the type enum
+	getline(inFile, m_country);
+	getline(inFile, m_city);
+	getline(inFile, m_street);
+	inFile >> m_buildNo;
+	inFile >> m_apartmentNo;
+	getline(inFile, temp); //for the '\n' after reading the apartmentNo 
+	getline(inFile, m_zipCode);
+}
+
 ostream& operator<<(ostream& os, const Address& address) //global function
 {
 	os << "Country: " << address.m_country
@@ -152,23 +167,23 @@ const string& Address::getZipCode() const
 
 void Address::save(ofstream& outFile) const
 {
-	int lenCountry = m_country.length();
-	outFile << lenCountry << endl;
+	//int lenCountry = m_country.length();
+	//outFile << lenCountry << endl;
 	outFile << m_country << endl;
 
-	int lenCity = m_city.length();
-	outFile << lenCity << endl;
+	//int lenCity = m_city.length();
+	//outFile << lenCity << endl;
 	outFile << m_city << endl;
 
-	int lenStreet = m_street.length();
-	outFile << lenStreet << endl;
+	//int lenStreet = m_street.length();
+	//outFile << lenStreet << endl;
 	outFile << m_street << endl;
 
 	outFile << m_buildNo << endl;
 
 	outFile << m_apartmentNo << endl;
 
-	int lenZipCode = m_zipCode.length();
-	outFile << lenZipCode << endl;
+	//int lenZipCode = m_zipCode.length();
+	//outFile << lenZipCode << endl;
 	outFile << m_zipCode << endl;
 }

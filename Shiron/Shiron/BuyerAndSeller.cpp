@@ -5,6 +5,11 @@ BuyerAndSeller::BuyerAndSeller(const string& userName, const string& password, c
 
 }
 
+BuyerAndSeller::BuyerAndSeller(ifstream& inFile): User(inFile), Buyer(inFile), Seller(inFile)
+{
+
+}
+
 BuyerAndSeller::~BuyerAndSeller()
 {
 

@@ -1,4 +1,5 @@
 #include "System.h"
+#include "UserGenerator.h" //for loadAllUsers
 
 System::System(const string& systemName)
 {
@@ -201,7 +202,7 @@ void System::showAllItemsOfSellers(const string& itemName) const
 
 //saving in the file the number of elements
 // for each object we save the type of the object and its data
-void System::saveUsersToFile(const string& fileName)
+void System::saveUsersToFile(const string& fileName) const
 {
 	ofstream outFile(fileName, ios::trunc);
 
@@ -217,4 +218,20 @@ void System::saveUsersToFile(const string& fileName)
 		(*itr)->save(outFile);
 	}
 	outFile.close();
+}
+
+void System::loadAllUsers(const string& fileName, unsigned int& numOfUsers)
+{
+	ifstream inFile(fileName, ios::in);
+	if (!inFile.fail())
+	{
+		inFile >> numOfUsers;
+
+		for (unsigned int i = 0; i < numOfUsers; i++)
+			m_allUsersList.push_back(UsersGenerator::loadUser(inFile));
+	}
+	else
+		cout << "*cannot open file of users" << endl;
+	
+	inFile.close();
 }

@@ -6,6 +6,7 @@
 using namespace std;
 #pragma warning(disable: 4996)
 #include <list> //STL
+#include <fstream> //for files
 
 #include "User.h"
 #include "Item.h"
@@ -23,6 +24,7 @@ private:
 
 public:
 	Buyer(const string& userName, const string& password, const Address& address); //c'tor 
+	Buyer(ifstream& inFile); //c'tor when reading from file
 	Buyer(const Buyer& other) = delete; //copy c'tor
 	virtual ~Buyer(); //d'tor
 	void show() const;

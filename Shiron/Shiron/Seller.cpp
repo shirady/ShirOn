@@ -5,6 +5,11 @@ Seller::Seller(const string& userName, const string& password, const Address& ad
 
 }
 
+Seller::Seller(ifstream& inFile) : User(inFile)
+{
+
+}
+
 Seller::~Seller()
 {
 	cleanItemsList();

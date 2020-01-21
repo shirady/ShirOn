@@ -6,6 +6,7 @@
 using namespace std;
 #pragma warning(disable: 4996)
 #include <list> //STL
+#include <fstream> //for files
 
 #include "User.h"
 #include "Item.h"
@@ -25,7 +26,8 @@ private:
 	Array<const Feedback*> m_allFeedbacks;
 
 public:
-	Seller(const string& userName, const string& password, const Address& address); //c'tor 
+	Seller(const string& userName, const string& password, const Address& address); //c'tor
+	Seller(ifstream& inFile); //c'tor when reading from file
 	Seller(const Seller& other) = delete; //copy c'tor
 	virtual ~Seller(); //d'tor
 	void cleanItemsList();

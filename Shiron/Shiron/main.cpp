@@ -1,5 +1,5 @@
 /*
-Exercise number 2
+Exercise number 3
 Oron Bortman 311141188
 Shira Dymnik 302730692
 */
@@ -16,6 +16,7 @@ int main(int argc, int argv[])
 {
 	Interface interface;
 	interface.readSystem();
+	interface.readSystemInformation();
 	interface.menuOptions();
 }
 

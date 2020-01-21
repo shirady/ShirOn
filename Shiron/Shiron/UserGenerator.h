@@ -14,7 +14,7 @@ class UsersGenerator
 public:
 	enum eUsersType { UNKNWON, SELLER, BUYER, BUYER_AND_SELLER }; //all the types that can be
 
-	//static User* loadUser(ifstream& inFile);
+	static User* loadUser(ifstream& inFile);
 	static eUsersType getType(const User* user);
 };
 

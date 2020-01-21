@@ -6,6 +6,13 @@ User::User(const string& userName, const string& password, const Address& addres
 	setUserName(userName);
 	setPassword(password);
 }
+
+User::User(ifstream& inFile): m_userAddress(inFile)
+{
+	getline(inFile, m_userName);
+	getline(inFile, m_password);
+}
+
 /*User::User(const User& other) : m_userAddress(other.m_userAddress)
 {
 }
@@ -86,13 +93,13 @@ void User::saveType(ofstream& outFile) const
 
 void User::save(ofstream& outFile) const
 {
-	int lenUserName = m_userName.length();
-	outFile << lenUserName << endl;
+	m_userAddress.save(outFile); //the address is contain in User, that's why we write it first
+
+	//int lenUserName = m_userName.length();
+	//outFile << lenUserName << endl;
 	outFile << m_userName << endl;
 
-	int lenPassword = m_password.length();
-	outFile << lenPassword << endl;
+	//int lenPassword = m_password.length();
+	//outFile << lenPassword << endl;
 	outFile << m_password << endl;
-
-	m_userAddress.save(outFile);
 }

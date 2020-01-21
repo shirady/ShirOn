@@ -32,6 +32,7 @@ private:
 
 public:
 	Address(const string& country, const string& city, const string& street, int buildNo, int apartmentNo, const string& zipCode); //c'tor
+	Address(ifstream& inFile); //c'tor for reading from file
 
 	friend ostream& operator<<(ostream& os, const Address& address);
 

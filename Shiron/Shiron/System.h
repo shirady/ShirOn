@@ -12,9 +12,12 @@ using namespace std;
 #include "Seller.h"
 #include "BuyerAndSeller.h"
 
+//const string FILE_NAME = "users.txt";
+
 class System
 {
 public:
+	//static const string FILE_NAME; //check later
 	static constexpr unsigned int MIN_LEN_SYSTEM_NAME = 2;
 	static constexpr unsigned int MAX_LEN_SYSTEM_NAME = 20;
 
@@ -47,7 +50,8 @@ public:
 	void showAllBuyersThatAreSellers() const;
 	void showAllItemsOfSellers(const string& itemName) const;
 
-	void saveUsersToFile(const string& fileName);
+	void saveUsersToFile(const string& fileName) const;
+	void loadAllUsers(const string& fileName, unsigned int& numOfUsers);
 };
 
 #endif //__SYSTEM_H

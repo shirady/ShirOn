@@ -70,6 +70,7 @@ public:
 
 	void menuOptions() const;
 	void readSystem();
+	void readSystemInformation();
 };
 
 #endif// __INTERFACE_H

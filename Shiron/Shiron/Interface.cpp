@@ -802,3 +802,9 @@ void Interface::menuOperatorOptions() const
 	}
 }
 
+void Interface::readSystemInformation()
+{
+	unsigned int numOfUsers;
+	m_system->loadAllUsers("users.txt", numOfUsers);
+}
+
