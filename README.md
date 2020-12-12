@@ -14,16 +14,16 @@ part 1:
   8. Show all buyers
   9. Show all sellers
   10. Show all item in a specific name
-  11. exit
+  11. Exit
 
 part 2:
 - Add buyer and seller user
 - Show all users which are buyers and sellers
 - Show user of specific type
 - use operator overloading:
-  1. += add buyer, add seller
-  2. > compare two buyer's cart
-  3. << for at least 3 classes
+  1. (+=): add buyer, add seller
+  2. (>):  compare two buyer's cart
+  3. (<<): for at least 3 classes
   4. add the the above operator overloading in the menu
   
 part 3:
