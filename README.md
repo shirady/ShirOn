@@ -20,15 +20,15 @@ part 2:
 - Add buyer and seller user
 - Show all users which are buyers and sellers
 - Show user of specific type
-- use operator overloading:
+- Use operator overloading:
   1. (+=): add buyer, add seller
   2. (>):  compare two buyer's cart
   3. (<<): for at least 3 classes
   4. add the the above operator overloading in the menu
   
 part 3:
- 1. save the data to file and read the data from file
- 2. use Array class instead of one of the arrays in the project
- 3. use String class and data type from STL (expect the one chose array as Array class)
+ 1. Save the data to file and read the data from file
+ 2. Use Array class instead of one of the arrays in the project
+ 3. Use String class and data type from STL (expect the one chose array as Array class)
  
 * asuumed the input is correct
