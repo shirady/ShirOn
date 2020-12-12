@@ -1,4 +1,4 @@
-# ShirOn: Shira Dymnik and Oron Bortman project
+# ShirOn
 eCommerce System (3 parts) – C++
 Console application as a final project of OOP course (2020A)
 
