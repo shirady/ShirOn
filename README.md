@@ -32,4 +32,4 @@ Console application as a final project of OOP course (2020A)
  2. Use Array class instead of one of the arrays in the project
  3. Use String class and data type from STL (expect the one chose array as Array class)
  
-* asuumed the input is correct
+* Assume the input is correct
