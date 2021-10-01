@@ -3,7 +3,7 @@ eCommerce System (3 parts) – C++
 Console application as a final project of OOP course (2020A)
 
 
-## part 1:
+## Part 1:
 - create menu in which:
   1. Add buyer
   2. Add Seller
@@ -17,7 +17,7 @@ Console application as a final project of OOP course (2020A)
   10. Show all item in a specific name
   11. Exit
 
-## part 2:
+## Part 2:
 - Add buyer and seller user
 - Show all users which are buyers and sellers
 - Show user of specific type
@@ -27,9 +27,9 @@ Console application as a final project of OOP course (2020A)
   3. (<<): for at least 3 classes
   4. add the the above operator overloading in the menu
   
-## part 3:
+## Part 3:
  1. Save the data to file and read the data from file
  2. Use Array class instead of one of the arrays in the project
  3. Use String class and data type from STL (expect the one chose array as Array class)
  
-* Assume the input is correct
+* Assume the input is correct.
