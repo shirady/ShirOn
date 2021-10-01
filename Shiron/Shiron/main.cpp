@@ -1,7 +1,5 @@
 /*
 Exercise number 3
-Oron Bortman 311141188
-Shira Dymnik 302730692
 */
 
 #include "Interface.h"
